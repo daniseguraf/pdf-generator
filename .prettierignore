@@ -12,11 +12,9 @@ pnpm-lock.yaml
 
 packages/backend/.env.template
 packages/backend/.env.test
-packages/backend/README.md
 packages/backend/coverage
 packages/backend/prisma/migrations/*
 packages/backend/prisma/dbml/*
-packages/backend/prisma/schema.prisma
 
 packages/frontend/src/vite-env.d.ts
 packages/frontend/dist

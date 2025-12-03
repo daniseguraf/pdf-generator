@@ -13,18 +13,56 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+model Building {
+  id           Int          @id @default(autoincrement())
+  name         String
+  description  String?      @db.Text
+  yearBuilt    Int?
+  propertyType PropertyType @default(RESIDENTIAL)
+
+  // Address
+  street     String?
+  avenue     String?
+  number     String
+  district   String
+  city       String
+  province   String
+  postalCode String?
+
+  floors      Int
+  commonAreas CommonArea[]
+  staff       Staff[]
+
+  // Contact
+  phoneNumber String?
+  email       String? @unique
+
+  // Metadata
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("buildings")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+model CommonArea {
+  id         Int       @id @default(autoincrement())
+  Building   Building? @relation(fields: [buildingId], references: [id])
+  buildingId Int?
+
+  @@map("commonAreas")
+}
+
+model Staff {
+  id         Int       @id @default(autoincrement())
+  Building   Building? @relation(fields: [buildingId], references: [id])
+  buildingId Int?
+
+  @@map("staff")
+}
+
+enum PropertyType {
+  RESIDENTIAL
+  COMMERCIAL
+  MIXED
 }
