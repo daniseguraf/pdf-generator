@@ -146,10 +146,10 @@
 ### Frontend - Base Configuration
 
 - [ ] Setup basic routing
-  - [ ] Install React Router
-  - [ ] Create router configuration
-  - [ ] Define initial routes structure
-  - [ ] Create placeholder pages
+  - [x] Install React Router
+  - [x] Create router configuration
+  - [x] Define initial routes structure
+  - [x] Create placeholder pages
 
 - [ ] Create base layout components
   - [ ] AppShell with header and sidebar
