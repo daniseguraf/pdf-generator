@@ -145,16 +145,16 @@
 
 ### Frontend - Base Configuration
 
-- [ ] Setup basic routing
+- [x] Setup basic routing
   - [x] Install React Router
   - [x] Create router configuration
   - [x] Define initial routes structure
   - [x] Create placeholder pages
 
-- [ ] Create base layout components
-  - [ ] AppShell with header and sidebar
-  - [ ] Basic navigation menu
-  - [ ] Page layout wrapper
+- [x] Create base layout components
+  - [x] AppShell with header and sidebar
+  - [x] Basic navigation menu
+  - [x] Page layout wrapper
 
 - [ ] Configure Axios client in `lib/axios.ts`
   - [ ] Create axios instance
