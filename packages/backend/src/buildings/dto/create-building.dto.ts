@@ -157,4 +157,15 @@ export class CreateBuildingDto {
       : undefined
   )
   email?: string
+
+  @ApiProperty({
+    example: 1,
+    description: 'Manager ID',
+  })
+  @IsInt()
+  @IsNotEmpty()
+  @Transform(({ value }) =>
+    typeof value === 'string' ? parseInt(value, 10) : Number(value)
+  )
+  managerId: number
 }

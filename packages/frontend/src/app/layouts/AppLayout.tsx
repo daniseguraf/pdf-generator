@@ -13,7 +13,6 @@ export const AppLayout = () => {
         main: {
           width: '100%',
           height: '100%',
-          backgroundColor: 'orange',
         },
       }}
     >

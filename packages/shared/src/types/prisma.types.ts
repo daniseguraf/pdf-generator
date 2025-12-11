@@ -4,7 +4,13 @@ export type UnitType = 'APARTMENT' | 'OFFICE' | 'COMMERCIAL'
 
 export type UnitStatus = 'AVAILABLE' | 'OCCUPIED' | 'MAINTENANCE'
 
-export type StaffRole = 'MANAGER' | 'SECURITY' | 'MAINTENANCE' | 'OTHER'
+export type EmployeeRole =
+  | 'MANAGER'
+  | 'SECURITY'
+  | 'CLEANER'
+  | 'MAINTENANCE'
+  | 'GARDENER'
+  | 'RECEPTIONIST'
 
 export type PropertyType = 'RESIDENTIAL' | 'COMMERCIAL' | 'MIXED'
 
@@ -27,18 +33,23 @@ export type Building = {
   isActive: boolean
   createdAt: Date
   updatedAt: Date
+  manager?: Employee
+  managerId: number
 }
 
-export type User = {
+export type Employee = {
   id: number
-  email: string
-  password: string
-  role: UserRole
+  buildings?: Building[]
   firstName: string
   lastName: string
+  phoneNumber: string | null
+  email: string
+  role: EmployeeRole
   createdAt: Date
   updatedAt: Date
-  Staff?: Staff[]
+  startDate: Date
+  endDate: Date | null
+  isActive: boolean
 }
 
 export type Unit = {
@@ -59,18 +70,6 @@ export type CommonArea = {
   description: string | null
   capacity: number
   isActive: boolean
-  createdAt: Date
-  updatedAt: Date
-}
-
-export type Staff = {
-  id: number
-  buildingId: number
-  userId: number
-  user?: User
-  role: StaffRole
-  startDate: Date
-  endDate: Date | null
   createdAt: Date
   updatedAt: Date
 }

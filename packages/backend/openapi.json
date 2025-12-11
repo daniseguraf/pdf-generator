@@ -157,6 +157,117 @@
           "Buildings"
         ]
       }
+    },
+    "/api/v1/employees": {
+      "post": {
+        "operationId": "EmployeesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEmployeeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Employees"
+        ]
+      },
+      "get": {
+        "operationId": "EmployeesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Employees"
+        ]
+      }
+    },
+    "/api/v1/employees/{id}": {
+      "get": {
+        "operationId": "EmployeesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Employees"
+        ]
+      },
+      "patch": {
+        "operationId": "EmployeesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmployeeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Employees"
+        ]
+      },
+      "delete": {
+        "operationId": "EmployeesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Employees"
+        ]
+      }
     }
   },
   "info": {
@@ -236,6 +347,11 @@
             "type": "string",
             "example": "contact@building.com",
             "description": "Building email"
+          },
+          "managerId": {
+            "type": "number",
+            "example": 1,
+            "description": "Manager ID"
           }
         },
         "required": [
@@ -249,7 +365,8 @@
           "postalCode",
           "floors",
           "phoneNumber",
-          "email"
+          "email",
+          "managerId"
         ]
       },
       "Building": {
@@ -323,6 +440,131 @@
             "type": "string",
             "example": "contact@building.com",
             "description": "Building email"
+          },
+          "managerId": {
+            "type": "number",
+            "example": 1,
+            "description": "Manager ID"
+          }
+        }
+      },
+      "CreateEmployeeDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "John",
+            "description": "Employee first name"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe",
+            "description": "Employee last name"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "example": "+51 987 654 321",
+            "description": "Employee phone number"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com",
+            "description": "Employee email"
+          },
+          "role": {
+            "type": "string",
+            "example": "MANAGER",
+            "description": "Employee role",
+            "enum": [
+              "MANAGER",
+              "SECURITY",
+              "CLEANER",
+              "MAINTENANCE",
+              "GARDENER",
+              "RECEPTIONIST"
+            ]
+          },
+          "startDate": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-01-01",
+            "description": "Employee start date"
+          },
+          "endDate": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-01-01",
+            "description": "Employee end date"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true,
+            "description": "Employee is active"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "phoneNumber",
+          "email",
+          "role",
+          "startDate",
+          "endDate",
+          "isActive"
+        ]
+      },
+      "UpdateEmployeeDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "John",
+            "description": "Employee first name"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe",
+            "description": "Employee last name"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "example": "+51 987 654 321",
+            "description": "Employee phone number"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com",
+            "description": "Employee email"
+          },
+          "role": {
+            "type": "string",
+            "example": "MANAGER",
+            "description": "Employee role",
+            "enum": [
+              "MANAGER",
+              "SECURITY",
+              "CLEANER",
+              "MAINTENANCE",
+              "GARDENER",
+              "RECEPTIONIST"
+            ]
+          },
+          "startDate": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-01-01",
+            "description": "Employee start date"
+          },
+          "endDate": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-01-01",
+            "description": "Employee end date"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true,
+            "description": "Employee is active"
           }
         }
       }

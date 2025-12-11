@@ -7,14 +7,12 @@ generator typescriptInterfaces {
   provider = "prisma-generator-typescript-interfaces"
   output   = "../../shared/src/types/prisma.types.ts"
   prettier = true
-  // exportEnums = true
   modelType = "type"
-  // enumType = "enum"
-  // enumSuffix = "Enum"
 }
 
 datasource db {
   provider = "postgresql"
+  relationMode = "foreignKeys"
 }
 
 model Building {
@@ -29,30 +27,35 @@ model Building {
   province     String
   postalCode   String?      @map("postal_code")
   floors       Int
-  // commonAreas  CommonArea[]
-  // staff        Staff[]
   phoneNumber  String?      @map("phone_number")
   email        String?      @unique
   isActive     Boolean      @default(true) @map("is_active")
   createdAt    DateTime     @default(now()) @db.Timestamptz(6) @map("created_at")
   updatedAt    DateTime     @updatedAt @db.Timestamptz(6) @map("updated_at")
+  manager      Employee    @relation(fields: [managerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  managerId    Int         @map("manager_id")
+  // commonAreas  CommonArea[]
+  // staff        Staff[]
   // units        Unit[]
 
   @@map("buildings")
 }
 
-model User {
+model Employee {
   id        Int      @id @default(autoincrement())
+  buildings  Building[]
+  firstName String   @map("first_name")
+  lastName  String   @map("last_name")
+  phoneNumber String? @map("phone_number")
   email     String   @unique
-  password  String
-  role      UserRole
-  firstName String @map("first_name")
-  lastName  String @map("last_name")
+  role      EmployeeRole @default(MANAGER)
   createdAt DateTime @default(now())  @db.Timestamptz(6) @map("created_at")
   updatedAt DateTime @updatedAt @db.Timestamptz(6) @map("updated_at")
-  Staff     Staff[]
+  startDate  DateTime   @db.Timestamptz(6) @map("start_date")
+  endDate    DateTime?  @db.Timestamptz(6) @map("end_date")
+  isActive   Boolean    @default(true) @map("is_active")
 
-  @@map("users")
+  @@map("employees")
 }
 
 model Unit {
@@ -85,21 +88,6 @@ model CommonArea {
   @@map("common_areas")
 }
 
-model Staff {
-  id         Int       @id @default(autoincrement())
-  buildingId Int      @map("building_id")
-  // building   Building  @relation(fields: [buildingId], references: [id])
-  userId     Int      @map("user_id")
-  user       User      @relation(fields: [userId], references: [id])
-  role       StaffRole
-  startDate  DateTime   @db.Timestamptz(6) @map("start_date")
-  endDate    DateTime?  @db.Timestamptz(6) @map("end_date")
-  createdAt  DateTime  @default(now()) @db.Timestamptz(6) @map("created_at")
-  updatedAt  DateTime  @updatedAt @db.Timestamptz(6) @map("updated_at")
-
-  @@map("staff")
-}
-
 enum UnitType {
   APARTMENT
   OFFICE
@@ -112,11 +100,14 @@ enum UnitStatus {
   MAINTENANCE
 }
 
-enum StaffRole {
+enum EmployeeRole {
   MANAGER
   SECURITY
+  CLEANER
   MAINTENANCE
-  OTHER
+  GARDENER
+  RECEPTIONIST
+
 }
 
 enum PropertyType {

@@ -12,7 +12,6 @@ export class BuildingsService {
       const response = await this.prismaService.building.create({
         data: createBuildingDto,
       })
-      console.log('response', response)
 
       return response
     } catch (error) {
@@ -22,7 +21,18 @@ export class BuildingsService {
   }
 
   async findAll() {
-    return await this.prismaService.building.findMany()
+    return await this.prismaService.building.findMany({
+      include: {
+        manager: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+          },
+        },
+      },
+    })
   }
 
   async findOne(id: number) {

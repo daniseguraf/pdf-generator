@@ -17,7 +17,7 @@ export const BuildingsListPage = () => {
   console.log('buildings', buildings)
   return (
     <>
-      <Group justify="space-between" align="center" w="100%">
+      <Group justify="space-between" align="center" mb="md">
         <Title order={2}>Buildings List</Title>
 
         <Button component={Link} to="/create-building">
@@ -32,7 +32,7 @@ export const BuildingsListPage = () => {
           </Grid.Col>
         )}
 
-        {buildings?.map(({ id, name, address, city, province }) => (
+        {buildings?.map(({ id, name, address, city, province, manager }) => (
           <Grid.Col span={4} key={id}>
             <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
               <Stack gap="md" h="100%">
@@ -53,7 +53,10 @@ export const BuildingsListPage = () => {
                     Administrador:
                   </Text>
                   <Text size="sm" c="dimmed">
-                    No asignado
+                    {manager?.firstName} {manager?.lastName}
+                  </Text>
+                  <Text size="sm" c="dimmed">
+                    {manager?.email}
                   </Text>
                 </div>
 
