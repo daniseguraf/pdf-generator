@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { CreateBuildingDto } from './dto/create-building.dto'
 import { UpdateBuildingDto } from './dto/update-building.dto'
 import { PrismaService } from '../prisma/prisma.service'
@@ -8,7 +8,6 @@ export class BuildingsService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(createBuildingDto: CreateBuildingDto) {
-    console.log('createBuildingDto', createBuildingDto)
     try {
       const response = await this.prismaService.building.create({
         data: createBuildingDto,
@@ -23,6 +22,7 @@ export class BuildingsService {
 
   async findAll() {
     return await this.prismaService.building.findMany({
+      where: { deletedAt: null },
       include: {
         manager: {
           select: {
@@ -37,25 +37,18 @@ export class BuildingsService {
   }
 
   async findOne(id: number) {
-    try {
-      const building = await this.prismaService.building.findFirst({
-        where: { id },
-      })
+    const building = await this.prismaService.building.findUnique({
+      where: { id },
+    })
 
-      if (!building) {
-        return `Building with id ${id} does not exist`
-      }
-
-      return building
-    } catch (error) {
-      console.log(error)
-      throw error
+    if (!building) {
+      throw new NotFoundException(`Building with id ${id} not found`)
     }
+
+    return building
   }
 
   update(id: number, updateBuildingDto: UpdateBuildingDto) {
-    console.log('updateBuildingDto', id, updateBuildingDto)
-
     const updatedBuilding = this.prismaService.building.update({
       where: { id },
       data: updateBuildingDto,
@@ -64,7 +57,29 @@ export class BuildingsService {
     return updatedBuilding
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} building`
+  async remove(id: number) {
+    const deletedBuilding = await this.prismaService.building.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    })
+
+    if (!deletedBuilding) {
+      throw new NotFoundException(`Building with id ${id} not found`)
+    }
+
+    return deletedBuilding
+  }
+
+  async restore(id: number) {
+    const restoredBuilding = await this.prismaService.building.update({
+      where: { id },
+      data: { deletedAt: null },
+    })
+
+    if (!restoredBuilding) {
+      throw new NotFoundException(`Building with id ${id} not found`)
+    }
+
+    return restoredBuilding
   }
 }

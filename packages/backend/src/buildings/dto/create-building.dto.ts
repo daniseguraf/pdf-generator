@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger'
 import { Transform } from 'class-transformer'
 import {
   IsEmail,
@@ -9,37 +9,26 @@ import {
   IsString,
   Length,
   Max,
-  MaxLength,
   Min,
   IsPhoneNumber,
 } from 'class-validator'
 import { PropertyType } from 'generated/prisma/enums'
+import {
+  IsOptionalString,
+  IsRequiredString,
+} from 'src/common/decorators/validation.decorators'
 
 const CURRENT_YEAR = new Date().getFullYear()
 const MIN_YEAR_BUILT = 1800
 
 export class CreateBuildingDto {
-  @ApiProperty({
-    description: 'Building name',
-    example: 'Main Building',
-  })
-  @IsString()
-  @IsNotEmpty()
-  @Length(1, 255)
-  @Transform(
-    ({ value }) => (typeof value === 'string' ? value.trim() : value) as string
-  )
+  @IsRequiredString(1, 255, 'Main Building', 'Building name')
   name: string
 
-  @ApiPropertyOptional({
-    description: 'Building description',
-    example: 'This is a building description',
-  })
-  @IsString()
-  @IsOptional()
-  @MaxLength(1000)
-  @Transform(({ value }) =>
-    typeof value === 'string' ? value.trim() || undefined : undefined
+  @IsOptionalString(
+    1000,
+    'This is a building description',
+    'Building description'
   )
   description?: string
 

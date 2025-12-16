@@ -190,27 +190,19 @@
   - [x] Custom validation rules
 
 - [ ] Implement Buildings Service
-  - [ ] `findAll()` method with pagination and filters
-  - [ ] `findOne(id)` method with relations
-  - [ ] `create(dto)` method
-  - [ ] `update(id, dto)` method
-  - [ ] `remove(id)` method (soft delete - set isActive = false)
-  - [ ] Add error handling
+  - [x] `findAll()` method
+  - [x] `findOne(id)` method with relations
+  - [x] `create(dto)` method
+  - [x] `update(id, dto)` method
+  - [x] `remove(id)` method (soft delete)
 
 - [ ] Implement Buildings Controller
-  - [ ] `GET /buildings` - list with query params (page, limit, search)
+  - [x] `GET /buildings` - basic buildings list
   - [ ] `GET /buildings/:id` - get one with relations
   - [x] `POST /buildings` - create new building
   - [x] `PATCH /buildings/:id` - update building
-  - [ ] `DELETE /buildings/:id` - soft delete building
+  - [x] `DELETE /buildings/:id` - soft delete building
   - [ ] Add proper HTTP status codes
-
-  - [ ] Create seeders with test data
-  - [ ] 1 admin user (without password for now)
-  - [ ] 3 sample buildings
-  - [ ] 10 units per building
-  - [ ] 5 common areas per building
-  - [ ] Run seed script
 
 ### Frontend
 
@@ -898,3 +890,47 @@
   - [ ] Login/Logout works
   - [ ] Buildings CRUD works
   - [ ] Create booking
+
+## Incoming tasks
+
+- [ ] Add error handling in buildings.service.ts
+  - [ ] Create custom exception filters for Prisma errors
+    - [ ] Handle `PrismaClientKnownRequestError` (P2002: unique constraint, P2003: foreign key, P2025: record not found)
+    - [ ] Handle `PrismaClientValidationError` (invalid data types)
+    - [ ] Transform Prisma errors to NestJS exceptions (ConflictException, BadRequestException, etc.)
+  - [ ] Add error handling to `create()` method
+    - [ ] Validate managerId exists before creating
+    - [ ] Handle unique constraint violations (e.g., duplicate building name)
+    - [ ] Handle foreign key violations
+    - [ ] Replace console.log with proper logger
+  - [ ] Add error handling to `findAll()` method
+    - [ ] Wrap query in try-catch
+    - [ ] Handle database connection errors
+  - [ ] Add error handling to `findOne()` method
+    - [ ] Validate ID format before query
+    - [ ] Handle database errors
+    - [ ] Keep existing NotFoundException for not found cases
+  - [ ] Add error handling to `update()` method
+    - [ ] Validate building exists before updating
+    - [ ] Handle unique constraint violations
+    - [ ] Handle foreign key violations
+    - [ ] Handle not found cases with NotFoundException
+  - [ ] Add error handling to `remove()` method
+    - [ ] Validate building exists before soft delete
+    - [ ] Fix validation logic (Prisma throws before returning null)
+    - [ ] Handle database errors
+  - [ ] Add error handling to `restore()` method
+    - [ ] Validate building exists and is deleted before restoring
+    - [ ] Fix validation logic
+    - [ ] Handle database errors
+  - [ ] Add descriptive error messages in Spanish for all exceptions
+  - [ ] Add unit tests for error scenarios
+
+- [ ] Create database seed
+  - [ ] 1 admin user (without password for now)
+  - [ ] 3 sample buildings
+  - [ ] 10 units per building
+  - [ ] 5 common areas per building
+  - [ ] Run seed script
+
+- [ ] `GET /buildings` - list with query params (page, limit, search)
