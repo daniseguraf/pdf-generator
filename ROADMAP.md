@@ -218,7 +218,7 @@
 
 - [ ] Create Buildings Components
   - [ ] `BuildingTable.tsx` - table with Mantine
-    - [ ] Columns: photo, name, address, city, floors, units
+    - [x] Columns: photo, name, address, city, floors, units
     - [ ] Actions: view, edit, delete buttons
     - [ ] Pagination component
     - [ ] Loading skeleton
