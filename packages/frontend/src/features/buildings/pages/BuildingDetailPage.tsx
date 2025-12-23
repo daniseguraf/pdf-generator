@@ -31,6 +31,8 @@ import {
 
 import { useBuilding } from '@features/buildings/hooks/queries/useBuilding'
 import { PropertyTypeValues } from '@my-buildings/shared/types/prisma.types'
+import { BuildingForm } from '@features/buildings/components/BuildingForm/BuildingForm'
+import { useDisclosure } from '@mantine/hooks'
 
 const amenitiesOptions = [
   'Estacionamiento',
@@ -52,9 +54,9 @@ const amenitiesOptions = [
 export const BuildingDetailPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
+  const [opened, { open, close }] = useDisclosure(false)
 
   const { data: building, isLoading } = useBuilding(Number(id))
-  console.log(building)
 
   const handleEditBuilding = () => {}
 
@@ -96,7 +98,7 @@ export const BuildingDetailPage = () => {
             >
               Back to list
             </Button>
-            <Button leftSection={<PencilIcon size={20} />} onClick={() => {}}>
+            <Button leftSection={<PencilIcon size={20} />} onClick={open}>
               Edit Building
             </Button>
           </Group>
@@ -326,6 +328,13 @@ export const BuildingDetailPage = () => {
           </Tabs>
         </Container>
       )}
+
+      <BuildingForm
+        opened={opened}
+        onClose={close}
+        initialValues={building}
+        isEdit
+      />
     </>
   )
 }

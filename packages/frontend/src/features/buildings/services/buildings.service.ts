@@ -1,8 +1,9 @@
 import { api } from '@lib/axios'
-import type { Building, components } from '@my-buildings/shared'
-
-type CreateBuildingDto = components['schemas']['CreateBuildingDto']
-type UpdateBuildingDto = components['schemas']['UpdateBuildingDto']
+import type { Building } from '@my-buildings/shared'
+import type {
+  CreateBuildingDto,
+  UpdateBuildingDto,
+} from '@features/buildings/types/building.types'
 
 export const buildingsService = {
   getAll: async (): Promise<Building[]> => {
@@ -21,7 +22,7 @@ export const buildingsService = {
     return data
   },
 
-  update: async (id: string, dto: UpdateBuildingDto): Promise<Building> => {
+  update: async (id: number, dto: UpdateBuildingDto): Promise<Building> => {
     const { data } = await api.patch<Building>(`/buildings/${id}`, dto)
     return data
   },

@@ -14,7 +14,7 @@ import {
 } from '@mantine/core'
 import { Link } from 'react-router'
 import { PlusIcon } from '@phosphor-icons/react/dist/csr/Plus'
-import { BuildingForm } from '@features/buildings/components/BuildingForm'
+import { BuildingForm } from '@features/buildings/components/BuildingForm/BuildingForm'
 import { useDisclosure } from '@mantine/hooks'
 import { EyeIcon } from '@phosphor-icons/react/dist/csr/Eye'
 
@@ -66,7 +66,7 @@ export const BuildingsListPage = () => {
                       <Table.Td>
                         <Group>
                           <Avatar
-                            src="https://via.placeholder.com/150"
+                            // src="https://via.placeholder.com/150"
                             radius="md"
                             size="lg"
                           />

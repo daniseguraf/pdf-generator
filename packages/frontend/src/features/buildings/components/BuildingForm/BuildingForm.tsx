@@ -13,15 +13,55 @@ import type {
   BuildingFormProps,
   BuildingFormValues,
   CreateBuildingDto,
-} from '../types/building.types'
+} from '../../types/building.types'
 import type { FC } from 'react'
-import { PropertyTypeValues } from '@my-buildings/shared/index'
+import { PropertyTypeValues, type Building } from '@my-buildings/shared/index'
 import { useCreateBuilding } from '@features/buildings/hooks/mutations/useCreateBuilding'
 import { useEmployees } from '@features/employees/hooks/useEmployees'
+import { buildingFormSchema } from '@features/buildings/components/BuildingForm/BuildingForm.helpers'
+import { zod4Resolver } from 'mantine-form-zod-resolver'
+import { useUpdateBuilding } from '@features/buildings/hooks/mutations/useUpdateBuilding'
 
-export const BuildingForm: FC<BuildingFormProps> = ({ opened, onClose }) => {
-  const { mutate: createBuilding, isPending } = useCreateBuilding()
+export const BuildingForm: FC<BuildingFormProps> = ({
+  opened,
+  onClose,
+  initialValues,
+  isEdit,
+}) => {
+  const {
+    mutate: createBuilding,
+    isPending,
+    isSuccess,
+    isError,
+    error,
+  } = useCreateBuilding()
+  const {
+    mutate: updateBuilding,
+    isPending: isUpdating,
+    isSuccess: isUpdated,
+    isError: isErrorUpdating,
+    error: errorUpdating,
+  } = useUpdateBuilding()
+
   const { data: employees } = useEmployees()
+
+  const {
+    id,
+    name,
+    address,
+    district,
+    city,
+    province,
+    postalCode,
+    managerId,
+    propertyType,
+    yearBuilt,
+    floors,
+    phoneNumber,
+    email,
+    description,
+  } = (initialValues as Building) ?? {}
+  console.log('initialValues', initialValues)
 
   const managerOptions =
     employees?.map(employee => ({
@@ -29,24 +69,24 @@ export const BuildingForm: FC<BuildingFormProps> = ({ opened, onClose }) => {
       label: `${employee.firstName} ${employee.lastName}`,
     })) ?? []
 
-  console.log('managerOptions', managerOptions)
-
   const form = useForm<BuildingFormValues>({
+    validateInputOnBlur: true,
     initialValues: {
-      name: '',
-      address: '',
-      district: '',
-      city: '',
-      province: '',
-      postalCode: '',
-      managerId: '',
-      propertyType: PropertyTypeValues.RESIDENTIAL,
-      yearBuilt: undefined,
-      floors: undefined,
-      phoneNumber: '',
-      email: '',
-      description: '',
+      name: name ?? '',
+      address: address ?? '',
+      district: district ?? '',
+      city: city ?? '',
+      province: province ?? '',
+      postalCode: postalCode ?? '',
+      managerId: `${managerId}` || undefined,
+      propertyType: propertyType ?? PropertyTypeValues.RESIDENTIAL,
+      yearBuilt: yearBuilt ?? undefined,
+      floors: floors ?? undefined,
+      phoneNumber: phoneNumber ?? '',
+      email: email ?? '',
+      description: description ?? '',
     },
+    validate: zod4Resolver(buildingFormSchema),
   })
 
   const handleClose = () => {
@@ -54,18 +94,59 @@ export const BuildingForm: FC<BuildingFormProps> = ({ opened, onClose }) => {
     form.reset()
   }
 
+  const handleSubmit = () => {
+    const errors = form.validate()
+
+    if (errors.hasErrors) {
+      return
+    }
+
+    if (isEdit) {
+      handleEdit()
+    } else {
+      handleCreate()
+    }
+  }
+
   const handleCreate = () => {
     createBuilding({
       ...form.values,
       managerId: Number(form.values.managerId),
     } as CreateBuildingDto)
+
+    if (isSuccess) {
+      handleClose()
+    }
+
+    if (isError) {
+      console.error('Error creating building', error)
+    }
   }
 
+  const handleEdit = () => {
+    const updatedInfo = {
+      ...form.values,
+      managerId: Number(form.values.managerId),
+    }
+
+    updateBuilding({
+      id,
+      dto: updatedInfo,
+    })
+
+    if (isUpdated) {
+      handleClose()
+    }
+
+    if (isErrorUpdating) {
+      console.error('Error updating building', errorUpdating)
+    }
+  }
   return (
     <Drawer
       opened={opened}
       onClose={handleClose}
-      title="Crear Nuevo Edificio"
+      title={isEdit ? 'Editar Edificio' : 'Crear Nuevo Edificio'}
       position="right"
       size="lg"
       padding="xl"
@@ -184,8 +265,8 @@ export const BuildingForm: FC<BuildingFormProps> = ({ opened, onClose }) => {
           <Button variant="light" size="sm" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button size="sm" onClick={handleCreate} loading={isPending}>
-            Crear Edificio
+          <Button size="sm" onClick={handleSubmit} loading={isPending}>
+            {isEdit ? 'Editar Edificio' : 'Crear Edificio'}
           </Button>
         </Group>
       </Stack>

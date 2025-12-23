@@ -1,10 +1,17 @@
-import type { components, PropertyType } from '@my-buildings/shared/index'
+import type {
+  Building,
+  components,
+  PropertyType,
+} from '@my-buildings/shared/index'
 
 export type CreateBuildingDto = components['schemas']['CreateBuildingDto']
+export type UpdateBuildingDto = components['schemas']['UpdateBuildingDto']
 
 export type BuildingFormProps = {
   opened: boolean
   onClose: () => void
+  initialValues?: Building
+  isEdit?: boolean
 }
 
 export interface BuildingFormValues {
