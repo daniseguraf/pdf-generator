@@ -14,7 +14,7 @@ import type {
   BuildingFormValues,
   CreateBuildingDto,
 } from '../../types/building.types'
-import type { FC } from 'react'
+import { useEffect, type FC } from 'react'
 import { PropertyTypeValues, type Building } from '@my-buildings/shared/index'
 import { useCreateBuilding } from '@features/buildings/hooks/mutations/useCreateBuilding'
 import { useEmployees } from '@features/employees/hooks/useEmployees'
@@ -25,22 +25,15 @@ import { useUpdateBuilding } from '@features/buildings/hooks/mutations/useUpdate
 export const BuildingForm: FC<BuildingFormProps> = ({
   opened,
   onClose,
-  initialValues,
+  building,
   isEdit,
 }) => {
-  const {
-    mutate: createBuilding,
-    isPending,
-    isSuccess,
-    isError,
-    error,
-  } = useCreateBuilding()
+  const { mutate: createBuilding, isPending } = useCreateBuilding()
+
   const {
     mutate: updateBuilding,
-    isPending: isUpdating,
-    isSuccess: isUpdated,
-    isError: isErrorUpdating,
-    error: errorUpdating,
+    isPending: isUpdatePending,
+    reset: resetUpdateBuilding,
   } = useUpdateBuilding()
 
   const { data: employees } = useEmployees()
@@ -60,8 +53,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
     phoneNumber,
     email,
     description,
-  } = (initialValues as Building) ?? {}
-  console.log('initialValues', initialValues)
+  } = (building as Building) ?? {}
 
   const managerOptions =
     employees?.map(employee => ({
@@ -69,27 +61,30 @@ export const BuildingForm: FC<BuildingFormProps> = ({
       label: `${employee.firstName} ${employee.lastName}`,
     })) ?? []
 
+  const initialValues = {
+    name: name ?? '',
+    address: address ?? '',
+    district: district ?? '',
+    city: city ?? '',
+    province: province ?? '',
+    postalCode: postalCode ?? '',
+    managerId: `${managerId}` || undefined,
+    propertyType: propertyType ?? PropertyTypeValues.RESIDENTIAL,
+    yearBuilt: yearBuilt ?? undefined,
+    floors: floors ?? undefined,
+    phoneNumber: phoneNumber ?? '',
+    email: email ?? '',
+    description: description ?? '',
+  }
+
   const form = useForm<BuildingFormValues>({
     validateInputOnBlur: true,
-    initialValues: {
-      name: name ?? '',
-      address: address ?? '',
-      district: district ?? '',
-      city: city ?? '',
-      province: province ?? '',
-      postalCode: postalCode ?? '',
-      managerId: `${managerId}` || undefined,
-      propertyType: propertyType ?? PropertyTypeValues.RESIDENTIAL,
-      yearBuilt: yearBuilt ?? undefined,
-      floors: floors ?? undefined,
-      phoneNumber: phoneNumber ?? '',
-      email: email ?? '',
-      description: description ?? '',
-    },
+    initialValues,
     validate: zod4Resolver(buildingFormSchema),
   })
 
   const handleClose = () => {
+    console.log('handleClose')
     onClose()
     form.reset()
   }
@@ -109,18 +104,20 @@ export const BuildingForm: FC<BuildingFormProps> = ({
   }
 
   const handleCreate = () => {
-    createBuilding({
-      ...form.values,
-      managerId: Number(form.values.managerId),
-    } as CreateBuildingDto)
-
-    if (isSuccess) {
-      handleClose()
-    }
-
-    if (isError) {
-      console.error('Error creating building', error)
-    }
+    createBuilding(
+      {
+        ...form.values,
+        managerId: Number(form.values.managerId),
+      } as CreateBuildingDto,
+      {
+        onSuccess: () => {
+          handleClose()
+        },
+        onError: error => {
+          console.error('Error creando edificio', error)
+        },
+      }
+    )
   }
 
   const handleEdit = () => {
@@ -129,19 +126,30 @@ export const BuildingForm: FC<BuildingFormProps> = ({
       managerId: Number(form.values.managerId),
     }
 
-    updateBuilding({
-      id,
-      dto: updatedInfo,
-    })
-
-    if (isUpdated) {
-      handleClose()
-    }
-
-    if (isErrorUpdating) {
-      console.error('Error updating building', errorUpdating)
-    }
+    updateBuilding(
+      {
+        id,
+        dto: updatedInfo,
+      },
+      {
+        onSuccess: () => {
+          handleClose()
+          resetUpdateBuilding()
+        },
+        onError: error => {
+          console.error('Error actualizando edificio', error)
+        },
+      }
+    )
   }
+
+  useEffect(() => {
+    if (building) {
+      form.setValues(initialValues)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [building])
+
   return (
     <Drawer
       opened={opened}
@@ -265,7 +273,11 @@ export const BuildingForm: FC<BuildingFormProps> = ({
           <Button variant="light" size="sm" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button size="sm" onClick={handleSubmit} loading={isPending}>
+          <Button
+            size="sm"
+            onClick={handleSubmit}
+            loading={isPending || isUpdatePending}
+          >
             {isEdit ? 'Editar Edificio' : 'Crear Edificio'}
           </Button>
         </Group>

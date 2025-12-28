@@ -23,6 +23,7 @@
     "@tanstack/react-query-devtools": "^5.91.1",
     "axios": "^1.13.2",
     "dayjs": "^1.11.19",
+    "es-toolkit": "^1.43.0",
     "mantine-form-zod-resolver": "^1.3.0",
     "npm": "^11.6.4",
     "react": "^19.2.0",

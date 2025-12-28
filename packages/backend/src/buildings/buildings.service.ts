@@ -33,6 +33,9 @@ export class BuildingsService {
           },
         },
       },
+      orderBy: {
+        id: 'desc',
+      },
     })
   }
 

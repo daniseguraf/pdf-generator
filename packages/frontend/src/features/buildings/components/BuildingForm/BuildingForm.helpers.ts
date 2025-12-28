@@ -17,6 +17,6 @@ export const buildingFormSchema = z.object({
   yearBuilt: z.number().min(1800).max(new Date().getFullYear()),
   floors: z.number().min(1).max(300),
   phoneNumber: z.string().optional(),
-  email: z.email().optional(),
+  email: z.union([z.email(), z.literal('')]).optional(),
   description: z.string().optional(),
 })

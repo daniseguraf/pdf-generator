@@ -6,6 +6,6 @@ export const useBuilding = (id: number) => {
   return useQuery<Building>({
     queryKey: ['building', id],
     queryFn: () => buildingsService.getById(id),
-    staleTime: 1000 * 60 * 60,
+    // staleTime: 1000 * 60 * 60,
   })
 }

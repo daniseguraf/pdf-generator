@@ -10,7 +10,6 @@ import {
   Stack,
   ThemeIcon,
   Card,
-  Loader,
   Box,
   Badge,
   Title,
@@ -56,7 +55,7 @@ export const BuildingDetailPage = () => {
   const navigate = useNavigate()
   const [opened, { open, close }] = useDisclosure(false)
 
-  const { data: building, isLoading } = useBuilding(Number(id))
+  const { isPending, data: building } = useBuilding(Number(id))
 
   const handleEditBuilding = () => {}
 
@@ -73,6 +72,10 @@ export const BuildingDetailPage = () => {
     }
   }
 
+  if (isPending) {
+    return <span>Loading...</span>
+  }
+
   if (!building) {
     return (
       <Container size="xl" py="xl">
@@ -86,157 +89,148 @@ export const BuildingDetailPage = () => {
 
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <Container size="xl">
-          <Group justify="space-between" mb="xl">
-            <Button
-              variant="light"
-              leftSection={<CaretDoubleLeftIcon size={20} />}
-              onClick={() => navigate('/')}
-            >
-              Back to list
-            </Button>
-            <Button leftSection={<PencilIcon size={20} />} onClick={open}>
-              Edit Building
-            </Button>
-          </Group>
+      <Container size="xl">
+        <Group justify="space-between" mb="xl">
+          <Button
+            variant="light"
+            leftSection={<CaretDoubleLeftIcon size={20} />}
+            onClick={() => navigate('/')}
+          >
+            Back to list
+          </Button>
+          <Button leftSection={<PencilIcon size={20} />} onClick={open}>
+            Edit Building
+          </Button>
+        </Group>
 
-          <Paper shadow="md" radius="md" withBorder mb="xl">
-            <Box p="xl">
-              <Group justify="space-between" mb="md">
-                <div>
-                  <Group gap="xs" mb="xs">
-                    <Badge
-                      color={getTypeColor(building.propertyType)}
-                      variant="light"
-                      size="lg"
-                    >
-                      {building.propertyType}
-                    </Badge>
-                    <Badge
-                      color={building.isActive ? 'green' : 'red'}
-                      variant="dot"
-                      size="lg"
-                    >
-                      {building.isActive ? 'Activo' : 'Inactivo'}
-                    </Badge>
-                  </Group>
-
-                  <Title order={1} mb="xs">
-                    {building.name}
-                  </Title>
-
-                  <Group gap="xs">
-                    <MapPinIcon size={18} />
-                    <Text c="dimmed">
-                      {building.address}, {building.district} - {building.city},{' '}
-                      {building.province}
-                    </Text>
-                  </Group>
-                </div>
-              </Group>
-
-              <Text c="dimmed" mt="md">
-                {building.description}
-              </Text>
-            </Box>
-          </Paper>
-
-          <Tabs defaultValue="general" variant="outline">
-            <Tabs.List mb="xl">
-              <Tabs.Tab
-                value="general"
-                leftSection={<BuildingOfficeIcon size={18} />}
-              >
-                Información General
-              </Tabs.Tab>
-
-              <Tabs.Tab value="amenities" leftSection={<CheckIcon size={18} />}>
-                Amenidades
-              </Tabs.Tab>
-              <Tabs.Tab value="contact" leftSection={<UserIcon size={18} />}>
-                Contacto
-              </Tabs.Tab>
-            </Tabs.List>
-
-            <Tabs.Panel value="general">
-              <Grid gutter="lg">
-                <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder>
-                    <Stack gap="md">
-                      <Group>
-                        <ThemeIcon size="xl" variant="light" color="blue">
-                          <BuildingOfficeIcon size={24} />
-                        </ThemeIcon>
-                        <div>
-                          <Text size="sm" c="dimmed">
-                            Pisos
-                          </Text>
-                          <Text size="xl">{building.floors}</Text>
-                        </div>
-                      </Group>
-
-                      <Group>
-                        <ThemeIcon size="xl" variant="light" color="violet">
-                          <StackIcon size={24} />
-                        </ThemeIcon>
-                        <div>
-                          <Text size="sm" c="dimmed">
-                            Unidades
-                          </Text>
-                          {/* <Text size="xl">{building.units}</Text> */}
-                        </div>
-                      </Group>
-
-                      <Group>
-                        <ThemeIcon size="xl" variant="light" color="teal">
-                          <CalendarIcon size={24} />
-                        </ThemeIcon>
-                        <div>
-                          <Text size="sm" c="dimmed">
-                            Año de Construcción
-                          </Text>
-                          <Text size="xl">{building.yearBuilt}</Text>
-                        </div>
-                      </Group>
-                    </Stack>
-                  </Card>
-                </Grid.Col>
-
-                <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Card
-                    shadow="sm"
-                    padding="lg"
-                    radius="md"
-                    withBorder
-                    h="100%"
+        <Paper shadow="md" radius="md" withBorder mb="xl">
+          <Box p="xl">
+            <Group justify="space-between" mb="md">
+              <div>
+                <Group gap="xs" mb="xs">
+                  <Badge
+                    color={getTypeColor(building.propertyType)}
+                    variant="light"
+                    size="lg"
                   >
-                    <Stack gap="md">
-                      <Group>
-                        <Avatar size="lg" color="blue">
-                          <UsersIcon size={24} />
-                        </Avatar>
-                        <div>
-                          <Text size="sm" c="dimmed">
-                            Manager Responsable
-                          </Text>
-                          <Text size="lg">
-                            {building.manager?.firstName}{' '}
-                            {building.manager?.lastName}
-                          </Text>
-                        </div>
-                      </Group>
+                    {building.propertyType}
+                  </Badge>
+                  <Badge
+                    color={building.isActive ? 'green' : 'red'}
+                    variant="dot"
+                    size="lg"
+                  >
+                    {building.isActive ? 'Activo' : 'Inactivo'}
+                  </Badge>
+                </Group>
 
-                      <Divider />
-                    </Stack>
-                  </Card>
-                </Grid.Col>
-              </Grid>
-            </Tabs.Panel>
+                <Title order={1} mb="xs">
+                  {building.name}
+                </Title>
 
-            {/* <Tabs.Panel value="amenities">
+                <Group gap="xs">
+                  <MapPinIcon size={18} />
+                  <Text c="dimmed">
+                    {building.address}, {building.district} - {building.city},{' '}
+                    {building.province}
+                  </Text>
+                </Group>
+              </div>
+            </Group>
+
+            <Text c="dimmed" mt="md">
+              {building.description}
+            </Text>
+          </Box>
+        </Paper>
+
+        <Tabs defaultValue="general" variant="outline">
+          <Tabs.List mb="xl">
+            <Tabs.Tab
+              value="general"
+              leftSection={<BuildingOfficeIcon size={18} />}
+            >
+              Información General
+            </Tabs.Tab>
+
+            <Tabs.Tab value="amenities" leftSection={<CheckIcon size={18} />}>
+              Amenidades
+            </Tabs.Tab>
+            <Tabs.Tab value="contact" leftSection={<UserIcon size={18} />}>
+              Contacto
+            </Tabs.Tab>
+          </Tabs.List>
+
+          <Tabs.Panel value="general">
+            <Grid gutter="lg">
+              <Grid.Col span={{ base: 12, md: 6 }}>
+                <Card shadow="sm" padding="lg" radius="md" withBorder>
+                  <Stack gap="md">
+                    <Group>
+                      <ThemeIcon size="xl" variant="light" color="blue">
+                        <BuildingOfficeIcon size={24} />
+                      </ThemeIcon>
+                      <div>
+                        <Text size="sm" c="dimmed">
+                          Pisos
+                        </Text>
+                        <Text size="xl">{building.floors}</Text>
+                      </div>
+                    </Group>
+
+                    <Group>
+                      <ThemeIcon size="xl" variant="light" color="violet">
+                        <StackIcon size={24} />
+                      </ThemeIcon>
+                      <div>
+                        <Text size="sm" c="dimmed">
+                          Unidades
+                        </Text>
+                        {/* <Text size="xl">{building.units}</Text> */}
+                      </div>
+                    </Group>
+
+                    <Group>
+                      <ThemeIcon size="xl" variant="light" color="teal">
+                        <CalendarIcon size={24} />
+                      </ThemeIcon>
+                      <div>
+                        <Text size="sm" c="dimmed">
+                          Año de Construcción
+                        </Text>
+                        <Text size="xl">{building.yearBuilt}</Text>
+                      </div>
+                    </Group>
+                  </Stack>
+                </Card>
+              </Grid.Col>
+
+              <Grid.Col span={{ base: 12, md: 6 }}>
+                <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
+                  <Stack gap="md">
+                    <Group>
+                      <Avatar size="lg" color="blue">
+                        <UsersIcon size={24} />
+                      </Avatar>
+                      <div>
+                        <Text size="sm" c="dimmed">
+                          Manager Responsable
+                        </Text>
+                        <Text size="lg">
+                          {building.manager?.firstName}{' '}
+                          {building.manager?.lastName}
+                        </Text>
+                      </div>
+                    </Group>
+
+                    <Divider />
+                  </Stack>
+                </Card>
+              </Grid.Col>
+            </Grid>
+          </Tabs.Panel>
+
+          {/* <Tabs.Panel value="amenities">
           <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Title order={3} mb="lg">
               Amenidades Disponibles
@@ -258,7 +252,7 @@ export const BuildingDetailPage = () => {
           </Card>
         </Tabs.Panel> */}
 
-            {/* <Tabs.Panel value="contact">
+          {/* <Tabs.Panel value="contact">
           <Grid gutter="lg">
             <Grid.Col span={{ base: 12, md: 6 }}>
               <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -325,14 +319,13 @@ export const BuildingDetailPage = () => {
             </Grid.Col>
           </Grid>
         </Tabs.Panel> */}
-          </Tabs>
-        </Container>
-      )}
+        </Tabs>
+      </Container>
 
       <BuildingForm
         opened={opened}
         onClose={close}
-        initialValues={building}
+        building={building}
         isEdit
       />
     </>

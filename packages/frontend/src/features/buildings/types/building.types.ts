@@ -10,7 +10,7 @@ export type UpdateBuildingDto = components['schemas']['UpdateBuildingDto']
 export type BuildingFormProps = {
   opened: boolean
   onClose: () => void
-  initialValues?: Building
+  building?: Building
   isEdit?: boolean
 }
 
