@@ -1,6 +1,6 @@
 # 🗺️ Development Roadmap - Building Management System
 
-> **Duration:** 8 weeks full-time
+> **Duration:** 9 weeks full-time
 > **Stack:** NestJS, React, TypeScript, Mantine, TanStack Query, Prisma, PostgreSQL
 > **Goal:** Fully functional and deployed fullstack application
 
@@ -16,8 +16,9 @@
 - [ ] **Week 6:** Authentication and Authorization (0/5)
 - [ ] **Week 7:** Dashboard and Deployment V1 (0/5)
 - [ ] **Week 8:** Polish and Documentation (0/5)
+- [ ] **Week 9:** UX Refinement and Internationalization (0/5)
 
-**Total Progress: 0/40 main tasks completed**
+**Total Progress: 0/45 main tasks completed**
 
 ---
 
@@ -33,6 +34,7 @@
 | 🔐 Authentication Complete   | End of Week 6 | ⏳ Pending |
 | 🚀 First Deployed Version    | End of Week 7 | ⏳ Pending |
 | 📝 Final Documentation       | End of Week 8 | ⏳ Pending |
+| 🌐 UX & i18n Complete        | End of Week 9 | ⏳ Pending |
 
 ---
 
@@ -886,6 +888,411 @@
   - [ ] Login/Logout works
   - [ ] Buildings CRUD works
   - [ ] Create booking
+
+### Week 7 Validation
+
+- [ ] Dashboard displays real-time metrics
+- [ ] Backend and frontend deployed successfully
+- [ ] Production environment stable
+- [ ] Database migrations applied correctly
+- [ ] Environment variables configured
+
+---
+
+# 📅 WEEK 8: Polish and Documentation
+
+**Goal:** Code quality, testing, and comprehensive documentation.
+
+## Days 1-2: Testing
+
+### Backend Testing
+
+- [ ] Setup Jest testing environment
+  - [ ] Configure test database
+  - [ ] Setup test utilities
+
+- [ ] Write unit tests
+  - [ ] Buildings service tests
+  - [ ] Auth service tests
+  - [ ] Booking validation tests
+  - [ ] Ticket service tests
+
+- [ ] Write integration tests
+  - [ ] API endpoint tests
+  - [ ] Authentication flow tests
+  - [ ] Database operations tests
+
+### Frontend Testing
+
+- [ ] Setup Vitest and React Testing Library
+  - [ ] Configure test environment
+  - [ ] Setup test utilities
+
+- [ ] Write component tests
+  - [ ] Form validation tests
+  - [ ] Navigation tests
+  - [ ] Auth flow tests
+
+- [ ] Write hook tests
+  - [ ] React Query hooks
+  - [ ] Custom hooks
+
+---
+
+## Days 3-4: Code Quality and Performance
+
+### Code Quality
+
+- [ ] Code review and refactoring
+  - [ ] Remove unused code
+  - [ ] Improve code organization
+  - [ ] Apply consistent naming conventions
+  - [ ] Add missing TypeScript types
+
+- [ ] Performance optimization
+  - [ ] Frontend bundle size optimization
+  - [ ] Database query optimization
+  - [ ] Add database indexes
+  - [ ] Implement caching strategies
+
+- [ ] Security audit
+  - [ ] Review authentication logic
+  - [ ] Check for SQL injection vulnerabilities
+  - [ ] Validate input sanitization
+  - [ ] Review CORS configuration
+
+### Error Handling
+
+- [ ] Improve error handling
+  - [ ] Custom error pages (404, 500)
+  - [ ] Error boundary components
+  - [ ] Global error handling
+  - [ ] Error logging service
+
+---
+
+## Day 5: Documentation
+
+### Technical Documentation
+
+- [ ] Backend documentation
+  - [ ] API documentation (Swagger/OpenAPI)
+  - [ ] Database schema documentation
+  - [ ] Architecture decisions
+  - [ ] Environment setup guide
+
+- [ ] Frontend documentation
+  - [ ] Component library documentation
+  - [ ] State management guide
+  - [ ] Routing structure
+  - [ ] Build and deployment guide
+
+### User Documentation
+
+- [ ] User guides
+  - [ ] Admin user guide
+  - [ ] Manager user guide
+  - [ ] Resident user guide
+
+- [ ] Project documentation
+  - [ ] Update README.md
+  - [ ] Contributing guidelines
+  - [ ] License information
+
+### Week 8 Validation
+
+- [ ] Test coverage > 70%
+- [ ] All critical bugs fixed
+- [ ] Documentation complete
+- [ ] Code quality metrics acceptable
+- [ ] Performance benchmarks met
+
+---
+
+# 📅 WEEK 9: UX Refinement and Internationalization
+
+**Goal:** Implement pagination, review all UI texts, ensure responsive design, and add internationalization support.
+
+## Days 1-2: Pagination Implementation
+
+### Backend Pagination
+
+- [ ] Implement pagination utilities
+  - [ ] Create pagination DTO (page, limit, orderBy, order)
+  - [ ] Create pagination response type (data, total, page, totalPages)
+  - [ ] Create reusable pagination helper function
+
+- [ ] Add pagination to all list endpoints
+  - [ ] `GET /buildings` - paginate buildings list
+    - [ ] Add query params: page, limit, search, orderBy
+    - [ ] Return paginated response with metadata
+  - [ ] `GET /units` - paginate units list
+  - [ ] `GET /common-areas` - paginate common areas list
+  - [ ] `GET /bookings` - paginate bookings list
+  - [ ] `GET /tickets` - paginate tickets list
+  - [ ] `GET /staff` - paginate staff list
+
+- [ ] Add filtering and sorting
+  - [ ] Implement search functionality for text fields
+  - [ ] Add status filters where applicable
+  - [ ] Add date range filters for bookings and tickets
+  - [ ] Implement multi-column sorting
+
+### Frontend Pagination
+
+- [ ] Create pagination components
+  - [ ] `PaginationControls.tsx` - reusable pagination UI
+    - [ ] Page number buttons
+    - [ ] Previous/Next buttons
+    - [ ] Items per page selector
+    - [ ] Total items display
+  - [ ] `TablePagination.tsx` - pagination for tables
+
+- [ ] Update all list pages with pagination
+  - [ ] BuildingsListPage - add pagination controls
+  - [ ] Units list - add pagination
+  - [ ] Common areas list - add pagination
+  - [ ] Bookings list - add pagination
+  - [ ] Tickets list - add pagination
+  - [ ] Staff list - add pagination
+
+- [ ] Implement infinite scroll (optional)
+  - [ ] Bookings calendar view
+  - [ ] Activity feed
+
+### Pagination Validation
+
+- [ ] All lists support pagination
+- [ ] Pagination controls work correctly
+- [ ] Filtering and sorting work with pagination
+- [ ] Loading states during page changes
+- [ ] URL params reflect current page state
+
+---
+
+## Day 3: UI Text Review and Copywriting
+
+### Content Audit
+
+- [ ] Review all UI texts
+  - [ ] Button labels consistency
+  - [ ] Form field labels and placeholders
+  - [ ] Error messages clarity
+  - [ ] Success messages
+  - [ ] Empty states messages
+  - [ ] Loading states messages
+
+- [ ] Improve microcopy
+  - [ ] Make CTAs (Call-to-Actions) clear and actionable
+  - [ ] Ensure error messages are helpful and specific
+  - [ ] Add helpful tooltips where needed
+  - [ ] Review and improve form validation messages
+
+- [ ] Content guidelines
+  - [ ] Create tone of voice guide
+  - [ ] Establish terminology glossary
+  - [ ] Define Spanish language standards (formal vs informal)
+
+### Text Improvements
+
+- [ ] Navigation and menus
+  - [ ] Review all menu items
+  - [ ] Ensure consistent terminology
+  - [ ] Check for truncation issues
+
+- [ ] Forms and inputs
+  - [ ] Clear field labels
+  - [ ] Helpful placeholder text
+  - [ ] Descriptive help text
+  - [ ] Validation messages in Spanish
+
+- [ ] Notifications and alerts
+  - [ ] Success messages
+  - [ ] Error messages
+  - [ ] Warning messages
+  - [ ] Info messages
+
+### Validation
+
+- [ ] All texts reviewed and improved
+- [ ] No placeholder or Lorem Ipsum text
+- [ ] Consistent terminology throughout
+- [ ] Messages are clear and actionable
+
+---
+
+## Day 4: Responsive Design Review
+
+### Mobile Responsive Audit
+
+- [ ] Test all pages on mobile devices
+  - [ ] Dashboard page
+  - [ ] Buildings list and detail
+  - [ ] Units management
+  - [ ] Bookings calendar
+  - [ ] Tickets system
+  - [ ] Forms and modals
+
+- [ ] Common mobile issues to fix
+  - [ ] Navigation menu (hamburger menu)
+  - [ ] Tables (convert to cards on mobile)
+  - [ ] Forms (stack vertically)
+  - [ ] Modals (full screen on mobile)
+  - [ ] Date pickers (mobile-friendly)
+  - [ ] Touch targets (minimum 44x44px)
+
+### Responsive Components
+
+- [ ] Update responsive breakpoints
+  - [ ] Define consistent breakpoints (xs, sm, md, lg, xl)
+  - [ ] Use Mantine breakpoints consistently
+
+- [ ] Implement responsive layouts
+  - [ ] Responsive grid systems
+  - [ ] Flexible containers
+  - [ ] Responsive typography
+  - [ ] Adaptive spacing
+
+- [ ] Mobile navigation
+  - [ ] Implement mobile drawer/sidebar
+  - [ ] Bottom navigation (optional)
+  - [ ] Sticky headers on scroll
+
+- [ ] Responsive tables
+  - [ ] Convert tables to cards on mobile
+  - [ ] Horizontal scroll with indicators
+  - [ ] Collapsible rows
+
+### Cross-browser Testing
+
+- [ ] Test on major browsers
+  - [ ] Chrome/Edge
+  - [ ] Firefox
+  - [ ] Safari
+  - [ ] Mobile Safari (iOS)
+  - [ ] Chrome Mobile (Android)
+
+### Validation
+
+- [ ] All pages are mobile-friendly
+- [ ] No horizontal scrolling on mobile
+- [ ] All interactions work on touch devices
+- [ ] Text is readable without zooming
+- [ ] Forms are easy to fill on mobile
+
+---
+
+## Day 5: Internationalization (i18n)
+
+### Backend i18n Setup
+
+- [ ] Setup i18n for error messages
+  - [ ] Install i18n library (e.g., nestjs-i18n)
+  - [ ] Configure supported languages (es, en)
+  - [ ] Create translation files structure
+
+- [ ] Translate error messages
+  - [ ] Validation errors
+  - [ ] Business logic errors
+  - [ ] Database errors
+  - [ ] Authentication errors
+
+- [ ] Add language header support
+  - [ ] Accept `Accept-Language` header
+  - [ ] Return appropriate language responses
+  - [ ] Default to Spanish
+
+### Frontend i18n Setup
+
+- [ ] Install and configure i18n library
+  - [ ] Install react-i18next
+  - [ ] Configure i18next
+  - [ ] Setup language detection
+  - [ ] Setup language persistence (localStorage)
+
+- [ ] Create translation files
+  - [ ] `es.json` - Spanish translations (primary)
+  - [ ] `en.json` - English translations
+  - [ ] Organize by feature/module
+    - [ ] common (buttons, labels, actions)
+    - [ ] auth (login, register)
+    - [ ] buildings
+    - [ ] units
+    - [ ] bookings
+    - [ ] tickets
+    - [ ] dashboard
+    - [ ] errors
+
+- [ ] Translate all UI text
+  - [ ] Navigation and menus
+  - [ ] Page titles and headers
+  - [ ] Form labels and placeholders
+  - [ ] Button labels
+  - [ ] Table headers
+  - [ ] Status badges
+  - [ ] Empty states
+  - [ ] Error messages
+  - [ ] Success messages
+  - [ ] Tooltips and help text
+
+### i18n Components
+
+- [ ] Create language switcher component
+  - [ ] `LanguageSwitcher.tsx` in header/user menu
+  - [ ] Support ES and EN
+  - [ ] Persist selection
+
+- [ ] Update components to use translations
+  - [ ] Replace hardcoded strings with translation keys
+  - [ ] Use translation hooks (useTranslation)
+  - [ ] Handle plural forms
+  - [ ] Handle date/time formatting
+
+### Date and Number Formatting
+
+- [ ] Configure locale-specific formatting
+  - [ ] Date formats (DD/MM/YYYY for ES, MM/DD/YYYY for EN)
+  - [ ] Time formats (24h for ES, 12h for EN)
+  - [ ] Number formats (decimals, thousands separators)
+  - [ ] Currency formatting
+
+### i18n Best Practices
+
+- [ ] Translation key naming convention
+  - [ ] Use dot notation (e.g., `buildings.form.name.label`)
+  - [ ] Group by feature/context
+  - [ ] Descriptive key names
+
+- [ ] Handle dynamic content
+  - [ ] Use interpolation for variables
+  - [ ] Use pluralization rules
+  - [ ] Handle gender-specific text (Spanish)
+
+### Validation
+
+- [ ] All UI text is translatable
+- [ ] Language switcher works correctly
+- [ ] Selected language persists
+- [ ] No untranslated text visible
+- [ ] Date/number formats correct per locale
+- [ ] Both Spanish and English complete
+
+---
+
+## Week 9 Validation
+
+- [ ] Pagination implemented and working on all lists
+- [ ] All UI texts reviewed and improved
+- [ ] Application is fully responsive (mobile, tablet, desktop)
+- [ ] Internationalization complete (ES and EN)
+- [ ] Language switcher functional
+- [ ] Date/time formatting correct per locale
+- [ ] All translations complete and accurate
+- [ ] Cross-browser compatibility verified
+- [ ] Touch interactions work on mobile devices
+- [ ] No UX issues or confusion points
+
+---
 
 ## Incoming tasks
 
