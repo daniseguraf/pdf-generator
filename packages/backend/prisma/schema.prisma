@@ -4,16 +4,16 @@ generator client {
 }
 
 generator typescriptInterfaces {
-  provider = "prisma-generator-typescript-interfaces"
-  output   = "../../shared/src/types/prisma.types.ts"
-  prettier = true
-  modelType = "type"
-  enumType = "object"
+  provider         = "prisma-generator-typescript-interfaces"
+  output           = "../../shared/src/types/prisma.types.ts"
+  prettier         = true
+  modelType        = "type"
+  enumType         = "object"
   enumObjectSuffix = "Values"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider     = "postgresql"
   relationMode = "foreignKeys"
 }
 
@@ -32,46 +32,44 @@ model Building {
   phoneNumber  String?      @map("phone_number")
   email        String?      @unique
   isActive     Boolean      @default(true) @map("is_active")
-  createdAt    DateTime     @default(now()) @db.Timestamptz(6) @map("created_at")
-  updatedAt    DateTime     @updatedAt @db.Timestamptz(6) @map("updated_at")
-  deletedAt    DateTime?    @db.Timestamptz(6) @map("deleted_at")
-  manager       Employee    @relation(fields: [managerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt    DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime     @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt    DateTime?    @map("deleted_at") @db.Timestamptz(6)
+  manager      Employee     @relation(fields: [managerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   managerId    Int          @map("manager_id")
   commonAreas  CommonArea[]
   amenities    Amenities[]
-  // staff        Staff[]
-  // units        Unit[]
 
   @@map("buildings")
 }
 
 model Employee {
-  id        Int      @id @default(autoincrement())
-  buildings  Building[]
-  firstName String   @map("first_name")
-  lastName  String   @map("last_name")
-  phoneNumber String? @map("phone_number")
-  email     String   @unique
-  role      EmployeeRole @default(MANAGER)
-  createdAt DateTime @default(now())  @db.Timestamptz(6) @map("created_at")
-  updatedAt DateTime @updatedAt @db.Timestamptz(6) @map("updated_at")
-  startDate  DateTime   @db.Timestamptz(6) @map("start_date")
-  endDate    DateTime?  @db.Timestamptz(6) @map("end_date")
-  isActive   Boolean    @default(true) @map("is_active")
+  id          Int          @id @default(autoincrement())
+  buildings   Building[]
+  firstName   String       @map("first_name")
+  lastName    String       @map("last_name")
+  phoneNumber String?      @map("phone_number")
+  email       String       @unique
+  role        EmployeeRole @default(MANAGER)
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime     @updatedAt @map("updated_at") @db.Timestamptz(6)
+  startDate   DateTime     @map("start_date") @db.Timestamptz(6)
+  endDate     DateTime?    @map("end_date") @db.Timestamptz(6)
+  isActive    Boolean      @default(true) @map("is_active")
 
   @@map("employees")
 }
 
 model Unit {
   id         Int        @id @default(autoincrement())
-  buildingId Int       @map("building_id")
+  buildingId Int        @map("building_id")
   // building   Building   @relation(fields: [buildingId], references: [id])
   number     String
   floor      Int
   type       UnitType
   status     UnitStatus
-  createdAt  DateTime   @default(now()) @db.Timestamptz(6) @map("created_at")
-  updatedAt  DateTime   @updatedAt @db.Timestamptz(6) @map("updated_at")
+  createdAt  DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime   @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   @@unique([buildingId, floor, number])
   @@index([buildingId])
@@ -79,17 +77,61 @@ model Unit {
 }
 
 model CommonArea {
-  id          Int      @id @default(autoincrement())
-  buildingId  Int      @map("building_id")
-  building    Building @relation(fields: [buildingId], references: [id])
-  name        String
-  description String?
-  capacity    Int
-  isActive    Boolean  @default(true) @map("is_active")
-  createdAt   DateTime @default(now()) @db.Timestamptz(6) @map("created_at")
-  updatedAt   DateTime @updatedAt @db.Timestamptz(6) @map("updated_at")
+  id                     Int           @id @default(autoincrement())
+  buildingId             Int           @map("building_id")
+  building               Building      @relation(fields: [buildingId], references: [id])
+  name                   String
+  description            String?
+  capacity               Int
+  isActive               Boolean       @default(true) @map("is_active")
+  createdAt              DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt              DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
+  maxHoursPerReservation Int           @default(4) @map("max_hours_per_reservation")
+  openTime               String        @default("08:00") @map("open_time")
+  closeTime              String        @default("22:00") @map("close_time")
+  daysAvailable          String[]      @default(["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]) @map("days_available")
+  reservations           Reservation[]
 
   @@map("common_areas")
+}
+
+model Resident {
+  id           Int           @id @default(autoincrement())
+  firstName    String        @map("first_name")
+  lastName     String        @map("last_name")
+  phoneNumber  String?       @map("phone_number")
+  email        String        @unique
+  isActive     Boolean       @default(true) @map("is_active")
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
+  reservations Reservation[]
+
+  @@map("residents")
+}
+
+model Reservation {
+  id           Int               @id @default(autoincrement())
+  commonAreaId Int               @map("common_area_id")
+  commonArea   CommonArea        @relation(fields: [commonAreaId], references: [id], onDelete: Cascade)
+  residentId   Int               @map("resident_id")
+  resident     Resident          @relation(fields: [residentId], references: [id], onDelete: Cascade)
+  startTime    DateTime          @map("start_time") @db.Timestamptz(6)
+  endTime      DateTime          @map("end_time") @db.Timestamptz(6)
+  status       ReservationStatus @default(CONFIRMED)
+  notes        String?           @db.Text
+  attendees    Int               @default(1)
+  createdAt    DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([commonAreaId, startTime, endTime])
+  @@index([residentId])
+  @@map("reservations")
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
 }
 
 enum UnitType {
@@ -111,7 +153,6 @@ enum EmployeeRole {
   MAINTENANCE
   GARDENER
   RECEPTIONIST
-
 }
 
 enum PropertyType {

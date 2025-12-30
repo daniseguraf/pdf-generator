@@ -15,6 +15,7 @@ export const TableSkeleton = () => (
             </div>
           </Group>
         </Table.Td>
+
         <Table.Td>
           <Skeleton height={14} width={200} />
         </Table.Td>

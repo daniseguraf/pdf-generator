@@ -1,1264 +1,943 @@
-# 🗺️ Development Roadmap - Building Management System
+# Plan MVP - Sistema de Gestión de Edificios (Portfolio Fullstack)
 
-> **Stack:** NestJS, React, TypeScript, Mantine, TanStack Query, Prisma, PostgreSQL
-> **Goal:** Fully functional and deployed fullstack application
+## 🎯 Objetivo
 
----
+Crear un sistema funcional y desplegado que demuestre habilidades fullstack completas. Cada fase implementa un feature completo (Backend + Frontend) para tener funcionalidad demostrable desde el inicio.
 
-## 🎯 Key Milestones
-
-| Milestone                    | Status     |
-| ---------------------------- | ---------- |
-| 🏗️ Complete Setup            | ✅ Done    |
-| 🏢 Buildings CRUD Functional | ⏳ Pending |
-| 👥 Residents Management      | ⏳ Pending |
-| 📅 Booking System            | ⏳ Pending |
-| 🎫 Tickets System            | ⏳ Pending |
-| 🔐 Authentication Complete   | ⏳ Pending |
-| 🚀 First Deployed Version    | ⏳ Pending |
-| 📝 Final Documentation       | ⏳ Pending |
-| 🌐 UX & i18n Complete        | ⏳ Pending |
+**Tiempo estimado: 9-13 días (2 semanas)**
 
 ---
 
-# 📅 WEEK 1: Setup and Foundations
-
-**Goal:** Both projects running, connected, with basic data models ready.
-
-### Backend Setup
-
-- [x] Initialize NestJS project
-  - [x] Install NestJS CLI globally
-  - [x] Create new project
-  - [x] Install core dependencies
-
-- [x] Configure Docker Compose
-  - [x] PostgreSQL container setup
-  - [x] Volume configuration for data persistence
-  - [x] Network configuration
-
-- [x] Install and configure Prisma
-  - [x] Install Prisma dependencies
-  - [x] Initialize Prisma
-  - [x] Configure database connection
-
-- [x] Configure environment variables
-  - [x] Create `.env` file for development
-  - [x] Create `.env.template` for reference
-  - [x] Add to `.gitignore`
-  - [x] Configure eslint-plugin-unused-imports
-
-### Frontend Setup
-
-- [x] Initialize Vite + React + TypeScript project
-  - [x] Create new project with Vite
-  - [x] Configure TypeScript
-
-- [x] Install main dependencies
-  - [x] Mantine core and hooks
-  - [x] Mantine notifications and dates
-  - [x] TanStack Query
-  - [x] Axios
-  - [x] React Router
-
-- [x] Configure import aliases in `vite.config.ts`
-  - [x] Setup `@/` path alias
-  - [x] Configure resolve aliases
-  - [x] Configure eslint-plugin-unused-imports
-
-- [x] Create folder structure following architecture
-  - [x] `/features` directory
-  - [x] `/components` directory
-  - [x] `/lib` directory
-  - [x] `/hooks` directory
-  - [x] `/types` directory
-
-- [x] Configure Mantine Provider and theme
-  - [x] Setup MantineProvider
-  - [x] Create custom theme
-  - [x] Configure global styles
-
-### Validation
-
-- [x] Backend responds at `http://localhost:3000`
-- [x] Frontend runs at `http://localhost:5173`
-- [x] Successful connection to PostgreSQL
-- [x] Hot reload working in both projects
-
----
-
-### Backend - Prisma Schema
-
-- [x] Design and create complete schema in `schema.prisma`
-  - [x] `User` model (id, email, password, role, firstName, lastName, createdAt, updatedAt)
-  - [x] `Building` model (id, name, address, city, postalCode, floors, unitsCount, phoneNumber, email, isActive, createdAt, updatedAt)
-  - [x] `Unit` model (id, buildingId, number, floor, type, status, createdAt, updatedAt)
-  - [x] `CommonArea` model (id, buildingId, name, description, capacity, isActive, createdAt, updatedAt)
-  - [x] `Staff` model (id, buildingId, userId, role, startDate, endDate)
-  - [x] `UserRole` enum (ADMIN, MANAGER, RESIDENT, STAFF)
-  - [x] `UnitType` enum (APARTMENT, OFFICE, COMMERCIAL)
-  - [x] `UnitStatus` enum (AVAILABLE, OCCUPIED, MAINTENANCE)
-  - [x] `StaffRole` enum (MANAGER, SECURITY, MAINTENANCE, OTHER)
-
-- [x] Run initial migration
-  - [x] Generate migration
-  - [x] Apply migration to database
-  - [x] Verify schema in database
-
-- [x] Setup Prisma Service
-  - [x] Create PrismaService
-  - [x] Setup lifecycle hooks
-  - [x] Share TS types in frontend and backend
-
-### Frontend - Base Configuration
-
-- [x] Setup basic routing
-  - [x] Install React Router
-  - [x] Create router configuration
-  - [x] Define initial routes structure
-  - [x] Create placeholder pages
-
-- [x] Create base layout components
-  - [x] AppShell with header and sidebar
-  - [x] Basic navigation menu
-  - [x] Page layout wrapper
-
-- [x] Configure Axios client in `lib/axios.ts`
-  - [x] Create axios instance
-  - [x] Set baseURL from environment variables
-  - [x] Configure default headers
-  - [x] Setup interceptors (placeholder for auth later)
-
-- [x] Setup React Query
-  - [x] Create QueryClient configuration
-  - [x] Setup QueryClientProvider
-  - [x] Install React Query DevTools
-
-### Week 1 Validation
-
-- [x] Database schema created and seeded
-- [x] Both projects communicate successfully
-- [x] Basic routing works
-- [x] Development environment stable
-- [x] Can query data from backend to frontend
-
----
-
-# 📅 WEEK 2: Buildings and Common Areas CRUD
-
-**Goal:** Complete management system for buildings and common areas.
-
-### Backend
-
-- [x] Create Buildings module with full CRUD
-  - [x] Generate resource with NestJS CLI
-  - [x] Setup module, service, controller
-
-- [x] Implement DTOs
-  - [x] `CreateBuildingDto` with all fields
-  - [x] `UpdateBuildingDto` as partial
-  - [x] Add class-validator decorators
-  - [x] Custom validation rules
-
-- [x] Implement Buildings Service
-  - [x] `findAll()` method
-  - [x] `findOne(id)` method with relations
-  - [x] `create(dto)` method
-  - [x] `update(id, dto)` method
-  - [x] `remove(id)` method (soft delete)
-
-- [x] Implement Buildings Controller
-  - [x] `GET /buildings` - basic buildings list
-  - [x] `GET /buildings/:id` - get one with relations
-  - [x] `POST /buildings` - create new building
-  - [x] `PATCH /buildings/:id` - update building
-  - [x] `DELETE /buildings/:id` - soft delete building
-
-### Frontend
-
-- [x] Create `features/buildings/` structure
-  - [x] Create `building.types.ts` with interfaces
-  - [x] Create `buildings.service.ts` with API calls
-  - [x] Create custom hooks:
-    - [x] `useBuildings.ts` (query for list)
-    - [x] `useBuilding.ts` (query for single)
-    - [x] `useCreateBuilding.ts` (mutation)
-    - [x] `useUpdateBuilding.ts` (mutation)
-    - [x] `useDeleteBuilding.ts` (mutation)
-
-- [x] Create Buildings Components
-  - [x] `BuildingTable.tsx` - table with Mantine
-    - [x] Columns: photo, building name, address, manager, type, actions
-    - [x] Actions: view and delete buttons
-    - [x] Loading skeleton
-    - [x] Empty state
-  - [x] `BuildingForm.tsx` - modal form
-    - [x] Model fields as inputs
-    - [x] Validations with Mantine useForm
-    - [x] Handle create and edit modes
-  - [x] `DeleteBuildingDialog.tsx` - confirmation modal
-
-- [x] Create Pages
-  - [x] `BuildingsListPage.tsx`
-    - [x] Page header with "New Building" button
-    - [x] Buildings table
-    - [x] Handle modals (create, edit, delete)
-  - [x] `BuildingDetailPage.tsx`
-    - [x] Building general info
-    - [x] Tabs: Genera Information, Financial, Common Areas, Staff (placeholder for now)
-    - [x] Edit button
-    - [x] Back button
-
----
-
-### Backend
-
-- [ ] Create CommonAreas module
-  - [ ] Generate resource with NestJS CLI
-  - [ ] Setup module, service, controller
-
-- [ ] Implement DTOs
-  - [ ] `CreateCommonAreaDto`
-  - [ ] `UpdateCommonAreaDto`
-  - [ ] Validations
-
-- [ ] Implement CommonAreas Service
-  - [ ] `findAll()` with buildingId filter
-  - [ ] `findOne(id)`
-  - [ ] `create(dto)` - validate buildingId exists
-  - [ ] `update(id, dto)`
-  - [ ] `remove(id)` - soft delete
-
-- [ ] Implement CommonAreas Controller
-  - [ ] `GET /common-areas?buildingId=xxx` - list by building
-  - [ ] `GET /common-areas/:id` - get one
-  - [ ] `POST /common-areas` - create
-  - [ ] `PATCH /common-areas/:id` - update
-  - [ ] `DELETE /common-areas/:id` - delete
-
-### Frontend
-
-- [ ] Create `features/common-areas/` structure
-  - [ ] Types, services, hooks (same pattern)
-
-- [ ] Create Components
-  - [ ] `CommonAreaCard.tsx` - card with info
-  - [ ] `CommonAreaForm.tsx` - form modal
-  - [ ] `CommonAreasList.tsx` - list/grid view
-
-- [ ] Integrate into BuildingDetailPage
-  - [ ] "Common Areas" tab
-  - [ ] List areas for the building
-  - [ ] Button to add new area
-  - [ ] Edit/delete area actions
-
-### Validation
-
-- [ ] Buildings CRUD complete
-- [ ] Common Areas CRUD complete
-- [ ] Building → Common Areas relationship works
-- [ ] Smooth navigation between views
-- [ ] Errors handled properly
-
----
-
-# 📅 WEEK 3: Units and Residents Management
-
-**Goal:** Units management system and resident assignment.
-
-### Backend
-
-- [ ] Create Units module
-  - [ ] Generate resource
-  - [ ] Setup module, service, controller
-
-- [ ] Implement DTOs
-  - [ ] `CreateUnitDto` (buildingId, number, floor, type, status)
-  - [ ] `UpdateUnitDto`
-  - [ ] Validation rules
-
-- [ ] Implement Units Service
-  - [ ] `findAll()` with buildingId filter
-  - [ ] `findOne(id)` including building relation
-  - [ ] `create(dto)` - validate unique number per building
-  - [ ] `update(id, dto)`
-  - [ ] `updateStatus(id, status)` - change unit status
-  - [ ] `remove(id)`
-
-- [ ] Implement Units Controller
-  - [ ] Standard CRUD endpoints
-  - [ ] `PATCH /units/:id/status` - change status
-
-### Frontend
-
-- [ ] Create `features/units/` structure
-  - [ ] Types, services, hooks
-
-- [ ] Create Components
-  - [ ] `UnitCard.tsx` - card with status badge
-  - [ ] `UnitForm.tsx` - form modal
-  - [ ] `UnitsGrid.tsx` - grid layout
-  - [ ] `UnitStatusBadge.tsx` - colored status badge
-
-- [ ] Integrate into BuildingDetailPage
-  - [ ] "Units" tab
-  - [ ] Grid of units
-  - [ ] Filter by floor/status
-  - [ ] Add/edit units
-
----
-
-### Backend
-
-- [ ] Update Prisma schema
-  - [ ] Create `ResidentUnit` model (many-to-many with history)
-    - [ ] Fields: id, userId, unitId, startDate, endDate, isActive
-  - [ ] Add relations: User ↔ ResidentUnit ↔ Unit
-  - [ ] Run migration
-
-- [ ] Create Residents module
-  - [ ] Generate resource
-  - [ ] Setup module, service, controller
-
-- [ ] Implement Residents Service
-  - [ ] `assignToUnit(userId, unitId)` - assign resident
-  - [ ] `unassignFromUnit(userId, unitId)` - unassign
-  - [ ] `findUnitsByResident(userId)` - resident's units
-  - [ ] `findResidentsByUnit(unitId)` - unit's residents
-  - [ ] `getResidentHistory(userId)` - history timeline
-
-- [ ] Implement Residents Controller
-  - [ ] `POST /residents/assign` - assign to unit
-  - [ ] `POST /residents/unassign` - unassign from unit
-  - [ ] `GET /residents/:id/units` - resident's units
-  - [ ] `GET /units/:id/residents` - unit's residents
-  - [ ] `GET /residents/:id/history` - assignment history
-
-### Frontend
-
-- [ ] Create `features/residents/` structure
-  - [ ] Types, services, hooks
-
-- [ ] Create Components
-  - [ ] `ResidentSelector.tsx` - autocomplete for users
-  - [ ] `AssignResidentModal.tsx` - assignment modal
-  - [ ] `ResidentsList.tsx` - residents list
-  - [ ] `ResidentHistory.tsx` - timeline component
-
-- [ ] Create Page
-  - [ ] `ResidentsPage.tsx`
-    - [ ] List all residents
-    - [ ] View assigned units
-    - [ ] Assign to unit button
-
-- [ ] Integrate into UnitDetailPage
-  - [ ] "Current Residents" section
-  - [ ] "Assign Resident" button
-  - [ ] Resident history
-
-### Week 3 Validation
-
-- [ ] Units CRUD complete
-- [ ] Resident assignment works
-- [ ] Resident history is saved
-- [ ] UI shows relationships correctly
-- [ ] Business validations (no duplicate assignments)
-
----
-
-# 📅 WEEK 4: Booking System
-
-**Goal:** Functional calendar-based booking system for common areas.
-
-### Backend
-
-- [ ] Update Prisma schema
-  - [ ] Create `Booking` model
-    - [ ] Fields: id, commonAreaId, userId, date, startTime, endTime, status, notes, createdAt
-  - [ ] Create `BookingStatus` enum (PENDING, CONFIRMED, CANCELLED, COMPLETED)
-  - [ ] Add relations
-  - [ ] Run migration
-
-- [ ] Create Bookings module
-  - [ ] Generate resource
-  - [ ] Setup module, service, controller
-
-- [ ] Implement business logic
-  - [ ] Validate no overlapping bookings
-  - [ ] Validate allowed time slots
-  - [ ] Validate minimum advance booking time
-  - [ ] User limits (e.g., max 2 active bookings)
-
-- [ ] Implement Bookings Service
-  - [ ] `findAll()` with filters (userId, commonAreaId, date)
-  - [ ] `findOne(id)`
-  - [ ] `create(dto)` with business validations
-  - [ ] `updateStatus(id, status)` - change booking status
-  - [ ] `cancel(id)` - cancel booking
-  - [ ] `getAvailableSlots(commonAreaId, date)` - return available time slots
-
-- [ ] Implement Bookings Controller
-  - [ ] `GET /bookings` - list with filters
-  - [ ] `GET /bookings/:id` - detail
-  - [ ] `POST /bookings` - create new booking
-  - [ ] `PATCH /bookings/:id/status` - approve/reject (admin/manager)
-  - [ ] `DELETE /bookings/:id` - cancel
-  - [ ] `GET /bookings/available-slots` - get available slots
-
-- [ ] Create seeders with test data
-  - [ ] 1 admin user (without password for now)
-  - [ ] 3 sample buildings
-  - [ ] 10 units per building
-  - [ ] 5 common areas per building
-  - [ ] Run seed script
-
-### Backend Validation
-
-- [ ] Doesn't allow overlapping bookings
-- [ ] Validates time slots
-- [ ] Booking states work correctly
-
----
-
-### Frontend
-
-- [ ] Create `features/bookings/` structure
-  - [ ] Types, services, hooks
-
-- [ ] Create Components
-  - [ ] `BookingCalendar.tsx` - calendar with Mantine DatePicker
-    - [ ] Monthly view
-    - [ ] Availability indicators
-    - [ ] Click on date opens modal
-  - [ ] `BookingForm.tsx` - booking form
-    - [ ] Common area selector
-    - [ ] Date and time pickers
-    - [ ] Real-time validations
-    - [ ] Notes field
-  - [ ] `BookingCard.tsx` - booking card
-  - [ ] `BookingsList.tsx` - bookings list
-  - [ ] `BookingStatusBadge.tsx` - status badge
-
-- [ ] Create Pages
-  - [ ] `BookingsPage.tsx` (for residents)
-    - [ ] Availability calendar
-    - [ ] My bookings section
-    - [ ] Create new booking button
-  - [ ] `BookingsManagementPage.tsx` (for admin/manager)
-    - [ ] All bookings list
-    - [ ] Filters by status/area/date
-    - [ ] Approve/reject buttons
-
-- [ ] Additional Features
-  - [ ] Auto-refresh calendar every 30 seconds
-  - [ ] Real-time validations
-  - [ ] Confirmation before cancel
-  - [ ] Success/error notifications
-
-### Week 4 Validation
-
-- [ ] Calendar shows correct availability
-- [ ] Residents can create bookings
-- [ ] Admins can approve/reject
-- [ ] No overlapping bookings allowed
-- [ ] UI is responsive and smooth
-
----
-
-# 📅 WEEK 5: Staff and Tickets Management
-
-**Goal:** Staff management and tickets/incidents system.
-
-### Backend
-
-- [ ] Create Staff module (using existing Staff model)
-  - [ ] Generate resource
-  - [ ] Setup module, service, controller
-
-- [ ] Implement DTOs
-  - [ ] `CreateStaffDto` (userId, buildingId, role, startDate)
-  - [ ] `UpdateStaffDto`
-
-- [ ] Implement Staff Service
-  - [ ] `findAll()` with buildingId filter
-  - [ ] `findOne(id)`
-  - [ ] `create(dto)` - assign staff to building
-  - [ ] `update(id, dto)`
-  - [ ] `remove(id)` - soft delete
-
-- [ ] Implement Staff Controller
-  - [ ] Standard CRUD endpoints
-  - [ ] `GET /staff?buildingId=xxx` - filter by building
-
-### Frontend
-
-- [ ] Create `features/staff/` structure
-  - [ ] Types, services, hooks
-
-- [ ] Create Components
-  - [ ] `StaffCard.tsx` - staff member card
-  - [ ] `StaffForm.tsx` - form modal
-  - [ ] `StaffList.tsx` - staff list
-
-- [ ] Integrate into BuildingDetailPage
-  - [ ] "Staff" tab
-  - [ ] List assigned staff
-  - [ ] Add/edit/remove staff
-
----
-
-### Backend
-
-- [ ] Update Prisma schema
-  - [ ] Create `Ticket` model
-    - [ ] Fields: id, buildingId, unitId (nullable), reportedBy (userId), assignedTo (staffId nullable), title, description, priority, status, createdAt, updatedAt, resolvedAt
-  - [ ] Create `TicketComment` model
-    - [ ] Fields: id, ticketId, userId, content, createdAt
-  - [ ] Create `TicketPriority` enum (LOW, MEDIUM, HIGH, URGENT)
-  - [ ] Create `TicketStatus` enum (OPEN, IN_PROGRESS, RESOLVED, CLOSED)
-  - [ ] Run migration
-
-- [ ] Create Tickets module
-  - [ ] Generate resource
-  - [ ] Setup module, service, controller
-
-- [ ] Implement Tickets Service
-  - [ ] `findAll()` with multiple filters
-  - [ ] `findOne(id)` including comments
-  - [ ] `create(dto)` - create ticket
-  - [ ] `update(id, dto)`
-  - [ ] `updateStatus(id, status)` - change status
-  - [ ] `assignToStaff(id, staffId)` - assign ticket
-  - [ ] `addComment(ticketId, userId, content)` - add comment
-  - [ ] `getTicketsByBuilding(buildingId)` - filter by building
-
-- [ ] Implement Tickets Controller
-  - [ ] `GET /tickets` - list with filters
-  - [ ] `GET /tickets/:id` - detail with comments
-  - [ ] `POST /tickets` - create (any authenticated user)
-  - [ ] `PATCH /tickets/:id` - update
-  - [ ] `PATCH /tickets/:id/status` - change status
-  - [ ] `PATCH /tickets/:id/assign` - assign to staff
-  - [ ] `POST /tickets/:id/comments` - add comment
-
-### Frontend
-
-- [ ] Create `features/tickets/` structure
-  - [ ] Types, services, hooks
-
-- [ ] Create Components
-  - [ ] `TicketCard.tsx` - ticket card
-  - [ ] `TicketForm.tsx` - create ticket form
-  - [ ] `TicketDetail.tsx` - detail view
-  - [ ] `TicketComments.tsx` - comments section
-  - [ ] `CommentForm.tsx` - add comment form
-  - [ ] `TicketFilters.tsx` - filters component
-  - [ ] `TicketStatusBadge.tsx` - status badge
-  - [ ] `TicketPriorityBadge.tsx` - priority badge
-
-- [ ] Create Pages
-  - [ ] `TicketsPage.tsx` (for residents)
-    - [ ] My tickets
-    - [ ] Create new ticket button
-  - [ ] `TicketsManagementPage.tsx` (for admin/manager/staff)
-    - [ ] All tickets list
-    - [ ] Advanced filters
-    - [ ] Assign tickets
-    - [ ] Change status
-  - [ ] `TicketDetailPage.tsx`
-    - [ ] Complete ticket info
-    - [ ] Comments thread
-    - [ ] Actions based on role
-
-### Week 5 Validation
-
-- [ ] Staff CRUD works
-- [ ] Tickets system operational
-- [ ] Ticket assignment to staff works
-- [ ] Comments work correctly
-- [ ] Status changes are logged
-- [ ] Multiple filters work
-
----
-
-# 📅 WEEK 6: Authentication and Authorization
-
-**Goal:** Complete authentication system with role-based access control.
-
-### Backend
-
-- [ ] Create Auth module
-  - [ ] Generate module, service, controller
-  - [ ] Install JWT and Passport dependencies
-
-- [ ] Implement registration
-  - [ ] `POST /auth/register` endpoint
-  - [ ] Data validation with class-validator
-  - [ ] Password hashing with bcrypt
-  - [ ] Create user in database
-  - [ ] Return user data (without password)
-
-- [ ] Implement login
-  - [ ] `POST /auth/login` endpoint
-  - [ ] Validate credentials
-  - [ ] Compare hashed password
-  - [ ] Generate JWT token
-  - [ ] Return user + access_token
-
-- [ ] Implement JWT Strategy
-  - [ ] Create JwtStrategy class
-  - [ ] Configure JWT verification
-  - [ ] Extract user from token
-  - [ ] Create JwtAuthGuard
-
-- [ ] Implement Role-Based Guards
-  - [ ] Create `@Roles()` decorator
-  - [ ] Create RolesGuard
-  - [ ] Validate user roles from token
-
-- [ ] Protect existing endpoints
-  - [ ] Add `@UseGuards(JwtAuthGuard)` to controllers
-  - [ ] Add `@Roles()` decorator where needed
-  - [ ] Buildings: ADMIN, MANAGER can create/edit/delete
-  - [ ] Bookings: RESIDENT can create, ADMIN/MANAGER can approve
-  - [ ] Tickets: Any authenticated user can create
-  - [ ] Staff: ADMIN only
-
-### Backend Validation
-
-- [ ] Register creates user correctly
-- [ ] Login returns valid JWT
-- [ ] Protected routes require token
-- [ ] Role-based access works
-- [ ] Invalid tokens are rejected
-
----
-
-### Frontend
-
-- [ ] Create `features/auth/` structure
-  - [ ] `auth.types.ts` (User, LoginDto, RegisterDto, AuthResponse)
-  - [ ] `auth.service.ts` (login, register, logout, getCurrentUser)
-  - [ ] `useAuth.ts` (context hook)
-  - [ ] `useLogin.ts` (login mutation)
-  - [ ] `useRegister.ts` (register mutation)
-
-- [ ] Implement AuthContext
-  - [ ] State: user, token, isAuthenticated, isLoading
+## 🏗️ FASE 1: Autenticación y Login (2-3 días)
+
+> **Objetivo:** Sistema de autenticación completo funcionando end-to-end
+
+### Backend - User Model y Auth
+
+- [ ] Actualizar Prisma Schema
+  - [ ] Abrir [`packages/backend/prisma/schema.prisma`](packages/backend/prisma/schema.prisma)
+  - [ ] Agregar modelo User:
+
+    ```prisma
+    model User {
+      id        Int      @id @default(autoincrement())
+      email     String   @unique
+      password  String
+      firstName String   @map("first_name")
+      lastName  String   @map("last_name")
+      role      UserRole @default(RESIDENT)
+      isActive  Boolean  @default(true) @map("is_active")
+      createdAt DateTime @default(now()) @map("created_at")
+      updatedAt DateTime @updatedAt @map("updated_at")
+
+      @@map("users")
+    }
+    ```
+
+  - [ ] Ejecutar migración: `cd packages/backend && npx prisma migrate dev --name add_user_model`
+
+- [ ] Instalar dependencias JWT
+
+  ```bash
+  cd packages/backend
+  pnpm add @nestjs/jwt @nestjs/passport passport passport-jwt bcrypt
+  pnpm add -D @types/passport-jwt @types/bcrypt
+  ```
+
+- [ ] Generar módulo Auth
+  - [ ] `nest g module auth`
+  - [ ] `nest g service auth --no-spec`
+  - [ ] `nest g controller auth --no-spec`
+
+- [ ] Crear DTOs en `src/auth/dto/`
+  - [ ] `RegisterDto` - email, password, firstName, lastName
+  - [ ] `LoginDto` - email, password
+  - [ ] Agregar decoradores de validación
+
+- [ ] Implementar `auth.service.ts`
+  - [ ] Inyectar PrismaService y JwtService
+  - [ ] `register(dto)` - hashear password (bcrypt, 10 rounds), crear usuario
+  - [ ] `login(dto)` - validar credenciales, generar JWT
+  - [ ] `validateUser(email, password)` - comparar hash
+  - [ ] `generateToken(user)` - payload: { sub: user.id, email, role }
+
+- [ ] Crear `jwt.strategy.ts`
+  - [ ] Extender PassportStrategy(Strategy)
+  - [ ] Constructor con secretOrKey desde env
+  - [ ] Método validate(payload) - retornar user desde DB
+
+- [ ] Crear guards en `src/auth/guards/`
+  - [ ] `jwt-auth.guard.ts` - extender AuthGuard('jwt')
+  - [ ] `roles.guard.ts` - verificar roles del usuario
+
+- [ ] Crear decorators en `src/auth/decorators/`
+  - [ ] `roles.decorator.ts` - `@Roles(...roles: string[])`
+  - [ ] `current-user.decorator.ts` - `@CurrentUser()` extrae req.user
+
+- [ ] Implementar `auth.controller.ts`
+  - [ ] `POST /auth/register` - público
+  - [ ] `POST /auth/login` - público, retorna { user, access_token }
+  - [ ] `GET /auth/me` - protegido con @UseGuards(JwtAuthGuard)
+
+- [ ] Configurar AuthModule
+  - [ ] Importar JwtModule.register({ secret, signOptions: { expiresIn: '24h' } })
+  - [ ] Importar PassportModule
+  - [ ] Providers: AuthService, JwtStrategy
+  - [ ] Exports: AuthService, JwtStrategy
+
+- [ ] Registrar en `app.module.ts`
+
+- [ ] Configurar CORS en `main.ts`
+  - [ ] `app.enableCors({ origin: process.env.CORS_ORIGIN || 'http://localhost:5173', credentials: true })`
+
+### Frontend - Auth Module
+
+- [ ] Crear estructura `packages/frontend/src/features/auth/`
+  - [ ] `types/auth.types.ts`
+  - [ ] `services/auth.service.ts`
+  - [ ] `context/AuthContext.tsx`
+  - [ ] `components/LoginForm.tsx`
+  - [ ] `components/RegisterForm.tsx`
+  - [ ] `pages/LoginPage.tsx`
+  - [ ] `pages/RegisterPage.tsx`
+
+- [ ] Crear tipos en `types/auth.types.ts`
+
+  ```typescript
+  export interface User {
+    id: number
+    email: string
+    firstName: string
+    lastName: string
+    role: string
+  }
+
+  export interface LoginDto {
+    email: string
+    password: string
+  }
+
+  export interface RegisterDto {
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+  }
+
+  export interface AuthResponse {
+    user: User
+    access_token: string
+  }
+  ```
+
+- [ ] Crear servicio `services/auth.service.ts`
+  - [ ] `login(dto: LoginDto)` - POST /auth/login
+  - [ ] `register(dto: RegisterDto)` - POST /auth/register
+  - [ ] `getMe()` - GET /auth/me
+  - [ ] `logout()` - helper para limpiar estado
+
+- [ ] Configurar Axios en [`lib/axios.ts`](packages/frontend/src/lib/axios.ts)
+  - [ ] Request interceptor: agregar Authorization header
+    ```typescript
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    ```
+  - [ ] Response interceptor: capturar 401
+    ```typescript
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token')
+      window.location.href = '/login'
+    }
+    ```
+
+- [ ] Crear AuthContext en `context/AuthContext.tsx`
+  - [ ] Estado: user, token, isAuthenticated, isLoading
   - [ ] Actions: login, logout, checkAuth
-  - [ ] Store token in localStorage
-  - [ ] Restore session on app load
+  - [ ] Guardar token en localStorage
+  - [ ] useEffect para restaurar sesión al montar
 
-- [ ] Update Axios configuration
-  - [ ] Request interceptor to add Authorization header
-  - [ ] Response interceptor to handle 401 errors
-  - [ ] Redirect to login on unauthorized
+- [ ] Crear `components/LoginForm.tsx`
+  - [ ] useForm de Mantine
+  - [ ] Campos: email (validación email), password (min 6)
+  - [ ] useMutation para login
+  - [ ] Mostrar errores con notificaciones
+  - [ ] Al éxito: guardar token, navegar a /
 
-- [ ] Create Auth Components
-  - [ ] `LoginForm.tsx`
-    - [ ] Email and password fields
-    - [ ] Validations
-    - [ ] Submit handling
-    - [ ] Link to register
-  - [ ] `RegisterForm.tsx`
-    - [ ] User info fields
-    - [ ] Password confirmation
-    - [ ] Submit handling
-    - [ ] Link to login
+- [ ] Crear `components/RegisterForm.tsx`
+  - [ ] Campos: email, password, confirmPassword, firstName, lastName
+  - [ ] Validación: passwords match
+  - [ ] useMutation para register
+  - [ ] Al éxito: auto-login o navegar a /login
 
-- [ ] Create Auth Pages
-  - [ ] `LoginPage.tsx` - login form layout
-  - [ ] `RegisterPage.tsx` - register form layout
+- [ ] Crear `pages/LoginPage.tsx`
+  - [ ] Layout centrado con Paper de Mantine
+  - [ ] LoginForm
+  - [ ] Link a /register
 
-- [ ] Implement ProtectedRoute component
-  - [ ] Check authentication state
-  - [ ] Redirect to login if not authenticated
-  - [ ] Check user roles if specified
-  - [ ] Show unauthorized message if insufficient permissions
+- [ ] Crear `pages/RegisterPage.tsx`
+  - [ ] Layout similar
+  - [ ] RegisterForm
+  - [ ] Link a /login
 
-- [ ] Update Router configuration
-  - [ ] `/login` - public route
-  - [ ] `/register` - public route
-  - [ ] All other routes wrapped in ProtectedRoute
-  - [ ] Role-based route protection
+- [ ] Crear `components/ProtectedRoute.tsx`
 
-- [ ] Add user menu to AppShell
-  - [ ] User avatar/name display
-  - [ ] Dropdown menu
-  - [ ] Logout button
-  - [ ] Profile link (placeholder)
+  ```typescript
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+  return <>{children}</>;
+  ```
 
-### Frontend Validation
+- [ ] Actualizar rutas en `src/app/routes/`
+  - [ ] Rutas públicas: /login, /register
+  - [ ] Rutas protegidas: wrap con ProtectedRoute
 
-- [ ] User can register
-- [ ] User can login
-- [ ] JWT is stored in localStorage
-- [ ] Token is sent with requests
-- [ ] Protected routes redirect to login
-- [ ] User menu shows current user
-- [ ] Logout clears session
+- [ ] Agregar User Menu en header
+  - [ ] Menu de Mantine con avatar
+  - [ ] Mostrar nombre del usuario
+  - [ ] Item: Logout (onClick → logout del context)
 
-### Week 6 Validation
+- [ ] Envolver app con AuthProvider en `main.tsx` o `App.tsx`
 
-- [ ] Complete authentication flow works
-- [ ] Role-based access control functional
-- [ ] Token refresh/expiry handled
-- [ ] All previous features still work with auth
-- [ ] UI shows/hides features based on roles
+### Testing Fase 1
 
----
+- [ ] Backend: Probar con Postman/Insomnia
+  - [ ] POST /auth/register → crea usuario
+  - [ ] POST /auth/login → retorna token
+  - [ ] GET /auth/me → retorna usuario (con token)
 
-# 📅 WEEK 7: Dashboard and Deployment V1
-
-**Goal:** Dashboard with metrics and application deployed.
-
-### Backend
-
-- [ ] Create Dashboard module
-  - [ ] Generate module, controller, service
-
-- [ ] Implement statistics service
-  - [ ] `getGeneralStats()` - overall statistics
-    - [ ] Total buildings, units, residents, staff
-    - [ ] Active bookings, open tickets
-  - [ ] `getBuildingStats(buildingId)` - building-specific stats
-    - [ ] Occupancy rate
-    - [ ] Active tickets
-    - [ ] Bookings this month
-  - [ ] `getTicketsStats()` - tickets statistics
-    - [ ] By status, by priority
-    - [ ] Average resolution time
-    - [ ] Open vs closed ratio
-  - [ ] `getBookingsStats()` - bookings statistics
-    - [ ] Bookings per month
-    - [ ] Most used areas
-    - [ ] Usage trends
-  - [ ] `getRecentActivity()` - recent activity feed
-    - [ ] Latest tickets, bookings, changes
-
-- [ ] Implement Dashboard controller
-  - [ ] `GET /dashboard/stats` - general statistics
-  - [ ] `GET /dashboard/buildings/:id/stats` - building stats
-  - [ ] `GET /dashboard/recent-activity` - activity feed
-
-### Frontend
-
-- [ ] Create `features/dashboard/` structure
-  - [ ] Types, services, hooks
-
-- [ ] Create Dashboard Components
-  - [ ] `StatsCard.tsx` - statistics card
-    - [ ] Large number display
-    - [ ] Icon
-    - [ ] Optional trend indicator
-  - [ ] `RecentActivityList.tsx` - activity feed
-  - [ ] `TicketsChart.tsx` - tickets chart (pie or bar)
-  - [ ] `BookingsChart.tsx` - bookings chart (line or bar)
-  - [ ] `OccupancyChart.tsx` - building occupancy
-
-- [ ] Create DashboardPage
-  - [ ] `DashboardPage.tsx`
-    - [ ] Grid of stat cards (4 main KPIs)
-    - [ ] Charts section with Mantine Charts or Recharts
-    - [ ] Recent activity feed
-    - [ ] Role-based view (different for ADMIN vs RESIDENT)
-
-### Validation
-
-- [ ] Dashboard shows correct metrics
-- [ ] Charts render properly
-- [ ] Stats update on refetch
-- [ ] Loading states work
+- [ ] Frontend: Probar flujo completo
+  - [ ] Abrir /login
+  - [ ] Login con credenciales
+  - [ ] Verificar redirect a home
+  - [ ] Verificar token en localStorage
+  - [ ] Logout y verificar redirect
 
 ---
 
-### Backend Deployment Preparation
+## 🏢 FASE 2: Buildings CRUD Completo (2-3 días)
 
-- [ ] Prepare for production
-  - [ ] Configure CORS for production frontend URL
-  - [ ] Setup environment variables validation
-  - [ ] Install Helmet for security headers
-  - [ ] Add rate limiting middleware
-  - [ ] Create health check endpoint (`GET /health`)
-  - [ ] Configure production logging
+> **Objetivo:** Gestión completa de edificios end-to-end con autenticación
 
-- [ ] Configure Railway/Render deployment
-  - [ ] Create account on chosen platform
-  - [ ] Create new project
+### Backend - Buildings Module
+
+- [ ] Mejorar [`buildings.service.ts`](packages/backend/src/buildings/buildings.service.ts)
+  - [ ] Método `create()`
+    - [ ] Envolver en try-catch
+    - [ ] Validar que managerId existe: `await this.prisma.employee.findUnique()`
+    - [ ] Si no existe: `throw new BadRequestException('Manager not found')`
+    - [ ] Capturar errores de Prisma (unique constraints)
+  - [ ] Método `update()`
+    - [ ] Agregar try-catch
+    - [ ] Verificar que building existe primero
+    - [ ] Si no existe: `throw new NotFoundException()`
+  - [ ] Método `remove()`
+    - [ ] Verificar que existe antes de soft delete
+    - [ ] Manejar errores apropiadamente
+
+- [ ] Proteger `buildings.controller.ts`
+  - [ ] Agregar `@UseGuards(JwtAuthGuard, RolesGuard)` a nivel de controller
+  - [ ] `@Roles('ADMIN', 'MANAGER')` en create, update, delete
+  - [ ] GET endpoints pueden ser accesibles por cualquier autenticado
+
+- [ ] Crear seeder inicial `prisma/seed.ts`
+  - [ ] Crear 1 usuario admin (email: admin@demo.com, pass: password123)
+  - [ ] Crear 1 empleado manager
+  - [ ] Crear 2 edificios
+  - [ ] Configurar en package.json: `"prisma": { "seed": "ts-node prisma/seed.ts" }`
+  - [ ] Ejecutar: `npx prisma db seed`
+
+### Frontend - Buildings Module
+
+- [ ] Verificar estructura existente en `features/buildings/`
+
+- [ ] Actualizar hooks de mutaciones
+  - [ ] `hooks/mutations/useCreateBuilding.ts`
+    - [ ] Agregar `onSuccess`: `notifications.show({ title: 'Éxito', message: 'Edificio creado' })`
+    - [ ] Agregar `onError`: `notifications.show({ title: 'Error', message: error.message, color: 'red' })`
+  - [ ] `hooks/mutations/useUpdateBuilding.ts`
+    - [ ] Agregar notificaciones similares
+  - [ ] `hooks/mutations/useDeleteBuilding.ts`
+    - [ ] Agregar confirmación con `modals.openConfirmModal()`
+    - [ ] Agregar notificaciones
+
+- [ ] Mejorar componentes existentes
+  - [ ] `components/BuildingForm/BuildingForm.tsx`
+    - [ ] Verificar validaciones completas
+    - [ ] Loading state en botón submit
+    - [ ] Deshabilitar form durante mutación
+  - [ ] `components/TableSkeleton.tsx`
+    - [ ] Usar mientras isLoading en useBuildings
+
+- [ ] Mejorar `pages/BuildingsListPage.tsx`
+  - [ ] Mostrar TableSkeleton si isLoading
+  - [ ] Mostrar `BuildingsEmptyState` si no hay datos
+  - [ ] Verificar botón "Nuevo Edificio" funciona
+  - [ ] Modal para create/edit con BuildingForm
+
+- [ ] Mejorar [`pages/BuildingDetailPage.tsx`](packages/frontend/src/features/buildings/pages/BuildingDetailPage.tsx)
+  - [ ] useBuilding hook para cargar detalle
+  - [ ] Tabs: "Información General", "Áreas Comunes" (vacío por ahora)
+  - [ ] Botón editar (abre modal)
+  - [ ] Botón eliminar (confirmación + delete mutation)
+
+### Testing Fase 2
+
+- [ ] Backend: Probar endpoints protegidos
+  - [ ] GET /buildings (con token) → lista edificios
+  - [ ] POST /buildings (sin token) → 401
+  - [ ] POST /buildings (con token RESIDENT) → 403
+  - [ ] POST /buildings (con token ADMIN) → crea edificio
+
+- [ ] Frontend: Probar CRUD completo
+  - [ ] Login como admin
+  - [ ] Listar edificios
+  - [ ] Crear nuevo edificio
+  - [ ] Editar edificio
+  - [ ] Ver detalle
+  - [ ] Eliminar edificio (con confirmación)
+
+---
+
+## 🏛️ FASE 3: Áreas Comunes (2 días)
+
+> **Objetivo:** CRUD de áreas comunes vinculadas a edificios
+
+### Backend - CommonAreas Module
+
+- [ ] Generar módulo
+  - [ ] `nest g resource common-areas --no-spec`
+
+- [ ] Crear DTOs en `src/common-areas/dto/`
+  - [ ] `CreateCommonAreaDto`
+    ```typescript
+    buildingId: number;
+    name: string;
+    description?: string;
+    capacity: number;
+    maxHoursPerReservation?: number;
+    openTime?: string; // HH:mm
+    closeTime?: string; // HH:mm
+    daysAvailable?: string[];
+    ```
+  - [ ] `UpdateCommonAreaDto` - PartialType
+  - [ ] Agregar decoradores de validación
+
+- [ ] Implementar `common-areas.service.ts`
+  - [ ] `findAll(buildingId?: number)`
+    - [ ] Si buildingId: filtrar `where: { buildingId }`
+    - [ ] Incluir relación building
+  - [ ] `findOne(id)` - incluir building
+  - [ ] `create(dto)`
+    - [ ] Validar que buildingId existe
+    - [ ] Crear área común
+  - [ ] `update(id, dto)` - actualizar
+  - [ ] `remove(id)` - soft delete (isActive = false)
+
+- [ ] Implementar `common-areas.controller.ts`
+  - [ ] `GET /common-areas?buildingId=xxx` - con @Query
+  - [ ] `GET /common-areas/:id`
+  - [ ] `POST /common-areas` - @UseGuards + @Roles('ADMIN', 'MANAGER')
+  - [ ] `PATCH /common-areas/:id` - @UseGuards + @Roles('ADMIN', 'MANAGER')
+  - [ ] `DELETE /common-areas/:id` - @UseGuards + @Roles('ADMIN', 'MANAGER')
+
+- [ ] Registrar en `app.module.ts`
+
+- [ ] Actualizar seeder
+  - [ ] Agregar 3 áreas comunes por cada edificio
+  - [ ] Ejemplos: "Salón de Eventos", "Piscina", "Gimnasio"
+
+### Frontend - CommonAreas Module
+
+- [ ] Crear estructura `features/common-areas/`
+  - [ ] `types/common-area.types.ts`
+  - [ ] `services/common-areas.service.ts`
+  - [ ] `hooks/queries/useCommonAreas.ts`
+  - [ ] `hooks/queries/useCommonArea.ts`
+  - [ ] `hooks/mutations/useCreateCommonArea.ts`
+  - [ ] `hooks/mutations/useUpdateCommonArea.ts`
+  - [ ] `hooks/mutations/useDeleteCommonArea.ts`
+  - [ ] `components/CommonAreaCard.tsx`
+  - [ ] `components/CommonAreaForm.tsx`
+  - [ ] `components/CommonAreasList.tsx`
+
+- [ ] Implementar tipos `types/common-area.types.ts`
+  - [ ] Interface CommonArea (todos los campos)
+  - [ ] Interface CreateCommonAreaDto
+  - [ ] Interface UpdateCommonAreaDto
+
+- [ ] Implementar servicio `services/common-areas.service.ts`
+  - [ ] `getCommonAreas(buildingId?: number)`
+  - [ ] `getCommonArea(id: number)`
+  - [ ] `createCommonArea(dto)`
+  - [ ] `updateCommonArea(id, dto)`
+  - [ ] `deleteCommonArea(id)`
+
+- [ ] Implementar hooks
+  - [ ] `useCommonAreas(buildingId?)` - useQuery
+  - [ ] `useCreateCommonArea()` - useMutation con notificaciones
+  - [ ] `useUpdateCommonArea()` - useMutation
+  - [ ] `useDeleteCommonArea()` - useMutation con confirmación
+
+- [ ] Crear `components/CommonAreaCard.tsx`
+  - [ ] Card de Mantine
+  - [ ] Mostrar: nombre, descripción, capacidad, horarios
+  - [ ] Badge: isActive
+  - [ ] Action buttons: editar, eliminar
+
+- [ ] Crear `components/CommonAreaForm.tsx`
+  - [ ] useForm de Mantine
+  - [ ] Campos: name, description, capacity, maxHoursPerReservation
+  - [ ] TimeInput para openTime y closeTime
+  - [ ] MultiSelect para daysAvailable
+  - [ ] Modo create y edit
+
+- [ ] Crear `components/CommonAreasList.tsx`
+  - [ ] Grid de CommonAreaCard
+  - [ ] Botón "Nueva Área Común"
+  - [ ] Modal con CommonAreaForm
+  - [ ] Empty state si no hay áreas
+
+- [ ] Integrar en `BuildingDetailPage.tsx`
+  - [ ] Tab "Áreas Comunes"
+  - [ ] Renderizar CommonAreasList
+  - [ ] Pasar buildingId como filtro
+
+### Testing Fase 3
+
+- [ ] Backend
+  - [ ] GET /common-areas?buildingId=1 → lista áreas del edificio
+  - [ ] POST /common-areas → crea área (solo ADMIN)
+
+- [ ] Frontend
+  - [ ] Ver detalle de edificio
+  - [ ] Tab "Áreas Comunes" muestra lista
+  - [ ] Crear nueva área común
+  - [ ] Editar área
+  - [ ] Eliminar área
+
+---
+
+## 📅 FASE 4: Sistema de Reservaciones (3-4 días)
+
+> **Objetivo:** Feature estrella - reservar áreas comunes con validaciones
+
+### Backend - Reservations Module
+
+- [ ] Generar módulo
+  - [ ] `nest g resource reservations --no-spec`
+
+- [ ] Crear DTOs en `src/reservations/dto/`
+  - [ ] `CreateReservationDto`
+    ```typescript
+    commonAreaId: number;
+    residentId: number;
+    startTime: Date;
+    endTime: Date;
+    attendees?: number;
+    notes?: string;
+    ```
+  - [ ] `FilterReservationsDto`
+    ```typescript
+    residentId?: number;
+    commonAreaId?: number;
+    buildingId?: number;
+    startDate?: Date;
+    endDate?: Date;
+    ```
+
+- [ ] Implementar validaciones en `reservations.service.ts`
+  - [ ] Helper: `validateNoOverlap(commonAreaId, startTime, endTime)`
+    - [ ] Query reservations con solapamiento
+    - [ ] WHERE commonAreaId AND status != CANCELLED
+    - [ ] AND ((startTime BETWEEN ? AND ?) OR (endTime BETWEEN ? AND ?))
+    - [ ] Si existe: throw ConflictException
+  - [ ] Helper: `validateTimeRules(commonArea, startTime, endTime)`
+    - [ ] Validar horario dentro de openTime/closeTime
+    - [ ] Validar duración <= maxHoursPerReservation
+    - [ ] Validar día está en daysAvailable
+  - [ ] Helper: `validateResident(residentId)`
+    - [ ] Verificar que resident existe
+  - [ ] Helper: `validateCommonArea(commonAreaId)`
+    - [ ] Verificar que existe y isActive = true
+
+- [ ] Implementar métodos en `reservations.service.ts`
+  - [ ] `findAll(filters: FilterReservationsDto)`
+    - [ ] Query con where dinámico según filtros
+    - [ ] Include: commonArea, resident
+    - [ ] OrderBy: startTime desc
+  - [ ] `findOne(id)` - con relaciones
+  - [ ] `create(dto)`
+    - [ ] Ejecutar todas las validaciones
+    - [ ] Si pasan: crear reservación con status CONFIRMED
+  - [ ] `cancel(id, userId)`
+    - [ ] Verificar que reservación existe
+    - [ ] Verificar que userId es el owner
+    - [ ] Actualizar status a CANCELLED
+  - [ ] `getAvailableSlots(commonAreaId: number, date: Date)`
+    - [ ] Obtener commonArea con horarios
+    - [ ] Generar slots desde openTime hasta closeTime
+    - [ ] Filtrar slots ocupados por reservaciones existentes
+    - [ ] Retornar array de slots disponibles
+
+- [ ] Implementar `reservations.controller.ts`
+  - [ ] `GET /reservations` - con @Query(FilterReservationsDto)
+  - [ ] `GET /reservations/:id`
+  - [ ] `POST /reservations` - @UseGuards(JwtAuthGuard)
+  - [ ] `PATCH /reservations/:id/cancel` - @UseGuards + validar ownership
+  - [ ] `GET /reservations/available-slots` - @Query(commonAreaId, date)
+
+- [ ] Registrar en `app.module.ts`
+
+- [ ] Actualizar seeder
+  - [ ] Crear 2 residentes
+  - [ ] Crear 2-3 reservaciones de ejemplo
+
+### Frontend - Reservations Module
+
+- [ ] Crear estructura `features/reservations/`
+  - [ ] `types/reservation.types.ts`
+  - [ ] `services/reservations.service.ts`
+  - [ ] `hooks/queries/useReservations.ts`
+  - [ ] `hooks/queries/useAvailableSlots.ts`
+  - [ ] `hooks/mutations/useCreateReservation.ts`
+  - [ ] `hooks/mutations/useCancelReservation.ts`
+  - [ ] `components/ReservationCalendar.tsx`
+  - [ ] `components/ReservationForm.tsx`
+  - [ ] `components/ReservationCard.tsx`
+  - [ ] `components/ReservationsList.tsx`
+  - [ ] `pages/ReservationsPage.tsx`
+
+- [ ] Implementar tipos
+  - [ ] Interface Reservation
+  - [ ] Interface CreateReservationDto
+  - [ ] Interface AvailableSlot
+  - [ ] Enum ReservationStatus
+
+- [ ] Implementar servicio
+  - [ ] `getReservations(filters)`
+  - [ ] `getReservation(id)`
+  - [ ] `createReservation(dto)`
+  - [ ] `cancelReservation(id)`
+  - [ ] `getAvailableSlots(commonAreaId, date)`
+
+- [ ] Implementar hooks
+  - [ ] `useReservations(filters)` - useQuery
+  - [ ] `useAvailableSlots(commonAreaId, date)` - useQuery habilitado condicionalmente
+  - [ ] `useCreateReservation()` - useMutation con notificaciones
+  - [ ] `useCancelReservation()` - useMutation con confirmación
+
+- [ ] Crear `components/ReservationCalendar.tsx`
+  - [ ] Usar Calendar de Mantine
+  - [ ] Mostrar días con reservaciones (indicador visual)
+  - [ ] onClick en día: abrir modal de reservación
+
+- [ ] Crear `components/ReservationForm.tsx`
+  - [ ] Select: Edificio (useBuildings)
+  - [ ] Select: Área Común (useCommonAreas filtrado por buildingId)
+  - [ ] DatePicker: Fecha
+  - [ ] TimeInput: Hora inicio
+  - [ ] TimeInput: Hora fin
+  - [ ] NumberInput: Asistentes
+  - [ ] Textarea: Notas
+  - [ ] useAvailableSlots: mostrar slots disponibles al seleccionar área y fecha
+  - [ ] Validación: hora fin > hora inicio
+  - [ ] Submit: useCreateReservation
+
+- [ ] Crear `components/ReservationCard.tsx`
+  - [ ] Card con info: área común, fecha, horario
+  - [ ] Badge: status (CONFIRMED, CANCELLED)
+  - [ ] Botón "Cancelar" si status = CONFIRMED
+
+- [ ] Crear `components/ReservationsList.tsx`
+  - [ ] Stack de ReservationCard
+  - [ ] Filtros: edificio, área común
+  - [ ] Empty state
+
+- [ ] Mejorar [`pages/ReservationsPage.tsx`](packages/frontend/src/features/buildings/pages/ReservationsPage.tsx)
+  - [ ] Grid con 2 columnas
+  - [ ] Columna izquierda: ReservationCalendar
+  - [ ] Columna derecha: ReservationsList ("Mis Reservaciones")
+  - [ ] Botón: "Nueva Reservación" (abre modal con ReservationForm)
+  - [ ] useReservations filtrado por userId actual
+
+### Testing Fase 4
+
+- [ ] Backend
+  - [ ] POST /reservations con datos válidos → crea
+  - [ ] POST /reservations con overlap → 409 Conflict
+  - [ ] POST /reservations fuera de horario → 400 Bad Request
+  - [ ] GET /reservations/available-slots → retorna slots
+
+- [ ] Frontend
+  - [ ] Abrir página de reservaciones
+  - [ ] Seleccionar edificio y área común
+  - [ ] Ver slots disponibles
+  - [ ] Crear reservación
+  - [ ] Ver en "Mis Reservaciones"
+  - [ ] Cancelar reservación
+
+---
+
+## 🌐 FASE 5: Despliegue (1-2 días)
+
+### Backend - Preparación
+
+- [ ] Configurar variables de entorno
+  - [ ] Crear `.env.example`
+    ```
+    DATABASE_URL=
+    JWT_SECRET=
+    NODE_ENV=development
+    PORT=3000
+    CORS_ORIGIN=http://localhost:5173
+    ```
+
+- [ ] Verificar scripts en `package.json`
+  - [ ] `"build": "nest build"`
+  - [ ] `"start:prod": "node dist/main.js"`
+  - [ ] `"prisma:deploy": "npx prisma migrate deploy"`
+
+- [ ] Configurar main.ts para producción
+  - [ ] CORS: leer desde env
+  - [ ] Global prefix: '/api' (opcional)
+  - [ ] ValidationPipe global
+
+### Backend - Deploy Railway
+
+- [ ] Crear cuenta en Railway (railway.app)
+
+- [ ] Crear nuevo proyecto
   - [ ] Connect GitHub repository
-  - [ ] Add PostgreSQL database addon
-  - [ ] Configure environment variables:
-    - [ ] DATABASE_URL (from postgres addon)
-    - [ ] JWT_SECRET (generate strong secret)
-    - [ ] NODE_ENV=production
-    - [ ] CORS_ORIGIN (frontend URL)
-  - [ ] Configure build settings
-  - [ ] Configure start command
+  - [ ] Seleccionar rama: main
 
-- [ ] Database deployment
-  - [ ] Run migrations in production
-  - [ ] Run seed script with production data
-  - [ ] Verify database connection
+- [ ] Agregar PostgreSQL
+  - [ ] New → Database → PostgreSQL
+  - [ ] Variable DATABASE_URL se genera automáticamente
 
-### Frontend Deployment Preparation
+- [ ] Configurar servicio backend
+  - [ ] Root Directory: `packages/backend`
+  - [ ] Build Command: `pnpm install && pnpm run build`
+  - [ ] Start Command: `pnpm run start:prod`
 
-- [ ] Prepare for production
-  - [ ] Configure environment variables
-    - [ ] `VITE_API_URL` pointing to production backend
-  - [ ] Optimize build configuration
-    - [ ] Configure lazy loading for routes
-    - [ ] Setup code splitting
-    - [ ] Optimize bundle size
-  - [ ] Add meta tags for SEO
-  - [ ] Configure PWA (optional)
+- [ ] Agregar variables de entorno
+  - [ ] `DATABASE_URL` (ya existe)
+  - [ ] `JWT_SECRET` - generar: `openssl rand -base64 32`
+  - [ ] `NODE_ENV=production`
+  - [ ] `PORT=3000`
+  - [ ] `CORS_ORIGIN` (actualizar después con URL de Vercel)
 
-- [ ] Deploy to Vercel
-  - [ ] Create Vercel account
-  - [ ] Connect GitHub repository
-  - [ ] Configure environment variables
-  - [ ] Configure build settings
-  - [ ] Deploy
+- [ ] Deploy
+  - [ ] Push a GitHub → auto-deploy
+  - [ ] O manual: "Deploy Now"
 
-### Deployment Testing
+- [ ] Ejecutar migraciones
+  - [ ] Desde Railway CLI o dashboard
+  - [ ] `npx prisma migrate deploy`
 
-- [ ] Smoke testing of main features
-  - [ ] Login/Logout works
-  - [ ] Buildings CRUD works
-  - [ ] Create booking
+- [ ] Ejecutar seeder
+  - [ ] `npx prisma db seed`
 
-### Week 7 Validation
+- [ ] Verificar
+  - [ ] Abrir URL de Railway
+  - [ ] Probar: GET /api (si configuraste prefix)
+  - [ ] Probar: POST /auth/login
 
-- [ ] Dashboard displays real-time metrics
-- [ ] Backend and frontend deployed successfully
-- [ ] Production environment stable
-- [ ] Database migrations applied correctly
-- [ ] Environment variables configured
+### Frontend - Preparación
 
----
+- [ ] Configurar env
+  - [ ] Crear `.env.example`
+    ```
+    VITE_API_URL=http://localhost:3000
+    ```
+  - [ ] Crear `.env.production`
+    ```
+    VITE_API_URL=https://tu-backend.railway.app
+    ```
 
-# 📅 WEEK 8: Polish and Documentation
+- [ ] Verificar build local
+  - [ ] `cd packages/frontend && pnpm run build`
+  - [ ] Verificar que dist/ se genera sin errores
 
-**Goal:** Code quality, testing, and comprehensive documentation.
+### Frontend - Deploy Vercel
 
-### Backend Testing
+- [ ] Crear cuenta en Vercel (vercel.com)
 
-- [ ] Setup Jest testing environment
-  - [ ] Configure test database
-  - [ ] Setup test utilities
+- [ ] Importar proyecto
+  - [ ] New Project → Import Git Repository
+  - [ ] Seleccionar repo de GitHub
 
-- [ ] Write unit tests
-  - [ ] Buildings service tests
-  - [ ] Auth service tests
-  - [ ] Booking validation tests
-  - [ ] Ticket service tests
+- [ ] Configurar proyecto
+  - [ ] Framework Preset: Vite
+  - [ ] Root Directory: `packages/frontend`
+  - [ ] Build Command: `pnpm install && pnpm run build`
+  - [ ] Output Directory: `dist`
+  - [ ] Install Command: `pnpm install`
 
-- [ ] Write integration tests
-  - [ ] API endpoint tests
-  - [ ] Authentication flow tests
-  - [ ] Database operations tests
+- [ ] Agregar variables de entorno
+  - [ ] `VITE_API_URL=https://tu-backend.railway.app`
 
-### Frontend Testing
+- [ ] Deploy
+  - [ ] Click "Deploy"
+  - [ ] Esperar build (2-3 min)
 
-- [ ] Setup Vitest and React Testing Library
-  - [ ] Configure test environment
-  - [ ] Setup test utilities
+- [ ] Actualizar CORS en Railway
+  - [ ] Ir a Railway → Variables
+  - [ ] Actualizar `CORS_ORIGIN=https://tu-app.vercel.app`
+  - [ ] Redeploy backend
 
-- [ ] Write component tests
-  - [ ] Form validation tests
-  - [ ] Navigation tests
-  - [ ] Auth flow tests
+### Testing Post-Deploy
 
-- [ ] Write hook tests
-  - [ ] React Query hooks
-  - [ ] Custom hooks
+- [ ] Smoke testing completo
+  - [ ] Abrir app en Vercel
+  - [ ] Login con credenciales del seeder
+    - [ ] Email: admin@demo.com
+    - [ ] Password: password123
+  - [ ] Listar edificios
+  - [ ] Crear edificio nuevo
+  - [ ] Ver detalle de edificio
+  - [ ] Ver áreas comunes
+  - [ ] Crear área común
+  - [ ] Ir a página de reservaciones
+  - [ ] Crear reservación
+  - [ ] Ver mis reservaciones
+  - [ ] Cancelar reservación
+  - [ ] Logout
 
----
-
-### Code Quality
-
-- [ ] Code review and refactoring
-  - [ ] Remove unused code
-  - [ ] Improve code organization
-  - [ ] Apply consistent naming conventions
-  - [ ] Add missing TypeScript types
-
-- [ ] Performance optimization
-  - [ ] Frontend bundle size optimization
-  - [ ] Database query optimization
-  - [ ] Add database indexes
-  - [ ] Implement caching strategies
-
-- [ ] Security audit
-  - [ ] Review authentication logic
-  - [ ] Check for SQL injection vulnerabilities
-  - [ ] Validate input sanitization
-  - [ ] Review CORS configuration
-
-### Error Handling
-
-- [ ] Improve error handling
-  - [ ] Custom error pages (404, 500)
-  - [ ] Error boundary components
-  - [ ] Global error handling
-  - [ ] Error logging service
+- [ ] Verificar en mobile
+  - [ ] Abrir desde teléfono
+  - [ ] Navegar por la app
+  - [ ] Verificar que sea usable
 
 ---
 
-## Day 5: Documentation
+## 📝 FASE 6: Polish y README (1 día)
 
-### Technical Documentation
+### Frontend - UX Final
 
-- [ ] Backend documentation
-  - [ ] API documentation (Swagger/OpenAPI)
-  - [ ] Database schema documentation
-  - [ ] Architecture decisions
-  - [ ] Environment setup guide
+- [ ] Notificaciones
+  - [ ] Importar Notifications en main.tsx
+  - [ ] Success: verde con ícono de check
+  - [ ] Error: rojo con mensaje descriptivo
+  - [ ] Posición: top-right
 
-- [ ] Frontend documentation
-  - [ ] Component library documentation
-  - [ ] State management guide
-  - [ ] Routing structure
-  - [ ] Build and deployment guide
+- [ ] Loading states
+  - [ ] Skeletons en todas las listas
+  - [ ] Loading en botones: `<Button loading={isLoading}>`
+  - [ ] Spinner global durante navegación (opcional)
 
-### User Documentation
+- [ ] Confirmaciones
+  - [ ] Modal de confirmación antes de eliminar
+  - [ ] Modal antes de cancelar reservación
+  - [ ] Usar modals.openConfirmModal de Mantine
 
-- [ ] User guides
-  - [ ] Admin user guide
-  - [ ] Manager user guide
-  - [ ] Resident user guide
+- [ ] Empty states
+  - [ ] Edificios: "No hay edificios registrados. Crea uno nuevo."
+  - [ ] Áreas comunes: "No hay áreas comunes en este edificio."
+  - [ ] Reservaciones: "No tienes reservaciones activas."
+  - [ ] Ícono + mensaje + CTA button
 
-- [ ] Project documentation
-  - [ ] Update README.md
-  - [ ] Contributing guidelines
-  - [ ] License information
+- [ ] Errores
+  - [ ] Mensajes descriptivos en español
+  - [ ] Validaciones en tiempo real
+  - [ ] Deshabilitar submit si hay errores
 
-### Week 8 Validation
+### Backend - Cleanup
 
-- [ ] Test coverage > 70%
-- [ ] All critical bugs fixed
-- [ ] Documentation complete
-- [ ] Code quality metrics acceptable
-- [ ] Performance benchmarks met
+- [ ] Eliminar console.log
+- [ ] Formatear código: `pnpm run format`
+- [ ] Lintear: `pnpm run lint`
+- [ ] Verificar imports no usados
 
----
+### Frontend - Cleanup
 
-# 📅 WEEK 9: UX Refinement and Internationalization
+- [ ] Eliminar console.log
+- [ ] Eliminar imports no usados
+- [ ] Formatear: `pnpm run format`
+- [ ] Lintear: `pnpm run lint`
 
-**Goal:** Implement pagination, review all UI texts, ensure responsive design, and add internationalization support.
+### README Profesional
 
-### Backend Pagination
+- [ ] Tomar screenshots
+  - [ ] Login page
+  - [ ] Buildings list
+  - [ ] Building detail con áreas comunes
+  - [ ] Reservations page con calendario
+  - [ ] Guardar en `docs/screenshots/`
 
-- [ ] Implement pagination utilities
-  - [ ] Create pagination DTO (page, limit, orderBy, order)
-  - [ ] Create pagination response type (data, total, page, totalPages)
-  - [ ] Create reusable pagination helper function
+- [ ] Actualizar [`README.md`](README.md) principal
 
-- [ ] Add pagination to all list endpoints
-  - [ ] `GET /buildings` - paginate buildings list
-    - [ ] Add query params: page, limit, search, orderBy
-    - [ ] Return paginated response with metadata
-  - [ ] `GET /units` - paginate units list
-  - [ ] `GET /common-areas` - paginate common areas list
-  - [ ] `GET /bookings` - paginate bookings list
-  - [ ] `GET /tickets` - paginate tickets list
-  - [ ] `GET /staff` - paginate staff list
+  ```markdown
+  # 🏢 Sistema de Gestión de Edificios
 
-- [ ] Add filtering and sorting
-  - [ ] Implement search functionality for text fields
-  - [ ] Add status filters where applicable
-  - [ ] Add date range filters for bookings and tickets
-  - [ ] Implement multi-column sorting
+  Sistema fullstack para gestionar edificios, áreas comunes y reservaciones.
 
-### Frontend Pagination
+  ## 🚀 Demo en Vivo
 
-- [ ] Create pagination components
-  - [ ] `PaginationControls.tsx` - reusable pagination UI
-    - [ ] Page number buttons
-    - [ ] Previous/Next buttons
-    - [ ] Items per page selector
-    - [ ] Total items display
-  - [ ] `TablePagination.tsx` - pagination for tables
+  - **Aplicación:** https://tu-app.vercel.app
+  - **API:** https://tu-backend.railway.app/api
+  - **Documentación API:** https://tu-backend.railway.app/api
 
-- [ ] Update all list pages with pagination
-  - [ ] BuildingsListPage - add pagination controls
-  - [ ] Units list - add pagination
-  - [ ] Common areas list - add pagination
-  - [ ] Bookings list - add pagination
-  - [ ] Tickets list - add pagination
-  - [ ] Staff list - add pagination
+  **Credenciales de prueba:**
 
-- [ ] Implement infinite scroll (optional)
-  - [ ] Bookings calendar view
-  - [ ] Activity feed
+  - Admin: admin@demo.com / password123
 
-### Pagination Validation
+  ## ✨ Características
 
-- [ ] All lists support pagination
-- [ ] Pagination controls work correctly
-- [ ] Filtering and sorting work with pagination
-- [ ] Loading states during page changes
-- [ ] URL params reflect current page state
+  - ✅ Autenticación JWT con roles (Admin, Manager, Resident)
+  - ✅ CRUD completo de edificios
+  - ✅ Gestión de áreas comunes
+  - ✅ Sistema de reservaciones con validación de horarios
+  - ✅ Prevención de solapamiento de reservaciones
+  - ✅ Interfaz responsive y moderna
 
----
+  ## 🛠 Stack Tecnológico
 
-### Content Audit
+  **Backend:**
 
-- [ ] Review all UI texts
-  - [ ] Button labels consistency
-  - [ ] Form field labels and placeholders
-  - [ ] Error messages clarity
-  - [ ] Success messages
-  - [ ] Empty states messages
-  - [ ] Loading states messages
+  - NestJS
+  - Prisma ORM
+  - PostgreSQL
+  - JWT Authentication
+  - TypeScript
 
-- [ ] Improve microcopy
-  - [ ] Make CTAs (Call-to-Actions) clear and actionable
-  - [ ] Ensure error messages are helpful and specific
-  - [ ] Add helpful tooltips where needed
-  - [ ] Review and improve form validation messages
+  **Frontend:**
 
-- [ ] Content guidelines
-  - [ ] Create tone of voice guide
-  - [ ] Establish terminology glossary
-  - [ ] Define Spanish language standards (formal vs informal)
+  - React 18
+  - TypeScript
+  - Mantine UI
+  - TanStack Query
+  - React Router
+  - Axios
 
-### Text Improvements
+  **DevOps:**
 
-- [ ] Navigation and menus
-  - [ ] Review all menu items
-  - [ ] Ensure consistent terminology
-  - [ ] Check for truncation issues
+  - Railway (Backend + PostgreSQL)
+  - Vercel (Frontend)
+  - GitHub Actions (CI/CD)
+  - Docker (Desarrollo local)
 
-- [ ] Forms and inputs
-  - [ ] Clear field labels
-  - [ ] Helpful placeholder text
-  - [ ] Descriptive help text
-  - [ ] Validation messages in Spanish
+  ## 📦 Instalación Local
 
-- [ ] Notifications and alerts
-  - [ ] Success messages
-  - [ ] Error messages
-  - [ ] Warning messages
-  - [ ] Info messages
+  ### Prerequisitos
 
-### Validation
+  - Node.js 18+
+  - pnpm 8+
+  - Docker
 
-- [ ] All texts reviewed and improved
-- [ ] No placeholder or Lorem Ipsum text
-- [ ] Consistent terminology throughout
-- [ ] Messages are clear and actionable
+  ### Pasos
 
----
+  [instrucciones detalladas]
 
-### Mobile Responsive Audit
+  ## 📸 Screenshots
 
-- [ ] Test all pages on mobile devices
-  - [ ] Dashboard page
-  - [ ] Buildings list and detail
-  - [ ] Units management
-  - [ ] Bookings calendar
-  - [ ] Tickets system
-  - [ ] Forms and modals
+  [insertar imágenes]
 
-- [ ] Common mobile issues to fix
-  - [ ] Navigation menu (hamburger menu)
-  - [ ] Tables (convert to cards on mobile)
-  - [ ] Forms (stack vertically)
-  - [ ] Modals (full screen on mobile)
-  - [ ] Date pickers (mobile-friendly)
-  - [ ] Touch targets (minimum 44x44px)
+  ## 🏗 Arquitectura
 
-### Responsive Components
+  [diagrama o descripción]
 
-- [ ] Update responsive breakpoints
-  - [ ] Define consistent breakpoints (xs, sm, md, lg, xl)
-  - [ ] Use Mantine breakpoints consistently
+  ## 📚 API Documentation
 
-- [ ] Implement responsive layouts
-  - [ ] Responsive grid systems
-  - [ ] Flexible containers
-  - [ ] Responsive typography
-  - [ ] Adaptive spacing
+  Swagger disponible en: `https://tu-backend.railway.app/api`
 
-- [ ] Mobile navigation
-  - [ ] Implement mobile drawer/sidebar
-  - [ ] Bottom navigation (optional)
-  - [ ] Sticky headers on scroll
+  ## 👤 Autor
 
-- [ ] Responsive tables
-  - [ ] Convert tables to cards on mobile
-  - [ ] Horizontal scroll with indicators
-  - [ ] Collapsible rows
+  [Tu nombre] - [LinkedIn] - [Portfolio]
+  ```
 
-### Cross-browser Testing
+- [ ] Crear `packages/backend/README.md`
+  - [ ] Documentar estructura del proyecto
+  - [ ] Documentar principales endpoints
+  - [ ] Explicar modelos de datos
 
-- [ ] Test on major browsers
-  - [ ] Chrome/Edge
-  - [ ] Firefox
-  - [ ] Safari
-  - [ ] Mobile Safari (iOS)
-  - [ ] Chrome Mobile (Android)
+- [ ] Crear `packages/frontend/README.md`
+  - [ ] Documentar estructura de features
+  - [ ] Explicar patrón de hooks
+  - [ ] Guía de componentes
 
-### Validation
+### Git Final
 
-- [ ] All pages are mobile-friendly
-- [ ] No horizontal scrolling on mobile
-- [ ] All interactions work on touch devices
-- [ ] Text is readable without zooming
-- [ ] Forms are easy to fill on mobile
+- [ ] Review commits
+  - [ ] Verificar mensajes descriptivos
+  - [ ] Squash si es necesario
+
+- [ ] Actualizar .gitignore
+  - [ ] Verificar que .env no está trackeado
+  - [ ] Verificar que node_modules no está trackeado
+
+- [ ] Tag de versión
+  - [ ] `git tag v1.0.0`
+  - [ ] `git push --tags`
 
 ---
 
-### Backend i18n Setup
+## ✅ Checklist Pre-Portfolio
 
-- [ ] Setup i18n for error messages
-  - [ ] Install i18n library (e.g., nestjs-i18n)
-  - [ ] Configure supported languages (es, en)
-  - [ ] Create translation files structure
-
-- [ ] Translate error messages
-  - [ ] Validation errors
-  - [ ] Business logic errors
-  - [ ] Database errors
-  - [ ] Authentication errors
-
-- [ ] Add language header support
-  - [ ] Accept `Accept-Language` header
-  - [ ] Return appropriate language responses
-  - [ ] Default to Spanish
-
-### Frontend i18n Setup
-
-- [ ] Install and configure i18n library
-  - [ ] Install react-i18next
-  - [ ] Configure i18next
-  - [ ] Setup language detection
-  - [ ] Setup language persistence (localStorage)
-
-- [ ] Create translation files
-  - [ ] `es.json` - Spanish translations (primary)
-  - [ ] `en.json` - English translations
-  - [ ] Organize by feature/module
-    - [ ] common (buttons, labels, actions)
-    - [ ] auth (login, register)
-    - [ ] buildings
-    - [ ] units
-    - [ ] bookings
-    - [ ] tickets
-    - [ ] dashboard
-    - [ ] errors
-
-- [ ] Translate all UI text
-  - [ ] Navigation and menus
-  - [ ] Page titles and headers
-  - [ ] Form labels and placeholders
-  - [ ] Button labels
-  - [ ] Table headers
-  - [ ] Status badges
-  - [ ] Empty states
-  - [ ] Error messages
-  - [ ] Success messages
-  - [ ] Tooltips and help text
-
-### i18n Components
-
-- [ ] Create language switcher component
-  - [ ] `LanguageSwitcher.tsx` in header/user menu
-  - [ ] Support ES and EN
-  - [ ] Persist selection
-
-- [ ] Update components to use translations
-  - [ ] Replace hardcoded strings with translation keys
-  - [ ] Use translation hooks (useTranslation)
-  - [ ] Handle plural forms
-  - [ ] Handle date/time formatting
-
-### Date and Number Formatting
-
-- [ ] Configure locale-specific formatting
-  - [ ] Date formats (DD/MM/YYYY for ES, MM/DD/YYYY for EN)
-  - [ ] Time formats (24h for ES, 12h for EN)
-  - [ ] Number formats (decimals, thousands separators)
-  - [ ] Currency formatting
-
-### i18n Best Practices
-
-- [ ] Translation key naming convention
-  - [ ] Use dot notation (e.g., `buildings.form.name.label`)
-  - [ ] Group by feature/context
-  - [ ] Descriptive key names
-
-- [ ] Handle dynamic content
-  - [ ] Use interpolation for variables
-  - [ ] Use pluralization rules
-  - [ ] Handle gender-specific text (Spanish)
-
-### Validation
-
-- [ ] All UI text is translatable
-- [ ] Language switcher works correctly
-- [ ] Selected language persists
-- [ ] No untranslated text visible
-- [ ] Date/number formats correct per locale
-- [ ] Both Spanish and English complete
+- [ ] ✅ App desplegada 24/7
+- [ ] ✅ Login funciona
+- [ ] ✅ CRUD edificios funciona
+- [ ] ✅ CRUD áreas comunes funciona
+- [ ] ✅ Sistema reservaciones funciona
+- [ ] ✅ Validación de solapamiento funciona
+- [ ] ✅ Responsive en mobile
+- [ ] ✅ Sin errores en consola
+- [ ] ✅ Sin warnings TypeScript
+- [ ] ✅ README con screenshots
+- [ ] ✅ Links en CV/LinkedIn
+- [ ] ✅ Credenciales de demo funcionan
 
 ---
 
-## Week 9 Validation
+## 🎯 Lo Que Este Proyecto Demuestra
 
-- [ ] Pagination implemented and working on all lists
-- [ ] All UI texts reviewed and improved
-- [ ] Application is fully responsive (mobile, tablet, desktop)
-- [ ] Internationalization complete (ES and EN)
-- [ ] Language switcher functional
-- [ ] Date/time formatting correct per locale
-- [ ] All translations complete and accurate
-- [ ] Cross-browser compatibility verified
-- [ ] Touch interactions work on mobile devices
-- [ ] No UX issues or confusion points
+**Backend Skills:**
+
+- ✅ NestJS con arquitectura modular
+- ✅ Prisma ORM con relaciones complejas
+- ✅ Autenticación JWT completa (Strategy, Guards, Decorators)
+- ✅ Validaciones de negocio complejas (no-overlapping)
+- ✅ DTOs con class-validator
+- ✅ RESTful API design
+- ✅ Manejo apropiado de errores
+- ✅ Seeders para datos de prueba
+
+**Frontend Skills:**
+
+- ✅ React 18 con TypeScript
+- ✅ Context API para estado global
+- ✅ TanStack Query (data fetching, cache, mutations)
+- ✅ Mantine UI (componentes modernos)
+- ✅ Formularios complejos con validaciones
+- ✅ Protected routes y autorización
+- ✅ Axios con interceptors
+- ✅ Arquitectura escalable por features
+
+**DevOps Skills:**
+
+- ✅ Monorepo con pnpm workspaces
+- ✅ Docker para desarrollo local
+- ✅ Deploy en Railway (backend + DB)
+- ✅ Deploy en Vercel (frontend)
+- ✅ Variables de entorno por ambiente
+- ✅ CI/CD automático
 
 ---
 
-## Incoming tasks
+## ⏱️ Cronograma Realista
 
-- [ ] Add error handling in buildings.service.ts
-  - [ ] Create custom exception filters for Prisma errors
-    - [ ] Handle `PrismaClientKnownRequestError` (P2002: unique constraint, P2003: foreign key, P2025: record not found)
-    - [ ] Handle `PrismaClientValidationError` (invalid data types)
-    - [ ] Transform Prisma errors to NestJS exceptions (ConflictException, BadRequestException, etc.)
-  - [ ] Add error handling to `create()` method
-    - [ ] Validate managerId exists before creating
-    - [ ] Handle unique constraint violations (e.g., duplicate building name)
-    - [ ] Handle foreign key violations
-    - [ ] Replace console.log with proper logger
-  - [ ] Add error handling to `findAll()` method
-    - [ ] Wrap query in try-catch
-    - [ ] Handle database connection errors
-  - [ ] Add error handling to `findOne()` method
-    - [ ] Validate ID format before query
-    - [ ] Handle database errors
-    - [ ] Keep existing NotFoundException for not found cases
-  - [ ] Add error handling to `update()` method
-    - [ ] Validate building exists before updating
-    - [ ] Handle unique constraint violations
-    - [ ] Handle foreign key violations
-    - [ ] Handle not found cases with NotFoundException
-  - [ ] Add error handling to `remove()` method
-    - [ ] Validate building exists before soft delete
-    - [ ] Fix validation logic (Prisma throws before returning null)
-    - [ ] Handle database errors
-  - [ ] Add error handling to `restore()` method
-    - [ ] Validate building exists and is deleted before restoring
-    - [ ] Fix validation logic
-    - [ ] Handle database errors
-  - [ ] Add descriptive error messages in Spanish for all exceptions
-  - [ ] Add unit tests for error scenarios
+| Fase      | Duración       | Entregable                                 |
+| --------- | -------------- | ------------------------------------------ |
+| Fase 1    | 2-3 días       | Auth completo (backend + frontend)         |
+| Fase 2    | 2-3 días       | Buildings CRUD (backend + frontend)        |
+| Fase 3    | 2 días         | CommonAreas CRUD (backend + frontend)      |
+| Fase 4    | 3-4 días       | Reservations completo (backend + frontend) |
+| Fase 5    | 1-2 días       | Deploy en Railway + Vercel                 |
+| Fase 6    | 1 día          | Polish + README profesional                |
+| **TOTAL** | **11-15 días** | **MVP Portfolio-Ready**                    |
 
-- [ ] Create database seed
-  - [ ] 1 admin user (without password for now)
-  - [ ] 3 sample buildings
-  - [ ] 10 units per building
-  - [ ] 5 common areas per building
-  - [ ] Run seed script
+---
 
-- [ ] `GET /buildings` - list with query params (page, limit, search)
+🚀 **¿Listo para comenzar con la Fase 1: Autenticación?**

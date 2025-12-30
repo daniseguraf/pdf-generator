@@ -4,533 +4,545 @@
  */
 
 export interface paths {
-    "/api/v1/buildings": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get all buildings */
-        get: operations["BuildingsController_findAll"];
-        put?: never;
-        /** Create a new building */
-        post: operations["BuildingsController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/buildings/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get a building by id */
-        get: operations["BuildingsController_findOne"];
-        put?: never;
-        post?: never;
-        /** Delete a building by id */
-        delete: operations["BuildingsController_remove"];
-        options?: never;
-        head?: never;
-        /** Update a building by id */
-        patch: operations["BuildingsController_update"];
-        trace?: never;
-    };
-    "/api/v1/employees": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["EmployeesController_findAll"];
-        put?: never;
-        post: operations["EmployeesController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/employees/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["EmployeesController_findOne"];
-        put?: never;
-        post?: never;
-        delete: operations["EmployeesController_remove"];
-        options?: never;
-        head?: never;
-        patch: operations["EmployeesController_update"];
-        trace?: never;
-    };
+  '/api/v1/buildings': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get all buildings */
+    get: operations['BuildingsController_findAll']
+    put?: never
+    /** Create a new building */
+    post: operations['BuildingsController_create']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/v1/buildings/{id}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get a building by id */
+    get: operations['BuildingsController_findOne']
+    put?: never
+    post?: never
+    /** Delete a building by id */
+    delete: operations['BuildingsController_remove']
+    options?: never
+    head?: never
+    /** Update a building by id */
+    patch: operations['BuildingsController_update']
+    trace?: never
+  }
+  '/api/v1/employees': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['EmployeesController_findAll']
+    put?: never
+    post: operations['EmployeesController_create']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/v1/employees/{id}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['EmployeesController_findOne']
+    put?: never
+    post?: never
+    delete: operations['EmployeesController_remove']
+    options?: never
+    head?: never
+    patch: operations['EmployeesController_update']
+    trace?: never
+  }
 }
-export type webhooks = Record<string, never>;
+export type webhooks = Record<string, never>
 export interface components {
-    schemas: {
-        CreateBuildingDto: {
-            /**
-             * @description Building name
-             * @example Main Building
-             */
-            name: string;
-            /**
-             * @description Building description
-             * @example This is a building description
-             */
-            description?: string;
-            /**
-             * @description Year built
-             * @example 2020
-             */
-            yearBuilt: number;
-            /**
-             * @description Property type
-             * @example RESIDENTIAL
-             * @enum {string}
-             */
-            propertyType: "RESIDENTIAL" | "COMMERCIAL" | "MIXED";
-            /**
-             * @description Building address
-             * @example Main Street
-             */
-            address: string;
-            /**
-             * @description Building district
-             * @example Main District
-             */
-            district: string;
-            /**
-             * @description Building city
-             * @example Main City
-             */
-            city: string;
-            /**
-             * @description Building province
-             * @example Main Province
-             */
-            province: string;
-            /**
-             * @description Building postal code
-             * @example 15001
-             */
-            postalCode: string;
-            /**
-             * @description Number of floors
-             * @example 10
-             */
-            floors: number;
-            /**
-             * @description Building phone number
-             * @example +51 987 654 321
-             */
-            phoneNumber: string;
-            /**
-             * @description Building email
-             * @example contact@building.com
-             */
-            email: string;
-            /**
-             * @description Manager ID
-             * @example 1
-             */
-            managerId: number;
-        };
-        Building: Record<string, never>;
-        UpdateBuildingDto: {
-            /**
-             * @description Building name
-             * @example Main Building
-             */
-            name?: string;
-            /**
-             * @description Building description
-             * @example This is a building description
-             */
-            description?: string;
-            /**
-             * @description Year built
-             * @example 2020
-             */
-            yearBuilt?: number;
-            /**
-             * @description Property type
-             * @example RESIDENTIAL
-             * @enum {string}
-             */
-            propertyType?: "RESIDENTIAL" | "COMMERCIAL" | "MIXED";
-            /**
-             * @description Building address
-             * @example Main Street
-             */
-            address?: string;
-            /**
-             * @description Building district
-             * @example Main District
-             */
-            district?: string;
-            /**
-             * @description Building city
-             * @example Main City
-             */
-            city?: string;
-            /**
-             * @description Building province
-             * @example Main Province
-             */
-            province?: string;
-            /**
-             * @description Building postal code
-             * @example 15001
-             */
-            postalCode?: string;
-            /**
-             * @description Number of floors
-             * @example 10
-             */
-            floors?: number;
-            /**
-             * @description Building phone number
-             * @example +51 987 654 321
-             */
-            phoneNumber?: string;
-            /**
-             * @description Building email
-             * @example contact@building.com
-             */
-            email?: string;
-            /**
-             * @description Manager ID
-             * @example 1
-             */
-            managerId?: number;
-        };
-        CreateEmployeeDto: {
-            /**
-             * @description Employee first name
-             * @example John
-             */
-            firstName: string;
-            /**
-             * @description Employee last name
-             * @example Doe
-             */
-            lastName: string;
-            /**
-             * @description Employee phone number
-             * @example +51 987 654 321
-             */
-            phoneNumber: string;
-            /**
-             * @description Employee email
-             * @example john.doe@example.com
-             */
-            email: string;
-            /**
-             * @description Employee role
-             * @example MANAGER
-             * @enum {string}
-             */
-            role: "MANAGER" | "SECURITY" | "CLEANER" | "MAINTENANCE" | "GARDENER" | "RECEPTIONIST";
-            /**
-             * Format: date-time
-             * @description Employee start date
-             * @example 2025-01-01
-             */
-            startDate: string;
-            /**
-             * Format: date-time
-             * @description Employee end date
-             * @example 2025-01-01
-             */
-            endDate: string;
-            /**
-             * @description Employee is active
-             * @example true
-             */
-            isActive: boolean;
-        };
-        UpdateEmployeeDto: {
-            /**
-             * @description Employee first name
-             * @example John
-             */
-            firstName?: string;
-            /**
-             * @description Employee last name
-             * @example Doe
-             */
-            lastName?: string;
-            /**
-             * @description Employee phone number
-             * @example +51 987 654 321
-             */
-            phoneNumber?: string;
-            /**
-             * @description Employee email
-             * @example john.doe@example.com
-             */
-            email?: string;
-            /**
-             * @description Employee role
-             * @example MANAGER
-             * @enum {string}
-             */
-            role?: "MANAGER" | "SECURITY" | "CLEANER" | "MAINTENANCE" | "GARDENER" | "RECEPTIONIST";
-            /**
-             * Format: date-time
-             * @description Employee start date
-             * @example 2025-01-01
-             */
-            startDate?: string;
-            /**
-             * Format: date-time
-             * @description Employee end date
-             * @example 2025-01-01
-             */
-            endDate?: string;
-            /**
-             * @description Employee is active
-             * @example true
-             */
-            isActive?: boolean;
-        };
-    };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+  schemas: {
+    CreateBuildingDto: {
+      /**
+       * @description Building name
+       * @example Main Building
+       */
+      name: string
+      /**
+       * @description Building description
+       * @example This is a building description
+       */
+      description?: string
+      /**
+       * @description Year built
+       * @example 2020
+       */
+      yearBuilt: number
+      /**
+       * @description Property type
+       * @example RESIDENTIAL
+       * @enum {string}
+       */
+      propertyType: 'RESIDENTIAL' | 'COMMERCIAL' | 'MIXED'
+      /**
+       * @description Building address
+       * @example Main Street
+       */
+      address: string
+      /**
+       * @description Building district
+       * @example Main District
+       */
+      district: string
+      /**
+       * @description Building city
+       * @example Main City
+       */
+      city: string
+      /**
+       * @description Building province
+       * @example Main Province
+       */
+      province: string
+      /**
+       * @description Building postal code
+       * @example 15001
+       */
+      postalCode: string
+      /**
+       * @description Number of floors
+       * @example 10
+       */
+      floors: number
+      /**
+       * @description Building phone number
+       * @example +51 987 654 321
+       */
+      phoneNumber: string
+      /**
+       * @description Building email
+       * @example contact@building.com
+       */
+      email: string
+      /**
+       * @description Manager ID
+       * @example 1
+       */
+      managerId: number
+    }
+    Building: Record<string, never>
+    UpdateBuildingDto: {
+      /**
+       * @description Building name
+       * @example Main Building
+       */
+      name?: string
+      /**
+       * @description Building description
+       * @example This is a building description
+       */
+      description?: string
+      /**
+       * @description Year built
+       * @example 2020
+       */
+      yearBuilt?: number
+      /**
+       * @description Property type
+       * @example RESIDENTIAL
+       * @enum {string}
+       */
+      propertyType?: 'RESIDENTIAL' | 'COMMERCIAL' | 'MIXED'
+      /**
+       * @description Building address
+       * @example Main Street
+       */
+      address?: string
+      /**
+       * @description Building district
+       * @example Main District
+       */
+      district?: string
+      /**
+       * @description Building city
+       * @example Main City
+       */
+      city?: string
+      /**
+       * @description Building province
+       * @example Main Province
+       */
+      province?: string
+      /**
+       * @description Building postal code
+       * @example 15001
+       */
+      postalCode?: string
+      /**
+       * @description Number of floors
+       * @example 10
+       */
+      floors?: number
+      /**
+       * @description Building phone number
+       * @example +51 987 654 321
+       */
+      phoneNumber?: string
+      /**
+       * @description Building email
+       * @example contact@building.com
+       */
+      email?: string
+      /**
+       * @description Manager ID
+       * @example 1
+       */
+      managerId?: number
+    }
+    CreateEmployeeDto: {
+      /**
+       * @description Employee first name
+       * @example John
+       */
+      firstName: string
+      /**
+       * @description Employee last name
+       * @example Doe
+       */
+      lastName: string
+      /**
+       * @description Employee phone number
+       * @example +51 987 654 321
+       */
+      phoneNumber: string
+      /**
+       * @description Employee email
+       * @example john.doe@example.com
+       */
+      email: string
+      /**
+       * @description Employee role
+       * @example MANAGER
+       * @enum {string}
+       */
+      role:
+        | 'MANAGER'
+        | 'SECURITY'
+        | 'CLEANER'
+        | 'MAINTENANCE'
+        | 'GARDENER'
+        | 'RECEPTIONIST'
+      /**
+       * Format: date-time
+       * @description Employee start date
+       * @example 2025-01-01
+       */
+      startDate: string
+      /**
+       * Format: date-time
+       * @description Employee end date
+       * @example 2025-01-01
+       */
+      endDate: string
+      /**
+       * @description Employee is active
+       * @example true
+       */
+      isActive: boolean
+    }
+    UpdateEmployeeDto: {
+      /**
+       * @description Employee first name
+       * @example John
+       */
+      firstName?: string
+      /**
+       * @description Employee last name
+       * @example Doe
+       */
+      lastName?: string
+      /**
+       * @description Employee phone number
+       * @example +51 987 654 321
+       */
+      phoneNumber?: string
+      /**
+       * @description Employee email
+       * @example john.doe@example.com
+       */
+      email?: string
+      /**
+       * @description Employee role
+       * @example MANAGER
+       * @enum {string}
+       */
+      role?:
+        | 'MANAGER'
+        | 'SECURITY'
+        | 'CLEANER'
+        | 'MAINTENANCE'
+        | 'GARDENER'
+        | 'RECEPTIONIST'
+      /**
+       * Format: date-time
+       * @description Employee start date
+       * @example 2025-01-01
+       */
+      startDate?: string
+      /**
+       * Format: date-time
+       * @description Employee end date
+       * @example 2025-01-01
+       */
+      endDate?: string
+      /**
+       * @description Employee is active
+       * @example true
+       */
+      isActive?: boolean
+    }
+  }
+  responses: never
+  parameters: never
+  requestBodies: never
+  headers: never
+  pathItems: never
 }
-export type $defs = Record<string, never>;
+export type $defs = Record<string, never>
 export interface operations {
-    BuildingsController_findAll: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description The buildings have been successfully retrieved. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Building"][];
-                };
-            };
-        };
-    };
-    BuildingsController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateBuildingDto"];
-            };
-        };
-        responses: {
-            /** @description The building has been successfully created. */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Building"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    BuildingsController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description The building has been successfully retrieved. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Building"];
-                };
-            };
-        };
-    };
-    BuildingsController_remove: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description The building has been successfully deleted. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Building"];
-                };
-            };
-        };
-    };
-    BuildingsController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateBuildingDto"];
-            };
-        };
-        responses: {
-            /** @description The building has been successfully updated. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Building"];
-                };
-            };
-        };
-    };
-    EmployeesController_findAll: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    EmployeesController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateEmployeeDto"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    EmployeesController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    EmployeesController_remove: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    EmployeesController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateEmployeeDto"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
+  BuildingsController_findAll: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description The buildings have been successfully retrieved. */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Building'][]
+        }
+      }
+    }
+  }
+  BuildingsController_create: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateBuildingDto']
+      }
+    }
+    responses: {
+      /** @description The building has been successfully created. */
+      201: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Building']
+        }
+      }
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  BuildingsController_findOne: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description The building has been successfully retrieved. */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Building']
+        }
+      }
+    }
+  }
+  BuildingsController_remove: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description The building has been successfully deleted. */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Building']
+        }
+      }
+    }
+  }
+  BuildingsController_update: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateBuildingDto']
+      }
+    }
+    responses: {
+      /** @description The building has been successfully updated. */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Building']
+        }
+      }
+    }
+  }
+  EmployeesController_findAll: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  EmployeesController_create: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateEmployeeDto']
+      }
+    }
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  EmployeesController_findOne: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  EmployeesController_remove: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  EmployeesController_update: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateEmployeeDto']
+      }
+    }
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
 }
