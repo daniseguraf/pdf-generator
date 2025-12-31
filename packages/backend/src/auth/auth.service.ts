@@ -1,8 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common'
-import { UpdateAuthDto } from './dto/update-auth.dto'
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common'
 import { CreateUserDto } from 'src/auth/dto/create-user.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
 import * as bcrypt from 'bcrypt'
+import { LoginUserDto } from 'src/auth/dto/login-user.dto'
 
 @Injectable()
 export class AuthService {
@@ -26,19 +26,36 @@ export class AuthService {
     }
   }
 
-  findAll() {
-    return `This action returns all auth`
-  }
+  async login(loginUserDto: LoginUserDto) {
+    /*
+     * 1. Check if user exists
+     * 2. Check if password is correct
+     * 3. Generate JWT token
+     * 4. Return token
+     */
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`
-  }
+    const user = await this.prismaService.user.findUnique({
+      where: { email: loginUserDto.email },
+      select: {
+        email: true,
+        password: true,
+      },
+    })
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`
-  }
+    console.log(user)
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`
+    if (!user) throw new UnauthorizedException('User not found')
+
+    const isPasswordValid = bcrypt.compareSync(
+      loginUserDto.password,
+      user.password
+    )
+
+    if (!isPasswordValid) throw new UnauthorizedException('Invalid password')
+
+    return {
+      message: 'Login successful',
+      user: user,
+    }
   }
 }
