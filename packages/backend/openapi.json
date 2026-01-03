@@ -268,6 +268,20 @@
           "Auth"
         ]
       }
+    },
+    "/api/v1/auth/private2": {
+      "get": {
+        "operationId": "AuthController_testingPrivateRoute2",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
     }
   },
   "info": {
