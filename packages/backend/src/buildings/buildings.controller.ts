@@ -21,6 +21,8 @@ import {
   ApiFindOneOperation,
   ApiUpdateOperation,
 } from 'src/common/decorators/api-responses.decorator'
+import { Auth } from 'src/auth/decorators/auth.decorator'
+import { UserRole } from 'generated/prisma/client'
 
 @ApiTags('Buildings')
 @Controller('buildings')
@@ -59,12 +61,14 @@ export class BuildingsController {
   }
 
   @Delete(':id')
+  @Auth(UserRole.ADMIN)
   @ApiDeleteOperation('Delete a building by id', 'building', Building)
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.buildingsService.remove(id)
   }
 
   @Patch(':id/restore')
+  @Auth(UserRole.ADMIN)
   @ApiUpdateOperation('Restore a deleted building', 'building', Building)
   restore(@Param('id', ParseIntPipe) id: number) {
     return this.buildingsService.restore(id)

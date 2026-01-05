@@ -6,7 +6,8 @@ import { AuthGuard } from '@nestjs/passport'
 import { GetUser } from 'src/common/decorators/get-user.decorator'
 import { UserRole } from 'generated/prisma/client'
 import { UserRoleGuard } from 'src/auth/guards/user-role/user-role.guard'
-import { UserRoles } from 'src/auth/decorators/user-roles.decorator'
+import { Roles } from 'src/auth/decorators/roles.decorator'
+import { Auth } from 'src/auth/decorators/auth.decorator'
 
 @Controller('auth')
 export class AuthController {
@@ -37,15 +38,37 @@ export class AuthController {
   }
 
   @Get('private2')
-  @UserRoles(UserRole.RESIDENT)
   @UseGuards(AuthGuard(), UserRoleGuard)
+  @Roles(UserRole.RESIDENT)
   testingPrivateRoute2(
     @GetUser('id') id: number,
+    @GetUser('firstName') firstName: string,
+    @GetUser('lastName') lastName: string,
     @GetUser('email') email: string,
     @GetUser('role') role: UserRole
   ) {
     return {
       id,
+      firstName,
+      lastName,
+      email,
+      role,
+    }
+  }
+
+  @Get('private3')
+  @Auth(UserRole.ADMIN)
+  testingPrivateRoute3(
+    @GetUser('id') id: number,
+    @GetUser('firstName') firstName: string,
+    @GetUser('lastName') lastName: string,
+    @GetUser('email') email: string,
+    @GetUser('role') role: UserRole
+  ) {
+    return {
+      id,
+      firstName,
+      lastName,
       email,
       role,
     }

@@ -162,8 +162,16 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Delete a building by id",
         "tags": [
           "Buildings"
@@ -197,10 +205,18 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "building not found."
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Restore a deleted building",
         "tags": [
           "Buildings"
@@ -278,6 +294,25 @@
             "description": ""
           }
         },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/private3": {
+      "get": {
+        "operationId": "AuthController_testingPrivateRoute3",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": [
           "Auth"
         ]

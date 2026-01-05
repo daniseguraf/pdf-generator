@@ -12,9 +12,8 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ### Backend - User Model y Auth
 
-- [ ] Actualizar Prisma Schema
-  - [ ] Abrir [`packages/backend/prisma/schema.prisma`](packages/backend/prisma/schema.prisma)
-  - [ ] Agregar modelo User:
+- [x] Actualizar Prisma Schema
+  - [x] Agregar modelo User:
 
     ```prisma
     model User {
@@ -32,9 +31,9 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
     }
     ```
 
-  - [ ] Ejecutar migración: `cd packages/backend && npx prisma migrate dev --name add_user_model`
+  - [x] Ejecutar migración: `cd packages/backend && npx prisma migrate dev --name add_user_model`
 
-- [ ] Instalar dependencias JWT
+- [x] Instalar dependencias JWT
 
   ```bash
   cd packages/backend
@@ -42,27 +41,27 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   pnpm add -D @types/passport-jwt @types/bcrypt
   ```
 
-- [ ] Generar módulo Auth
-  - [ ] `nest g module auth`
-  - [ ] `nest g service auth --no-spec`
-  - [ ] `nest g controller auth --no-spec`
+- [x] Generar módulo Auth
+  - [x] `nest g module auth`
+  - [x] `nest g service auth --no-spec`
+  - [x] `nest g controller auth --no-spec`
 
-- [ ] Crear DTOs en `src/auth/dto/`
-  - [ ] `RegisterDto` - email, password, firstName, lastName
-  - [ ] `LoginDto` - email, password
-  - [ ] Agregar decoradores de validación
+- [x] Crear DTOs en `src/auth/dto/`
+  - [x] `RegisterDto` - email, password, firstName, lastName
+  - [x] `LoginDto` - email, password
+  - [x] Agregar decoradores de validación
 
-- [ ] Implementar `auth.service.ts`
-  - [ ] Inyectar PrismaService y JwtService
-  - [ ] `register(dto)` - hashear password (bcrypt, 10 rounds), crear usuario
-  - [ ] `login(dto)` - validar credenciales, generar JWT
-  - [ ] `validateUser(email, password)` - comparar hash
-  - [ ] `generateToken(user)` - payload: { sub: user.id, email, role }
+- [x] Implementar `auth.service.ts`
+  - [x] Inyectar PrismaService y JwtService
+  - [x] `register(dto)` - hashear password (bcrypt, 10 rounds), crear usuario
+  - [x] `login(dto)` - validar credenciales, generar JWT
+  - [x] `validateUser(email, password)` - comparar hash
+  - [x] `generateToken(user)` - payload: { sub: user.id, email, role }
 
-- [ ] Crear `jwt.strategy.ts`
-  - [ ] Extender PassportStrategy(Strategy)
-  - [ ] Constructor con secretOrKey desde env
-  - [ ] Método validate(payload) - retornar user desde DB
+- [x] Crear `jwt.strategy.ts`
+  - [x] Extender PassportStrategy(Strategy)
+  - [x] Constructor con secretOrKey desde env
+  - [x] Método validate(payload) - retornar user desde DB
 
 - [ ] Crear guards en `src/auth/guards/`
   - [ ] `jwt-auth.guard.ts` - extender AuthGuard('jwt')
