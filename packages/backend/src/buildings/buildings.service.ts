@@ -7,10 +7,10 @@ import { PrismaService } from '../prisma/prisma.service'
 export class BuildingsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(createBuildingDto: CreateBuildingDto) {
+  async create(createBuildingDto: CreateBuildingDto, userId: number) {
     try {
       const response = await this.prismaService.building.create({
-        data: createBuildingDto,
+        data: { ...createBuildingDto, managerId: userId },
       })
 
       return response

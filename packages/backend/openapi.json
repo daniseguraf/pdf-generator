@@ -28,8 +28,16 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Create a new building",
         "tags": [
           "Buildings"
@@ -128,10 +136,18 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "building not found."
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Update a building by id",
         "tags": [
           "Buildings"
@@ -397,11 +413,6 @@
             "example": "contact@building.com",
             "description": "Building email"
           },
-          "managerId": {
-            "type": "number",
-            "example": 1,
-            "description": "Manager ID"
-          },
           "amenities": {
             "type": "string",
             "example": [
@@ -431,7 +442,6 @@
           "floors",
           "phoneNumber",
           "email",
-          "managerId",
           "amenities"
         ]
       },
@@ -506,11 +516,6 @@
             "type": "string",
             "example": "contact@building.com",
             "description": "Building email"
-          },
-          "managerId": {
-            "type": "number",
-            "example": 1,
-            "description": "Manager ID"
           },
           "amenities": {
             "type": "string",

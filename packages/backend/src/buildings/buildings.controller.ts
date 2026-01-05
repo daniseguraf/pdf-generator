@@ -23,6 +23,7 @@ import {
 } from 'src/common/decorators/api-responses.decorator'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { UserRole } from 'generated/prisma/client'
+import { GetUser } from 'src/common/decorators/get-user.decorator'
 
 @ApiTags('Buildings')
 @Controller('buildings')
@@ -30,9 +31,13 @@ export class BuildingsController {
   constructor(private readonly buildingsService: BuildingsService) {}
 
   @Post()
+  @Auth(UserRole.MANAGER)
   @ApiCreateOperation('Create a new building', 'building', Building)
-  create(@Body() createBuildingDto: CreateBuildingDto) {
-    return this.buildingsService.create(createBuildingDto)
+  create(
+    @Body() createBuildingDto: CreateBuildingDto,
+    @GetUser('id') userId: number
+  ) {
+    return this.buildingsService.create(createBuildingDto, userId)
   }
 
   @Get()
@@ -52,6 +57,7 @@ export class BuildingsController {
   }
 
   @Patch(':id')
+  @Auth(UserRole.MANAGER)
   @ApiUpdateOperation('Update a building by id', 'building', Building)
   update(
     @Param('id', ParseIntPipe) id: number,

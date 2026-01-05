@@ -38,7 +38,7 @@ model Building {
   deletedAt    DateTime?    @map("deleted_at") @db.Timestamptz(6)
   manager      User     @relation(fields: [managerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   managerId    Int          @map("manager_id")
-  commonAreas  CommonArea[]
+  // commonAreas  CommonArea[]
   amenities    Amenities[]
 
   @@map("buildings")
