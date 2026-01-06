@@ -315,9 +315,9 @@
         ]
       }
     },
-    "/api/v1/auth/private3": {
+    "/api/v1/auth/me": {
       "get": {
-        "operationId": "AuthController_testingPrivateRoute3",
+        "operationId": "AuthController_me",
         "parameters": [],
         "responses": {
           "401": {
@@ -331,6 +331,25 @@
         ],
         "tags": [
           "Auth"
+        ]
+      }
+    },
+    "/api/v1/seed": {
+      "get": {
+        "operationId": "SeedController_seedDB",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Seed"
         ]
       }
     }

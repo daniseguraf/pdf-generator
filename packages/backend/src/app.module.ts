@@ -4,6 +4,7 @@ import { PrinterModule } from './printer/printer.module'
 import { PrismaModule } from './prisma/prisma.module'
 import { BuildingsModule } from './buildings/buildings.module'
 import { AuthModule } from './auth/auth.module'
+import { SeedModule } from './seed/seed.module'
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { AuthModule } from './auth/auth.module'
     PrismaModule,
     BuildingsModule,
     AuthModule,
+    SeedModule,
   ],
 })
 export class AppModule {}

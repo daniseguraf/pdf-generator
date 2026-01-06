@@ -63,29 +63,29 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] Constructor con secretOrKey desde env
   - [x] Método validate(payload) - retornar user desde DB
 
-- [ ] Crear guards en `src/auth/guards/`
-  - [ ] `jwt-auth.guard.ts` - extender AuthGuard('jwt')
-  - [ ] `roles.guard.ts` - verificar roles del usuario
+- [x] Crear guards en `src/auth/guards/`
+  - [x] `jwt-auth.guard.ts` - extender AuthGuard('jwt')
+  - [x] `roles.guard.ts` - verificar roles del usuario
 
-- [ ] Crear decorators en `src/auth/decorators/`
-  - [ ] `roles.decorator.ts` - `@Roles(...roles: string[])`
-  - [ ] `current-user.decorator.ts` - `@CurrentUser()` extrae req.user
+- [x] Crear decorators en `src/auth/decorators/`
+  - [x] `roles.decorator.ts` - `@Roles(...roles: string[])`
+  - [x] `current-user.decorator.ts` - `@CurrentUser()` extrae req.user
 
-- [ ] Implementar `auth.controller.ts`
-  - [ ] `POST /auth/register` - público
-  - [ ] `POST /auth/login` - público, retorna { user, access_token }
-  - [ ] `GET /auth/me` - protegido con @UseGuards(JwtAuthGuard)
+- [x] Implementar `auth.controller.ts`
+  - [x] `POST /auth/register` - público
+  - [x] `POST /auth/login` - público, retorna { user, access_token }
+  - [x] `GET /auth/me` - protegido con @UseGuards(JwtAuthGuard)
 
-- [ ] Configurar AuthModule
-  - [ ] Importar JwtModule.register({ secret, signOptions: { expiresIn: '24h' } })
-  - [ ] Importar PassportModule
-  - [ ] Providers: AuthService, JwtStrategy
-  - [ ] Exports: AuthService, JwtStrategy
+- [x] Configurar AuthModule
+  - [x] Importar JwtModule.register({ secret, signOptions: { expiresIn: '24h' } })
+  - [x] Importar PassportModule
+  - [x] Providers: AuthService, JwtStrategy
+  - [x] Exports: AuthService, JwtStrategy
 
-- [ ] Registrar en `app.module.ts`
+- [x] Registrar en `app.module.ts`
 
-- [ ] Configurar CORS en `main.ts`
-  - [ ] `app.enableCors({ origin: process.env.CORS_ORIGIN || 'http://localhost:5173', credentials: true })`
+- [x] Configurar CORS en `main.ts`
+  - [x] `app.enableCors({ origin: process.env.CORS_ORIGIN || 'http://localhost:5173', credentials: true })`
 
 ### Frontend - Auth Module
 
