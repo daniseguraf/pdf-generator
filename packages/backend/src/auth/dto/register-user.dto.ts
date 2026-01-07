@@ -1,7 +1,7 @@
 import { IsEmail, IsStrongPassword } from 'class-validator'
 import { IsRequiredString } from 'src/common/decorators/validation.decorators'
 
-export class CreateUserDto {
+export class RegisterUserDto {
   @IsRequiredString(1, 255, 'John Doe', 'User first name')
   firstName: string
 

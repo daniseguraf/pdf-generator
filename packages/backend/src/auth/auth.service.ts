@@ -1,5 +1,5 @@
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common'
-import { CreateUserDto } from 'src/auth/dto/create-user.dto'
+import { RegisterUserDto } from 'src/auth/dto/register-user.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
 import * as bcrypt from 'bcrypt'
 import { LoginUserDto } from 'src/auth/dto/login-user.dto'
@@ -15,12 +15,12 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async register(registerUserDto: RegisterUserDto) {
     try {
       const user = await this.prismaService.user.create({
         data: {
-          ...createUserDto,
-          password: bcrypt.hashSync(createUserDto.password, 10),
+          ...registerUserDto,
+          password: bcrypt.hashSync(registerUserDto.password, 10),
         },
         select: {
           id: true,
@@ -43,9 +43,11 @@ export class AuthService {
     const user = await this.prismaService.user.findUnique({
       where: { email: loginUserDto.email },
       select: {
+        id: true,
+        firstName: true,
+        lastName: true,
         email: true,
         password: true,
-        id: true,
       },
     })
 
@@ -61,7 +63,10 @@ export class AuthService {
     const accessToken = this.generateJwtToken({ id: user.id })
 
     return {
-      ...user,
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
       accessToken,
     }
   }

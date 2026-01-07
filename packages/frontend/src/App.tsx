@@ -9,6 +9,8 @@ import { queryClient } from '@lib/queryClient'
 import { useColorScheme } from '@hooks/useColorScheme'
 
 import '@mantine/core/styles.css'
+import { AuthProvider } from '@features/auth/context/AuthContext'
+import { Notifications } from '@mantine/notifications'
 
 export const App = () => {
   const { colorScheme } = useColorScheme()
@@ -19,9 +21,12 @@ export const App = () => {
         defaultColorScheme={colorScheme}
         forceColorScheme={colorScheme as 'light' | 'dark'}
       >
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
+        <Notifications />
+        <AuthProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </AuthProvider>
       </MantineProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

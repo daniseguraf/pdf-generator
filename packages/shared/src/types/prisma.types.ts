@@ -79,7 +79,6 @@ export type Building = {
   deletedAt: Date | null
   manager?: User
   managerId: number
-  commonAreas?: CommonArea[]
   amenities: Amenities[]
 }
 
@@ -110,7 +109,6 @@ export type Unit = {
 export type CommonArea = {
   id: number
   buildingId: number
-  building?: Building
   name: string
   description: string | null
   capacity: number

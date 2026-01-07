@@ -20,7 +20,7 @@ export const api = axios.create({
 //Request Interceptor - Agregar token JWT automáticamente
 api.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('access_token')
+    const token = localStorage.getItem('accessToken')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -39,7 +39,7 @@ api.interceptors.response.use(
   response => response,
   error => {
     if (error.response?.status === 401) {
-      // Redirect a login si token inválido
+      localStorage.removeItem('accessToken')
       window.location.href = '/login'
     }
     return Promise.reject(error)

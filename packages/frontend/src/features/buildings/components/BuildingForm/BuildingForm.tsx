@@ -13,7 +13,6 @@ import { useForm } from '@mantine/form'
 import type {
   BuildingFormProps,
   BuildingFormValues,
-  CreateBuildingDto,
 } from '../../types/building.types'
 import { useEffect, type FC } from 'react'
 import { PropertyTypeValues, type Building } from '@my-buildings/shared/index'
@@ -112,20 +111,14 @@ export const BuildingForm: FC<BuildingFormProps> = ({
   const handleCreate = () => {
     console.log('handleCreate', form.values)
 
-    createBuilding(
-      {
-        ...form.values,
-        managerId: Number(form.values.managerId),
-      } as CreateBuildingDto,
-      {
-        onSuccess: () => {
-          handleClose()
-        },
-        onError: error => {
-          console.error('Error creando edificio', error)
-        },
-      }
-    )
+    createBuilding(form.values, {
+      onSuccess: () => {
+        handleClose()
+      },
+      onError: error => {
+        console.error('Error creando edificio', error)
+      },
+    })
   }
 
   const handleEdit = () => {

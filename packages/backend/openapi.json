@@ -241,25 +241,33 @@
     },
     "/api/v1/auth/register": {
       "post": {
-        "operationId": "AuthController_create",
+        "operationId": "AuthController_register",
         "parameters": [],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserDto"
+                "$ref": "#/components/schemas/RegisterUserDto"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "User successfully registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
           }
         },
+        "summary": "Register a new user",
         "tags": [
-          "Auth"
+          "auth"
         ]
       }
     },
@@ -279,11 +287,19 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "User successfully logged in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
           }
         },
+        "summary": "Login user",
         "tags": [
-          "Auth"
+          "auth"
         ]
       }
     },
@@ -297,7 +313,7 @@
           }
         },
         "tags": [
-          "Auth"
+          "auth"
         ]
       }
     },
@@ -311,7 +327,7 @@
           }
         },
         "tags": [
-          "Auth"
+          "auth"
         ]
       }
     },
@@ -330,7 +346,7 @@
           }
         ],
         "tags": [
-          "Auth"
+          "auth"
         ]
       }
     },
@@ -554,7 +570,7 @@
           }
         }
       },
-      "CreateUserDto": {
+      "RegisterUserDto": {
         "type": "object",
         "properties": {
           "firstName": {
@@ -583,6 +599,43 @@
           "lastName",
           "email",
           "password"
+        ]
+      },
+      "AuthResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "User ID",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "description": "User first name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "User last name",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "example": "john.doe@example.com"
+          },
+          "accessToken": {
+            "type": "string",
+            "description": "JWT access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "accessToken"
         ]
       },
       "LoginUserDto": {
