@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt'
 import { LoginUserDto } from 'src/auth/dto/login-user.dto'
 import { JwtPayload } from 'src/auth/types/jwt-payload.types'
 import { JwtService } from '@nestjs/jwt'
+import { User } from 'generated/prisma/client'
 
 @Injectable()
 export class AuthService {
@@ -68,6 +69,16 @@ export class AuthService {
       lastName: user.lastName,
       email: user.email,
       accessToken,
+    }
+  }
+
+  checkAuthStatus(user: User) {
+    return {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      accessToken: this.generateJwtToken({ id: user.id }),
     }
   }
 

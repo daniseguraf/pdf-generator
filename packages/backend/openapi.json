@@ -303,29 +303,20 @@
         ]
       }
     },
-    "/api/v1/auth/private": {
+    "/api/v1/auth/check-auth-status": {
       "get": {
-        "operationId": "AuthController_testingPrivateRoute",
+        "operationId": "AuthController_checkAuthStatus",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": ""
+          "401": {
+            "description": "Unauthorized"
           }
         },
-        "tags": [
-          "auth"
-        ]
-      }
-    },
-    "/api/v1/auth/private2": {
-      "get": {
-        "operationId": "AuthController_testingPrivateRoute2",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
+        "security": [
+          {
+            "bearer": []
           }
-        },
+        ],
         "tags": [
           "auth"
         ]

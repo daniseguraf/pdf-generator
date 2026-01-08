@@ -6,7 +6,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## 🏗️ FASE 1: Autenticación y Login (2-3 días)
+## 🏗️ FASE 1: Autenticación y Login
 
 > **Objetivo:** Sistema de autenticación completo funcionando end-to-end
 
@@ -89,28 +89,27 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ### Frontend - Auth Module
 
-- [ ] Crear estructura `packages/frontend/src/features/auth/`
-  - [ ] `types/auth.types.ts`
-  - [ ] `services/auth.service.ts`
-  - [ ] `context/AuthContext.tsx`
-  - [ ] `pages/LoginPage.tsx`
+- [x] Crear estructura `packages/frontend/src/features/auth/`
+  - [x] `types/auth.types.ts`
+  - [x] `services/auth.service.ts`
+  - [x] `context/AuthContext.tsx`
+  - [x] `pages/LoginPage.tsx`
   - [ ] `pages/RegisterPage.tsx`
 
-- [ ] Crear servicio `services/auth.service.ts`
-  - [ ] `login(dto: LoginDto)` - POST /auth/login
-  - [ ] `register(dto: RegisterDto)` - POST /auth/register
-  - [ ] `getMe()` - GET /auth/me
-  - [ ] `logout()` - helper para limpiar estado
+- [x] Crear servicio `services/auth.service.ts`
+  - [x] `login(dto: LoginDto)` - POST /auth/login
+  - [x] `register(dto: RegisterDto)` - POST /auth/register
+  - [x] `getMe()` - GET /auth/me
 
-- [ ] Configurar Axios en [`lib/axios.ts`](packages/frontend/src/lib/axios.ts)
-  - [ ] Request interceptor: agregar Authorization header
+- [x] Configurar Axios en [`lib/axios.ts`](packages/frontend/src/lib/axios.ts)
+  - [x] Request interceptor: agregar Authorization header
     ```typescript
     const token = localStorage.getItem('token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
     ```
-  - [ ] Response interceptor: capturar 401
+  - [x] Response interceptor: capturar 401
     ```typescript
     if (error.response?.status === 401) {
       localStorage.removeItem('token')
@@ -118,72 +117,54 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
     }
     ```
 
-- [ ] Crear AuthContext en `context/AuthContext.tsx`
-  - [ ] Estado: user, token, isAuthenticated, isLoading
-  - [ ] Actions: login, logout, checkAuth
-  - [ ] Guardar token en localStorage
-  - [ ] useEffect para restaurar sesión al montar
+- [x] Crear AuthContext en `context/AuthContext.tsx`
+  - [x] Estado: user, token, isAuthenticated, isLoading
+  - [x] Actions: login, logout, checkAuth
+  - [x] Guardar token en localStorage
+  - [x] useEffect para restaurar sesión al montar
 
-- [ ] Crear `components/LoginForm.tsx`
-  - [ ] useForm de Mantine
-  - [ ] Campos: email (validación email), password (min 6)
-  - [ ] useMutation para login
-  - [ ] Mostrar errores con notificaciones
-  - [ ] Al éxito: guardar token, navegar a /
+- [x] Crear `pages/LoginPage.tsx`
+  - [x] useForm de Mantine
+  - [x] Campos: email (validación email), password (min 6)
+  - [x] useMutation para login
+  - [x] Mostrar errores con notificaciones
+  - [x] Al éxito: guardar token, navegar a /
 
-- [ ] Crear `components/RegisterForm.tsx`
+- [ ] Crear `pages/RegisterPage.tsx`
   - [ ] Campos: email, password, confirmPassword, firstName, lastName
   - [ ] Validación: passwords match
   - [ ] useMutation para register
   - [ ] Al éxito: auto-login o navegar a /login
 
-- [ ] Crear `pages/LoginPage.tsx`
-  - [ ] Layout centrado con Paper de Mantine
-  - [ ] LoginForm
-  - [ ] Link a /register
+- [x] Crear `components/ProtectedRoute.tsx`
 
-- [ ] Crear `pages/RegisterPage.tsx`
-  - [ ] Layout similar
-  - [ ] RegisterForm
-  - [ ] Link a /login
+- [x] Actualizar rutas en `src/app/routes/`
+  - [x] Rutas públicas: /login, /register
+  - [x] Rutas protegidas: wrap con ProtectedRoute
 
-- [ ] Crear `components/ProtectedRoute.tsx`
+- [x] Agregar User Menu en header
+  - [x] Mostrar nombre del usuario
+  - [x] Item: Logout (onClick → logout del context)
 
-  ```typescript
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />;
-  }
-  return <>{children}</>;
-  ```
-
-- [ ] Actualizar rutas en `src/app/routes/`
-  - [ ] Rutas públicas: /login, /register
-  - [ ] Rutas protegidas: wrap con ProtectedRoute
-
-- [ ] Agregar User Menu en header
-  - [ ] Menu de Mantine con avatar
-  - [ ] Mostrar nombre del usuario
-  - [ ] Item: Logout (onClick → logout del context)
-
-- [ ] Envolver app con AuthProvider en `main.tsx` o `App.tsx`
+- [x] Envolver app con AuthProvider en `main.tsx` o `App.tsx`
 
 ### Testing Fase 1
 
-- [ ] Backend: Probar con Postman/Insomnia
-  - [ ] POST /auth/register → crea usuario
-  - [ ] POST /auth/login → retorna token
-  - [ ] GET /auth/me → retorna usuario (con token)
+- [x] Backend: Probar con Postman/Insomnia
+  - [x] POST /auth/register → crea usuario
+  - [x] POST /auth/login → retorna token
+  - [x] GET /auth/me → retorna usuario (con token)
 
-- [ ] Frontend: Probar flujo completo
-  - [ ] Abrir /login
-  - [ ] Login con credenciales
-  - [ ] Verificar redirect a home
-  - [ ] Verificar token en localStorage
-  - [ ] Logout y verificar redirect
+- [x] Frontend: Probar flujo completo
+  - [x] Abrir /login
+  - [x] Login con credenciales
+  - [x] Verificar redirect a home
+  - [x] Verificar token en localStorage
+  - [x] Logout y verificar redirect
 
 ---
 
-## 🏢 FASE 2: Buildings CRUD Completo (2-3 días)
+## 🏢 FASE 2: Buildings CRUD Completo
 
 > **Objetivo:** Gestión completa de edificios end-to-end con autenticación
 

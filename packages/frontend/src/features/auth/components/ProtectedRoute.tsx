@@ -1,13 +1,13 @@
 import { Navigate } from 'react-router'
 import { LoadingOverlay } from '@mantine/core'
-import { useAuthContext } from '@features/auth/hooks/useAuthContext'
+import { useAuth } from '@features/auth/hooks/useAuth'
 
 interface ProtectedRouteProps {
   children: React.ReactNode
 }
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { isAuthenticated, isLoading } = useAuthContext()
+  const { isAuthenticated, isLoading } = useAuth()
 
   if (isLoading) {
     return <LoadingOverlay visible />

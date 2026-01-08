@@ -1,11 +1,11 @@
-import { useAuthContext } from '@features/auth/hooks/useAuthContext'
+import { useAuth } from '@features/auth/hooks/useAuth'
 import type { LoginUserDto } from '@features/auth/types/auth.types'
 import { notifications } from '@mantine/notifications'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router'
 
 export const useLogin = () => {
-  const { login } = useAuthContext()
+  const { login } = useAuth()
   const navigate = useNavigate()
 
   return useMutation({
