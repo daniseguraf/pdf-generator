@@ -92,30 +92,14 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/private": {
+    "/api/v1/auth/check-auth-status": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        get: operations["AuthController_testingPrivateRoute"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/auth/private2": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["AuthController_testingPrivateRoute2"];
+        get: operations["AuthController_checkAuthStatus"];
         put?: never;
         post?: never;
         delete?: never;
@@ -168,7 +152,7 @@ export interface components {
             name: string;
             /**
              * @description Building description
-             * @example This is a building description
+             * @example New building in the city
              */
             description?: string;
             /**
@@ -206,7 +190,7 @@ export interface components {
              * @description Building postal code
              * @example 15001
              */
-            postalCode: string;
+            postalCode?: string;
             /**
              * @description Number of floors
              * @example 10
@@ -216,20 +200,20 @@ export interface components {
              * @description Building phone number
              * @example +51 987 654 321
              */
-            phoneNumber: string;
+            phoneNumber?: string;
             /**
              * @description Building email
              * @example contact@building.com
              */
-            email: string;
+            email?: string;
             /**
              * @description Building amenities
              * @example [
-             *       "ELEVATOR"
+             *       "ELEVATOR",
+             *       "PARKING"
              *     ]
-             * @enum {string}
              */
-            amenities: "PARKING" | "SECURITY_24_7" | "ELEVATOR" | "WHEELCHAIR_ACCESS" | "WHEELCHAIR_LIFT" | "FIRE_ALARM" | "CAMERAS";
+            amenities: ("PARKING" | "SECURITY_24_7" | "ELEVATOR" | "WHEELCHAIR_ACCESS" | "WHEELCHAIR_LIFT" | "FIRE_ALARM" | "CAMERAS")[];
         };
         Building: Record<string, never>;
         UpdateBuildingDto: {
@@ -240,7 +224,7 @@ export interface components {
             name?: string;
             /**
              * @description Building description
-             * @example This is a building description
+             * @example New building in the city
              */
             description?: string;
             /**
@@ -297,11 +281,11 @@ export interface components {
             /**
              * @description Building amenities
              * @example [
-             *       "ELEVATOR"
+             *       "ELEVATOR",
+             *       "PARKING"
              *     ]
-             * @enum {string}
              */
-            amenities?: "PARKING" | "SECURITY_24_7" | "ELEVATOR" | "WHEELCHAIR_ACCESS" | "WHEELCHAIR_LIFT" | "FIRE_ALARM" | "CAMERAS";
+            amenities?: ("PARKING" | "SECURITY_24_7" | "ELEVATOR" | "WHEELCHAIR_ACCESS" | "WHEELCHAIR_LIFT" | "FIRE_ALARM" | "CAMERAS")[];
         };
         RegisterUserDto: {
             /**
@@ -391,6 +375,13 @@ export interface operations {
                     "application/json": components["schemas"]["Building"][];
                 };
             };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
     BuildingsController_create: {
@@ -450,6 +441,13 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["Building"];
                 };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description building not found. */
             404: {
@@ -634,7 +632,7 @@ export interface operations {
             };
         };
     };
-    AuthController_testingPrivateRoute: {
+    AuthController_checkAuthStatus: {
         parameters: {
             query?: never;
             header?: never;
@@ -643,24 +641,8 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AuthController_testingPrivateRoute2: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
+            /** @description Unauthorized */
+            401: {
                 headers: {
                     [name: string]: unknown;
                 };

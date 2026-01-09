@@ -1,21 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { Transform } from 'class-transformer'
-import {
-  IsEmail,
-  IsEnum,
-  IsInt,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  Length,
-  Max,
-  Min,
-  IsPhoneNumber,
-  IsArray,
-} from 'class-validator'
+import { IsEmail, IsEnum, IsOptional } from 'class-validator'
 import { Amenities, PropertyType } from 'generated/prisma/enums'
 import {
   IsOptionalString,
+  IsRequiredInt,
   IsRequiredString,
 } from 'src/common/decorators/validation.decorators'
 
@@ -26,23 +15,10 @@ export class CreateBuildingDto {
   @IsRequiredString(1, 255, 'Main Building', 'Building name')
   name: string
 
-  @IsOptionalString(
-    1000,
-    'This is a building description',
-    'Building description'
-  )
+  @IsOptionalString(1000, 'New building in the city', 'Building description')
   description?: string
 
-  @ApiProperty({
-    example: 2020,
-    description: 'Year built',
-  })
-  @IsInt()
-  @Min(MIN_YEAR_BUILT)
-  @Max(CURRENT_YEAR)
-  @Transform(({ value }) =>
-    typeof value === 'string' ? parseInt(value, 10) : Number(value)
-  )
+  @IsRequiredInt(MIN_YEAR_BUILT, CURRENT_YEAR, 2020, 'Year built')
   yearBuilt: number
 
   @ApiProperty({
@@ -53,92 +29,28 @@ export class CreateBuildingDto {
   @IsEnum(PropertyType)
   propertyType: PropertyType
 
-  @ApiProperty({
-    example: 'Main Street',
-    description: 'Building address',
-  })
-  @IsString()
-  @IsNotEmpty()
-  @Length(5, 500)
-  @Transform(
-    ({ value }) => (typeof value === 'string' ? value.trim() : value) as string
-  )
+  @IsRequiredString(5, 500, 'Main Street', 'Building address')
   address: string
 
-  @ApiProperty({
-    example: 'Main District',
-    description: 'Building district',
-  })
-  @IsString()
-  @IsNotEmpty()
-  @Length(1, 100)
-  @Transform(
-    ({ value }) => (typeof value === 'string' ? value.trim() : value) as string
-  )
+  @IsRequiredString(1, 100, 'Main District', 'Building district')
   district: string
 
-  @ApiProperty({
-    example: 'Main City',
-    description: 'Building city',
-  })
-  @IsString()
-  @IsNotEmpty()
-  @Length(1, 100)
-  @Transform(
-    ({ value }) => (typeof value === 'string' ? value.trim() : value) as string
-  )
+  @IsRequiredString(1, 100, 'Main City', 'Building city')
   city: string
 
-  @ApiProperty({
-    example: 'Main Province',
-    description: 'Building province',
-  })
-  @IsString()
-  @IsNotEmpty()
-  @Length(1, 100)
-  @Transform(
-    ({ value }) => (typeof value === 'string' ? value.trim() : value) as string
-  )
+  @IsRequiredString(1, 100, 'Main Province', 'Building province')
   province: string
 
-  @ApiProperty({
-    example: '15001',
-    description: 'Building postal code',
-  })
-  @IsString()
-  @IsOptional()
-  @Length(4, 10)
-  @Transform(({ value }) =>
-    typeof value === 'string'
-      ? value.trim().toUpperCase() || undefined
-      : undefined
-  )
+  @IsOptionalString(100, '15001', 'Building postal code')
   postalCode?: string
 
-  @ApiProperty({
-    example: 10,
-    description: 'Number of floors',
-  })
-  @IsInt()
-  @Min(1)
-  @Max(200)
-  @Transform(({ value }) =>
-    typeof value === 'string' ? parseInt(value, 10) : Number(value)
-  )
+  @IsRequiredInt(1, 200, 10, 'Number of floors')
   floors: number
 
-  @ApiProperty({
-    example: '+51 987 654 321',
-    description: 'Building phone number',
-  })
-  @IsOptional()
-  @IsPhoneNumber()
-  @Transform(({ value }) =>
-    typeof value === 'string' && value.trim() ? value.trim() : undefined
-  )
+  @IsOptionalString(20, '+51 987 654 321', 'Building phone number')
   phoneNumber?: string
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'contact@building.com',
     description: 'Building email',
   })
@@ -152,12 +64,10 @@ export class CreateBuildingDto {
   email?: string
 
   @ApiProperty({
-    example: [Amenities.ELEVATOR],
+    example: [Amenities.ELEVATOR, Amenities.PARKING],
     description: 'Building amenities',
+    isArray: true,
     enum: Amenities,
   })
-  @IsOptional()
-  @IsArray()
-  @IsEnum(Amenities, { each: true })
-  amenities?: Amenities[]
+  amenities: Amenities[]
 }

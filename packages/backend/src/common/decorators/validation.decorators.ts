@@ -2,11 +2,14 @@ import { applyDecorators } from '@nestjs/common'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { Transform } from 'class-transformer'
 import {
+  IsInt,
   IsNotEmpty,
   IsOptional,
   IsString,
   Length,
+  Max,
   MaxLength,
+  Min,
 } from 'class-validator'
 
 export const IsRequiredString = (
@@ -38,6 +41,23 @@ export const IsOptionalString = (
     MaxLength(maxLength),
     Transform(({ value }) =>
       typeof value === 'string' ? value.trim() || undefined : undefined
+    )
+  )
+}
+
+export const IsRequiredInt = (
+  min: number,
+  max: number,
+  example: number,
+  description: string
+) => {
+  return applyDecorators(
+    ApiProperty({ example, description }),
+    IsInt(),
+    Min(min),
+    Max(max),
+    Transform(({ value }) =>
+      typeof value === 'string' ? parseInt(value, 10) : Number(value)
     )
   )
 }

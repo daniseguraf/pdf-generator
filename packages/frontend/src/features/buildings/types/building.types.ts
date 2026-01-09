@@ -22,12 +22,11 @@ export type BuildingFormValues = {
   city: string
   province: string
   postalCode?: string
-  managerId?: string
   propertyType: PropertyType
-  yearBuilt?: number
-  floors?: number
+  yearBuilt: number | string
+  floors: number | string
   phoneNumber?: string
   email?: string
   description?: string
-  amenities?: Amenities[]
+  amenities: Amenities[]
 }

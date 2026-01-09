@@ -25,8 +25,8 @@ export const buildingsService = {
     return data
   },
 
-  create: async (dto: CreateBuildingDto): Promise<Building> => {
-    const { data } = await api.post<Building>('/buildings', dto, {
+  create: async (createBuildingDto: CreateBuildingDto): Promise<Building> => {
+    const { data } = await api.post<Building>('/buildings', createBuildingDto, {
       metadata: {
         operationName: 'createBuilding',
       },
@@ -34,12 +34,19 @@ export const buildingsService = {
     return data
   },
 
-  update: async (id: number, dto: UpdateBuildingDto): Promise<Building> => {
-    const { data } = await api.patch<Building>(`/buildings/${id}`, dto, {
-      metadata: {
-        operationName: 'updateBuilding',
-      },
-    })
+  update: async (
+    id: number,
+    updateBuildingDto: UpdateBuildingDto
+  ): Promise<Building> => {
+    const { data } = await api.patch<Building>(
+      `/buildings/${id}`,
+      updateBuildingDto,
+      {
+        metadata: {
+          operationName: 'updateBuilding',
+        },
+      }
+    )
     return data
   },
 

@@ -4,15 +4,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 type UpdateBuildingParams = {
   id: number
-  dto: UpdateBuildingDto
+  updateBuildingDto: UpdateBuildingDto
 }
 
 export const useUpdateBuilding = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, dto }: UpdateBuildingParams) => {
-      return buildingsService.update(id, dto)
+    mutationFn: ({ id, updateBuildingDto }: UpdateBuildingParams) => {
+      return buildingsService.update(id, updateBuildingDto)
     },
     mutationKey: ['updateBuilding'],
     onSuccess: (_data, { id }) => {

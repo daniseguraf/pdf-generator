@@ -397,7 +397,7 @@
           },
           "description": {
             "type": "string",
-            "example": "This is a building description",
+            "example": "New building in the city",
             "description": "Building description"
           },
           "yearBuilt": {
@@ -456,20 +456,24 @@
             "description": "Building email"
           },
           "amenities": {
-            "type": "string",
+            "type": "array",
             "example": [
-              "ELEVATOR"
+              "ELEVATOR",
+              "PARKING"
             ],
             "description": "Building amenities",
-            "enum": [
-              "PARKING",
-              "SECURITY_24_7",
-              "ELEVATOR",
-              "WHEELCHAIR_ACCESS",
-              "WHEELCHAIR_LIFT",
-              "FIRE_ALARM",
-              "CAMERAS"
-            ]
+            "items": {
+              "type": "string",
+              "enum": [
+                "PARKING",
+                "SECURITY_24_7",
+                "ELEVATOR",
+                "WHEELCHAIR_ACCESS",
+                "WHEELCHAIR_LIFT",
+                "FIRE_ALARM",
+                "CAMERAS"
+              ]
+            }
           }
         },
         "required": [
@@ -480,10 +484,7 @@
           "district",
           "city",
           "province",
-          "postalCode",
           "floors",
-          "phoneNumber",
-          "email",
           "amenities"
         ]
       },
@@ -501,7 +502,7 @@
           },
           "description": {
             "type": "string",
-            "example": "This is a building description",
+            "example": "New building in the city",
             "description": "Building description"
           },
           "yearBuilt": {
@@ -560,20 +561,24 @@
             "description": "Building email"
           },
           "amenities": {
-            "type": "string",
+            "type": "array",
             "example": [
-              "ELEVATOR"
+              "ELEVATOR",
+              "PARKING"
             ],
             "description": "Building amenities",
-            "enum": [
-              "PARKING",
-              "SECURITY_24_7",
-              "ELEVATOR",
-              "WHEELCHAIR_ACCESS",
-              "WHEELCHAIR_LIFT",
-              "FIRE_ALARM",
-              "CAMERAS"
-            ]
+            "items": {
+              "type": "string",
+              "enum": [
+                "PARKING",
+                "SECURITY_24_7",
+                "ELEVATOR",
+                "WHEELCHAIR_ACCESS",
+                "WHEELCHAIR_LIFT",
+                "FIRE_ALARM",
+                "CAMERAS"
+              ]
+            }
           }
         }
       },

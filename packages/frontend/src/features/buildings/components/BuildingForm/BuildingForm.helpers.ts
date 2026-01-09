@@ -7,8 +7,7 @@ export const buildingFormSchema = z.object({
   district: z.string().min(1),
   city: z.string().min(1),
   province: z.string().min(1),
-  postalCode: z.string().optional(),
-  managerId: z.string().min(1),
+  // managerId: z.string().min(1),
   propertyType: z.enum([
     PropertyTypeValues.RESIDENTIAL,
     PropertyTypeValues.COMMERCIAL,
@@ -16,8 +15,6 @@ export const buildingFormSchema = z.object({
   ]),
   yearBuilt: z.number().min(1800).max(new Date().getFullYear()),
   floors: z.number().min(1).max(300),
-  description: z.string().optional(),
-  amenities: z.array(z.string()).optional(),
 })
 
 export const amenitiesOptions = [

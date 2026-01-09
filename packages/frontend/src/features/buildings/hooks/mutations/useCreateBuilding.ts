@@ -6,8 +6,8 @@ export const useCreateBuilding = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (dto: CreateBuildingDto) => {
-      return buildingsService.create(dto)
+    mutationFn: (createBuildingDto: CreateBuildingDto) => {
+      return buildingsService.create(createBuildingDto)
     },
     mutationKey: ['createBuilding'],
     onSuccess: () => {

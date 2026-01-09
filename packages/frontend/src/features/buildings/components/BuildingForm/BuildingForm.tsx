@@ -17,7 +17,6 @@ import type {
 import { useEffect, type FC } from 'react'
 import { PropertyTypeValues, type Building } from '@my-buildings/shared/index'
 import { useCreateBuilding } from '@features/buildings/hooks/mutations/useCreateBuilding'
-import { useEmployees } from '@features/employees/hooks/useEmployees'
 import {
   amenitiesOptions,
   buildingFormSchema,
@@ -39,8 +38,6 @@ export const BuildingForm: FC<BuildingFormProps> = ({
     reset: resetUpdateBuilding,
   } = useUpdateBuilding()
 
-  const { data: employees } = useEmployees()
-
   const {
     id,
     name,
@@ -49,7 +46,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
     city,
     province,
     postalCode,
-    managerId,
+    // managerId,
     propertyType,
     yearBuilt,
     floors,
@@ -59,11 +56,11 @@ export const BuildingForm: FC<BuildingFormProps> = ({
     amenities,
   } = (building as Building) ?? {}
 
-  const managerOptions =
-    employees?.map(employee => ({
-      value: `${employee.id}`,
-      label: `${employee.firstName} ${employee.lastName}`,
-    })) ?? []
+  // const managerOptions =
+  //   employees?.map(employee => ({
+  //     value: `${employee.id}`,
+  //     label: `${employee.firstName} ${employee.lastName}`,
+  //   })) ?? []
 
   const initialValues = {
     name: name ?? '',
@@ -71,14 +68,13 @@ export const BuildingForm: FC<BuildingFormProps> = ({
     district: district ?? '',
     city: city ?? '',
     province: province ?? '',
-    postalCode: postalCode ?? '',
-    managerId: managerId ? `${managerId}` : '',
+    postalCode: postalCode ?? undefined,
     propertyType: propertyType ?? PropertyTypeValues.RESIDENTIAL,
-    yearBuilt: yearBuilt ?? null,
-    floors: floors ?? null,
-    phoneNumber: phoneNumber ?? '',
-    email: email ?? '',
-    description: description ?? '',
+    yearBuilt: yearBuilt ?? '',
+    floors: floors ?? '',
+    phoneNumber: phoneNumber ?? undefined,
+    email: email ?? undefined,
+    description: description ?? undefined,
     amenities: amenities ?? [],
   }
 
@@ -88,6 +84,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
     validate: zod4Resolver(buildingFormSchema),
   })
 
+  console.log('form.values', form.values)
   const handleClose = () => {
     console.log('handleClose')
     onClose()
@@ -111,26 +108,34 @@ export const BuildingForm: FC<BuildingFormProps> = ({
   const handleCreate = () => {
     console.log('handleCreate', form.values)
 
-    createBuilding(form.values, {
-      onSuccess: () => {
-        handleClose()
+    createBuilding(
+      {
+        ...form.values,
+        yearBuilt: Number(form.values.yearBuilt),
+        floors: Number(form.values.floors),
       },
-      onError: error => {
-        console.error('Error creando edificio', error)
-      },
-    })
+      {
+        onSuccess: () => {
+          handleClose()
+        },
+        onError: error => {
+          console.error('Error creando edificio', error)
+        },
+      }
+    )
   }
 
   const handleEdit = () => {
     const updatedInfo = {
       ...form.values,
-      managerId: Number(form.values.managerId),
+      yearBuilt: Number(form.values.yearBuilt),
+      floors: Number(form.values.floors),
     }
 
     updateBuilding(
       {
         id,
-        dto: updatedInfo,
+        updateBuildingDto: updatedInfo,
       },
       {
         onSuccess: () => {
@@ -206,13 +211,13 @@ export const BuildingForm: FC<BuildingFormProps> = ({
           />
         </Group>
 
-        <Select
+        {/* <Select
           label="Gerente del Edificio"
           placeholder="Selecciona el gerente"
           required
           data={managerOptions}
           {...form.getInputProps('managerId')}
-        />
+        /> */}
 
         <Select
           label="Tipo de Propiedad"
