@@ -170,35 +170,33 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ### Backend - Buildings Module
 
-- [ ] Mejorar [`buildings.service.ts`](packages/backend/src/buildings/buildings.service.ts)
-  - [ ] Método `create()`
-    - [ ] Envolver en try-catch
-    - [ ] Validar que managerId existe: `await this.prisma.employee.findUnique()`
-    - [ ] Si no existe: `throw new BadRequestException('Manager not found')`
-    - [ ] Capturar errores de Prisma (unique constraints)
-  - [ ] Método `update()`
-    - [ ] Agregar try-catch
-    - [ ] Verificar que building existe primero
-    - [ ] Si no existe: `throw new NotFoundException()`
-  - [ ] Método `remove()`
-    - [ ] Verificar que existe antes de soft delete
-    - [ ] Manejar errores apropiadamente
+- [x] Mejorar [`buildings.service.ts`](packages/backend/src/buildings/buildings.service.ts)
+  - [x] Método `create()`
+    - [x] Envolver en try-catch
+    - [x] Si no existe el user: `throw new BadRequestException('Manager not found')`
+    - [x] Capturar errores de Prisma (unique constraints)
+  - [x] Método `update()`
+    - [x] Agregar try-catch
+    - [x] Verificar que building existe primero
+    - [x] Si no existe: `throw new NotFoundException()`
+  - [x] Método `remove()`
+    - [x] Verificar que existe antes de soft delete
+    - [x] Manejar errores apropiadamente
 
-- [ ] Proteger `buildings.controller.ts`
-  - [ ] Agregar `@UseGuards(JwtAuthGuard, RolesGuard)` a nivel de controller
-  - [ ] `@Roles('ADMIN', 'MANAGER')` en create, update, delete
-  - [ ] GET endpoints pueden ser accesibles por cualquier autenticado
+- [x] Proteger `buildings.controller.ts`
+  - [x] Agregar `@UseGuards(JwtAuthGuard, RolesGuard)` a nivel de controller
+  - [x] `@Roles('ADMIN', 'MANAGER')` en create, update, delete
 
-- [ ] Crear seeder inicial `prisma/seed.ts`
-  - [ ] Crear 1 usuario admin (email: admin@demo.com, pass: password123)
-  - [ ] Crear 1 empleado manager
-  - [ ] Crear 2 edificios
-  - [ ] Configurar en package.json: `"prisma": { "seed": "ts-node prisma/seed.ts" }`
-  - [ ] Ejecutar: `npx prisma db seed`
+- [x] Crear seeder inicial `prisma/seed.ts`
+  - [x] Crear 1 usuario admin (email: admin@demo.com, pass: password123)
+  - [x] Crear 1 empleado manager
+  - [x] Crear 2 edificios
+  - [x] Configurar en package.json: `"prisma": { "seed": "ts-node prisma/seed.ts" }`
+  - [x] Ejecutar: `npx prisma db seed`
 
 ### Frontend - Buildings Module
 
-- [ ] Verificar estructura existente en `features/buildings/`
+- [x] Verificar estructura existente en `features/buildings/`
 
 - [ ] Actualizar hooks de mutaciones
   - [ ] `hooks/mutations/useCreateBuilding.ts`
@@ -248,7 +246,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## 🏛️ FASE 3: Áreas Comunes (2 días)
+## 🏛️ FASE 3: Áreas Comunes
 
 > **Objetivo:** CRUD de áreas comunes vinculadas a edificios
 

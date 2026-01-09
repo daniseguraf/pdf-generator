@@ -1,7 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common'
 import { CreateBuildingDto } from './dto/create-building.dto'
 import { UpdateBuildingDto } from './dto/update-building.dto'
 import { PrismaService } from '../prisma/prisma.service'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client'
 
 @Injectable()
 export class BuildingsService {
@@ -9,30 +15,31 @@ export class BuildingsService {
 
   async create(createBuildingDto: CreateBuildingDto, userId: number) {
     try {
-      const response = await this.prismaService.building.create({
+      return await this.prismaService.building.create({
         data: { ...createBuildingDto, managerId: userId },
       })
-
-      return response
     } catch (error) {
-      console.log(error)
-      throw error
+      if (error instanceof PrismaClientKnownRequestError) {
+        // P2002: Unique constraint violation
+        if (error.code === 'P2002') {
+          throw new ConflictException('Building with that email already exists')
+        }
+
+        // P2003: Foreign key constraint violation
+        if (error.code === 'P2003') {
+          throw new NotFoundException('User not found')
+        }
+      }
+
+      throw new InternalServerErrorException('Error creating building')
     }
   }
 
   async findAll() {
     return await this.prismaService.building.findMany({
       where: { deletedAt: null },
-      include: {
-        manager: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-          },
-        },
-      },
+      omit: this.removeDateFields(),
+      include: this.setManager(),
       orderBy: {
         id: 'desc',
       },
@@ -42,16 +49,10 @@ export class BuildingsService {
   async findOne(id: number) {
     const building = await this.prismaService.building.findUnique({
       where: { id },
-      include: {
-        manager: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-          },
-        },
+      omit: {
+        deletedAt: true,
       },
+      include: this.setManager(),
     })
 
     if (!building) {
@@ -61,38 +62,92 @@ export class BuildingsService {
     return building
   }
 
-  update(id: number, updateBuildingDto: UpdateBuildingDto) {
-    const updatedBuilding = this.prismaService.building.update({
-      where: { id },
-      data: updateBuildingDto,
-    })
+  async update(id: number, updateBuildingDto: UpdateBuildingDto) {
+    await this.findOne(id)
 
-    return updatedBuilding
+    try {
+      return await this.prismaService.building.update({
+        where: { id },
+        omit: this.removeDateFields(),
+        data: updateBuildingDto,
+      })
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ConflictException('Ya existe un edificio con ese email')
+        }
+
+        if (error.code === 'P2025') {
+          throw new NotFoundException(`Edificio con id ${id} no encontrado`)
+        }
+
+        throw new InternalServerErrorException('Error updating building')
+      }
+    }
   }
 
   async remove(id: number) {
-    const deletedBuilding = await this.prismaService.building.update({
-      where: { id },
-      data: { deletedAt: new Date() },
-    })
+    await this.findOne(id)
 
-    if (!deletedBuilding) {
-      throw new NotFoundException(`Building with id ${id} not found`)
+    try {
+      return await this.prismaService.building.update({
+        where: { id },
+        data: { deletedAt: new Date() },
+      })
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          throw new NotFoundException(`Building with id ${id} not found`)
+        }
+
+        throw new InternalServerErrorException('Error deleting building')
+      }
     }
-
-    return deletedBuilding
   }
 
   async restore(id: number) {
-    const restoredBuilding = await this.prismaService.building.update({
+    const building = await this.prismaService.building.findUnique({
       where: { id },
-      data: { deletedAt: null },
     })
 
-    if (!restoredBuilding) {
+    if (!building) {
       throw new NotFoundException(`Building with id ${id} not found`)
     }
 
-    return restoredBuilding
+    if (!building.deletedAt) {
+      throw new ConflictException('Building is not deleted')
+    }
+
+    try {
+      return await this.prismaService.building.update({
+        where: { id },
+        data: { deletedAt: null },
+        omit: this.removeDateFields(),
+        include: this.setManager(),
+      })
+    } catch (error) {
+      throw new InternalServerErrorException('Error restoring building')
+    }
+  }
+
+  private setManager() {
+    return {
+      manager: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+        },
+      },
+    }
+  }
+
+  private removeDateFields() {
+    return {
+      createdAt: true,
+      updatedAt: true,
+      deletedAt: true,
+    }
   }
 }

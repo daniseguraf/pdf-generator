@@ -31,7 +31,7 @@ export class BuildingsController {
   constructor(private readonly buildingsService: BuildingsService) {}
 
   @Post()
-  @Auth(UserRole.MANAGER)
+  @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @ApiCreateOperation('Create a new building', 'building', Building)
   create(
     @Body() createBuildingDto: CreateBuildingDto,
@@ -41,12 +41,14 @@ export class BuildingsController {
   }
 
   @Get()
+  @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @ApiFindAllOperation('Get all buildings', 'buildings', Building)
   findAll() {
     return this.buildingsService.findAll()
   }
 
   @Get(':id')
+  @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @ApiFindOneOperation('Get a building by id', 'building', Building)
   findOne(@Param('id', ParseIntPipe) id: number) {
     if (id <= 0) {
@@ -57,7 +59,7 @@ export class BuildingsController {
   }
 
   @Patch(':id')
-  @Auth(UserRole.MANAGER)
+  @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @ApiUpdateOperation('Update a building by id', 'building', Building)
   update(
     @Param('id', ParseIntPipe) id: number,

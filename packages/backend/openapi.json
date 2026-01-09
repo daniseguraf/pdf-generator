@@ -59,8 +59,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Get all buildings",
         "tags": [
           "Buildings"
@@ -91,10 +99,18 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "building not found."
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Get a building by id",
         "tags": [
           "Buildings"
