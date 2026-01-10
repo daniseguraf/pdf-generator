@@ -35,9 +35,9 @@ export class BuildingsService {
     }
   }
 
-  async findAll() {
+  async findAll(userId: number) {
     return await this.prismaService.building.findMany({
-      where: { deletedAt: null },
+      where: { deletedAt: null, managerId: userId },
       omit: this.removeDateFields(),
       include: this.setManager(),
       orderBy: {

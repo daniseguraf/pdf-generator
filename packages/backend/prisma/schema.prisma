@@ -38,7 +38,7 @@ model Building {
   deletedAt    DateTime?    @map("deleted_at") @db.Timestamptz(6)
   manager      User         @relation(fields: [managerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   managerId    Int          @map("manager_id")
-  // commonAreas  CommonArea[]
+  commonAreas  CommonArea[]
   amenities    Amenities[]
 
   @@map("buildings")
@@ -78,16 +78,17 @@ model Unit {
 model CommonArea {
   id                     Int           @id @default(autoincrement())
   buildingId             Int           @map("building_id")
-  // building               Building      @relation(fields: [buildingId], references: [id])
-  name                   String
+  building               Building      @relation(fields: [buildingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  type                   CommonAreas
   description            String?
-  capacity               Int
+  capacity               Int?
   isActive               Boolean       @default(true) @map("is_active")
   createdAt              DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt              DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
-  maxHoursPerReservation Int           @default(4) @map("max_hours_per_reservation")
-  openTime               String        @default("08:00") @map("open_time")
-  closeTime              String        @default("22:00") @map("close_time")
+  deletedAt              DateTime?     @map("deleted_at") @db.Timestamptz(6)
+  maxHoursPerReservation Int?           @default(4) @map("max_hours_per_reservation")
+  openTime               String?        @map("open_time")
+  closeTime              String?        @map("close_time")
   daysAvailable          String[]      @default(["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]) @map("days_available")
   reservations           Reservation[]
 
@@ -165,4 +166,14 @@ enum Amenities {
   WHEELCHAIR_LIFT
   FIRE_ALARM
   CAMERAS
+}
+
+enum CommonAreas {
+  GYM
+  POOL
+  CLUB_HOUSE
+  CAFETERIA
+  EVENT_ROOM
+  ROOF_TOP
+  COWORKING_SPACE
 }

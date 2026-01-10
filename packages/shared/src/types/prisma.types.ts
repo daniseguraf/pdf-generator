@@ -59,6 +59,25 @@ export const AmenitiesValues = {
   CAMERAS: 'CAMERAS',
 } satisfies Record<string, Amenities>
 
+export type CommonAreas =
+  | 'GYM'
+  | 'POOL'
+  | 'CLUB_HOUSE'
+  | 'CAFETERIA'
+  | 'EVENT_ROOM'
+  | 'ROOF_TOP'
+  | 'COWORKING_SPACE'
+
+export const CommonAreasValues = {
+  GYM: 'GYM',
+  POOL: 'POOL',
+  CLUB_HOUSE: 'CLUB_HOUSE',
+  CAFETERIA: 'CAFETERIA',
+  EVENT_ROOM: 'EVENT_ROOM',
+  ROOF_TOP: 'ROOF_TOP',
+  COWORKING_SPACE: 'COWORKING_SPACE',
+} satisfies Record<string, CommonAreas>
+
 export type Building = {
   id: number
   name: string
@@ -79,6 +98,7 @@ export type Building = {
   deletedAt: Date | null
   manager?: User
   managerId: number
+  commonAreas?: CommonArea[]
   amenities: Amenities[]
 }
 
@@ -109,13 +129,15 @@ export type Unit = {
 export type CommonArea = {
   id: number
   buildingId: number
-  name: string
+  building?: Building
+  type: CommonAreas
   description: string | null
-  capacity: number
+  capacity: number | null
   isActive: boolean
   createdAt: Date
   updatedAt: Date
-  maxHoursPerReservation: number
+  deletedAt: Date | null
+  maxHoursPerReservation: number | null
   openTime: string
   closeTime: string
   daysAvailable: string[]

@@ -249,8 +249,8 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ### Backend - CommonAreas Module
 
-- [ ] Generar módulo
-  - [ ] `nest g resource common-areas --no-spec`
+- [x] Generar módulo
+  - [x] `nest g resource common-areas --no-spec`
 
 - [ ] Crear DTOs en `src/common-areas/dto/`
   - [ ] `CreateCommonAreaDto`
