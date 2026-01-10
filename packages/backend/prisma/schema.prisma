@@ -77,9 +77,9 @@ model Unit {
 
 model CommonArea {
   id                     Int           @id @default(autoincrement())
+  type                   CommonAreas
   buildingId             Int           @map("building_id")
   building               Building      @relation(fields: [buildingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  type                   CommonAreas
   description            String?
   capacity               Int?
   isActive               Boolean       @default(true) @map("is_active")
@@ -89,7 +89,7 @@ model CommonArea {
   maxHoursPerReservation Int?           @default(4) @map("max_hours_per_reservation")
   openTime               String?        @map("open_time")
   closeTime              String?        @map("close_time")
-  daysAvailable          String[]      @default(["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]) @map("days_available")
+  daysAvailable          DaysOfWeek[]   @default([]) @map("days_available")
   reservations           Reservation[]
 
   @@map("common_areas")
@@ -176,4 +176,15 @@ enum CommonAreas {
   EVENT_ROOM
   ROOF_TOP
   COWORKING_SPACE
+}
+
+enum DaysOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+  ALL
 }

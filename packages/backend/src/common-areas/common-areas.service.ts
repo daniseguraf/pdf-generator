@@ -7,14 +7,16 @@ import { PrismaService } from 'src/prisma/prisma.service'
 export class CommonAreasService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  create(createCommonAreaDto: CreateCommonAreaDto, userId: number) {
-    // return this.prismaService.commonArea.create({
-    //   data: { ...createCommonAreaDto, buildingId: {where:} },
-    // })
+  async create(createCommonAreaDto: CreateCommonAreaDto) {
+    return await this.prismaService.commonArea.create({
+      data: createCommonAreaDto,
+    })
   }
 
-  findAll() {
-    return `This action returns all commonAreas`
+  async findAll() {
+    return await this.prismaService.commonArea.findMany({
+      where: { deletedAt: null },
+    })
   }
 
   findOne(id: number) {

@@ -822,11 +822,85 @@
       },
       "CreateCommonAreaDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "CAFETERIA",
+            "description": "Common area type",
+            "enum": [
+              "GYM",
+              "POOL",
+              "CLUB_HOUSE",
+              "CAFETERIA",
+              "EVENT_ROOM",
+              "ROOF_TOP",
+              "COWORKING_SPACE"
+            ]
+          },
+          "buildingId": {
+            "type": "number",
+            "example": 1,
+            "description": "Building ID"
+          },
+          "description": {
+            "type": "string",
+            "example": "Common area description",
+            "description": "Common area description"
+          },
+          "openTime": {
+            "type": "string",
+            "example": "8:00 AM",
+            "description": "Common area open time"
+          },
+          "closeTime": {
+            "type": "string",
+            "example": "10:00 PM",
+            "description": "Common area close time"
+          }
+        },
+        "required": [
+          "type",
+          "buildingId"
+        ]
       },
       "UpdateCommonAreaDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "CAFETERIA",
+            "description": "Common area type",
+            "enum": [
+              "GYM",
+              "POOL",
+              "CLUB_HOUSE",
+              "CAFETERIA",
+              "EVENT_ROOM",
+              "ROOF_TOP",
+              "COWORKING_SPACE"
+            ]
+          },
+          "buildingId": {
+            "type": "number",
+            "example": 1,
+            "description": "Building ID"
+          },
+          "description": {
+            "type": "string",
+            "example": "Common area description",
+            "description": "Common area description"
+          },
+          "openTime": {
+            "type": "string",
+            "example": "8:00 AM",
+            "description": "Common area open time"
+          },
+          "closeTime": {
+            "type": "string",
+            "example": "10:00 PM",
+            "description": "Common area close time"
+          }
+        }
       }
     }
   }

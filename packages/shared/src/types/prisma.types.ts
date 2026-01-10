@@ -78,6 +78,27 @@ export const CommonAreasValues = {
   COWORKING_SPACE: 'COWORKING_SPACE',
 } satisfies Record<string, CommonAreas>
 
+export type DaysOfWeek =
+  | 'MONDAY'
+  | 'TUESDAY'
+  | 'WEDNESDAY'
+  | 'THURSDAY'
+  | 'FRIDAY'
+  | 'SATURDAY'
+  | 'SUNDAY'
+  | 'ALL'
+
+export const DaysOfWeekValues = {
+  MONDAY: 'MONDAY',
+  TUESDAY: 'TUESDAY',
+  WEDNESDAY: 'WEDNESDAY',
+  THURSDAY: 'THURSDAY',
+  FRIDAY: 'FRIDAY',
+  SATURDAY: 'SATURDAY',
+  SUNDAY: 'SUNDAY',
+  ALL: 'ALL',
+} satisfies Record<string, DaysOfWeek>
+
 export type Building = {
   id: number
   name: string
@@ -128,9 +149,9 @@ export type Unit = {
 
 export type CommonArea = {
   id: number
+  type: CommonAreas
   buildingId: number
   building?: Building
-  type: CommonAreas
   description: string | null
   capacity: number | null
   isActive: boolean
@@ -138,9 +159,9 @@ export type CommonArea = {
   updatedAt: Date
   deletedAt: Date | null
   maxHoursPerReservation: number | null
-  openTime: string
-  closeTime: string
-  daysAvailable: string[]
+  openTime: string | null
+  closeTime: string | null
+  daysAvailable: DaysOfWeek[]
   reservations?: Reservation[]
 }
 

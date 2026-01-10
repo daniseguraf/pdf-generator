@@ -52,7 +52,13 @@ export class BuildingsService {
       omit: {
         deletedAt: true,
       },
-      include: this.setManager(),
+      include: {
+        ...this.setManager(),
+        commonAreas: {
+          where: { deletedAt: null },
+          omit: this.removeDateFields(),
+        },
+      },
     })
 
     if (!building) {

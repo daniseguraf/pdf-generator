@@ -61,3 +61,26 @@ export const IsRequiredInt = (
     )
   )
 }
+
+// export const IsOptionalInt = ({
+//   example,
+//   description,
+//   min,
+//   max,
+// }: {
+//   example: number
+//   description: string
+//   min?: number
+//   max?: number
+// }) => {
+//   return applyDecorators(
+//     ApiPropertyOptional({ example, description }),
+//     IsInt(),
+//     min !== undefined ? Min(min) : (undefined as unknown as PropertyDecorator),
+//     max !== undefined ? Max(max) : (undefined as unknown as PropertyDecorator),
+//     IsOptional(),
+//     Transform(({ value }) =>
+//       typeof value === 'string' ? parseInt(value, 10) : Number(value)
+//     )
+//   )
+// }
