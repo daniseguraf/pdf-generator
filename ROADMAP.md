@@ -198,51 +198,48 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 - [x] Verificar estructura existente en `features/buildings/`
 
-- [ ] Actualizar hooks de mutaciones
-  - [ ] `hooks/mutations/useCreateBuilding.ts`
-    - [ ] Agregar `onSuccess`: `notifications.show({ title: 'Éxito', message: 'Edificio creado' })`
-    - [ ] Agregar `onError`: `notifications.show({ title: 'Error', message: error.message, color: 'red' })`
-  - [ ] `hooks/mutations/useUpdateBuilding.ts`
-    - [ ] Agregar notificaciones similares
-  - [ ] `hooks/mutations/useDeleteBuilding.ts`
-    - [ ] Agregar confirmación con `modals.openConfirmModal()`
-    - [ ] Agregar notificaciones
+- [x] Actualizar hooks de mutaciones
+  - [x] `hooks/mutations/useCreateBuilding.ts`
+    - [x] Agregar `onSuccess`: `notifications.show({ title: 'Éxito', message: 'Edificio creado' })`
+    - [x] Agregar `onError`: `notifications.show({ title: 'Error', message: error.message, color: 'red' })`
+  - [x] `hooks/mutations/useUpdateBuilding.ts`
+    - [x] Agregar notificaciones similares
 
 - [ ] Mejorar componentes existentes
-  - [ ] `components/BuildingForm/BuildingForm.tsx`
-    - [ ] Verificar validaciones completas
-    - [ ] Loading state en botón submit
-    - [ ] Deshabilitar form durante mutación
-  - [ ] `components/TableSkeleton.tsx`
-    - [ ] Usar mientras isLoading en useBuildings
+  - [x] `components/BuildingForm/BuildingForm.tsx`
+    - [x] Verificar validaciones completas
+    - [x] Loading state en botón submit
+    - [x] Deshabilitar form durante mutación
+  - [x] `components/TableSkeleton.tsx`
+    - [x] Usar mientras isLoading en useBuildings
 
-- [ ] Mejorar `pages/BuildingsListPage.tsx`
-  - [ ] Mostrar TableSkeleton si isLoading
-  - [ ] Mostrar `BuildingsEmptyState` si no hay datos
-  - [ ] Verificar botón "Nuevo Edificio" funciona
-  - [ ] Modal para create/edit con BuildingForm
+- [x] Mejorar `pages/BuildingsListPage.tsx`
+  - [x] Mostrar TableSkeleton si isLoading
+  - [x] Mostrar `BuildingsEmptyState` si no hay datos
+  - [x] Verificar botón "Nuevo Edificio" funciona
+  - [x] Modal para create/edit con BuildingForm
 
-- [ ] Mejorar [`pages/BuildingDetailPage.tsx`](packages/frontend/src/features/buildings/pages/BuildingDetailPage.tsx)
-  - [ ] useBuilding hook para cargar detalle
-  - [ ] Tabs: "Información General", "Áreas Comunes" (vacío por ahora)
-  - [ ] Botón editar (abre modal)
-  - [ ] Botón eliminar (confirmación + delete mutation)
+- [x] Mejorar [`pages/BuildingDetailPage.tsx`](packages/frontend/src/features/buildings/pages/BuildingDetailPage.tsx)
+  - [x] useBuilding hook para cargar detalle
+  - [x] Tabs: "Información General", "Áreas Comunes" (vacío por ahora)
+  - [x] Botón editar (abre modal)
+  - [x] Botón eliminar (confirmación + delete mutation)
 
 ### Testing Fase 2
 
-- [ ] Backend: Probar endpoints protegidos
-  - [ ] GET /buildings (con token) → lista edificios
-  - [ ] POST /buildings (sin token) → 401
-  - [ ] POST /buildings (con token RESIDENT) → 403
-  - [ ] POST /buildings (con token ADMIN) → crea edificio
+- [x] Backend: Probar endpoints protegidos
+  - [x] GET /buildings (con token) → lista edificios
+  - [x] POST /buildings (sin token) → 401
+  - [x] POST /buildings (con token RESIDENT) → 403
+  - [x] POST /buildings (con token ADMIN) → crea edificio
 
-- [ ] Frontend: Probar CRUD completo
-  - [ ] Login como admin
-  - [ ] Listar edificios
-  - [ ] Crear nuevo edificio
-  - [ ] Editar edificio
-  - [ ] Ver detalle
-  - [ ] Eliminar edificio (con confirmación)
+- [x] Frontend: Probar CRUD completo
+  - [x] Login como admin
+  - [x] Listar edificios
+  - [x] Crear nuevo edificio
+  - [x] Editar edificio
+  - [x] Ver detalle
+  - [x] Eliminar edificio (con confirmación)
 
 ---
 

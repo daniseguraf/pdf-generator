@@ -41,8 +41,6 @@ export const LoginPage = () => {
   const handleLogin = () => {
     if (form.validate().hasErrors) return
 
-    console.log(form.values)
-
     loginMutation.mutate(form.values)
   }
 

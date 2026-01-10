@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { Transform } from 'class-transformer'
-import { IsEmail, IsEnum, IsOptional } from 'class-validator'
+import { IsArray, IsEmail, IsEnum, IsOptional } from 'class-validator'
 import { Amenities, PropertyType } from 'generated/prisma/enums'
 import {
   IsOptionalString,
@@ -69,5 +69,6 @@ export class CreateBuildingDto {
     isArray: true,
     enum: Amenities,
   })
+  @IsArray()
   amenities: Amenities[]
 }

@@ -11,6 +11,7 @@ import { useColorScheme } from '@hooks/useColorScheme'
 import '@mantine/core/styles.css'
 import { AuthProvider } from '@features/auth/context/AuthContext'
 import { Notifications } from '@mantine/notifications'
+import '@mantine/notifications/styles.css'
 
 export const App = () => {
   const { colorScheme } = useColorScheme()

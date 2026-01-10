@@ -13,8 +13,11 @@ export const buildingFormSchema = z.object({
     PropertyTypeValues.COMMERCIAL,
     PropertyTypeValues.MIXED,
   ]),
-  yearBuilt: z.number().min(1800).max(new Date().getFullYear()),
-  floors: z.number().min(1).max(300),
+  yearBuilt: z
+    .number('Required, expected a number')
+    .min(1800)
+    .max(new Date().getFullYear()),
+  floors: z.number('Required, expected a number').min(1).max(300),
 })
 
 export const amenitiesOptions = [

@@ -30,13 +30,16 @@ export const BuildingForm: FC<BuildingFormProps> = ({
   building,
   isEdit,
 }) => {
-  const { mutate: createBuilding, isPending } = useCreateBuilding()
+  const { mutate: createBuilding, isPending: isCreatePending } =
+    useCreateBuilding()
 
   const {
     mutate: updateBuilding,
     isPending: isUpdatePending,
     reset: resetUpdateBuilding,
   } = useUpdateBuilding()
+
+  const isFormDisabled = isCreatePending || isUpdatePending
 
   const {
     id,
@@ -84,9 +87,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
     validate: zod4Resolver(buildingFormSchema),
   })
 
-  console.log('form.values', form.values)
   const handleClose = () => {
-    console.log('handleClose')
     onClose()
     form.reset()
   }
@@ -106,8 +107,6 @@ export const BuildingForm: FC<BuildingFormProps> = ({
   }
 
   const handleCreate = () => {
-    console.log('handleCreate', form.values)
-
     createBuilding(
       {
         ...form.values,
@@ -117,9 +116,6 @@ export const BuildingForm: FC<BuildingFormProps> = ({
       {
         onSuccess: () => {
           handleClose()
-        },
-        onError: error => {
-          console.error('Error creando edificio', error)
         },
       }
     )
@@ -141,9 +137,6 @@ export const BuildingForm: FC<BuildingFormProps> = ({
         onSuccess: () => {
           handleClose()
           resetUpdateBuilding()
-        },
-        onError: error => {
-          console.error('Error actualizando edificio', error)
         },
       }
     )
@@ -170,6 +163,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
           label="Nombre del Edificio"
           placeholder="Ej: Torre Residencial Los Pinos"
           required
+          disabled={isFormDisabled}
           {...form.getInputProps('name')}
         />
 
@@ -177,6 +171,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
           label="Dirección"
           placeholder="Ej: Av. Principal 123"
           required
+          disabled={isFormDisabled}
           {...form.getInputProps('address')}
         />
 
@@ -185,6 +180,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
             label="Distrito"
             placeholder="Ej: San Isidro"
             required
+            disabled={isFormDisabled}
             {...form.getInputProps('district')}
           />
 
@@ -192,6 +188,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
             label="Ciudad"
             placeholder="Ej: Lima"
             required
+            disabled={isFormDisabled}
             {...form.getInputProps('city')}
           />
         </Group>
@@ -201,12 +198,14 @@ export const BuildingForm: FC<BuildingFormProps> = ({
             label="Provincia"
             placeholder="Ej: Lima"
             required
+            disabled={isFormDisabled}
             {...form.getInputProps('province')}
           />
 
           <TextInput
             label="Código Postal"
             placeholder="Ej: 15001"
+            disabled={isFormDisabled}
             {...form.getInputProps('postalCode')}
           />
         </Group>
@@ -223,6 +222,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
           label="Tipo de Propiedad"
           placeholder="Selecciona el tipo"
           required
+          disabled={isFormDisabled}
           data={[
             { value: PropertyTypeValues.RESIDENTIAL, label: 'Residencial' },
             { value: PropertyTypeValues.COMMERCIAL, label: 'Comercial' },
@@ -239,6 +239,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
             min={1800}
             max={new Date().getFullYear()}
             hideControls
+            disabled={isFormDisabled}
             {...form.getInputProps('yearBuilt')}
           />
 
@@ -249,6 +250,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
             min={1}
             max={200}
             hideControls
+            disabled={isFormDisabled}
             {...form.getInputProps('floors')}
           />
         </Group>
@@ -257,6 +259,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
           <TextInput
             label="Teléfono"
             placeholder="Ej: +51 987 654 321"
+            disabled={isFormDisabled}
             {...form.getInputProps('phoneNumber')}
           />
 
@@ -264,6 +267,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
             label="Email"
             placeholder="Ej: contacto@edificio.com"
             type="email"
+            disabled={isFormDisabled}
             {...form.getInputProps('email')}
           />
         </Group>
@@ -272,6 +276,7 @@ export const BuildingForm: FC<BuildingFormProps> = ({
           label="Amenidades"
           placeholder="Selecciona las amenidades"
           data={amenitiesOptions}
+          disabled={isFormDisabled}
           {...form.getInputProps('amenities')}
         />
 
@@ -279,19 +284,21 @@ export const BuildingForm: FC<BuildingFormProps> = ({
           label="Descripción"
           placeholder="Descripción del edificio (opcional)"
           rows={3}
+          disabled={isFormDisabled}
           {...form.getInputProps('description')}
         />
 
         <Group justify="flex-end" mt="md">
-          <Button variant="light" size="sm" onClick={handleClose}>
+          <Button
+            variant="light"
+            size="sm"
+            onClick={handleClose}
+            disabled={isFormDisabled}
+          >
             Cancelar
           </Button>
 
-          <Button
-            size="sm"
-            onClick={handleSubmit}
-            loading={isPending || isUpdatePending}
-          >
+          <Button size="sm" onClick={handleSubmit} loading={isFormDisabled}>
             {isEdit ? 'Editar Edificio' : 'Crear Edificio'}
           </Button>
         </Group>

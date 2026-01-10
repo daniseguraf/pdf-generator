@@ -36,22 +36,6 @@ import { BuildingForm } from '@features/buildings/components/BuildingForm/Buildi
 import { useDisclosure } from '@mantine/hooks'
 import { amenitiesDictionary } from '@utils/amenities.dictionary'
 
-// const amenitiesOptions = [
-//   'Estacionamiento',
-//   'Seguridad 24/7',
-//   'Gimnasio',
-//   'Alberca',
-//   'Jardín',
-//   'Sala de juntas',
-//   'Cafetería',
-//   'Internet de alta velocidad',
-//   'Elevadores',
-//   'Salón de eventos',
-//   'Área de juegos',
-//   'Rooftop',
-//   'Coworking',
-// ]
-
 export const BuildingDetailPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
