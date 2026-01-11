@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     window.location.href = '/login'
   }
 
-  const isAuthenticated = !!user || !!localStorage.getItem('accessToken')
+  const isAuthenticated = !!user
 
   useEffect(() => {
     const initAuth = async () => {

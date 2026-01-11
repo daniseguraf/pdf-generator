@@ -362,6 +362,310 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
+## 🔒 FASE 3.5: Mejoras de Seguridad y Autenticación
+
+> **Objetivo:** Fortalecer la seguridad de la aplicación antes de implementar funcionalidades críticas
+
+### 🚨 PRIORIDAD CRÍTICA (Implementar AHORA)
+
+#### 1. Configurar CORS correctamente
+
+- [ ] Actualizar `main.ts` con CORS restrictivo
+  ```typescript
+  app.enableCors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Operation-Name'],
+  })
+  ```
+- [ ] Agregar `FRONTEND_URL` a variables de entorno
+- [ ] Verificar que funciona en desarrollo y producción
+
+#### 2. Implementar Rate Limiting
+
+- [ ] Instalar dependencias
+  ```bash
+  cd packages/backend
+  pnpm add @nestjs/throttler
+  ```
+- [ ] Configurar en `app.module.ts`
+  ```typescript
+  ThrottlerModule.forRoot([
+    {
+      ttl: 60000, // 1 minuto
+      limit: 10, // 10 requests
+    },
+  ])
+  ```
+- [ ] Agregar ThrottlerGuard global
+- [ ] Configurar límites estrictos en auth endpoints
+  - [ ] Login: 5 intentos por minuto
+  - [ ] Register: 3 intentos por minuto
+
+#### 3. Migrar a HttpOnly Cookies
+
+**Backend:**
+
+- [ ] Instalar cookie-parser
+  ```bash
+  pnpm add cookie-parser
+  pnpm add -D @types/cookie-parser
+  ```
+- [ ] Configurar cookie-parser en `main.ts`
+- [ ] Modificar `auth.controller.ts`
+  - [ ] Login: establecer cookie HttpOnly en response
+    ```typescript
+    response.cookie('accessToken', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 60 * 60 * 1000,
+      path: '/',
+    })
+    ```
+  - [ ] Agregar endpoint `POST /auth/logout` que limpia la cookie
+- [ ] Modificar `jwt.strategy.ts` para leer token de cookies
+  ```typescript
+  jwtFromRequest: ExtractJwt.fromExtractors([
+    (request: Request) => request?.cookies?.accessToken,
+  ])
+  ```
+
+**Frontend:**
+
+- [ ] Actualizar `axios.ts`
+  - [ ] Agregar `withCredentials: true`
+  - [ ] Eliminar interceptor que agrega Authorization header
+  - [ ] Simplificar response interceptor (no limpiar localStorage)
+- [ ] Actualizar `AuthContext.tsx`
+  - [ ] Eliminar uso de localStorage para token
+  - [ ] Agregar llamada a logout endpoint
+- [ ] Agregar método `logout()` en `auth.service.ts`
+
+#### 4. Implementar Refresh Token
+
+- [ ] Actualizar Prisma Schema
+
+  ```prisma
+  model RefreshToken {
+    id        Int      @id @default(autoincrement())
+    token     String   @db.Text
+    userId    Int
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    expiresAt DateTime
+    createdAt DateTime @default(now())
+
+    @@index([userId])
+    @@map("refresh_tokens")
+  }
+  ```
+
+- [ ] Ejecutar migración
+- [ ] Modificar `auth.service.ts`
+  - [ ] Reducir expiración de accessToken a 15 minutos
+  - [ ] Generar refreshToken con expiración de 7 días
+  - [ ] Guardar refreshToken hasheado en BD
+  - [ ] Método `refreshAccessToken(refreshToken)`
+- [ ] Agregar endpoint `POST /auth/refresh` en controller
+- [ ] Frontend: implementar auto-refresh antes de expiración
+
+#### 5. Validar JWT_SECRET fuerte
+
+- [ ] Modificar `auth.module.ts`
+
+  ```typescript
+  useFactory: (configService: ConfigService) => {
+    const secret = configService.get('JWT_SECRET')
+
+    if (!secret || secret.length < 32) {
+      throw new Error('JWT_SECRET debe tener al menos 32 caracteres')
+    }
+
+    return {
+      secret,
+      signOptions: {
+        expiresIn: '15m',
+        issuer: 'my-buildings-api',
+        audience: 'my-buildings-app',
+      },
+    }
+  }
+  ```
+
+- [ ] Actualizar `jwt.strategy.ts` con validación de issuer/audience
+- [ ] Generar nuevo JWT_SECRET seguro: `openssl rand -base64 32`
+- [ ] Actualizar en variables de entorno
+
+### 🔐 PRIORIDAD ALTA (Implementar esta semana)
+
+#### 6. Validación de contraseñas fuertes
+
+- [ ] Actualizar `register-user.dto.ts`
+  ```typescript
+  @IsString()
+  @MinLength(8, { message: 'La contraseña debe tener al menos 8 caracteres' })
+  @Matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+    { message: 'La contraseña debe contener mayúsculas, minúsculas, números y caracteres especiales' }
+  )
+  password: string
+  ```
+- [ ] Agregar validación en frontend (RegisterPage)
+- [ ] Mostrar indicador de fortaleza de contraseña
+
+#### 7. Control de roles en Frontend
+
+- [ ] Agregar `role` al tipo `AuthenticatedUser`
+- [ ] Modificar `AuthContext.tsx` para incluir role del usuario
+- [ ] Actualizar `ProtectedRoute.tsx`
+  ```typescript
+  interface ProtectedRouteProps {
+    children: React.ReactNode
+    requiredRoles?: UserRole[]
+  }
+  ```
+- [ ] Validar roles antes de renderizar rutas
+- [ ] Crear página `/unauthorized` para accesos denegados
+
+#### 8. Componente RoleGuard para UI
+
+- [ ] Crear `components/RoleGuard.tsx`
+  ```typescript
+  interface RoleGuardProps {
+    children: React.ReactNode
+    allowedRoles: UserRole[]
+    fallback?: React.ReactNode
+  }
+  ```
+- [ ] Usar en componentes para ocultar acciones según rol
+  ```typescript
+  <RoleGuard allowedRoles={['ADMIN']}>
+    <Button onClick={handleDelete}>Eliminar</Button>
+  </RoleGuard>
+  ```
+
+#### 9. Validar propiedad de recursos
+
+- [ ] Modificar `buildings.service.ts`
+  - [ ] Método `findOne()`: validar que MANAGER solo vea sus edificios
+  - [ ] Método `update()`: validar ownership
+  - [ ] Método `remove()`: validar ownership
+- [ ] Agregar helper `validateOwnership(resourceId, userId, userRole)`
+- [ ] Aplicar a todos los recursos (buildings, common-areas, reservations)
+
+### 🛡️ PRIORIDAD MEDIA (Implementar este mes)
+
+#### 10. Helmet para headers de seguridad
+
+- [ ] Instalar helmet
+  ```bash
+  pnpm add helmet
+  ```
+- [ ] Configurar en `main.ts`
+  ```typescript
+  app.use(
+    helmet({
+      contentSecurityPolicy: process.env.NODE_ENV === 'production',
+      crossOriginEmbedderPolicy: false,
+    })
+  )
+  ```
+
+#### 11. Logging de eventos de seguridad
+
+- [ ] Agregar logs en `auth.service.ts`
+  - [ ] Login exitoso: `this.logger.log(\`Login exitoso: ${user.email}\`)`
+  - [ ] Login fallido: `this.logger.warn(\`Intento fallido: ${email}\`)`
+  - [ ] Registro exitoso: `this.logger.log(\`Nuevo usuario: ${user.email}\`)`
+- [ ] Agregar logs en operaciones críticas (delete, update)
+- [ ] Considerar integración con servicio de logging (Sentry, LogRocket)
+
+#### 12. Sanitización de inputs
+
+- [ ] Instalar class-sanitizer
+  ```bash
+  pnpm add class-sanitizer
+  ```
+- [ ] Agregar `@Trim()` a todos los DTOs con strings
+- [ ] Habilitar en ValidationPipe
+  ```typescript
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    })
+  )
+  ```
+
+#### 13. Mejorar configuración de Axios
+
+- [ ] Reducir timeout de 10s a 5s
+- [ ] Agregar retry logic para requests fallidos
+- [ ] Implementar request cancellation en cleanup
+
+#### 14. Variables de entorno obligatorias
+
+- [ ] Crear validación de env en `main.ts`
+  ```typescript
+  const requiredEnvVars = ['DATABASE_URL', 'JWT_SECRET', 'FRONTEND_URL']
+  requiredEnvVars.forEach(envVar => {
+    if (!process.env[envVar]) {
+      throw new Error(\`Variable de entorno ${envVar} es requerida\`)
+    }
+  })
+  ```
+- [ ] Actualizar `.env.example` con todas las variables
+
+### Testing de Seguridad
+
+- [ ] Probar CORS
+  - [ ] Request desde origen no permitido → debe fallar
+  - [ ] Request desde origen permitido → debe funcionar
+
+- [ ] Probar Rate Limiting
+  - [ ] Hacer 6 requests de login rápidos → debe bloquear
+  - [ ] Esperar 1 minuto → debe permitir nuevamente
+
+- [ ] Probar HttpOnly Cookies
+  - [ ] Intentar leer cookie desde JavaScript → debe fallar
+  - [ ] Verificar que cookie se envía automáticamente
+
+- [ ] Probar Refresh Token
+  - [ ] Esperar expiración de accessToken
+  - [ ] Llamar endpoint refresh → debe generar nuevo token
+  - [ ] Usar refreshToken inválido → debe fallar
+
+- [ ] Probar validación de roles
+  - [ ] Login como MANAGER
+  - [ ] Intentar eliminar edificio → debe fallar (403)
+  - [ ] Login como ADMIN
+  - [ ] Eliminar edificio → debe funcionar
+
+- [ ] Probar ownership
+  - [ ] MANAGER A crea edificio
+  - [ ] MANAGER B intenta editarlo → debe fallar (403)
+  - [ ] ADMIN intenta editarlo → debe funcionar
+
+### Documentación de Seguridad
+
+- [ ] Crear `SECURITY.md`
+  - [ ] Política de contraseñas
+  - [ ] Manejo de tokens
+  - [ ] Roles y permisos
+  - [ ] Cómo reportar vulnerabilidades
+
+- [ ] Actualizar README con sección de seguridad
+  - [ ] Mencionar HttpOnly Cookies
+  - [ ] Mencionar Rate Limiting
+  - [ ] Mencionar validaciones implementadas
+
+---
+
 ## 📅 FASE 4: Sistema de Reservaciones (3-4 días)
 
 > **Objetivo:** Feature estrella - reservar áreas comunes con validaciones

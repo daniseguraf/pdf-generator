@@ -20,10 +20,10 @@ export const api = axios.create({
 //Request Interceptor - Agregar token JWT automáticamente
 api.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('accessToken')
+    const accessToken = localStorage.getItem('accessToken')
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`
     }
 
     if (config.metadata?.operationName) {
@@ -32,6 +32,7 @@ api.interceptors.request.use(
 
     return config
   },
+
   error => Promise.reject(error)
 )
 
