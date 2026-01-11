@@ -24,10 +24,9 @@ import {
   CheckIcon,
   PencilIcon,
   StackIcon,
-  UserIcon,
   MapPinIcon,
   UsersIcon,
-  CurrencyDollarIcon,
+  HouseIcon,
 } from '@phosphor-icons/react'
 
 import { useBuilding } from '@features/buildings/hooks/queries/useBuilding'
@@ -35,6 +34,7 @@ import { PropertyTypeValues } from '@my-buildings/shared/types/prisma.types'
 import { BuildingForm } from '@features/buildings/components/BuildingForm/BuildingForm'
 import { useDisclosure } from '@mantine/hooks'
 import { amenitiesDictionary } from '@utils/amenities.dictionary'
+import { CommonAreaList } from '@features/buildings/components/CommonAreaList/CommonAreaList'
 
 export const BuildingDetailPage = () => {
   const { id } = useParams()
@@ -143,6 +143,7 @@ export const BuildingDetailPage = () => {
           </Box>
         </Paper>
 
+        {/* Tabs */}
         <Tabs defaultValue="general" variant="outline">
           <Tabs.List mb="xl">
             <Tabs.Tab
@@ -152,19 +153,12 @@ export const BuildingDetailPage = () => {
               Información General
             </Tabs.Tab>
 
-            <Tabs.Tab
-              value="financial"
-              leftSection={<CurrencyDollarIcon size={18} />}
-            >
-              Datos Financieros
+            <Tabs.Tab value="commonAreas" leftSection={<HouseIcon size={18} />}>
+              Areas Comunes
             </Tabs.Tab>
 
             <Tabs.Tab value="amenities" leftSection={<CheckIcon size={18} />}>
               Amenidades
-            </Tabs.Tab>
-
-            <Tabs.Tab value="contact" leftSection={<UserIcon size={18} />}>
-              Contacto
             </Tabs.Tab>
           </Tabs.List>
 
@@ -233,100 +227,42 @@ export const BuildingDetailPage = () => {
                   </Stack>
                 </Card>
               </Grid.Col>
-
-              {amenities?.length > 0 && (
-                <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder>
-                    <Title order={3} mb="lg">
-                      Available Amenities
-                    </Title>
-                    <List
-                      spacing="md"
-                      icon={
-                        <ThemeIcon color="teal" size={24} radius="xl">
-                          <CheckIcon size={16} />
-                        </ThemeIcon>
-                      }
-                    >
-                      {amenities.map(amenity => (
-                        <List.Item key={amenity}>
-                          <Text>{amenitiesDictionary[amenity]}</Text>
-                        </List.Item>
-                      ))}
-                    </List>
-                  </Card>
-                </Grid.Col>
-              )}
             </Grid>
           </Tabs.Panel>
 
-          {/* <Tabs.Panel value="contact">
-          <Grid gutter="lg">
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <Card shadow="sm" padding="lg" radius="md" withBorder>
-                <Title order={3} mb="lg">
-                  Información de Contacto
-                </Title>
-                <Stack gap="lg">
-                  <Group>
-                    <ThemeIcon size="xl" variant="light" color="blue">
-                      <Mail size={24} />
-                    </ThemeIcon>
-                    <div>
-                      <Text size="sm" c="dimmed">
-                        Email
-                      </Text>
-                      <Text>{contact.email}</Text>
-                    </div>
-                  </Group>
+          <Tabs.Panel value="commonAreas">
+            <CommonAreaList buildingId={building.id} />
+          </Tabs.Panel>
 
-                  <Group>
-                    <ThemeIcon size="xl" variant="light" color="green">
-                      <Phone size={24} />
-                    </ThemeIcon>
-                    <div>
-                      <Text size="sm" c="dimmed">
-                        Teléfono
-                      </Text>
-                      <Text>{contact.phone}</Text>
-                    </div>
-                  </Group>
-
-                  <Group>
-                    <ThemeIcon size="xl" variant="light" color="violet">
-                      <User size={24} />
-                    </ThemeIcon>
-                    <div>
-                      <Text size="sm" c="dimmed">
-                        Manager Responsable
-                      </Text>
-                      <Text>{building.manager}</Text>
-                    </div>
-                  </Group>
-                </Stack>
-              </Card>
-            </Grid.Col>
-
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <Card shadow="sm" padding="lg" radius="md" withBorder>
-                <Title order={3} mb="lg">
-                  Ubicación
-                </Title>
-                <Group mb="md">
-                  <ThemeIcon size="xl" variant="light" color="red">
-                    <MapPin size={24} />
-                  </ThemeIcon>
-                  <div>
-                    <Text size="sm" c="dimmed">
-                      Dirección
-                    </Text>
-                    <Text>{building.address}</Text>
-                  </div>
-                </Group>
-              </Card>
-            </Grid.Col>
-          </Grid>
-        </Tabs.Panel> */}
+          <Tabs.Panel value="amenities">
+            <Grid>
+              <Grid.Col span={{ base: 12, md: 6 }}>
+                <Card shadow="sm" padding="lg" radius="md" withBorder>
+                  <Title order={3} mb="lg">
+                    Available Amenities
+                  </Title>
+                  {amenities?.length > 0 && (
+                    <>
+                      <List
+                        spacing="md"
+                        icon={
+                          <ThemeIcon color="teal" size={24} radius="xl">
+                            <CheckIcon size={16} />
+                          </ThemeIcon>
+                        }
+                      >
+                        {amenities.map(amenity => (
+                          <List.Item key={amenity}>
+                            <Text>{amenitiesDictionary[amenity]}</Text>
+                          </List.Item>
+                        ))}
+                      </List>
+                    </>
+                  )}
+                </Card>
+              </Grid.Col>
+            </Grid>
+          </Tabs.Panel>
         </Tabs>
       </Container>
 
