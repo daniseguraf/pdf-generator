@@ -7,25 +7,19 @@ import {
   Paper,
   Grid,
   Tabs,
-  Stack,
   ThemeIcon,
   Card,
   Box,
   Badge,
   Title,
-  Avatar,
-  Divider,
   List,
 } from '@mantine/core'
 import {
   BuildingOfficeIcon,
-  CalendarIcon,
   CaretDoubleLeftIcon,
   CheckIcon,
   PencilIcon,
-  StackIcon,
   MapPinIcon,
-  UsersIcon,
   HouseIcon,
 } from '@phosphor-icons/react'
 
@@ -34,7 +28,8 @@ import { PropertyTypeValues } from '@my-buildings/shared/types/prisma.types'
 import { BuildingForm } from '@features/buildings/components/BuildingForm/BuildingForm'
 import { useDisclosure } from '@mantine/hooks'
 import { amenitiesDictionary } from '@utils/amenities.dictionary'
-import { CommonAreaList } from '@features/buildings/components/CommonAreaList/CommonAreaList'
+import { CommonAreaList } from '@features/buildings/components/CommonAreas/CommonAreas'
+import { GeneralInformation } from '@features/buildings/components/GeneralInformation/GeneralInformation'
 
 export const BuildingDetailPage = () => {
   const { id } = useParams()
@@ -56,6 +51,7 @@ export const BuildingDetailPage = () => {
     yearBuilt,
     manager,
     amenities = [],
+    commonAreas = [],
   } = building ?? {}
 
   const getTypeColor = (type: string) => {
@@ -163,75 +159,15 @@ export const BuildingDetailPage = () => {
           </Tabs.List>
 
           <Tabs.Panel value="general">
-            <Grid gutter="lg">
-              <Grid.Col span={{ base: 12, md: 6 }}>
-                <Card shadow="sm" padding="lg" radius="md" withBorder>
-                  <Stack gap="md">
-                    <Group>
-                      <ThemeIcon size="xl" variant="light" color="blue">
-                        <BuildingOfficeIcon size={24} />
-                      </ThemeIcon>
-                      <div>
-                        <Text size="sm" c="dimmed">
-                          Pisos
-                        </Text>
-                        <Text size="xl">{floors}</Text>
-                      </div>
-                    </Group>
-
-                    <Group>
-                      <ThemeIcon size="xl" variant="light" color="violet">
-                        <StackIcon size={24} />
-                      </ThemeIcon>
-                      <div>
-                        <Text size="sm" c="dimmed">
-                          Unidades
-                        </Text>
-                        {/* <Text size="xl">{units}</Text> */}
-                      </div>
-                    </Group>
-
-                    <Group>
-                      <ThemeIcon size="xl" variant="light" color="teal">
-                        <CalendarIcon size={24} />
-                      </ThemeIcon>
-                      <div>
-                        <Text size="sm" c="dimmed">
-                          Año de Construcción
-                        </Text>
-                        <Text size="xl">{yearBuilt}</Text>
-                      </div>
-                    </Group>
-                  </Stack>
-                </Card>
-              </Grid.Col>
-
-              <Grid.Col span={{ base: 12, md: 6 }}>
-                <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
-                  <Stack gap="md">
-                    <Group>
-                      <Avatar size="lg" color="blue">
-                        <UsersIcon size={24} />
-                      </Avatar>
-                      <div>
-                        <Text size="sm" c="dimmed">
-                          Manager Responsable
-                        </Text>
-                        <Text size="lg">
-                          {manager?.firstName} {manager?.lastName}
-                        </Text>
-                      </div>
-                    </Group>
-
-                    <Divider />
-                  </Stack>
-                </Card>
-              </Grid.Col>
-            </Grid>
+            <GeneralInformation
+              floors={floors}
+              yearBuilt={yearBuilt}
+              manager={manager}
+            />
           </Tabs.Panel>
 
           <Tabs.Panel value="commonAreas">
-            <CommonAreaList buildingId={building.id} />
+            <CommonAreaList commonAreas={commonAreas} />
           </Tabs.Panel>
 
           <Tabs.Panel value="amenities">

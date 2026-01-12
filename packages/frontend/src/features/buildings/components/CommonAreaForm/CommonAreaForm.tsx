@@ -14,7 +14,7 @@ import {
 import {
   commonAreaLabels,
   dayLabels,
-} from '@features/buildings/components/CommonAreaList/CommonAreaList'
+} from '@features/buildings/components/CommonAreas/CommonAreas'
 
 interface CommonAreaFormProps {
   opened: boolean

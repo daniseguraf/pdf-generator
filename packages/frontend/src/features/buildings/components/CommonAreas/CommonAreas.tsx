@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
   Container,
   Title,
@@ -24,194 +23,38 @@ import {
   TrashIcon,
   UsersIcon,
 } from '@phosphor-icons/react'
-interface CommonAreaListProps {
-  buildingId: string
+import {
+  CommonAreasValues,
+  DaysOfWeekValues,
+  type CommonArea,
+} from '@my-buildings/shared/index'
+
+export const commonAreaLabels = {
+  [CommonAreasValues.GYM]: 'Gimnasio',
+  [CommonAreasValues.POOL]: 'Piscina',
+  [CommonAreasValues.CLUB_HOUSE]: 'Salón Comunitario',
+  [CommonAreasValues.CAFETERIA]: 'Cafetería',
+  [CommonAreasValues.EVENT_ROOM]: 'Salón de Eventos',
+  [CommonAreasValues.ROOF_TOP]: 'Roof Top',
+  [CommonAreasValues.COWORKING_SPACE]: 'Espacio de Coworking',
 }
 
-export type CommonAreaType =
-  | 'GYM'
-  | 'POOL'
-  | 'CLUB_HOUSE'
-  | 'CAFETERIA'
-  | 'EVENT_ROOM'
-  | 'ROOF_TOP'
-  | 'COWORKING_SPACE'
-
-export type DayOfWeek =
-  | 'MONDAY'
-  | 'TUESDAY'
-  | 'WEDNESDAY'
-  | 'THURSDAY'
-  | 'FRIDAY'
-  | 'SATURDAY'
-  | 'SUNDAY'
-
-export interface CommonArea {
-  id: string
-  buildingId: string
-  type: CommonAreaType
-  description: string
-  capacity: number
-  maxHoursPerReservation: number
-  openTime: string
-  closeTime: string
-  daysAvailable: DayOfWeek[]
-  createdAt: Date
-  status: 'Activo' | 'Mantenimiento' | 'Inactivo'
+export const dayLabels = {
+  [DaysOfWeekValues.MONDAY]: 'Lunes',
+  [DaysOfWeekValues.TUESDAY]: 'Martes',
+  [DaysOfWeekValues.WEDNESDAY]: 'Miércoles',
+  [DaysOfWeekValues.THURSDAY]: 'Jueves',
+  [DaysOfWeekValues.FRIDAY]: 'Viernes',
+  [DaysOfWeekValues.SATURDAY]: 'Sábado',
+  [DaysOfWeekValues.SUNDAY]: 'Domingo',
+  [DaysOfWeekValues.ALL]: 'Todos',
 }
 
-export const commonAreaLabels: Record<CommonAreaType, string> = {
-  GYM: 'Gimnasio',
-  POOL: 'Alberca',
-  CLUB_HOUSE: 'Casa Club',
-  CAFETERIA: 'Cafetería',
-  EVENT_ROOM: 'Salón de Eventos',
-  ROOF_TOP: 'Roof Top',
-  COWORKING_SPACE: 'Espacio de Coworking',
-}
-
-export const dayLabels: Record<DayOfWeek, string> = {
-  MONDAY: 'Lunes',
-  TUESDAY: 'Martes',
-  WEDNESDAY: 'Miércoles',
-  THURSDAY: 'Jueves',
-  FRIDAY: 'Viernes',
-  SATURDAY: 'Sábado',
-  SUNDAY: 'Domingo',
-}
-
-// Mock data para áreas comunes
-export const mockCommonAreas: CommonArea[] = [
-  {
-    id: '1',
-    buildingId: '1',
-    type: 'GYM',
-    description: 'Gimnasio totalmente equipado con máquinas de cardio y pesas',
-    capacity: 30,
-    maxHoursPerReservation: 2,
-    openTime: '06:00',
-    closeTime: '22:00',
-    daysAvailable: [
-      'MONDAY',
-      'TUESDAY',
-      'WEDNESDAY',
-      'THURSDAY',
-      'FRIDAY',
-      'SATURDAY',
-      'SUNDAY',
-    ],
-    createdAt: new Date('2024-01-15'),
-    status: 'Activo',
-  },
-  {
-    id: '2',
-    buildingId: '1',
-    type: 'POOL',
-    description: 'Alberca semi-olímpica climatizada',
-    capacity: 40,
-    maxHoursPerReservation: 3,
-    openTime: '08:00',
-    closeTime: '20:00',
-    daysAvailable: [
-      'MONDAY',
-      'TUESDAY',
-      'WEDNESDAY',
-      'THURSDAY',
-      'FRIDAY',
-      'SATURDAY',
-      'SUNDAY',
-    ],
-    createdAt: new Date('2024-01-15'),
-    status: 'Activo',
-  },
-  {
-    id: '3',
-    buildingId: '1',
-    type: 'CLUB_HOUSE',
-    description: 'Salón de eventos para reuniones y celebraciones',
-    capacity: 50,
-    maxHoursPerReservation: 4,
-    openTime: '09:00',
-    closeTime: '22:00',
-    daysAvailable: ['FRIDAY', 'SATURDAY', 'SUNDAY'],
-    createdAt: new Date('2024-01-15'),
-    status: 'Activo',
-  },
-  {
-    id: '4',
-    buildingId: '2',
-    type: 'COWORKING_SPACE',
-    description:
-      'Espacio de trabajo colaborativo con internet de alta velocidad',
-    capacity: 20,
-    maxHoursPerReservation: 8,
-    openTime: '07:00',
-    closeTime: '21:00',
-    daysAvailable: ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY'],
-    createdAt: new Date('2024-02-10'),
-    status: 'Activo',
-  },
-  {
-    id: '5',
-    buildingId: '3',
-    type: 'ROOF_TOP',
-    description: 'Terraza con vista panorámica y asadores',
-    capacity: 60,
-    maxHoursPerReservation: 6,
-    openTime: '10:00',
-    closeTime: '23:00',
-    daysAvailable: ['FRIDAY', 'SATURDAY', 'SUNDAY'],
-    createdAt: new Date('2024-03-05'),
-    status: 'Activo',
-  },
-]
-
-export const CommonAreaList = ({ buildingId }: CommonAreaListProps) => {
-  const [commonAreas, setCommonAreas] = useState<CommonArea[]>(mockCommonAreas)
-  const [drawerOpened, setDrawerOpened] = useState(false)
-  const [selectedArea, setSelectedArea] = useState<CommonArea | undefined>()
-  const [mode, setMode] = useState<'create' | 'edit'>('create')
-
-  const handleCreateArea = (data: Omit<CommonArea, 'id' | 'createdAt'>) => {
-    const newArea: CommonArea = {
-      ...data,
-      id: String(Date.now()),
-      createdAt: new Date(),
-    }
-    setCommonAreas([...commonAreas, newArea])
-    setDrawerOpened(false)
-  }
-
-  const handleEditArea = (data: Omit<CommonArea, 'id' | 'createdAt'>) => {
-    if (!selectedArea) return
-
-    setCommonAreas(
-      commonAreas.map(area =>
-        area.id === selectedArea.id ? { ...area, ...data } : area
-      )
-    )
-    setDrawerOpened(false)
-    setSelectedArea(undefined)
-  }
-
-  const handleDelete = (areaId: string) => {
-    if (confirm('¿Estás seguro de eliminar esta área común?')) {
-      setCommonAreas(commonAreas.filter(area => area.id !== areaId))
-    }
-  }
-
-  const openEditDrawer = (area: CommonArea) => {
-    setSelectedArea(area)
-    setMode('edit')
-    setDrawerOpened(true)
-  }
-
-  const openCreateDrawer = () => {
-    setSelectedArea(undefined)
-    setMode('create')
-    setDrawerOpened(true)
-  }
-
+export const CommonAreaList = ({
+  commonAreas,
+}: {
+  commonAreas: CommonArea[]
+}) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Activo':
@@ -247,7 +90,8 @@ export const CommonAreaList = ({ buildingId }: CommonAreaListProps) => {
             Gestiona las áreas comunes y espacios compartidos del edificio
           </Text>
         </div>
-        <Button leftSection={<PlusIcon size={20} />} onClick={openCreateDrawer}>
+
+        <Button leftSection={<PlusIcon size={20} />} onClick={() => {}}>
           Agregar Área Común
         </Button>
       </Group>
@@ -276,7 +120,7 @@ export const CommonAreaList = ({ buildingId }: CommonAreaListProps) => {
         </Card>
       ) : (
         <Grid>
-          {commonAreas.map(area => (
+          {commonAreas?.map(area => (
             <Grid.Col key={area.id} span={{ base: 12, sm: 6, md: 4 }}>
               <Card shadow="sm" padding="lg" radius="md" withBorder>
                 <Group justify="space-between" mb="md">
@@ -287,11 +131,11 @@ export const CommonAreaList = ({ buildingId }: CommonAreaListProps) => {
                         {commonAreaLabels[area.type]}
                       </Text>
                       <Badge
-                        color={getStatusColor(area.status)}
+                        color={area.isActive ? 'green' : 'red'}
                         variant="dot"
                         size="sm"
                       >
-                        {area.status}
+                        {area.isActive ? 'Activo' : 'Inactivo'}
                       </Badge>
                     </div>
                   </Group>
@@ -312,7 +156,7 @@ export const CommonAreaList = ({ buildingId }: CommonAreaListProps) => {
                             }}
                           />
                         }
-                        onClick={() => openEditDrawer(area)}
+                        // onClick={() => openEditDrawer(area)}
                       >
                         Editar
                       </Menu.Item>
@@ -326,7 +170,7 @@ export const CommonAreaList = ({ buildingId }: CommonAreaListProps) => {
                             }}
                           />
                         }
-                        onClick={() => handleDelete(area.id)}
+                        // onClick={() => handleDelete(area.id)}
                       >
                         Eliminar
                       </Menu.Item>
@@ -384,15 +228,11 @@ export const CommonAreaList = ({ buildingId }: CommonAreaListProps) => {
       )}
 
       <CommonAreaForm
-        opened={drawerOpened}
-        onClose={() => {
-          setDrawerOpened(false)
-          setSelectedArea(undefined)
-        }}
-        onSubmit={mode === 'create' ? handleCreateArea : handleEditArea}
-        buildingId={buildingId}
-        initialData={selectedArea}
-        mode={mode}
+        opened={false}
+        onClose={() => {}}
+        onSubmit={() => {}}
+        buildingId={0}
+        initialData={undefined}
       />
     </Container>
   )
