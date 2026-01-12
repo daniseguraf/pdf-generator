@@ -13,14 +13,16 @@ export class CommonAreasService {
     })
   }
 
-  async findAll() {
+  async findAllByBuildingId(buildingId: number) {
     return await this.prismaService.commonArea.findMany({
-      where: { deletedAt: null },
+      where: { buildingId, deletedAt: null },
     })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} commonArea`
+  async findOne(id: number) {
+    return await this.prismaService.commonArea.findUnique({
+      where: { id, deletedAt: null },
+    })
   }
 
   update(id: number, updateCommonAreaDto: UpdateCommonAreaDto) {

@@ -23,14 +23,14 @@ export class CommonAreasController {
     return this.commonAreasService.create(createCommonAreaDto)
   }
 
-  @Get()
-  findAll() {
-    return this.commonAreasService.findAll()
+  @Get('building/:buildingId')
+  findAllByBuildingId(@Param('buildingId') buildingId: string) {
+    return this.commonAreasService.findAllByBuildingId(Number(buildingId))
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.commonAreasService.findOne(+id)
+    return this.commonAreasService.findOne(Number(id))
   }
 
   @Patch(':id')

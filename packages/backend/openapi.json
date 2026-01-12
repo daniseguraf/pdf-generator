@@ -406,10 +406,21 @@
         "tags": [
           "CommonAreas"
         ]
-      },
+      }
+    },
+    "/api/v1/common-areas/building/{buildingId}": {
       "get": {
-        "operationId": "CommonAreasController_findAll",
-        "parameters": [],
+        "operationId": "CommonAreasController_findAllByBuildingId",
+        "parameters": [
+          {
+            "name": "buildingId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": ""

@@ -252,20 +252,10 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 - [x] Generar módulo
   - [x] `nest g resource common-areas --no-spec`
 
-- [ ] Crear DTOs en `src/common-areas/dto/`
-  - [ ] `CreateCommonAreaDto`
-    ```typescript
-    buildingId: number;
-    name: string;
-    description?: string;
-    capacity: number;
-    maxHoursPerReservation?: number;
-    openTime?: string; // HH:mm
-    closeTime?: string; // HH:mm
-    daysAvailable?: string[];
-    ```
-  - [ ] `UpdateCommonAreaDto` - PartialType
-  - [ ] Agregar decoradores de validación
+- [x] Crear DTOs en `src/common-areas/dto/`
+  - [x] `CreateCommonAreaDto`
+  - [x] `UpdateCommonAreaDto` - PartialType
+  - [x] Agregar decoradores de validación
 
 - [ ] Implementar `common-areas.service.ts`
   - [ ] `findAll(buildingId?: number)`
