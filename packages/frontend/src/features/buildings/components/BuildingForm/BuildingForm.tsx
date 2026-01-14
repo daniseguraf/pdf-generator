@@ -16,13 +16,13 @@ import type {
 } from '../../types/building.types'
 import { useEffect, type FC } from 'react'
 import { PropertyTypeValues, type Building } from '@my-buildings/shared/index'
-import { useCreateBuilding } from '@features/buildings/hooks/mutations/useCreateBuilding'
+import { useCreateBuilding } from '@features/buildings/hooks/mutations/buildings/useCreateBuilding'
 import {
   amenitiesOptions,
   buildingFormSchema,
 } from '@features/buildings/components/BuildingForm/BuildingForm.helpers'
 import { zod4Resolver } from 'mantine-form-zod-resolver'
-import { useUpdateBuilding } from '@features/buildings/hooks/mutations/useUpdateBuilding'
+import { useUpdateBuilding } from '@features/buildings/hooks/mutations/buildings/useUpdateBuilding'
 
 export const BuildingForm: FC<BuildingFormProps> = ({
   opened,

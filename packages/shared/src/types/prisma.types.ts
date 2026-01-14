@@ -62,20 +62,20 @@ export const AmenitiesValues = {
 export type CommonAreas =
   | 'GYM'
   | 'POOL'
-  | 'CLUB_HOUSE'
+  | 'GRILL_AREA'
   | 'CAFETERIA'
   | 'EVENT_ROOM'
   | 'ROOF_TOP'
-  | 'COWORKING_SPACE'
+  | 'COWORKING'
 
 export const CommonAreasValues = {
   GYM: 'GYM',
   POOL: 'POOL',
-  CLUB_HOUSE: 'CLUB_HOUSE',
+  GRILL_AREA: 'GRILL_AREA',
   CAFETERIA: 'CAFETERIA',
   EVENT_ROOM: 'EVENT_ROOM',
   ROOF_TOP: 'ROOF_TOP',
-  COWORKING_SPACE: 'COWORKING_SPACE',
+  COWORKING: 'COWORKING',
 } satisfies Record<string, CommonAreas>
 
 export type DaysOfWeek =

@@ -1,5 +1,4 @@
 import { MantineProvider } from '@mantine/core'
-import './index.css'
 import { theme } from './theme'
 import { BrowserRouter } from 'react-router'
 import { AppRoutes } from '@app/routes/AppRoutes'
@@ -8,10 +7,12 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { queryClient } from '@lib/queryClient'
 import { useColorScheme } from '@hooks/useColorScheme'
 
-import '@mantine/core/styles.css'
 import { AuthProvider } from '@features/auth/context/AuthContext'
 import { Notifications } from '@mantine/notifications'
+
+import '@mantine/core/styles.css'
 import '@mantine/notifications/styles.css'
+import '@mantine/dates/styles.css'
 
 export const App = () => {
   const { colorScheme } = useColorScheme()

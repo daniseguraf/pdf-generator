@@ -140,6 +140,54 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/common-areas": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["CommonAreasController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/common-areas/building/{buildingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["CommonAreasController_findAllByBuildingId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/common-areas/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["CommonAreasController_findOne"];
+        put?: never;
+        post?: never;
+        delete: operations["CommonAreasController_remove"];
+        options?: never;
+        head?: never;
+        patch: operations["CommonAreasController_update"];
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -347,6 +395,100 @@ export interface components {
              * @example password
              */
             password: string;
+        };
+        CreateCommonAreaDto: {
+            /**
+             * @description Common area type
+             * @example CAFETERIA
+             * @enum {string}
+             */
+            type: "GYM" | "POOL" | "GRILL_AREA" | "CAFETERIA" | "EVENT_ROOM" | "ROOF_TOP" | "COWORKING";
+            /**
+             * @description Building ID
+             * @example 1
+             */
+            buildingId: number;
+            /**
+             * @description Common area description
+             * @example Common area description
+             */
+            description?: string;
+            /**
+             * @description Common area capacity
+             * @example 20
+             */
+            capacity?: number;
+            /**
+             * @description Common area maximum hours per reservation
+             * @example 4
+             */
+            maxHoursPerReservation?: number;
+            /**
+             * @description Common area open time
+             * @example 8:00 AM
+             */
+            openTime?: string;
+            /**
+             * @description Common area close time
+             * @example 10:00 PM
+             */
+            closeTime?: string;
+            /**
+             * @description Common area days available
+             * @example [
+             *       "MONDAY",
+             *       "TUESDAY"
+             *     ]
+             * @enum {string}
+             */
+            daysAvailable?: "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY" | "ALL";
+        };
+        UpdateCommonAreaDto: {
+            /**
+             * @description Common area type
+             * @example CAFETERIA
+             * @enum {string}
+             */
+            type?: "GYM" | "POOL" | "GRILL_AREA" | "CAFETERIA" | "EVENT_ROOM" | "ROOF_TOP" | "COWORKING";
+            /**
+             * @description Building ID
+             * @example 1
+             */
+            buildingId?: number;
+            /**
+             * @description Common area description
+             * @example Common area description
+             */
+            description?: string;
+            /**
+             * @description Common area capacity
+             * @example 20
+             */
+            capacity?: number;
+            /**
+             * @description Common area maximum hours per reservation
+             * @example 4
+             */
+            maxHoursPerReservation?: number;
+            /**
+             * @description Common area open time
+             * @example 8:00 AM
+             */
+            openTime?: string;
+            /**
+             * @description Common area close time
+             * @example 10:00 PM
+             */
+            closeTime?: string;
+            /**
+             * @description Common area days available
+             * @example [
+             *       "MONDAY",
+             *       "TUESDAY"
+             *     ]
+             * @enum {string}
+             */
+            daysAvailable?: "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY" | "ALL";
         };
     };
     responses: never;
@@ -677,6 +819,142 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CommonAreasController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateCommonAreaDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CommonAreasController_findAllByBuildingId: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                buildingId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CommonAreasController_findOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CommonAreasController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CommonAreasController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateCommonAreaDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
             /** @description Unauthorized */
             401: {
                 headers: {

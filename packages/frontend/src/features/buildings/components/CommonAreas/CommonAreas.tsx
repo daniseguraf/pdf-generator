@@ -13,73 +13,32 @@ import {
   rem,
 } from '@mantine/core'
 
-import { CommonAreaForm } from '../CommonAreaForm/CommonAreaForm'
 import {
   CalendarIcon,
   ClockIcon,
-  MusicNotesMinusIcon,
+  DotsThreeVerticalIcon,
   PencilIcon,
   PlusIcon,
   TrashIcon,
   UsersIcon,
 } from '@phosphor-icons/react'
+import { type CommonArea } from '@my-buildings/shared/index'
+import { useDisclosure } from '@mantine/hooks'
 import {
-  CommonAreasValues,
-  DaysOfWeekValues,
-  type CommonArea,
-} from '@my-buildings/shared/index'
+  commonAreaLabels,
+  dayLabels,
+  getAreaIcon,
+} from '@features/buildings/components/CommonAreas/CommonAreas.helpers'
+import { CommonAreaForm } from '@features/buildings/components/CommonAreaForm/CommonAreaForm'
+import { useState } from 'react'
 
-export const commonAreaLabels = {
-  [CommonAreasValues.GYM]: 'Gimnasio',
-  [CommonAreasValues.POOL]: 'Piscina',
-  [CommonAreasValues.CLUB_HOUSE]: 'Salón Comunitario',
-  [CommonAreasValues.CAFETERIA]: 'Cafetería',
-  [CommonAreasValues.EVENT_ROOM]: 'Salón de Eventos',
-  [CommonAreasValues.ROOF_TOP]: 'Roof Top',
-  [CommonAreasValues.COWORKING_SPACE]: 'Espacio de Coworking',
-}
+export const CommonAreas = ({ commonAreas }: { commonAreas: CommonArea[] }) => {
+  const [opened, { open, close }] = useDisclosure(false)
+  const [selectedCommonArea, setSelectedCommonArea] = useState<
+    CommonArea | undefined
+  >(undefined)
 
-export const dayLabels = {
-  [DaysOfWeekValues.MONDAY]: 'Lunes',
-  [DaysOfWeekValues.TUESDAY]: 'Martes',
-  [DaysOfWeekValues.WEDNESDAY]: 'Miércoles',
-  [DaysOfWeekValues.THURSDAY]: 'Jueves',
-  [DaysOfWeekValues.FRIDAY]: 'Viernes',
-  [DaysOfWeekValues.SATURDAY]: 'Sábado',
-  [DaysOfWeekValues.SUNDAY]: 'Domingo',
-  [DaysOfWeekValues.ALL]: 'Todos',
-}
-
-export const CommonAreaList = ({
-  commonAreas,
-}: {
-  commonAreas: CommonArea[]
-}) => {
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Activo':
-        return 'green'
-      case 'Mantenimiento':
-        return 'yellow'
-      case 'Inactivo':
-        return 'red'
-      default:
-        return 'gray'
-    }
-  }
-
-  const getAreaIcon = (type: string) => {
-    const icons: Record<string, string> = {
-      GYM: '🏋️',
-      POOL: '🏊',
-      CLUB_HOUSE: '🏛️',
-      CAFETERIA: '☕',
-      EVENT_ROOM: '🎉',
-      ROOF_TOP: '🌆',
-      COWORKING_SPACE: '💼',
-    }
-    return icons[type] || '📍'
-  }
+  const hasCommonAreas = commonAreas.length > 0
 
   return (
     <Container size="xl">
@@ -91,12 +50,14 @@ export const CommonAreaList = ({
           </Text>
         </div>
 
-        <Button leftSection={<PlusIcon size={20} />} onClick={() => {}}>
-          Agregar Área Común
-        </Button>
+        {hasCommonAreas && (
+          <Button leftSection={<PlusIcon size={20} />} onClick={open}>
+            Agregar Área Común
+          </Button>
+        )}
       </Group>
 
-      {commonAreas.length === 0 ? (
+      {!hasCommonAreas ? (
         <Card shadow="sm" padding="xl" radius="md" withBorder>
           <Stack align="center" gap="md" py="xl">
             <Text size="xl" c="dimmed">
@@ -110,32 +71,30 @@ export const CommonAreaList = ({
                 Agrega la primera área común para este edificio
               </Text>
             </div>
-            <Button
-              leftSection={<PlusIcon size={18} />}
-              onClick={openCreateDrawer}
-            >
+            <Button leftSection={<PlusIcon size={18} />} onClick={open}>
               Agregar Área Común
             </Button>
           </Stack>
         </Card>
       ) : (
         <Grid>
-          {commonAreas?.map(area => (
-            <Grid.Col key={area.id} span={{ base: 12, sm: 6, md: 4 }}>
+          {commonAreas?.map(commonArea => (
+            <Grid.Col key={commonArea.id} span={{ base: 12, sm: 6, md: 4 }}>
               <Card shadow="sm" padding="lg" radius="md" withBorder>
                 <Group justify="space-between" mb="md">
-                  <Group gap="xs">
-                    <Text size="xl">{getAreaIcon(area.type)}</Text>
+                  <Group gap="xs" align="center">
+                    <Text size="xl">{getAreaIcon(commonArea.type)}</Text>
+
                     <div>
                       <Text fw={600} size="lg">
-                        {commonAreaLabels[area.type]}
+                        {commonAreaLabels[commonArea.type]}
                       </Text>
                       <Badge
-                        color={area.isActive ? 'green' : 'red'}
+                        color={commonArea.isActive ? 'green' : 'red'}
                         variant="dot"
                         size="sm"
                       >
-                        {area.isActive ? 'Activo' : 'Inactivo'}
+                        {commonArea.isActive ? 'Activo' : 'Inactivo'}
                       </Badge>
                     </div>
                   </Group>
@@ -143,7 +102,7 @@ export const CommonAreaList = ({
                   <Menu shadow="md" width={200} position="bottom-end">
                     <Menu.Target>
                       <ActionIcon variant="subtle" color="gray">
-                        <MusicNotesMinusIcon size={18} />
+                        <DotsThreeVerticalIcon size={24} weight="bold" />
                       </ActionIcon>
                     </Menu.Target>
                     <Menu.Dropdown>
@@ -156,7 +115,10 @@ export const CommonAreaList = ({
                             }}
                           />
                         }
-                        // onClick={() => openEditDrawer(area)}
+                        onClick={() => {
+                          setSelectedCommonArea(commonArea)
+                          open()
+                        }}
                       >
                         Editar
                       </Menu.Item>
@@ -170,7 +132,7 @@ export const CommonAreaList = ({
                             }}
                           />
                         }
-                        // onClick={() => handleDelete(area.id)}
+                        onClick={() => {}}
                       >
                         Eliminar
                       </Menu.Item>
@@ -179,26 +141,28 @@ export const CommonAreaList = ({
                 </Group>
 
                 <Text size="sm" c="dimmed" mb="md" lineClamp={2}>
-                  {area.description}
+                  {commonArea.description}
                 </Text>
 
                 <Stack gap="xs">
                   <Group gap="xs">
                     <ClockIcon size={16} color="#868e96" />
                     <Text size="sm">
-                      {area.openTime} - {area.closeTime}
+                      {commonArea.openTime} - {commonArea.closeTime}
                     </Text>
                   </Group>
 
                   <Group gap="xs">
                     <UsersIcon size={16} color="#868e96" />
-                    <Text size="sm">Capacidad: {area.capacity} personas</Text>
+                    <Text size="sm">
+                      Capacidad: {commonArea.capacity} personas
+                    </Text>
                   </Group>
 
                   <Group gap="xs">
                     <CalendarIcon size={16} color="#868e96" />
                     <Text size="sm">
-                      Máx. {area.maxHoursPerReservation}h por reserva
+                      Máx. {commonArea.maxHoursPerReservation}h por reserva
                     </Text>
                   </Group>
                 </Stack>
@@ -214,7 +178,7 @@ export const CommonAreaList = ({
                     Días disponibles:
                   </Text>
                   <Group gap={4}>
-                    {area.daysAvailable.map(day => (
+                    {commonArea.daysAvailable.map(day => (
                       <Badge key={day} size="xs" variant="light" color="blue">
                         {dayLabels[day].slice(0, 3)}
                       </Badge>
@@ -228,11 +192,10 @@ export const CommonAreaList = ({
       )}
 
       <CommonAreaForm
-        opened={false}
-        onClose={() => {}}
-        onSubmit={() => {}}
-        buildingId={0}
-        initialData={undefined}
+        opened={opened}
+        onClose={close}
+        commonArea={selectedCommonArea}
+        isEdit={false}
       />
     </Container>
   )

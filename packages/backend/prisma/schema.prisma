@@ -171,11 +171,11 @@ enum Amenities {
 enum CommonAreas {
   GYM
   POOL
-  CLUB_HOUSE
+  GRILL_AREA
   CAFETERIA
   EVENT_ROOM
   ROOF_TOP
-  COWORKING_SPACE
+  COWORKING
 }
 
 enum DaysOfWeek {

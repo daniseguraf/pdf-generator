@@ -841,11 +841,11 @@
             "enum": [
               "GYM",
               "POOL",
-              "CLUB_HOUSE",
+              "GRILL_AREA",
               "CAFETERIA",
               "EVENT_ROOM",
               "ROOF_TOP",
-              "COWORKING_SPACE"
+              "COWORKING"
             ]
           },
           "buildingId": {
@@ -858,6 +858,16 @@
             "example": "Common area description",
             "description": "Common area description"
           },
+          "capacity": {
+            "type": "number",
+            "example": 20,
+            "description": "Common area capacity"
+          },
+          "maxHoursPerReservation": {
+            "type": "number",
+            "example": 4,
+            "description": "Common area maximum hours per reservation"
+          },
           "openTime": {
             "type": "string",
             "example": "8:00 AM",
@@ -867,6 +877,24 @@
             "type": "string",
             "example": "10:00 PM",
             "description": "Common area close time"
+          },
+          "daysAvailable": {
+            "type": "string",
+            "example": [
+              "MONDAY",
+              "TUESDAY"
+            ],
+            "description": "Common area days available",
+            "enum": [
+              "MONDAY",
+              "TUESDAY",
+              "WEDNESDAY",
+              "THURSDAY",
+              "FRIDAY",
+              "SATURDAY",
+              "SUNDAY",
+              "ALL"
+            ]
           }
         },
         "required": [
@@ -884,11 +912,11 @@
             "enum": [
               "GYM",
               "POOL",
-              "CLUB_HOUSE",
+              "GRILL_AREA",
               "CAFETERIA",
               "EVENT_ROOM",
               "ROOF_TOP",
-              "COWORKING_SPACE"
+              "COWORKING"
             ]
           },
           "buildingId": {
@@ -901,6 +929,16 @@
             "example": "Common area description",
             "description": "Common area description"
           },
+          "capacity": {
+            "type": "number",
+            "example": 20,
+            "description": "Common area capacity"
+          },
+          "maxHoursPerReservation": {
+            "type": "number",
+            "example": 4,
+            "description": "Common area maximum hours per reservation"
+          },
           "openTime": {
             "type": "string",
             "example": "8:00 AM",
@@ -910,6 +948,24 @@
             "type": "string",
             "example": "10:00 PM",
             "description": "Common area close time"
+          },
+          "daysAvailable": {
+            "type": "string",
+            "example": [
+              "MONDAY",
+              "TUESDAY"
+            ],
+            "description": "Common area days available",
+            "enum": [
+              "MONDAY",
+              "TUESDAY",
+              "WEDNESDAY",
+              "THURSDAY",
+              "FRIDAY",
+              "SATURDAY",
+              "SUNDAY",
+              "ALL"
+            ]
           }
         }
       }

@@ -1,4 +1,4 @@
-import { useBuildings } from '@features/buildings/hooks/queries/useBuildings'
+import { useBuildings } from '@features/buildings/hooks/queries/buildings/useBuildings'
 import {
   ActionIcon,
   Avatar,
@@ -18,7 +18,7 @@ import { BuildingForm } from '@features/buildings/components/BuildingForm/Buildi
 import { useDisclosure } from '@mantine/hooks'
 import { EyeIcon } from '@phosphor-icons/react/dist/csr/Eye'
 import { TrashIcon } from '@phosphor-icons/react/dist/ssr/Trash'
-import { useDeleteBuilding } from '@features/buildings/hooks/mutations/useDeleteBuilding'
+import { useDeleteBuilding } from '@features/buildings/hooks/mutations/buildings/useDeleteBuilding'
 import { useState } from 'react'
 import { TableSkeleton } from '@features/buildings/components/TableSkeleton'
 import { BuildingsEmptyState } from '@features/buildings/components/BuildingsEmptyState'

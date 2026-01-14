@@ -17,7 +17,9 @@ export const useUpdateBuilding = () => {
     },
     mutationKey: ['updateBuilding'],
     onSuccess: (_data, { id }) => {
-      queryClient.invalidateQueries({ queryKey: ['building', id] })
+      queryClient.invalidateQueries({
+        queryKey: ['commonArea', 'building', id],
+      })
       queryClient.invalidateQueries({ queryKey: ['buildings'] })
 
       notifications.show({

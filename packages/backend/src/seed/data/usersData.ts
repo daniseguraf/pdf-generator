@@ -2,28 +2,28 @@ import { UserRole } from 'generated/prisma/client'
 
 export const usersData = [
   {
-    firstName: 'Usuario Admin 1',
+    firstName: 'Usuario 1',
     lastName: 'Administrador',
     email: 'admin@edificios.com',
     role: UserRole.ADMIN,
     isActive: true,
   },
   {
-    firstName: 'Usuario Manager 1',
+    firstName: 'Usuario 2',
     lastName: 'Manager',
     email: 'manager1@edificios.com',
     role: UserRole.MANAGER,
     isActive: true,
   },
   {
-    firstName: 'Usuario Manager 2',
+    firstName: 'Usuario 3',
     lastName: 'Manager',
     email: 'manager2@edificios.com',
     role: UserRole.MANAGER,
     isActive: true,
   },
   {
-    firstName: 'Usuario Residente 1',
+    firstName: 'Usuario 4',
     lastName: 'Residente',
     email: 'resident1@edificios.com',
     role: UserRole.RESIDENT,

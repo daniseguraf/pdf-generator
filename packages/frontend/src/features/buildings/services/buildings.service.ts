@@ -7,30 +7,20 @@ import type {
 
 export const buildingsService = {
   getAll: async (): Promise<Building[]> => {
-    const { data } = await api.get<Building[]>('/buildings', {
-      metadata: {
-        operationName: 'getAllBuildings',
-      },
-    })
+    const { data } = await api.get<Building[]>('/buildings')
 
     return data
   },
 
   getById: async (id: number): Promise<Building> => {
-    const { data } = await api.get<Building>(`/buildings/${id}`, {
-      metadata: {
-        operationName: 'getBuildingById',
-      },
-    })
+    const { data } = await api.get<Building>(`/buildings/${id}`)
+
     return data
   },
 
   create: async (createBuildingDto: CreateBuildingDto): Promise<Building> => {
-    const { data } = await api.post<Building>('/buildings', createBuildingDto, {
-      metadata: {
-        operationName: 'createBuilding',
-      },
-    })
+    const { data } = await api.post<Building>('/buildings', createBuildingDto)
+
     return data
   },
 
@@ -40,21 +30,12 @@ export const buildingsService = {
   ): Promise<Building> => {
     const { data } = await api.patch<Building>(
       `/buildings/${id}`,
-      updateBuildingDto,
-      {
-        metadata: {
-          operationName: 'updateBuilding',
-        },
-      }
+      updateBuildingDto
     )
     return data
   },
 
   delete: async (id: number): Promise<void> => {
-    await api.delete(`/buildings/${id}`, {
-      metadata: {
-        operationName: 'deleteBuilding',
-      },
-    })
+    await api.delete(`/buildings/${id}`)
   },
 }
