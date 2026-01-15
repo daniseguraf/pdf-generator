@@ -33,12 +33,15 @@ export class CommonAreasController {
     return this.commonAreasService.findOne(Number(id))
   }
 
-  @Patch(':id')
+  @Patch(':commonAreaId')
   update(
-    @Param('id') id: string,
+    @Param('commonAreaId') commonAreaId: string,
     @Body() updateCommonAreaDto: UpdateCommonAreaDto
   ) {
-    return this.commonAreasService.update(+id, updateCommonAreaDto)
+    return this.commonAreasService.update(
+      Number(commonAreaId),
+      updateCommonAreaDto
+    )
   }
 
   @Delete(':id')

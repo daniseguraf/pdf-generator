@@ -10,9 +10,9 @@ export const useCreateBuilding = () => {
     mutationFn: (createBuildingDto: CreateBuildingDto) => {
       return buildingsService.create(createBuildingDto)
     },
-    mutationKey: ['createBuilding'],
+    mutationKey: ['buildings', 'create'],
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['buildings'] })
+      queryClient.invalidateQueries({ queryKey: ['buildings', 'list'] })
       notifications.show({
         message: 'Building created successfully',
         color: 'green',

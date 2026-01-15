@@ -15,12 +15,12 @@ export const useUpdateBuilding = () => {
     mutationFn: ({ id, updateBuildingDto }: UpdateBuildingParams) => {
       return buildingsService.update(id, updateBuildingDto)
     },
-    mutationKey: ['updateBuilding'],
+    mutationKey: ['buildings', 'update'],
     onSuccess: (_data, { id }) => {
       queryClient.invalidateQueries({
-        queryKey: ['commonArea', 'building', id],
+        queryKey: ['buildings', 'detail', id],
       })
-      queryClient.invalidateQueries({ queryKey: ['buildings'] })
+      queryClient.invalidateQueries({ queryKey: ['buildings', 'list'] })
 
       notifications.show({
         message: 'Building updated successfully',

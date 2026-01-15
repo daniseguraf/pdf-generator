@@ -15,10 +15,13 @@ export const commonAreasService = {
   },
 
   update: async (
-    id: number,
+    commonAreaId: number,
     updateCommonAreaDto: UpdateCommonAreaDto
   ): Promise<CommonArea> => {
-    const response = await api.patch(`/common-areas/${id}`, updateCommonAreaDto)
+    const response = await api.patch(
+      `/common-areas/${commonAreaId}`,
+      updateCommonAreaDto
+    )
 
     return response.data
   },

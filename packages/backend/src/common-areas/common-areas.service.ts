@@ -25,8 +25,11 @@ export class CommonAreasService {
     })
   }
 
-  update(id: number, updateCommonAreaDto: UpdateCommonAreaDto) {
-    return `This action updates a #${id} commonArea`
+  async update(commonAreaId: number, updateCommonAreaDto: UpdateCommonAreaDto) {
+    return await this.prismaService.commonArea.update({
+      where: { id: commonAreaId },
+      data: updateCommonAreaDto,
+    })
   }
 
   remove(id: number) {

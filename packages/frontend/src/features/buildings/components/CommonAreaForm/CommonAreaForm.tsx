@@ -26,6 +26,7 @@ import { TimeInput } from '@mantine/dates'
 import { useCreateCommonArea } from '@features/buildings/hooks/mutations/commonAreas/useCreateCommonArea'
 import { useParams } from 'react-router'
 import type { CommonAreas } from '@my-buildings/shared/index'
+import type { CreateCommonAreaDto } from '@features/buildings/types/commonAreas.types'
 
 export const CommonAreaForm: FC<CommonAreaFormProps> = ({
   opened,
@@ -42,17 +43,15 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
     validateInputOnBlur: true,
     initialValues: {
       type: commonArea?.type ?? '',
-      description: commonArea?.description ?? '',
-      capacity: commonArea?.capacity ?? '',
-      maxHoursPerReservation: commonArea?.maxHoursPerReservation ?? 4,
-      openTime: commonArea?.openTime ?? '08:00',
-      closeTime: commonArea?.closeTime ?? '22:00',
-      daysAvailable: commonArea?.daysAvailable ?? [],
+      description: commonArea?.description ?? undefined,
+      capacity: commonArea?.capacity ?? undefined,
+      maxHoursPerReservation: commonArea?.maxHoursPerReservation ?? undefined,
+      openTime: commonArea?.openTime ?? undefined,
+      closeTime: commonArea?.closeTime ?? undefined,
+      daysAvailable: commonArea?.daysAvailable ?? undefined,
     },
     validate: zod4Resolver(commonAreaFormSchema),
   })
-
-  console.log('form', form.values)
 
   const handleSubmit = () => {
     const errors = form.validate()
@@ -65,9 +64,7 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
       ...form.values,
       type: form.values.type as CommonAreas,
       buildingId,
-    }
-    console.log('createCommonAreaDto', createCommonAreaDto)
-    // return
+    } as CreateCommonAreaDto
 
     createCommonArea(createCommonAreaDto, {
       onSuccess: () => {

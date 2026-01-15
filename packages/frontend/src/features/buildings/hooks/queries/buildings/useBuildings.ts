@@ -4,8 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 
 export const useBuildings = () => {
   return useQuery<Building[]>({
-    queryKey: ['buildings'],
+    queryKey: ['buildings', 'list'],
     queryFn: () => buildingsService.getAll(),
-    staleTime: 1000 * 60 * 60,
   })
 }

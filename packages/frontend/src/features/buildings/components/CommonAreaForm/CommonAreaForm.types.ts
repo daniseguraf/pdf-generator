@@ -10,9 +10,9 @@ export type CommonAreaFormProps = {
 export type CommonAreaFormValues = {
   type: string
   description?: string
-  capacity: number | string
-  maxHoursPerReservation: number | string
-  openTime: string
-  closeTime: string
-  daysAvailable: DaysOfWeek[]
+  capacity?: number
+  maxHoursPerReservation?: number
+  openTime?: string
+  closeTime?: string
+  daysAvailable?: DaysOfWeek[]
 }
