@@ -43,8 +43,8 @@ export class BuildingsController {
   @Get()
   @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @ApiFindAllOperation('Get all buildings', 'buildings', Building)
-  findAll(@GetUser('id') userId: number) {
-    return this.buildingsService.findAll(userId)
+  findAll(@GetUser('id') userId: number, @GetUser('role') role: UserRole) {
+    return this.buildingsService.findAll(userId, role)
   }
 
   @Get(':id')

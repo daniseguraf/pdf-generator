@@ -9,9 +9,9 @@ export const useDeleteBuilding = () => {
     mutationFn: (id: number) => {
       return buildingsService.delete(id)
     },
-    mutationKey: ['deleteBuilding'],
+    mutationKey: ['buildings', 'delete'],
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['buildings'] })
+      queryClient.invalidateQueries({ queryKey: ['buildings', 'list'] })
       notifications.show({
         message: 'Building deleted successfully',
         color: 'green',

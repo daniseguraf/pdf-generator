@@ -10,9 +10,11 @@ export const useCreateCommonArea = () => {
     mutationFn: (createCommonAreaDto: CreateCommonAreaDto) => {
       return commonAreasService.create(createCommonAreaDto)
     },
-    mutationKey: ['createCommonArea'],
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['commonArea'] })
+    mutationKey: ['commonAreas', 'create'],
+    onSuccess: (_, { buildingId }) => {
+      queryClient.invalidateQueries({
+        queryKey: ['buildings', 'detail', buildingId],
+      })
       notifications.show({
         message: 'Common area created successfully',
         color: 'green',

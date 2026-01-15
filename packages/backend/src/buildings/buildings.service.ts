@@ -8,6 +8,7 @@ import { CreateBuildingDto } from './dto/create-building.dto'
 import { UpdateBuildingDto } from './dto/update-building.dto'
 import { PrismaService } from '../prisma/prisma.service'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client'
+import { UserRole } from 'generated/prisma/enums'
 
 @Injectable()
 export class BuildingsService {
@@ -35,9 +36,12 @@ export class BuildingsService {
     }
   }
 
-  async findAll(userId: number) {
+  async findAll(userId: number, role: UserRole) {
     return await this.prismaService.building.findMany({
-      where: { deletedAt: null, managerId: userId },
+      where: {
+        deletedAt: null,
+        managerId: role === UserRole.ADMIN ? undefined : userId,
+      },
       omit: this.removeDateFields(),
       include: this.setManager(),
       orderBy: {
