@@ -258,24 +258,20 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] Agregar decoradores de validación
 
 - [ ] Implementar `common-areas.service.ts`
-  - [ ] `findAll(buildingId?: number)`
+  - [x] `findAll(buildingId?: number)`
     - [ ] Si buildingId: filtrar `where: { buildingId }`
     - [ ] Incluir relación building
   - [ ] `findOne(id)` - incluir building
-  - [ ] `create(dto)`
-    - [ ] Validar que buildingId existe
+  - [x] `create(dto)`
+    - [x] Validar que buildingId existe
     - [x] Crear área común
   - [x] `update(id, dto)` - actualizar
-  - [ ] `remove(id)` - soft delete (isActive = false)
+  - [x] `remove(id)` - soft delete (isActive = false)
 
-- [ ] Implementar `common-areas.controller.ts`
-  - [ ] `GET /common-areas?buildingId=xxx` - con @Query
-  - [ ] `GET /common-areas/:id`
-  - [ ] `POST /common-areas` - @UseGuards + @Roles('ADMIN', 'MANAGER')
-  - [ ] `PATCH /common-areas/:id` - @UseGuards + @Roles('ADMIN', 'MANAGER')
-  - [ ] `DELETE /common-areas/:id` - @UseGuards + @Roles('ADMIN', 'MANAGER')
-
-- [ ] Registrar en `app.module.ts`
+- [x] Implementar `common-areas.controller.ts`
+  - [x] `POST /common-areas` - @UseGuards + @Roles('MANAGER')
+  - [x] `PATCH /common-areas/:id` - @UseGuards + @Roles('MANAGER')
+  - [x] `DELETE /common-areas/:id` - @UseGuards + @Roles('MANAGER')
 
 - [ ] Actualizar seeder
   - [ ] Agregar 3 áreas comunes por cada edificio
@@ -283,72 +279,51 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ### Frontend - CommonAreas Module
 
-- [ ] Crear estructura `features/common-areas/`
-  - [ ] `types/common-area.types.ts`
-  - [ ] `services/common-areas.service.ts`
-  - [ ] `hooks/queries/useCommonAreas.ts`
-  - [ ] `hooks/queries/useCommonArea.ts`
-  - [ ] `hooks/mutations/useCreateCommonArea.ts`
-  - [ ] `hooks/mutations/useUpdateCommonArea.ts`
-  - [ ] `hooks/mutations/useDeleteCommonArea.ts`
-  - [ ] `components/CommonAreaCard.tsx`
-  - [ ] `components/CommonAreaForm.tsx`
-  - [ ] `components/CommonAreasList.tsx`
+- [x] Crear estructura `features/common-areas/`
+  - [x] `types/common-area.types.ts`
+  - [x] `services/common-areas.service.ts`
+  - [x] `hooks/mutations/useCreateCommonArea.ts`
+  - [x] `hooks/mutations/useUpdateCommonArea.ts`
+  - [x] `hooks/mutations/useDeleteCommonArea.ts`
+  - [x] `components/CommonAreas.tsx`
 
-- [ ] Implementar tipos `types/common-area.types.ts`
-  - [ ] Interface CommonArea (todos los campos)
-  - [ ] Interface CreateCommonAreaDto
-  - [ ] Interface UpdateCommonAreaDto
+- [x] Implementar tipos `types/common-area.types.ts`
+  - [x] Interface CommonArea (todos los campos)
+  - [x] Interface CreateCommonAreaDto
+  - [x] Interface UpdateCommonAreaDto
 
-- [ ] Implementar servicio `services/common-areas.service.ts`
-  - [ ] `getCommonAreas(buildingId?: number)`
-  - [ ] `getCommonArea(id: number)`
-  - [ ] `createCommonArea(dto)`
-  - [ ] `updateCommonArea(id, dto)`
-  - [ ] `deleteCommonArea(id)`
+- [x] Implementar servicio `services/common-areas.service.ts`
+  - [x] `createCommonArea(dto)`
+  - [x] `updateCommonArea(id, dto)`
+  - [x] `deleteCommonArea(id)`
 
-- [ ] Implementar hooks
-  - [ ] `useCommonAreas(buildingId?)` - useQuery
-  - [ ] `useCreateCommonArea()` - useMutation con notificaciones
-  - [ ] `useUpdateCommonArea()` - useMutation
-  - [ ] `useDeleteCommonArea()` - useMutation con confirmación
+- [x] Implementar hooks
+  - [x] `useCreateCommonArea()` - useMutation con notificaciones
+  - [x] `useUpdateCommonArea()` - useMutation
+  - [x] `useDeleteCommonArea()` - useMutation con confirmación
 
-- [ ] Crear `components/CommonAreaCard.tsx`
-  - [ ] Card de Mantine
-  - [ ] Mostrar: nombre, descripción, capacidad, horarios
-  - [ ] Badge: isActive
-  - [ ] Action buttons: editar, eliminar
+- [x] Crear `components/CommonAreaForm.tsx`
+- [x] Crear `components/CommonAreasList.tsx`
+  - [x] Grid de CommonAreaCard
+  - [x] Botón "Nueva Área Común"
+  - [x] Modal con CommonAreaForm
+  - [x] Empty state si no hay áreas
 
-- [ ] Crear `components/CommonAreaForm.tsx`
-  - [ ] useForm de Mantine
-  - [ ] Campos: name, description, capacity, maxHoursPerReservation
-  - [ ] TimeInput para openTime y closeTime
-  - [ ] MultiSelect para daysAvailable
-  - [ ] Modo create y edit
-
-- [ ] Crear `components/CommonAreasList.tsx`
-  - [ ] Grid de CommonAreaCard
-  - [ ] Botón "Nueva Área Común"
-  - [ ] Modal con CommonAreaForm
-  - [ ] Empty state si no hay áreas
-
-- [ ] Integrar en `BuildingDetailPage.tsx`
-  - [ ] Tab "Áreas Comunes"
-  - [ ] Renderizar CommonAreasList
-  - [ ] Pasar buildingId como filtro
+- [x] Integrar en `BuildingDetailPage.tsx`
+  - [x] Tab "Áreas Comunes"
+  - [x] Renderizar CommonAreasList
 
 ### Testing Fase 3
 
-- [ ] Backend
-  - [ ] GET /common-areas?buildingId=1 → lista áreas del edificio
-  - [ ] POST /common-areas → crea área (solo ADMIN)
+- [x] Backend
+  - [x] POST /common-areas → crea área (MAMAGER)
 
-- [ ] Frontend
-  - [ ] Ver detalle de edificio
-  - [ ] Tab "Áreas Comunes" muestra lista
-  - [ ] Crear nueva área común
-  - [ ] Editar área
-  - [ ] Eliminar área
+- [x] Frontend
+  - [x] Ver detalle de edificio
+  - [x] Tab "Áreas Comunes" muestra lista
+  - [x] Crear nueva área común
+  - [x] Editar área
+  - [x] Eliminar área
 
 ---
 
@@ -658,7 +633,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ## 📅 FASE 4: Sistema de Reservaciones (3-4 días)
 
-> **Objetivo:** Feature estrella - reservar áreas comunes con validaciones
+> **Objetivo:** Reservar áreas comunes con validaciones
 
 ### Backend - Reservations Module
 

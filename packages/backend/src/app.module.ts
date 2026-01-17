@@ -5,7 +5,7 @@ import { PrismaModule } from './prisma/prisma.module'
 import { BuildingsModule } from './buildings/buildings.module'
 import { AuthModule } from './auth/auth.module'
 import { SeedModule } from './seed/seed.module'
-import { CommonAreasModule } from './common-areas/common-areas.module';
+import { CommonAreasModule } from './common-areas/common-areas.module'
 
 @Module({
   imports: [
