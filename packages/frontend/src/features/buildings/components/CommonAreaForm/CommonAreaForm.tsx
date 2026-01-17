@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { useEffect, type FC } from 'react'
 import {
   Drawer,
   Stack,
@@ -26,30 +26,37 @@ import { TimeInput } from '@mantine/dates'
 import { useCreateCommonArea } from '@features/buildings/hooks/mutations/commonAreas/useCreateCommonArea'
 import { useParams } from 'react-router'
 import type { CommonAreas } from '@my-buildings/shared/index'
-import type { CreateCommonAreaDto } from '@features/buildings/types/commonAreas.types'
+import type {
+  CreateCommonAreaDto,
+  UpdateCommonAreaDto,
+} from '@features/buildings/types/commonAreas.types'
+import { useUpdateCommonArea } from '@features/buildings/hooks/mutations/commonAreas/useUpdateCommonArea'
 
 export const CommonAreaForm: FC<CommonAreaFormProps> = ({
   opened,
   onClose,
-  isEdit,
   commonArea,
 }) => {
   const { id } = useParams()
   const buildingId = Number(id)
-
   const { mutate: createCommonArea } = useCreateCommonArea()
+  const { mutate: updateCommonArea } = useUpdateCommonArea()
+
+  const isEdit = !!commonArea
+
+  const initialValues = {
+    type: commonArea?.type ?? '',
+    description: commonArea?.description ?? undefined,
+    capacity: commonArea?.capacity ?? undefined,
+    maxHoursPerReservation: commonArea?.maxHoursPerReservation ?? undefined,
+    openTime: commonArea?.openTime ?? undefined,
+    closeTime: commonArea?.closeTime ?? undefined,
+    daysAvailable: commonArea?.daysAvailable ?? undefined,
+  }
 
   const form = useForm<CommonAreaFormValues>({
     validateInputOnBlur: true,
-    initialValues: {
-      type: commonArea?.type ?? '',
-      description: commonArea?.description ?? undefined,
-      capacity: commonArea?.capacity ?? undefined,
-      maxHoursPerReservation: commonArea?.maxHoursPerReservation ?? undefined,
-      openTime: commonArea?.openTime ?? undefined,
-      closeTime: commonArea?.closeTime ?? undefined,
-      daysAvailable: commonArea?.daysAvailable ?? undefined,
-    },
+    initialValues,
     validate: zod4Resolver(commonAreaFormSchema),
   })
 
@@ -60,6 +67,14 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
       return
     }
 
+    if (isEdit) {
+      handleUpdate()
+    } else {
+      handleCreate()
+    }
+  }
+
+  const handleCreate = () => {
     const createCommonAreaDto = {
       ...form.values,
       type: form.values.type as CommonAreas,
@@ -73,10 +88,41 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
     })
   }
 
-  const handleClose = () => {
-    onClose()
-    form.reset()
+  const handleUpdate = () => {
+    const updateCommonAreaDto = {
+      ...form.values,
+      type: form.values.type as CommonAreas,
+      buildingId,
+    } as UpdateCommonAreaDto
+
+    console.log('updateCommonAreaDto', updateCommonAreaDto)
+    // return
+
+    updateCommonArea(
+      {
+        commonAreaId: commonArea?.id ?? 0,
+        updateCommonAreaDto,
+      },
+      {
+        onSuccess: () => {
+          handleClose()
+        },
+      }
+    )
   }
+
+  const handleClose = () => {
+    console.log('handleClose')
+    form.reset()
+    onClose()
+  }
+
+  useEffect(() => {
+    if (commonArea) {
+      form.setValues(initialValues)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commonArea])
 
   return (
     <Drawer
@@ -153,6 +199,7 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
           data={dayOptions}
           searchable
           clearable
+          checkIconPosition="right"
           {...form.getInputProps('daysAvailable')}
         />
 

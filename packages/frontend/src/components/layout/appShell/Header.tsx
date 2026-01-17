@@ -16,7 +16,6 @@ import {
 } from '@phosphor-icons/react'
 export const Header = () => {
   const { user, logout } = useAuth()
-  console.log(user)
 
   return (
     <AppShell.Header>

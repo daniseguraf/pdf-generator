@@ -468,35 +468,6 @@
         "tags": [
           "CommonAreas"
         ]
-      },
-      "delete": {
-        "operationId": "CommonAreasController_remove",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "tags": [
-          "CommonAreas"
-        ]
       }
     },
     "/api/v1/common-areas/{commonAreaId}": {
@@ -522,6 +493,35 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "CommonAreas"
+        ]
+      },
+      "delete": {
+        "operationId": "CommonAreasController_remove",
+        "parameters": [
+          {
+            "name": "commonAreaId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -894,8 +894,7 @@
               "THURSDAY",
               "FRIDAY",
               "SATURDAY",
-              "SUNDAY",
-              "ALL"
+              "SUNDAY"
             ]
           }
         },
@@ -965,8 +964,7 @@
               "THURSDAY",
               "FRIDAY",
               "SATURDAY",
-              "SUNDAY",
-              "ALL"
+              "SUNDAY"
             ]
           }
         }

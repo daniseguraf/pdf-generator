@@ -25,4 +25,10 @@ export const commonAreasService = {
 
     return response.data
   },
+
+  delete: async (commonAreaId: number): Promise<CommonArea> => {
+    const response = await api.delete(`/common-areas/${commonAreaId}`)
+
+    return response.data.buildingId
+  },
 }

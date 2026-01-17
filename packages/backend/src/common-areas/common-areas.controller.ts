@@ -44,8 +44,8 @@ export class CommonAreasController {
     )
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commonAreasService.remove(+id)
+  @Delete(':commonAreaId')
+  remove(@Param('commonAreaId') commonAreaId: string) {
+    return this.commonAreasService.remove(Number(commonAreaId))
   }
 }

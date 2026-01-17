@@ -20,7 +20,6 @@ export const dayLabels = {
   [DaysOfWeekValues.FRIDAY]: 'Viernes',
   [DaysOfWeekValues.SATURDAY]: 'Sábado',
   [DaysOfWeekValues.SUNDAY]: 'Domingo',
-  [DaysOfWeekValues.ALL]: 'Todos',
 }
 
 export const getStatusColor = (status: string) => {

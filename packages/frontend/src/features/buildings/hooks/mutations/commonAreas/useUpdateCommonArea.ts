@@ -18,12 +18,11 @@ export const useUpdateCommonArea = () => {
     }: UpdateCommonAreaParams) => {
       return commonAreasService.update(commonAreaId, updateCommonAreaDto)
     },
-    mutationKey: ['updateCommonArea'],
-    onSuccess: (_data, { commonAreaId }) => {
-      // queryClient.invalidateQueries({
-      //   queryKey: ['commonArea', 'building', commonAreaId],
-      // })
-      queryClient.invalidateQueries({ queryKey: ['commonArea'] })
+    mutationKey: ['commonAreas', 'update'],
+    onSuccess: data => {
+      queryClient.invalidateQueries({
+        queryKey: ['buildings', 'detail', data.buildingId],
+      })
 
       notifications.show({
         message: 'Common area updated successfully',

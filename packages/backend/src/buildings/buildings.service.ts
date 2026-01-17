@@ -61,6 +61,9 @@ export class BuildingsService {
         commonAreas: {
           where: { deletedAt: null },
           omit: this.removeDateFields(),
+          orderBy: {
+            id: 'desc',
+          },
         },
       },
     })

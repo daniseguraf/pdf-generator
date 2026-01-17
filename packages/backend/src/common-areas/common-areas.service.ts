@@ -1,7 +1,12 @@
-import { Injectable } from '@nestjs/common'
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common'
 import { CreateCommonAreaDto } from './dto/create-common-area.dto'
 import { UpdateCommonAreaDto } from './dto/update-common-area.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
+import { PrismaClientKnownRequestError } from 'generated/prisma/internal/prismaNamespace'
 
 @Injectable()
 export class CommonAreasService {
@@ -16,6 +21,9 @@ export class CommonAreasService {
   async findAllByBuildingId(buildingId: number) {
     return await this.prismaService.commonArea.findMany({
       where: { buildingId, deletedAt: null },
+      orderBy: {
+        id: 'desc',
+      },
     })
   }
 
@@ -32,7 +40,24 @@ export class CommonAreasService {
     })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} commonArea`
+  async remove(commonAreaId: number) {
+    await this.findOne(commonAreaId)
+
+    try {
+      return await this.prismaService.commonArea.update({
+        where: { id: commonAreaId },
+        data: { deletedAt: new Date() },
+      })
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          throw new NotFoundException(
+            `Common area with id ${commonAreaId} not found`
+          )
+        }
+
+        throw new InternalServerErrorException('Error deleting common area')
+      }
+    }
   }
 }

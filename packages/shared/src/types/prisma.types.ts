@@ -86,7 +86,6 @@ export type DaysOfWeek =
   | 'FRIDAY'
   | 'SATURDAY'
   | 'SUNDAY'
-  | 'ALL'
 
 export const DaysOfWeekValues = {
   MONDAY: 'MONDAY',
@@ -96,7 +95,6 @@ export const DaysOfWeekValues = {
   FRIDAY: 'FRIDAY',
   SATURDAY: 'SATURDAY',
   SUNDAY: 'SUNDAY',
-  ALL: 'ALL',
 } satisfies Record<string, DaysOfWeek>
 
 export type Building = {

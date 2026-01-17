@@ -186,5 +186,4 @@ enum DaysOfWeek {
   FRIDAY
   SATURDAY
   SUNDAY
-  ALL
 }

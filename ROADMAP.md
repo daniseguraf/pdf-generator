@@ -264,8 +264,8 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [ ] `findOne(id)` - incluir building
   - [ ] `create(dto)`
     - [ ] Validar que buildingId existe
-    - [ ] Crear área común
-  - [ ] `update(id, dto)` - actualizar
+    - [x] Crear área común
+  - [x] `update(id, dto)` - actualizar
   - [ ] `remove(id)` - soft delete (isActive = false)
 
 - [ ] Implementar `common-areas.controller.ts`
