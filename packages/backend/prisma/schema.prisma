@@ -66,14 +66,14 @@ model CommonArea {
   buildingId             Int           @map("building_id")
   building               Building      @relation(fields: [buildingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   description            String?
-  capacity               Int?
+  capacity               Int
   isActive               Boolean       @default(true) @map("is_active")
   createdAt              DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt              DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
   deletedAt              DateTime?     @map("deleted_at") @db.Timestamptz(6)
-  maxHoursPerReservation Int?          @default(4) @map("max_hours_per_reservation")
-  openTime               String?       @map("open_time")
-  closeTime              String?       @map("close_time")
+  maxHoursPerReservation Int           @map("max_hours_per_reservation")
+  openTime               String       @map("open_time")
+  closeTime              String       @map("close_time")
   daysAvailable          DaysOfWeek[]  @default([]) @map("days_available")
   reservations           Reservation[]
 
@@ -86,11 +86,12 @@ model Reservation {
   commonArea   CommonArea        @relation(fields: [commonAreaId], references: [id], onDelete: Cascade)
   userId       Int               @map("user_id")
   user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  startTime    DateTime          @map("start_time") @db.Timestamptz(6)
-  endTime      DateTime          @map("end_time") @db.Timestamptz(6)
+  date         DateTime          @map("date") @db.Timestamptz(6)
+  startTime    String          @map("start_time")
+  endTime      String          @map("end_time")
   status       ReservationStatus @default(IN_REVIEW)
   notes        String?           @db.Text
-  attendees    Int               @default(1)
+  attendees    Int
   createdAt    DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt    DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)
 

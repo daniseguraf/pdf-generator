@@ -1,7 +1,10 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { IsArray, IsEnum, IsInt, IsOptional, IsPositive } from 'class-validator'
 import { CommonAreas, DaysOfWeek } from 'generated/prisma/enums'
-import { IsOptionalString } from 'src/common/decorators/validation.decorators'
+import {
+  IsOptionalString,
+  IsRequiredString,
+} from 'src/common/decorators/validation.decorators'
 
 export class CreateCommonAreaDto {
   @ApiProperty({
@@ -23,29 +26,27 @@ export class CreateCommonAreaDto {
   @IsOptionalString(1000, 'Common area description', 'Common area description')
   description?: string
 
-  @ApiPropertyOptional({
+  @ApiProperty({
     example: 20,
     description: 'Common area capacity',
   })
   @IsInt()
   @IsPositive()
-  @IsOptional()
-  capacity?: number
+  capacity: number
 
-  @ApiPropertyOptional({
+  @ApiProperty({
     example: 4,
     description: 'Common area maximum hours per reservation',
   })
   @IsInt()
   @IsPositive()
-  @IsOptional()
-  maxHoursPerReservation?: number
+  maxHoursPerReservation: number
 
-  @IsOptionalString(200, '8:00 AM', 'Common area open time')
-  openTime?: string
+  @IsRequiredString(1, 200, '8:00 AM', 'Common area open time')
+  openTime: string
 
-  @IsOptionalString(200, '10:00 PM', 'Common area close time')
-  closeTime?: string
+  @IsRequiredString(1, 200, '10:00 PM', 'Common area close time')
+  closeTime: string
 
   @ApiPropertyOptional({
     example: [DaysOfWeek.MONDAY, DaysOfWeek.TUESDAY],

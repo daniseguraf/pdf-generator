@@ -125,14 +125,14 @@ export type CommonArea = {
   buildingId: number
   building?: Building
   description: string | null
-  capacity: number | null
+  capacity: number
   isActive: boolean
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
-  maxHoursPerReservation: number | null
-  openTime: string | null
-  closeTime: string | null
+  maxHoursPerReservation: number
+  openTime: string
+  closeTime: string
   daysAvailable: DaysOfWeek[]
   reservations?: Reservation[]
 }
@@ -143,8 +143,9 @@ export type Reservation = {
   commonArea?: CommonArea
   userId: number
   user?: User
-  startTime: Date
-  endTime: Date
+  date: Date
+  startTime: string
+  endTime: string
   status: ReservationStatus
   notes: string | null
   attendees: number
