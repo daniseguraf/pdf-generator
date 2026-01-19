@@ -45,34 +45,19 @@ model Building {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  buildings Building[]
-  firstName String     @map("first_name")
-  lastName  String     @map("last_name")
-  email     String     @unique
-  password  String
-  role      UserRole   @default(RESIDENT)
-  createdAt DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime   @updatedAt @map("updated_at") @db.Timestamptz(6)
-  isActive  Boolean    @default(true) @map("is_active")
+  id           Int           @id @default(autoincrement())
+  buildings    Building[]
+  firstName    String        @map("first_name")
+  lastName     String        @map("last_name")
+  email        String        @unique
+  password     String
+  role         UserRole      @default(RESIDENT)
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
+  isActive     Boolean       @default(true) @map("is_active")
+  reservations Reservation[]
 
   @@map("users")
-}
-
-model Unit {
-  id         Int        @id @default(autoincrement())
-  buildingId Int        @map("building_id")
-  // building   Building   @relation(fields: [buildingId], references: [id])
-  number     String
-  floor      Int
-  type       UnitType
-  status     UnitStatus
-  createdAt  DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt  DateTime   @updatedAt @map("updated_at") @db.Timestamptz(6)
-
-  @@unique([buildingId, floor, number])
-  @@index([buildingId])
-  @@map("units")
 }
 
 model CommonArea {
@@ -86,64 +71,38 @@ model CommonArea {
   createdAt              DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt              DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
   deletedAt              DateTime?     @map("deleted_at") @db.Timestamptz(6)
-  maxHoursPerReservation Int?           @default(4) @map("max_hours_per_reservation")
-  openTime               String?        @map("open_time")
-  closeTime              String?        @map("close_time")
-  daysAvailable          DaysOfWeek[]   @default([]) @map("days_available")
+  maxHoursPerReservation Int?          @default(4) @map("max_hours_per_reservation")
+  openTime               String?       @map("open_time")
+  closeTime              String?       @map("close_time")
+  daysAvailable          DaysOfWeek[]  @default([]) @map("days_available")
   reservations           Reservation[]
 
   @@map("common_areas")
-}
-
-model Resident {
-  id           Int           @id @default(autoincrement())
-  firstName    String        @map("first_name")
-  lastName     String        @map("last_name")
-  phoneNumber  String?       @map("phone_number")
-  email        String        @unique
-  isActive     Boolean       @default(true) @map("is_active")
-  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
-  reservations Reservation[]
-
-  @@map("residents")
 }
 
 model Reservation {
   id           Int               @id @default(autoincrement())
   commonAreaId Int               @map("common_area_id")
   commonArea   CommonArea        @relation(fields: [commonAreaId], references: [id], onDelete: Cascade)
-  residentId   Int               @map("resident_id")
-  resident     Resident          @relation(fields: [residentId], references: [id], onDelete: Cascade)
+  userId       Int               @map("user_id")
+  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   startTime    DateTime          @map("start_time") @db.Timestamptz(6)
   endTime      DateTime          @map("end_time") @db.Timestamptz(6)
-  status       ReservationStatus @default(CONFIRMED)
+  status       ReservationStatus @default(IN_REVIEW)
   notes        String?           @db.Text
   attendees    Int               @default(1)
   createdAt    DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt    DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   @@index([commonAreaId, startTime, endTime])
-  @@index([residentId])
+  @@index([userId])
   @@map("reservations")
 }
 
 enum ReservationStatus {
-  PENDING
+  IN_REVIEW
   CONFIRMED
   CANCELLED
-}
-
-enum UnitType {
-  APARTMENT
-  OFFICE
-  COMMERCIAL
-}
-
-enum UnitStatus {
-  AVAILABLE
-  OCCUPIED
-  MAINTENANCE
 }
 
 enum PropertyType {

@@ -6,6 +6,7 @@ import { BuildingsModule } from './buildings/buildings.module'
 import { AuthModule } from './auth/auth.module'
 import { SeedModule } from './seed/seed.module'
 import { CommonAreasModule } from './common-areas/common-areas.module'
+import { ReservationsModule } from './reservations/reservations.module'
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { CommonAreasModule } from './common-areas/common-areas.module'
     AuthModule,
     SeedModule,
     CommonAreasModule,
+    ReservationsModule,
   ],
 })
 export class AppModule {}

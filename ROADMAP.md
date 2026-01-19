@@ -638,7 +638,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 ### Backend - Reservations Module
 
 - [ ] Generar módulo
-  - [ ] `nest g resource reservations --no-spec`
+  - [x] `nest g resource reservations --no-spec`
 
 - [ ] Crear DTOs en `src/reservations/dto/`
   - [ ] `CreateReservationDto`
