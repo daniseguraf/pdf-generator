@@ -1,9 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Type } from 'class-transformer'
 import { IsDate, IsInt, IsNotEmpty, IsPositive } from 'class-validator'
-import {
-  IsOptionalString,
-  IsRequiredString,
-} from 'src/common/decorators/validation.decorators'
+import { IsOptionalString } from 'src/common/decorators/validation.decorators'
 
 export class CreateReservationDto {
   @ApiProperty({
@@ -22,11 +20,23 @@ export class CreateReservationDto {
   @IsNotEmpty()
   date: Date
 
-  @IsRequiredString(1, 200, '08:00', 'Reservation start time')
-  startTime: string
+  @ApiProperty({
+    example: '2026-01-20T14:00:00.000Z',
+    description: 'Reservation start time',
+  })
+  @Type(() => Date)
+  @IsDate()
+  @IsNotEmpty()
+  startTime: Date
 
-  @IsRequiredString(1, 200, '10:00', 'Reservation end time')
-  endTime: string
+  @ApiProperty({
+    example: '2026-01-20T15:00:00.000Z',
+    description: 'Reservation end time',
+  })
+  @Type(() => Date)
+  @IsDate()
+  @IsNotEmpty()
+  endTime: Date
 
   @IsOptionalString(1000, 'Reservation notes', 'Reservation notes')
   notes?: string

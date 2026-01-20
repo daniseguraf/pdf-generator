@@ -33,9 +33,9 @@ model Building {
   phoneNumber  String?      @map("phone_number")
   email        String?      @unique
   isActive     Boolean      @default(true) @map("is_active")
-  createdAt    DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt    DateTime     @updatedAt @map("updated_at") @db.Timestamptz(6)
-  deletedAt    DateTime?    @map("deleted_at") @db.Timestamptz(6)
+  createdAt    DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt    DateTime?    @map("deleted_at") @db.Timestamptz(3)
   manager      User         @relation(fields: [managerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   managerId    Int          @map("manager_id")
   commonAreas  CommonArea[]
@@ -52,8 +52,8 @@ model User {
   email        String        @unique
   password     String
   role         UserRole      @default(RESIDENT)
-  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz(3)
   isActive     Boolean       @default(true) @map("is_active")
   reservations Reservation[]
 
@@ -68,12 +68,12 @@ model CommonArea {
   description            String?
   capacity               Int
   isActive               Boolean       @default(true) @map("is_active")
-  createdAt              DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt              DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
-  deletedAt              DateTime?     @map("deleted_at") @db.Timestamptz(6)
+  createdAt              DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt              DateTime      @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt              DateTime?     @map("deleted_at") @db.Timestamptz(3)
   maxHoursPerReservation Int           @map("max_hours_per_reservation")
-  openTime               String       @map("open_time")
-  closeTime              String       @map("close_time")
+  openTime               DateTime       @map("open_time") @db.Time(0)
+  closeTime              DateTime       @map("close_time") @db.Time(0)
   daysAvailable          DaysOfWeek[]  @default([]) @map("days_available")
   reservations           Reservation[]
 
@@ -86,14 +86,14 @@ model Reservation {
   commonArea   CommonArea        @relation(fields: [commonAreaId], references: [id], onDelete: Cascade)
   userId       Int               @map("user_id")
   user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  date         DateTime          @map("date") @db.Timestamptz(6)
-  startTime    String          @map("start_time")
-  endTime      String          @map("end_time")
+  date         DateTime          @map("date") @db.Timestamptz(3)
+  startTime    DateTime          @map("start_time") @db.Timestamptz(3)
+  endTime      DateTime          @map("end_time") @db.Timestamptz(3)
   status       ReservationStatus @default(IN_REVIEW)
   notes        String?           @db.Text
   attendees    Int
-  createdAt    DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt    DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)
+  createdAt    DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime          @updatedAt @map("updated_at") @db.Timestamptz(3)
 
   @@index([commonAreaId, startTime, endTime])
   @@index([userId])

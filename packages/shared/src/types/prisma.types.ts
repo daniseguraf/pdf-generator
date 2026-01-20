@@ -131,8 +131,8 @@ export type CommonArea = {
   updatedAt: Date
   deletedAt: Date | null
   maxHoursPerReservation: number
-  openTime: string
-  closeTime: string
+  openTime: Date
+  closeTime: Date
   daysAvailable: DaysOfWeek[]
   reservations?: Reservation[]
 }
@@ -144,8 +144,8 @@ export type Reservation = {
   userId: number
   user?: User
   date: Date
-  startTime: string
-  endTime: string
+  startTime: Date
+  endTime: Date
   status: ReservationStatus
   notes: string | null
   attendees: number

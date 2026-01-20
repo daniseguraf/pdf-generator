@@ -555,10 +555,15 @@
           }
         },
         "responses": {
-          "201": {
-            "description": ""
+          "401": {
+            "description": "Unauthorized"
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": [
           "Reservations"
         ]
@@ -567,10 +572,15 @@
         "operationId": "ReservationsController_findAll",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": ""
+          "401": {
+            "description": "Unauthorized"
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": [
           "Reservations"
         ]
@@ -621,10 +631,15 @@
           }
         },
         "responses": {
-          "200": {
-            "description": ""
+          "401": {
+            "description": "Unauthorized"
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": [
           "Reservations"
         ]
@@ -642,10 +657,15 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": ""
+          "401": {
+            "description": "Unauthorized"
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": [
           "Reservations"
         ]
@@ -1011,7 +1031,11 @@
         },
         "required": [
           "type",
-          "buildingId"
+          "buildingId",
+          "capacity",
+          "maxHoursPerReservation",
+          "openTime",
+          "closeTime"
         ]
       },
       "UpdateCommonAreaDto": {
@@ -1082,11 +1106,86 @@
       },
       "CreateReservationDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "commonAreaId": {
+            "type": "number",
+            "example": 1,
+            "description": "Common area ID"
+          },
+          "date": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2026-01-20",
+            "description": "Reservation date"
+          },
+          "startTime": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2026-01-20T14:00:00.000Z",
+            "description": "Reservation start time"
+          },
+          "endTime": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2026-01-20T15:00:00.000Z",
+            "description": "Reservation end time"
+          },
+          "notes": {
+            "type": "string",
+            "example": "Reservation notes",
+            "description": "Reservation notes"
+          },
+          "attendees": {
+            "type": "number",
+            "example": 1,
+            "description": "Number of attendees"
+          }
+        },
+        "required": [
+          "commonAreaId",
+          "date",
+          "startTime",
+          "endTime",
+          "attendees"
+        ]
       },
       "UpdateReservationDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "commonAreaId": {
+            "type": "number",
+            "example": 1,
+            "description": "Common area ID"
+          },
+          "date": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2026-01-20",
+            "description": "Reservation date"
+          },
+          "startTime": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2026-01-20T14:00:00.000Z",
+            "description": "Reservation start time"
+          },
+          "endTime": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2026-01-20T15:00:00.000Z",
+            "description": "Reservation end time"
+          },
+          "notes": {
+            "type": "string",
+            "example": "Reservation notes",
+            "description": "Reservation notes"
+          },
+          "attendees": {
+            "type": "number",
+            "example": 1,
+            "description": "Number of attendees"
+          }
+        }
       }
     }
   }
