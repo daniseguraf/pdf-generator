@@ -931,6 +931,16 @@
             "description": "User email",
             "example": "john.doe@example.com"
           },
+          "role": {
+            "type": "string",
+            "description": "User role",
+            "example": "RESIDENT",
+            "enum": [
+              "ADMIN",
+              "MANAGER",
+              "RESIDENT"
+            ]
+          },
           "accessToken": {
             "type": "string",
             "description": "JWT access token",
@@ -942,6 +952,7 @@
           "firstName",
           "lastName",
           "email",
+          "role",
           "accessToken"
         ]
       },

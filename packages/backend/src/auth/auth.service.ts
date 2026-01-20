@@ -28,6 +28,7 @@ export class AuthService {
           firstName: true,
           lastName: true,
           email: true,
+          role: true,
         },
       })
 
@@ -49,6 +50,7 @@ export class AuthService {
         lastName: true,
         email: true,
         password: true,
+        role: true,
       },
     })
 
@@ -68,6 +70,7 @@ export class AuthService {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      role: user.role,
       accessToken,
     }
   }
@@ -79,6 +82,16 @@ export class AuthService {
       lastName: user.lastName,
       email: user.email,
       accessToken: this.generateJwtToken({ id: user.id }),
+    }
+  }
+
+  me(user: User) {
+    return {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      role: user.role,
     }
   }
 

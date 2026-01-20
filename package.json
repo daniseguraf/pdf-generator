@@ -15,7 +15,7 @@
     "build:backend": "pnpm --filter @pdf-generator/backend build",
     "build:frontend": "pnpm --filter @pdf-generator/frontend build",
     "lint": "pnpm --color run -r lint",
-    "format": "prettier --write packages/*/src/**/*.{ts,tsx} packages/backend/prisma/**/*.prisma"
+    "format": "prettier --write packages/*/src/**/*.{ts,tsx}"
   },
   "keywords": [],
   "author": "",
@@ -31,7 +31,6 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-unused-imports": "^4.3.0",
-    "prettier": "^3.7.2",
-    "prettier-plugin-prisma": "^5.0.0"
+    "prettier": "^3.7.2"
   }
 }

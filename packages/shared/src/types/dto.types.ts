@@ -182,10 +182,58 @@ export interface paths {
         get: operations["CommonAreasController_findOne"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/common-areas/{commonAreaId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
         delete: operations["CommonAreasController_remove"];
         options?: never;
         head?: never;
         patch: operations["CommonAreasController_update"];
+        trace?: never;
+    };
+    "/api/v1/reservations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ReservationsController_findAll"];
+        put?: never;
+        post: operations["ReservationsController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reservations/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ReservationsController_findOne"];
+        put?: never;
+        post?: never;
+        delete: operations["ReservationsController_remove"];
+        options?: never;
+        head?: never;
+        patch: operations["ReservationsController_update"];
         trace?: never;
     };
 }
@@ -379,6 +427,12 @@ export interface components {
              */
             email: string;
             /**
+             * @description User role
+             * @example RESIDENT
+             * @enum {string}
+             */
+            role: "ADMIN" | "MANAGER" | "RESIDENT";
+            /**
              * @description JWT access token
              * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
              */
@@ -417,22 +471,22 @@ export interface components {
              * @description Common area capacity
              * @example 20
              */
-            capacity?: number;
+            capacity: number;
             /**
              * @description Common area maximum hours per reservation
              * @example 4
              */
-            maxHoursPerReservation?: number;
+            maxHoursPerReservation: number;
             /**
              * @description Common area open time
              * @example 8:00 AM
              */
-            openTime?: string;
+            openTime: string;
             /**
              * @description Common area close time
              * @example 10:00 PM
              */
-            closeTime?: string;
+            closeTime: string;
             /**
              * @description Common area days available
              * @example [
@@ -441,7 +495,7 @@ export interface components {
              *     ]
              * @enum {string}
              */
-            daysAvailable?: "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY" | "ALL";
+            daysAvailable?: "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
         };
         UpdateCommonAreaDto: {
             /**
@@ -488,7 +542,77 @@ export interface components {
              *     ]
              * @enum {string}
              */
-            daysAvailable?: "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY" | "ALL";
+            daysAvailable?: "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
+        };
+        CreateReservationDto: {
+            /**
+             * @description Common area ID
+             * @example 1
+             */
+            commonAreaId: number;
+            /**
+             * Format: date-time
+             * @description Reservation date
+             * @example 2026-01-20
+             */
+            date: string;
+            /**
+             * Format: date-time
+             * @description Reservation start time
+             * @example 2026-01-20T14:00:00.000Z
+             */
+            startTime: string;
+            /**
+             * Format: date-time
+             * @description Reservation end time
+             * @example 2026-01-20T15:00:00.000Z
+             */
+            endTime: string;
+            /**
+             * @description Reservation notes
+             * @example Reservation notes
+             */
+            notes?: string;
+            /**
+             * @description Number of attendees
+             * @example 1
+             */
+            attendees: number;
+        };
+        UpdateReservationDto: {
+            /**
+             * @description Common area ID
+             * @example 1
+             */
+            commonAreaId?: number;
+            /**
+             * Format: date-time
+             * @description Reservation date
+             * @example 2026-01-20
+             */
+            date?: string;
+            /**
+             * Format: date-time
+             * @description Reservation start time
+             * @example 2026-01-20T14:00:00.000Z
+             */
+            startTime?: string;
+            /**
+             * Format: date-time
+             * @description Reservation end time
+             * @example 2026-01-20T15:00:00.000Z
+             */
+            endTime?: string;
+            /**
+             * @description Reservation notes
+             * @example Reservation notes
+             */
+            notes?: string;
+            /**
+             * @description Number of attendees
+             * @example 1
+             */
+            attendees?: number;
         };
     };
     responses: never;
@@ -913,7 +1037,7 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                commonAreaId: string;
             };
             cookie?: never;
         };
@@ -939,7 +1063,7 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                commonAreaId: string;
             };
             cookie?: never;
         };
@@ -955,6 +1079,109 @@ export interface operations {
                 };
                 content?: never;
             };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_findAll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateReservationDto"];
+            };
+        };
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_findOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateReservationDto"];
+            };
+        };
+        responses: {
             /** @description Unauthorized */
             401: {
                 headers: {

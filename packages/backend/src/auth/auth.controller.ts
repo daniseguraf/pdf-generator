@@ -44,6 +44,6 @@ export class AuthController {
   @Get('me')
   @Auth()
   me(@GetUser() user: User) {
-    return user
+    return this.authService.me(user)
   }
 }

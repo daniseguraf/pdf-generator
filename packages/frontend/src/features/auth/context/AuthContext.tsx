@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       firstName: response.firstName,
       lastName: response.lastName,
       email: response.email,
+      role: response.role,
     })
   }
 
@@ -49,6 +50,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             firstName: userData.firstName,
             lastName: userData.lastName,
             email: userData.email,
+            role: userData.role,
           })
         } catch (error) {
           console.error('Error al obtener el usuario', error)

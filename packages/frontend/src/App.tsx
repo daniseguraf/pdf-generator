@@ -13,6 +13,7 @@ import { Notifications } from '@mantine/notifications'
 import '@mantine/core/styles.css'
 import '@mantine/notifications/styles.css'
 import '@mantine/dates/styles.css'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 export const App = () => {
   const { colorScheme } = useColorScheme()

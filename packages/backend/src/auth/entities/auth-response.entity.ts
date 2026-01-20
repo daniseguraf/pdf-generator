@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsEmail, IsInt, IsPositive, IsString } from 'class-validator'
+import { IsEmail, IsEnum, IsInt, IsPositive, IsString } from 'class-validator'
+import { UserRole } from 'generated/prisma/enums'
 
 export class AuthResponse {
   @ApiProperty({
@@ -31,6 +32,14 @@ export class AuthResponse {
   @IsString()
   @IsEmail()
   email: string
+
+  @ApiProperty({
+    description: 'User role',
+    example: UserRole.RESIDENT,
+    enum: UserRole,
+  })
+  @IsEnum(UserRole)
+  role: UserRole
 
   @ApiProperty({
     description: 'JWT access token',
