@@ -42,10 +42,15 @@ export class CreateCommonAreaDto {
   @IsPositive()
   maxHoursPerReservation: number
 
-  @IsRequiredString(1, 200, '8:00 AM', 'Common area open time')
+  @IsRequiredString(1, 8, '08:00:00', 'Common area open time (HH:MM:SS format)')
   openTime: string
 
-  @IsRequiredString(1, 200, '10:00 PM', 'Common area close time')
+  @IsRequiredString(
+    1,
+    200,
+    '22:00:00',
+    'Common area close time (HH:MM:SS format)'
+  )
   closeTime: string
 
   @ApiPropertyOptional({

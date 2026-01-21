@@ -12,7 +12,7 @@ export const ReservationsPage = () => {
         events={[]}
         startAccessor="start"
         endAccessor="end"
-         style={{ height: 500 }}
+        style={{ height: 500 }}
       />
     </Container>
   )

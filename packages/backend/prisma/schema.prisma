@@ -36,17 +36,17 @@ model Building {
   createdAt    DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt    DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
   deletedAt    DateTime?    @map("deleted_at") @db.Timestamptz(3)
-  manager      User         @relation(fields: [managerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  manager      User         @relation("BuildingManager", fields: [managerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   managerId    Int          @map("manager_id")
   commonAreas  CommonArea[]
   amenities    Amenities[]
+  residents    User[]       @relation("BuildingResident")
 
   @@map("buildings")
 }
 
 model User {
   id           Int           @id @default(autoincrement())
-  buildings    Building[]
   firstName    String        @map("first_name")
   lastName     String        @map("last_name")
   email        String        @unique
@@ -56,7 +56,11 @@ model User {
   updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz(3)
   isActive     Boolean       @default(true) @map("is_active")
   reservations Reservation[]
+  managedBuildings Building[] @relation("BuildingManager")
+  residentBuilding Building?     @relation("BuildingResident", fields: [buildingId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  buildingId   Int?          @map("building_id")
 
+@@index([buildingId])
   @@map("users")
 }
 
@@ -86,7 +90,7 @@ model Reservation {
   commonArea   CommonArea        @relation(fields: [commonAreaId], references: [id], onDelete: Cascade)
   userId       Int               @map("user_id")
   user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  date         DateTime          @map("date") @db.Timestamptz(3)
+  date         DateTime          @map("date") @db.Date
   startTime    DateTime          @map("start_time") @db.Timestamptz(3)
   endTime      DateTime          @map("end_time") @db.Timestamptz(3)
   status       ReservationStatus @default(IN_REVIEW)

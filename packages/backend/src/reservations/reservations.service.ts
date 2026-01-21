@@ -6,6 +6,7 @@ import {
 import { CreateReservationDto } from './dto/create-reservation.dto'
 import { UpdateReservationDto } from './dto/update-reservation.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
+import { User } from 'generated/prisma/client'
 
 @Injectable()
 export class ReservationsService {
@@ -22,10 +23,6 @@ export class ReservationsService {
     if (!commonArea) {
       throw new NotFoundException('Common area not found')
     }
-
-    console.log('createReservationDto', createReservationDto)
-    console.log('commonArea', commonArea)
-    console.log('--------------------')
 
     // Validate if the common area is available
     if (commonArea.deletedAt || !commonArea.isActive) {
@@ -64,10 +61,6 @@ export class ReservationsService {
     const closeTime = this.extractTimeString(commonArea.closeTime)
     const reservationStartHour = this.extractTimeString(startTime)
     const reservationEndHour = this.extractTimeString(endTime)
-    console.log('openTime', openTime)
-    console.log('closeTime', closeTime)
-    console.log('reservationStartHour', reservationStartHour)
-    console.log('reservationEndHour', reservationEndHour)
 
     if (reservationStartHour < openTime) {
       throw new BadRequestException(
@@ -86,8 +79,42 @@ export class ReservationsService {
     })
   }
 
-  async findAll() {
-    return await this.prismaService.reservation.findMany({})
+  async findBuildingByResidentId(user: User) {
+    const building = await this.prismaService.building.findUnique({
+      where: { id: user.buildingId ?? undefined },
+
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        address: true,
+        district: true,
+        city: true,
+        province: true,
+        email: true,
+        commonAreas: {
+          where: { deletedAt: null },
+          select: {
+            id: true,
+            type: true,
+            description: true,
+            capacity: true,
+            maxHoursPerReservation: true,
+            openTime: true,
+            closeTime: true,
+          },
+          orderBy: {
+            id: 'desc',
+          },
+        },
+      },
+    })
+
+    if (!building) {
+      throw new NotFoundException('Building not found')
+    }
+
+    return building
   }
 
   findOne(id: number) {

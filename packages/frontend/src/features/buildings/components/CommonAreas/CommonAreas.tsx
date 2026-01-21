@@ -32,6 +32,8 @@ import {
 import { CommonAreaForm } from '@features/buildings/components/CommonAreaForm/CommonAreaForm'
 import { useState } from 'react'
 import { useDeleteCommonArea } from '@features/buildings/hooks/mutations/commonAreas/useDeleteCommonArea'
+import { fromISO8601To24HFormat } from '@utils/dates/fromISO8601To24HFormat'
+import { TimeValue } from '@mantine/dates'
 
 export const CommonAreas = ({ commonAreas }: { commonAreas: CommonArea[] }) => {
   const [opened, { open, close }] = useDisclosure(false)
@@ -162,7 +164,7 @@ export const CommonAreas = ({ commonAreas }: { commonAreas: CommonArea[] }) => {
                     <Group gap="xs">
                       <ClockIcon size={16} color="#868e96" />
                       <Text size="sm">
-                        {commonArea.openTime} - {commonArea.closeTime}
+                        <TimeValue value={fromISO8601To24HFormat(commonArea.openTime)} format="12h" /> - <TimeValue value={fromISO8601To24HFormat(commonArea.closeTime)} format="12h" />
                       </Text>
                     </Group>
 

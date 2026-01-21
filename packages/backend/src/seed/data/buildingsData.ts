@@ -2,6 +2,7 @@ import { Amenities, PropertyType } from 'generated/prisma/client'
 
 export const buildingsData = [
   {
+    id: 1,
     name: 'Torre Vista Hermosa',
     description: 'Edificio residencial de lujo con vista panorámica',
     yearBuilt: 2020,
@@ -22,8 +23,10 @@ export const buildingsData = [
       Amenities.FIRE_ALARM,
       Amenities.CAMERAS,
     ],
+    managerId: 2,
   },
   {
+    id: 2,
     name: 'Centro Empresarial Los Olivos',
     description: 'Moderno edificio de oficinas en zona comercial',
     yearBuilt: 2018,
@@ -44,8 +47,10 @@ export const buildingsData = [
       Amenities.WHEELCHAIR_ACCESS,
       Amenities.CAMERAS,
     ],
+    managerId: 3,
   },
   {
+    id: 3,
     name: 'Residencial Las Flores',
     description: 'Complejo residencial familiar con áreas verdes',
     yearBuilt: 2015,
@@ -60,5 +65,6 @@ export const buildingsData = [
     email: 'administracion@lasflores.com',
     isActive: true,
     amenities: [Amenities.PARKING, Amenities.ELEVATOR, Amenities.FIRE_ALARM],
+    managerId: 2,
   },
 ]

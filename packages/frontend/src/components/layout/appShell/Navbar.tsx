@@ -5,18 +5,9 @@ import { CalendarIcon } from '@phosphor-icons/react/dist/csr/Calendar'
 import { useLocation, useNavigate } from 'react-router'
 import { useRole } from '@features/auth/hooks/useRole'
 
-
-
-
-
-
-
 const menuItems = [
   {
     label: 'Dashboard',
-
-
-
 
     icon: HouseIcon,
     path: '/',
@@ -39,24 +30,12 @@ const menuItems = [
 export const Navbar = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { isManager, isResident } = useRole()
-
-
-
-
-
-
-
-
-
-
-
+  const { isAdmin, isManager, isResident } = useRole()
 
   return (
     <AppShell.Navbar p="md">
       <AppShell.Section grow>
-
-        {isManager() && (
+        {isAdmin() && (
           <NavLink
             label="Dashboard"
             leftSection={<HouseIcon size={20} />}
@@ -97,7 +76,6 @@ export const Navbar = () => {
             }}
           />
         )}
-
       </AppShell.Section>
     </AppShell.Navbar>
   )

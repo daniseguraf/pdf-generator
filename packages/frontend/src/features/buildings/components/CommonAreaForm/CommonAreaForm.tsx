@@ -31,6 +31,8 @@ import type {
   UpdateCommonAreaDto,
 } from '@features/buildings/types/commonAreas.types'
 import { useUpdateCommonArea } from '@features/buildings/hooks/mutations/commonAreas/useUpdateCommonArea'
+import { ClockIcon } from '@phosphor-icons/react'
+import { fromISO8601To24HFormat } from '@utils/dates/fromISO8601To24HFormat'
 
 export const CommonAreaForm: FC<CommonAreaFormProps> = ({
   opened,
@@ -44,13 +46,19 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
 
   const isEdit = !!commonArea
 
+  console.log('commonArea', commonArea)
+
+  const openTime = fromISO8601To24HFormat(commonArea?.openTime ?? '')
+  const closeTime = fromISO8601To24HFormat(commonArea?.closeTime ?? '')
+
+
   const initialValues = {
     type: commonArea?.type ?? '',
     description: commonArea?.description ?? undefined,
     capacity: commonArea?.capacity ?? undefined,
     maxHoursPerReservation: commonArea?.maxHoursPerReservation ?? undefined,
-    openTime: commonArea?.openTime ?? undefined,
-    closeTime: commonArea?.closeTime ?? undefined,
+    openTime: openTime ?? undefined,
+    closeTime: closeTime ?? undefined,
     daysAvailable: commonArea?.daysAvailable ?? undefined,
   }
 
@@ -59,6 +67,7 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
     initialValues,
     validate: zod4Resolver(commonAreaFormSchema),
   })
+
 
   const handleSubmit = () => {
     const errors = form.validate()
@@ -79,6 +88,10 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
       ...form.values,
       type: form.values.type as CommonAreas,
       buildingId,
+      openTime: form.values.openTime ? `${form.values.openTime}:00` : undefined,
+      closeTime: form.values.closeTime
+        ? `${form.values.closeTime}:00`
+        : undefined,
     } as CreateCommonAreaDto
 
     createCommonArea(createCommonAreaDto, {
@@ -93,10 +106,12 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
       ...form.values,
       type: form.values.type as CommonAreas,
       buildingId,
+      openTime: form.values.openTime ? `${form.values.openTime}:00` : undefined,
+      closeTime: form.values.closeTime
+        ? `${form.values.closeTime}:00`
+        : undefined,
     } as UpdateCommonAreaDto
 
-    console.log('updateCommonAreaDto', updateCommonAreaDto)
-    // return
 
     updateCommonArea(
       {
@@ -183,12 +198,14 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
           <TimeInput
             label="Hora de Apertura"
             placeholder="08:00"
+            leftSection={<ClockIcon size={16} />}
             {...form.getInputProps('openTime')}
           />
 
           <TimeInput
             label="Hora de Cierre"
             placeholder="22:00"
+            leftSection={<ClockIcon size={16} />}
             {...form.getInputProps('closeTime')}
           />
         </Group>

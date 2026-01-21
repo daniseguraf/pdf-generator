@@ -1,4 +1,10 @@
-import { IsEmail, IsStrongPassword } from 'class-validator'
+import {
+  IsEmail,
+  IsInt,
+  IsOptional,
+  IsPositive,
+  IsStrongPassword,
+} from 'class-validator'
 import { IsRequiredString } from 'src/common/decorators/validation.decorators'
 
 export class RegisterUserDto {
@@ -15,4 +21,9 @@ export class RegisterUserDto {
   @IsRequiredString(8, 255, 'password', 'User password')
   @IsStrongPassword()
   password: string
+
+  @IsOptional()
+  @IsInt()
+  @IsPositive()
+  buildingId?: number
 }

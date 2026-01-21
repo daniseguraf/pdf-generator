@@ -20,16 +20,44 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       >
-        <Route index element={<ProtectedRoute allowedRoles={
-          [UserRoleValues.ADMIN, UserRoleValues.MANAGER]}><BuildingsListPage /></ProtectedRoute>} />
+        <Route
+          index
+          element={
+            <ProtectedRoute
+              allowedRoles={[UserRoleValues.ADMIN, UserRoleValues.MANAGER]}
+            >
+              <BuildingsListPage />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/buildings" element={
-          <ProtectedRoute allowedRoles={[UserRoleValues.ADMIN, UserRoleValues.MANAGER]}>
-            <BuildingsListPage />
-          </ProtectedRoute>} />
+        <Route
+          path="/buildings"
+          element={
+            <ProtectedRoute
+              allowedRoles={[UserRoleValues.ADMIN, UserRoleValues.MANAGER]}
+            >
+              <BuildingsListPage />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/buildings/:id" element={ <ProtectedRoute allowedRoles={[ UserRoleValues.MANAGER]}><BuildingDetailPage /></ProtectedRoute>} />
-        <Route path="/reservations" element={<ProtectedRoute allowedRoles={[UserRoleValues.RESIDENT]}><ReservationsPage /></ProtectedRoute>} />
+        <Route
+          path="/buildings/:id"
+          element={
+            <ProtectedRoute allowedRoles={[UserRoleValues.MANAGER]}>
+              <BuildingDetailPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reservations"
+          element={
+            <ProtectedRoute allowedRoles={[UserRoleValues.RESIDENT]}>
+              <ReservationsPage />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Route>

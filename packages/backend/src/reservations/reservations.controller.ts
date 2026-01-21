@@ -13,6 +13,7 @@ import { UpdateReservationDto } from './dto/update-reservation.dto'
 import { UserRole } from 'generated/prisma/enums'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { GetUser } from 'src/common/decorators/get-user.decorator'
+import { User } from 'generated/prisma/client'
 
 @Controller('reservations')
 export class ReservationsController {
@@ -27,10 +28,10 @@ export class ReservationsController {
     return this.reservationsService.create(createReservationDto, userId)
   }
 
-  @Get()
+  @Get('building')
   @Auth(UserRole.RESIDENT)
-  findAll() {
-    return this.reservationsService.findAll()
+  findBuildingByResidentId(@GetUser() user: User) {
+    return this.reservationsService.findBuildingByResidentId(user)
   }
 
   @Get(':id')

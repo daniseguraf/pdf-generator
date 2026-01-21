@@ -13,8 +13,17 @@ export class CommonAreasService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(createCommonAreaDto: CreateCommonAreaDto) {
+    const { openTime, closeTime, ...commonAreaData } = createCommonAreaDto
+
+    const openTimeDate = new Date(`1970-01-01T${openTime}Z`)
+    const closeTimeDate = new Date(`1970-01-01T${closeTime}Z`)
+
     return await this.prismaService.commonArea.create({
-      data: createCommonAreaDto,
+      data: {
+        ...commonAreaData,
+        openTime: openTimeDate,
+        closeTime: closeTimeDate,
+      },
     })
   }
 
@@ -34,9 +43,18 @@ export class CommonAreasService {
   }
 
   async update(commonAreaId: number, updateCommonAreaDto: UpdateCommonAreaDto) {
+    const { openTime, closeTime, ...commonAreaData } = updateCommonAreaDto
+
+    const openTimeDate = new Date(`1970-01-01T${openTime}Z`)
+    const closeTimeDate = new Date(`1970-01-01T${closeTime}Z`)
+
     return await this.prismaService.commonArea.update({
       where: { id: commonAreaId },
-      data: updateCommonAreaDto,
+      data: {
+        ...commonAreaData,
+        openTime: openTimeDate,
+        closeTime: closeTimeDate,
+      },
     })
   }
 

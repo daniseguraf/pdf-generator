@@ -103,11 +103,11 @@ export type Building = {
   managerId: number
   commonAreas?: CommonArea[]
   amenities: Amenities[]
+  residents?: User[]
 }
 
 export type User = {
   id: number
-  buildings?: Building[]
   firstName: string
   lastName: string
   email: string
@@ -117,6 +117,9 @@ export type User = {
   updatedAt: Date
   isActive: boolean
   reservations?: Reservation[]
+  managedBuildings?: Building[]
+  residentBuilding?: Building | null
+  buildingId: number | null
 }
 
 export type CommonArea = {

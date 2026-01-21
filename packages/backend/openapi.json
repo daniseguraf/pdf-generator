@@ -567,9 +567,11 @@
         "tags": [
           "Reservations"
         ]
-      },
+      }
+    },
+    "/api/v1/reservations/building": {
       "get": {
-        "operationId": "ReservationsController_findAll",
+        "operationId": "ReservationsController_findBuildingByResidentId",
         "parameters": [],
         "responses": {
           "401": {
@@ -1014,13 +1016,13 @@
           },
           "openTime": {
             "type": "string",
-            "example": "8:00 AM",
-            "description": "Common area open time"
+            "example": "08:00:00",
+            "description": "Common area open time (HH:MM:SS format)"
           },
           "closeTime": {
             "type": "string",
-            "example": "10:00 PM",
-            "description": "Common area close time"
+            "example": "22:00:00",
+            "description": "Common area close time (HH:MM:SS format)"
           },
           "daysAvailable": {
             "type": "string",
@@ -1088,13 +1090,13 @@
           },
           "openTime": {
             "type": "string",
-            "example": "8:00 AM",
-            "description": "Common area open time"
+            "example": "08:00:00",
+            "description": "Common area open time (HH:MM:SS format)"
           },
           "closeTime": {
             "type": "string",
-            "example": "10:00 PM",
-            "description": "Common area close time"
+            "example": "22:00:00",
+            "description": "Common area close time (HH:MM:SS format)"
           },
           "daysAvailable": {
             "type": "string",
@@ -1126,20 +1128,20 @@
           "date": {
             "format": "date-time",
             "type": "string",
-            "example": "2026-01-20",
+            "example": "2026-01-20T00:00:00.000Z",
             "description": "Reservation date"
           },
           "startTime": {
             "format": "date-time",
             "type": "string",
             "example": "2026-01-20T14:00:00.000Z",
-            "description": "Reservation start time"
+            "description": "Reservation start time (ISO 8601 format)"
           },
           "endTime": {
             "format": "date-time",
             "type": "string",
             "example": "2026-01-20T15:00:00.000Z",
-            "description": "Reservation end time"
+            "description": "Reservation end time (ISO 8601 format)"
           },
           "notes": {
             "type": "string",
@@ -1171,20 +1173,20 @@
           "date": {
             "format": "date-time",
             "type": "string",
-            "example": "2026-01-20",
+            "example": "2026-01-20T00:00:00.000Z",
             "description": "Reservation date"
           },
           "startTime": {
             "format": "date-time",
             "type": "string",
             "example": "2026-01-20T14:00:00.000Z",
-            "description": "Reservation start time"
+            "description": "Reservation start time (ISO 8601 format)"
           },
           "endTime": {
             "format": "date-time",
             "type": "string",
             "example": "2026-01-20T15:00:00.000Z",
-            "description": "Reservation end time"
+            "description": "Reservation end time (ISO 8601 format)"
           },
           "notes": {
             "type": "string",

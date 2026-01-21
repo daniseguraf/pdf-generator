@@ -8,16 +8,17 @@ interface ProtectedRouteProps {
   allowedRoles?: UserRole[]
 }
 
-export const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
+export const ProtectedRoute = ({
+  children,
+  allowedRoles,
+}: ProtectedRouteProps) => {
   const { isAuthenticated, isLoading, user } = useAuth()
-  // console.log('allowedRoles', allowedRoles)
-  // console.log('user', user)
 
   if (isLoading) return <LoadingOverlay visible />
 
   if (!isAuthenticated) return <Navigate to="/login" replace />
 
-   if (allowedRoles && allowedRoles.length > 0) {
+  if (allowedRoles && allowedRoles.length > 0) {
     if (!user?.role || !allowedRoles.includes(user.role)) {
       return (
         <Stack align="center" justify="center" h="100vh">
@@ -30,8 +31,6 @@ export const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) 
       )
     }
   }
-
-
 
   return <>{children}</>
 }

@@ -15,7 +15,8 @@
     "build:backend": "pnpm --filter @pdf-generator/backend build",
     "build:frontend": "pnpm --filter @pdf-generator/frontend build",
     "lint": "pnpm --color run -r lint",
-    "format": "prettier --write packages/*/src/**/*.{ts,tsx}"
+    "format": "prettier --write \"packages/frontend/src/**/*.{ts,tsx,js,jsx,json,css}\" \"packages/backend/src/**/*.{ts,js,json}\"",
+    "format:check": "prettier --check \"packages/frontend/src/**/*.{ts,tsx,js,jsx,json,css}\" \"packages/backend/src/**/*.{ts,js,json}\""
   },
   "keywords": [],
   "author": "",

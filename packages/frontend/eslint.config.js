@@ -30,6 +30,7 @@ export default defineConfig([
     rules: {
       'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
       'unused-imports/no-unused-imports': 'error',
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
       'unused-imports/no-unused-vars': [
         'warn',
         {

@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { User, UserRole } from 'generated/prisma/client'
 import { PrismaService } from 'src/prisma/prisma.service'
 import * as bcrypt from 'bcrypt'
 import { usersData } from 'src/seed/data/usersData'
@@ -14,8 +13,9 @@ export class SeedService {
 
     await this.deleteAllData()
 
-    const users = await this.seedUsers()
-    await this.seedBuildings(users)
+    await this.seedUsers()
+    await this.seedBuildings()
+    await this.seedResidentUsers()
 
     return 'The database has been seeded'
   }
@@ -23,6 +23,8 @@ export class SeedService {
   async deleteAllData() {
     await this.prismaService.building.deleteMany()
     await this.prismaService.user.deleteMany()
+    await this.prismaService.commonArea.deleteMany()
+    await this.prismaService.reservation.deleteMany()
 
     console.log('All data has been deleted')
   }
@@ -31,27 +33,40 @@ export class SeedService {
     const hashedPassword = await bcrypt.hash('1234ABCabc$', 10)
 
     const users = await Promise.all(
-      usersData.map(user =>
-        this.prismaService.user.create({
-          data: { ...user, password: hashedPassword },
+      usersData.map(user => {
+        const { buildingId, ...userData } = user
+
+        return this.prismaService.user.create({
+          data: { ...userData, password: hashedPassword },
         })
-      )
+      })
     )
 
     return users
   }
 
-  private async seedBuildings(users: User[]) {
-    const managers = users.filter(u => u.role === UserRole.MANAGER)
-
+  private async seedBuildings() {
     const buildings = await Promise.all(
       buildingsData.map(building =>
         this.prismaService.building.create({
-          data: { ...building, managerId: managers[0].id },
+          data: building,
         })
       )
     )
 
     return buildings
+  }
+
+  private async seedResidentUsers() {
+    const residentUsers = usersData.filter(user => user.buildingId)
+
+    await Promise.all(
+      residentUsers.map(residentUser => {
+        return this.prismaService.user.update({
+          where: { id: residentUser.id },
+          data: { buildingId: residentUser.buildingId },
+        })
+      })
+    )
   }
 }

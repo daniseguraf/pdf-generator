@@ -13,7 +13,8 @@ export const useRole = () => {
   const isAdmin = (): boolean => hasRole(UserRoleValues.ADMIN)
   const isManager = (): boolean => hasRole(UserRoleValues.MANAGER)
   const isResident = (): boolean => hasRole(UserRoleValues.RESIDENT)
-  const isAdminOrManager = (): boolean => hasRole([UserRoleValues.ADMIN, UserRoleValues.MANAGER])
+  const isAdminOrManager = (): boolean =>
+    hasRole([UserRoleValues.ADMIN, UserRoleValues.MANAGER])
 
   return {
     role: user?.role,
