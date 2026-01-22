@@ -18,32 +18,35 @@ import {
   UsersIcon,
 } from '@phosphor-icons/react'
 import {
-  commonAreaLabels,
   dayLabels,
   getAreaIcon,
+  getAreaLabel,
+  getStatusColor,
 } from '@features/buildings/components/CommonAreas/CommonAreas.helpers'
 import { fromISO8601To24HFormat } from '@utils/dates/fromISO8601To24HFormat'
 import { TimeValue } from '@mantine/dates'
+import type { FC } from 'react'
+import type { CommonAreaCardProps } from '@components/CommonAreaCard/CommonAreaCard.types'
 
-export const CommonAreaCard = ({ commonArea }) => {
+export const CommonAreaCard: FC<CommonAreaCardProps> = ({ commonArea }) => {
   return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
+    <Card shadow="sm" padding="md" radius="md" withBorder>
       <Group justify="space-between" mb="md">
-        <Group gap="xs" align="center">
+        <Group gap={8} align="center">
           <Text size="xl">{getAreaIcon(commonArea.type)}</Text>
 
-          <div>
-            <Text fw={600} size="lg">
-              {commonAreaLabels[commonArea.type]}
-            </Text>
+          <Stack gap={0}>
             <Badge
-              color={commonArea.isActive ? 'green' : 'red'}
+              color={getStatusColor(commonArea.isActive)}
               variant="dot"
-              size="sm"
+              size="xs"
             >
               {commonArea.isActive ? 'Activo' : 'Inactivo'}
             </Badge>
-          </div>
+            <Text fw={600} size="lg">
+              {getAreaLabel(commonArea.type)}
+            </Text>
+          </Stack>
         </Group>
 
         <Menu shadow="md" width={200} position="bottom-end">

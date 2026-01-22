@@ -1,9 +1,9 @@
-import { type View } from 'react-big-calendar'
+import { Calendar, type View, dayjsLocalizer } from 'react-big-calendar'
 import { Card } from '@mantine/core'
 import { useState } from 'react'
+import dayjs from 'dayjs'
 
-// moment.locale('es')
-// const localizer = momentLocalizer({})
+const localizer = dayjsLocalizer(dayjs)
 
 interface CalendarViewProps {
   bookings: []
@@ -27,11 +27,11 @@ const messages = {
   showMore: (total: number) => `+ Ver más (${total})`,
 }
 
-export function CalendarView({
+export const CalendarView = ({
   bookings,
   areaColor,
   onSelectSlot,
-}: CalendarViewProps) {
+}: CalendarViewProps) => {
   const [view, setView] = useState<View>('week')
   const [date, setDate] = useState(new Date())
 
@@ -53,7 +53,7 @@ export function CalendarView({
   return (
     <Card padding="lg" radius="md" shadow="sm">
       <div style={{ height: '75vh', minHeight: 650 }}>
-        {/* <Calendar
+        <Calendar
           localizer={localizer}
           events={bookings}
           startAccessor="start"
@@ -74,7 +74,7 @@ export function CalendarView({
           timeslots={2}
           defaultView="week"
           views={['month', 'week', 'day', 'agenda']}
-        /> */}
+        />
       </div>
     </Card>
   )

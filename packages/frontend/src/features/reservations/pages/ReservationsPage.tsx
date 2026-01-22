@@ -108,6 +108,8 @@ const commonAreas: CommonArea[] = [
 
 export const ReservationsPage = () => {
   const { isPending, data: building } = useBuildingByResidentId()
+  const { commonAreas } = building
+  console.log('commonAreas', commonAreas)
 
   const [selectedArea, setSelectedArea] = useState<string | null>(
     commonAreas[0].id

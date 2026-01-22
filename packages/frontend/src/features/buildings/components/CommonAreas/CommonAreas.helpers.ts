@@ -1,15 +1,19 @@
-import { CommonAreasValues } from '@my-buildings/shared/index'
+import { CommonAreasValues, type CommonAreas } from '@my-buildings/shared/index'
 
 import { DaysOfWeekValues } from '@my-buildings/shared/index'
 
-export const commonAreaLabels = {
-  [CommonAreasValues.GYM]: 'Gimnasio',
-  [CommonAreasValues.POOL]: 'Piscina',
-  [CommonAreasValues.GRILL_AREA]: 'Área de Parrillas',
-  [CommonAreasValues.CAFETERIA]: 'Cafetería',
-  [CommonAreasValues.EVENT_ROOM]: 'Salón de Eventos',
-  [CommonAreasValues.ROOF_TOP]: 'Roof Top',
-  [CommonAreasValues.COWORKING]: 'Coworking',
+export const getAreaLabel = (type: CommonAreas) => {
+  const areaLabels: Record<CommonAreas, string> = {
+    [CommonAreasValues.GYM]: 'Gimnasio',
+    [CommonAreasValues.POOL]: 'Piscina',
+    [CommonAreasValues.GRILL_AREA]: 'Área de Parrillas',
+    [CommonAreasValues.CAFETERIA]: 'Cafetería',
+    [CommonAreasValues.EVENT_ROOM]: 'Salón de Eventos',
+    [CommonAreasValues.ROOF_TOP]: 'Roof Top',
+    [CommonAreasValues.COWORKING]: 'Coworking',
+  }
+
+  return areaLabels[type] || '---'
 }
 
 export const dayLabels = {
@@ -22,17 +26,8 @@ export const dayLabels = {
   [DaysOfWeekValues.SUNDAY]: 'Domingo',
 }
 
-export const getStatusColor = (status: string) => {
-  switch (status) {
-    case 'Activo':
-      return 'green'
-    case 'Mantenimiento':
-      return 'yellow'
-    case 'Inactivo':
-      return 'red'
-    default:
-      return 'gray'
-  }
+export const getStatusColor = (status: boolean) => {
+  return status ? 'green' : 'red'
 }
 
 export const getAreaIcon = (type: string) => {

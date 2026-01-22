@@ -25,16 +25,17 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   presentation: PresentationIcon,
 }
 
-export function AreaSelector({
+export const AreaSelector = ({
   areas,
   selectedArea,
   onSelectArea,
-}: AreaSelectorProps) {
+}: AreaSelectorProps) => {
   return (
     <div>
       <Text fw={600} size="lg" mb="md">
         Selecciona un área común
       </Text>
+
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md">
         {areas.map(area => {
           const IconComponent = iconMap[area.icon]
@@ -79,7 +80,7 @@ export function AreaSelector({
                   </div>
                   <div style={{ flex: 1 }}>
                     <Text fw={600} size="sm" mb={4}>
-                      {area.name}
+                      {area.type}
                     </Text>
                     <Text size="xs" c="dimmed" lineClamp={2}>
                       {area.description}
