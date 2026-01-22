@@ -6,7 +6,7 @@ import {
   Badge,
   ActionIcon,
   Menu,
-  rem
+  rem,
 } from '@mantine/core'
 
 import {
@@ -15,12 +15,12 @@ import {
   DotsThreeVerticalIcon,
   PencilIcon,
   TrashIcon,
-  UsersIcon
+  UsersIcon,
 } from '@phosphor-icons/react'
 import {
   commonAreaLabels,
   dayLabels,
-  getAreaIcon
+  getAreaIcon,
 } from '@features/buildings/components/CommonAreas/CommonAreas.helpers'
 import { fromISO8601To24HFormat } from '@utils/dates/fromISO8601To24HFormat'
 import { TimeValue } from '@mantine/dates'
@@ -58,7 +58,7 @@ export const CommonAreaCard = ({ commonArea }) => {
                 <PencilIcon
                   style={{
                     width: rem(14),
-                    height: rem(14)
+                    height: rem(14),
                   }}
                 />
               }
@@ -75,7 +75,7 @@ export const CommonAreaCard = ({ commonArea }) => {
                 <TrashIcon
                   style={{
                     width: rem(14),
-                    height: rem(14)
+                    height: rem(14),
                   }}
                 />
               }
@@ -126,7 +126,7 @@ export const CommonAreaCard = ({ commonArea }) => {
         style={{
           marginTop: '12px',
           paddingTop: '12px',
-          borderTop: '1px solid #e9ecef'
+          borderTop: '1px solid #e9ecef',
         }}
       >
         <Text size="xs" c="dimmed" mb={4}>

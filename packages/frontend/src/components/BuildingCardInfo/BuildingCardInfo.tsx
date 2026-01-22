@@ -13,7 +13,7 @@ export const BuildingCardInfo = ({
   district,
   city,
   province,
-  description
+  description,
 }: BuildingCardInfoProps) => {
   return (
     <Paper shadow="md" radius="md" withBorder mb="xl" p="lg">
