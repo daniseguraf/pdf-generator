@@ -6,5 +6,6 @@ export const useBuilding = (buildingId: number) => {
   return useQuery<Building>({
     queryKey: ['buildings', 'detail', buildingId],
     queryFn: () => buildingsService.getById(buildingId),
+    enabled: !!buildingId,
   })
 }

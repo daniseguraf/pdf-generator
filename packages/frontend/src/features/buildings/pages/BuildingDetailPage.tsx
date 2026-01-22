@@ -4,32 +4,29 @@ import {
   Button,
   Group,
   Text,
-  Paper,
   Grid,
   Tabs,
   ThemeIcon,
   Card,
-  Box,
-  Badge,
   Title,
-  List,
+  List
 } from '@mantine/core'
 import {
   BuildingOfficeIcon,
   CaretDoubleLeftIcon,
   CheckIcon,
   PencilIcon,
-  MapPinIcon,
-  HouseIcon,
+  HouseIcon
 } from '@phosphor-icons/react'
 
 import { useBuilding } from '@features/buildings/hooks/queries/buildings/useBuilding'
-import { PropertyTypeValues } from '@my-buildings/shared/types/prisma.types'
 import { BuildingForm } from '@features/buildings/components/BuildingForm/BuildingForm'
+
 import { useDisclosure } from '@mantine/hooks'
 import { amenitiesDictionary } from '@utils/amenities.dictionary'
 import { CommonAreas } from '@features/buildings/components/CommonAreas/CommonAreas'
 import { GeneralInformation } from '@features/buildings/components/GeneralInformation/GeneralInformation'
+import { BuildingCardInfo } from '@components/BuildingCardInfo/BuildingCardInfo'
 
 export const BuildingDetailPage = () => {
   const { id } = useParams()
@@ -37,35 +34,6 @@ export const BuildingDetailPage = () => {
   const [opened, { open, close }] = useDisclosure(false)
 
   const { isPending, data: building } = useBuilding(Number(id))
-
-  const {
-    name,
-    propertyType,
-    isActive,
-    address,
-    district,
-    city,
-    province,
-    description,
-    floors,
-    yearBuilt,
-    manager,
-    amenities = [],
-    commonAreas = [],
-  } = building ?? {}
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case PropertyTypeValues.COMMERCIAL:
-        return 'blue'
-      case PropertyTypeValues.RESIDENTIAL:
-        return 'violet'
-      case PropertyTypeValues.MIXED:
-        return 'teal'
-      default:
-        return 'gray'
-    }
-  }
 
   if (isPending) {
     return <span>Loading...</span>
@@ -81,6 +49,22 @@ export const BuildingDetailPage = () => {
       </Container>
     )
   }
+
+  const {
+    name,
+    propertyType,
+    isActive,
+    address,
+    district,
+    city,
+    province,
+    description,
+    floors,
+    yearBuilt,
+    manager,
+    amenities = [],
+    commonAreas = []
+  } = building
 
   return (
     <>
@@ -98,45 +82,16 @@ export const BuildingDetailPage = () => {
           </Button>
         </Group>
 
-        <Paper shadow="md" radius="md" withBorder mb="xl">
-          <Box p="xl">
-            <Group justify="space-between" mb="md">
-              <div>
-                <Group gap="xs" mb="xs">
-                  <Badge
-                    color={getTypeColor(building.propertyType)}
-                    variant="light"
-                    size="lg"
-                  >
-                    {propertyType}
-                  </Badge>
-                  <Badge
-                    color={building.isActive ? 'green' : 'red'}
-                    variant="dot"
-                    size="lg"
-                  >
-                    {isActive ? 'Active' : 'Inactive'}
-                  </Badge>
-                </Group>
-
-                <Title order={1} mb="xs">
-                  {name}
-                </Title>
-
-                <Group gap="xs">
-                  <MapPinIcon size={18} />
-                  <Text c="dimmed">
-                    {address}, {district} - {city}, {province}
-                  </Text>
-                </Group>
-              </div>
-            </Group>
-
-            <Text c="dimmed" mt="md">
-              {description}
-            </Text>
-          </Box>
-        </Paper>
+        <BuildingCardInfo
+          propertyType={propertyType}
+          isActive={isActive}
+          name={name}
+          address={address}
+          district={district}
+          city={city}
+          province={province}
+          description={description}
+        />
 
         {/* Tabs */}
         <Tabs defaultValue="general" variant="outline">

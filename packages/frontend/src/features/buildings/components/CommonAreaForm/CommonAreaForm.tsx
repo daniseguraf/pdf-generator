@@ -8,17 +8,17 @@ import {
   Group,
   Button,
   MultiSelect,
-  Text,
+  Text
 } from '@mantine/core'
 import type {
   CommonAreaFormProps,
-  CommonAreaFormValues,
+  CommonAreaFormValues
 } from '@features/buildings/components/CommonAreaForm/CommonAreaForm.types'
 import { useForm } from '@mantine/form'
 import {
   commonAreaFormSchema,
   commonAreaOptions,
-  dayOptions,
+  dayOptions
 } from '@features/buildings/components/CommonAreaForm/CommonAreaForm.helpers'
 import { zod4Resolver } from 'mantine-form-zod-resolver'
 
@@ -28,7 +28,7 @@ import { useParams } from 'react-router'
 import type { CommonAreas } from '@my-buildings/shared/index'
 import type {
   CreateCommonAreaDto,
-  UpdateCommonAreaDto,
+  UpdateCommonAreaDto
 } from '@features/buildings/types/commonAreas.types'
 import { useUpdateCommonArea } from '@features/buildings/hooks/mutations/commonAreas/useUpdateCommonArea'
 import { ClockIcon } from '@phosphor-icons/react'
@@ -37,7 +37,7 @@ import { fromISO8601To24HFormat } from '@utils/dates/fromISO8601To24HFormat'
 export const CommonAreaForm: FC<CommonAreaFormProps> = ({
   opened,
   onClose,
-  commonArea,
+  commonArea
 }) => {
   const { id } = useParams()
   const buildingId = Number(id)
@@ -51,7 +51,6 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
   const openTime = fromISO8601To24HFormat(commonArea?.openTime ?? '')
   const closeTime = fromISO8601To24HFormat(commonArea?.closeTime ?? '')
 
-
   const initialValues = {
     type: commonArea?.type ?? '',
     description: commonArea?.description ?? undefined,
@@ -59,15 +58,14 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
     maxHoursPerReservation: commonArea?.maxHoursPerReservation ?? undefined,
     openTime: openTime ?? undefined,
     closeTime: closeTime ?? undefined,
-    daysAvailable: commonArea?.daysAvailable ?? undefined,
+    daysAvailable: commonArea?.daysAvailable ?? undefined
   }
 
   const form = useForm<CommonAreaFormValues>({
     validateInputOnBlur: true,
     initialValues,
-    validate: zod4Resolver(commonAreaFormSchema),
+    validate: zod4Resolver(commonAreaFormSchema)
   })
-
 
   const handleSubmit = () => {
     const errors = form.validate()
@@ -91,13 +89,13 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
       openTime: form.values.openTime ? `${form.values.openTime}:00` : undefined,
       closeTime: form.values.closeTime
         ? `${form.values.closeTime}:00`
-        : undefined,
+        : undefined
     } as CreateCommonAreaDto
 
     createCommonArea(createCommonAreaDto, {
       onSuccess: () => {
         handleClose()
-      },
+      }
     })
   }
 
@@ -109,19 +107,18 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
       openTime: form.values.openTime ? `${form.values.openTime}:00` : undefined,
       closeTime: form.values.closeTime
         ? `${form.values.closeTime}:00`
-        : undefined,
+        : undefined
     } as UpdateCommonAreaDto
-
 
     updateCommonArea(
       {
         commonAreaId: commonArea?.id ?? 0,
-        updateCommonAreaDto,
+        updateCommonAreaDto
       },
       {
         onSuccess: () => {
           handleClose()
-        },
+        }
       }
     )
   }

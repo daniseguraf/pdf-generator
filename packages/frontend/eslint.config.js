@@ -5,8 +5,12 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import unusedImports from 'eslint-plugin-unused-imports'
+import prettierRecommended from 'eslint-plugin-prettier/recommended'
+import prettierConfig from 'eslint-config-prettier'
 
 export default defineConfig([
+  prettierRecommended,
+  prettierConfig,
   globalIgnores(['dist']),
   {
     files: ['**/*.{ts,tsx}'],

@@ -1,8 +1,4 @@
 .github
-node_modules
-dist
-build
-coverage
 .next
 *.lock
 pnpm-lock.yaml
@@ -10,12 +6,56 @@ pnpm-lock.yaml
 .env
 .env.local
 
-packages/backend/.env.template
-packages/backend/.env.test
-packages/backend/coverage
-packages/backend/prisma/migrations/*
-packages/backend/prisma/dbml/*
+# Dependencies
+node_modules/
+**/node_modules/
 
-packages/frontend/src/vite-env.d.ts
-packages/frontend/dist
-packages/frontend/src/assets
+# Build outputs
+dist/
+build/
+coverage/
+.next/
+.nuxt/
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+
+# Database
+*.db
+postgres/
+
+# Generated files
+generated/
+**/generated/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Package manager files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Prisma
+prisma/migrations/
+
+# packages/backend/.env.template
+# packages/backend/.env.test
+# packages/backend/coverage
+# packages/backend/prisma/migrations/*
+# packages/backend/prisma/dbml/*
+
+# packages/frontend/src/vite-env.d.ts
+# packages/frontend/dist
+# packages/frontend/src/assets

@@ -2,81 +2,82 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common'
-import { CreateReservationDto } from './dto/create-reservation.dto'
-import { UpdateReservationDto } from './dto/update-reservation.dto'
-import { PrismaService } from 'src/prisma/prisma.service'
-import { User } from 'generated/prisma/client'
+} from "@nestjs/common";
+import { CreateReservationDto } from "./dto/create-reservation.dto";
+import { UpdateReservationDto } from "./dto/update-reservation.dto";
+import { PrismaService } from "src/prisma/prisma.service";
+import { User } from "generated/prisma/client";
 
 @Injectable()
 export class ReservationsService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(createReservationDto: CreateReservationDto, userId: number) {
-    const { commonAreaId, attendees, startTime, endTime } = createReservationDto
+    const { commonAreaId, attendees, startTime, endTime } =
+      createReservationDto;
 
     // Validate if the common area exists
     const commonArea = await this.prismaService.commonArea.findUnique({
       where: { id: commonAreaId },
-    })
+    });
 
     if (!commonArea) {
-      throw new NotFoundException('Common area not found')
+      throw new NotFoundException("Common area not found");
     }
 
     // Validate if the common area is available
     if (commonArea.deletedAt || !commonArea.isActive) {
-      throw new NotFoundException('Common area is not available')
+      throw new NotFoundException("Common area is not available");
     }
 
     // Validate if the attendees number is greater than the capacity
     if (attendees > commonArea.capacity) {
       throw new BadRequestException(
-        `Attendees number ${attendees} cannot be greater than capacity ${commonArea.capacity}`
-      )
+        `Attendees number ${attendees} cannot be greater than capacity ${commonArea.capacity}`,
+      );
     }
 
-    const endTimeMs = endTime.getTime()
-    const startTimeMs = startTime.getTime()
+    const endTimeMs = endTime.getTime();
+    const startTimeMs = startTime.getTime();
 
     // validate if endTime is after startTime
     if (endTimeMs <= startTimeMs) {
       throw new BadRequestException(
-        `Reservation end time cannot be before the start time `
-      )
+        `Reservation end time cannot be before the start time `,
+      );
     }
 
     // Validate reservation duration
-    const durationOfReservation = endTimeMs - startTimeMs
-    const durationInHours = durationOfReservation / (1000 * 60 * 60)
+    const durationOfReservation = endTimeMs - startTimeMs;
+    const durationInHours = durationOfReservation / (1000 * 60 * 60);
 
     if (durationInHours > commonArea.maxHoursPerReservation) {
       throw new BadRequestException(
-        `Reservation duration ${durationInHours} hours cannot be greater than maximum hours per reservation ${commonArea.maxHoursPerReservation}`
-      )
+        `Reservation duration ${durationInHours} hours cannot be greater than maximum hours per reservation ${commonArea.maxHoursPerReservation}`,
+      );
     }
 
     // Validate if start time is after the common area open time
-    const openTime = this.extractTimeString(commonArea.openTime)
-    const closeTime = this.extractTimeString(commonArea.closeTime)
-    const reservationStartHour = this.extractTimeString(startTime)
-    const reservationEndHour = this.extractTimeString(endTime)
+    const openTime = this.extractTimeString(commonArea.openTime);
+    const closeTime = this.extractTimeString(commonArea.closeTime);
+    const reservationStartHour = this.extractTimeString(startTime);
+    const reservationEndHour = this.extractTimeString(endTime);
 
     if (reservationStartHour < openTime) {
       throw new BadRequestException(
-        `Reservation start time ${reservationStartHour} cannot be before the common area open time ${openTime}`
-      )
+        `Reservation start time ${reservationStartHour} cannot be before the common area open time ${openTime}`,
+      );
     }
 
     if (reservationEndHour > closeTime) {
       throw new BadRequestException(
-        `Reservation end time ${reservationEndHour} cannot be after the common area close time ${closeTime}`
-      )
+        `Reservation end time ${reservationEndHour} cannot be after the common area close time ${closeTime}`,
+      );
     }
 
     return await this.prismaService.reservation.create({
       data: { ...createReservationDto, userId },
-    })
+    });
   }
 
   async findBuildingByResidentId(user: User) {
@@ -92,6 +93,8 @@ export class ReservationsService {
         city: true,
         province: true,
         email: true,
+        propertyType: true,
+        isActive: true,
         commonAreas: {
           where: { deletedAt: null },
           select: {
@@ -104,29 +107,29 @@ export class ReservationsService {
             closeTime: true,
           },
           orderBy: {
-            id: 'desc',
+            id: "desc",
           },
         },
       },
-    })
+    });
 
     if (!building) {
-      throw new NotFoundException('Building not found')
+      throw new NotFoundException("Building not found");
     }
 
-    return building
+    return building;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} reservation`
+    return `This action returns a #${id} reservation`;
   }
 
   update(id: number, updateReservationDto: UpdateReservationDto) {
-    return `This action updates a #${id} reservation`
+    return `This action updates a #${id} reservation`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} reservation`
+    return `This action removes a #${id} reservation`;
   }
 
   /**
@@ -135,12 +138,12 @@ export class ReservationsService {
    * @returns String en formato "HH:MM:SS"
    */
   private extractTimeString(date: Date | string): string {
-    if (typeof date === 'string') {
+    if (typeof date === "string") {
       // Si es string, asumimos que ya está en formato de hora
-      return date
+      return date;
     }
 
     // Si es Date, extraemos la hora en formato HH:MM:SS
-    return date.toISOString().split('T')[1].split('.')[0]
+    return date.toISOString().split("T")[1].split(".")[0];
   }
 }

@@ -34,6 +34,7 @@ import { useState } from 'react'
 import { useDeleteCommonArea } from '@features/buildings/hooks/mutations/commonAreas/useDeleteCommonArea'
 import { fromISO8601To24HFormat } from '@utils/dates/fromISO8601To24HFormat'
 import { TimeValue } from '@mantine/dates'
+import { CommonAreaCard } from '@components/CommonAreaCard/CommonAreaCard'
 
 export const CommonAreas = ({ commonAreas }: { commonAreas: CommonArea[] }) => {
   const [opened, { open, close }] = useDisclosure(false)
@@ -94,6 +95,7 @@ export const CommonAreas = ({ commonAreas }: { commonAreas: CommonArea[] }) => {
           <Grid>
             {commonAreas?.map(commonArea => (
               <Grid.Col key={commonArea.id} span={{ base: 12, sm: 6, md: 4 }}>
+                <CommonAreaCard commonArea={commonArea} />
                 <Card shadow="sm" padding="lg" radius="md" withBorder>
                   <Group justify="space-between" mb="md">
                     <Group gap="xs" align="center">
@@ -164,7 +166,15 @@ export const CommonAreas = ({ commonAreas }: { commonAreas: CommonArea[] }) => {
                     <Group gap="xs">
                       <ClockIcon size={16} color="#868e96" />
                       <Text size="sm">
-                        <TimeValue value={fromISO8601To24HFormat(commonArea.openTime)} format="12h" /> - <TimeValue value={fromISO8601To24HFormat(commonArea.closeTime)} format="12h" />
+                        <TimeValue
+                          value={fromISO8601To24HFormat(commonArea.openTime)}
+                          format="12h"
+                        />{' '}
+                        -{' '}
+                        <TimeValue
+                          value={fromISO8601To24HFormat(commonArea.closeTime)}
+                          format="12h"
+                        />
                       </Text>
                     </Group>
 
