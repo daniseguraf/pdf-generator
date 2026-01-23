@@ -1,6 +1,6 @@
 import {
-  getAreaLAbel,
   dayLabels,
+  getAreaLabel,
 } from '@features/buildings/components/CommonAreas/CommonAreas.helpers'
 import { CommonAreasValues, DaysOfWeekValues } from '@my-buildings/shared/index'
 import { z } from 'zod'
@@ -12,7 +12,7 @@ export const commonAreaFormSchema = z.object({
 export const commonAreaOptions = Object.values(CommonAreasValues).map(
   commonArea => ({
     value: commonArea,
-    label: getAreaLAbel[commonArea],
+    label: getAreaLabel(commonArea),
   })
 )
 

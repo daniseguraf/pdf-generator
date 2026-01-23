@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 const localizer = dayjsLocalizer(dayjs)
 
 interface CalendarViewProps {
-  bookings: []
+  reservations: []
   areaColor: string
   onSelectSlot: (slotInfo: { start: Date; end: Date }) => void
 }
@@ -27,8 +27,8 @@ const messages = {
   showMore: (total: number) => `+ Ver más (${total})`,
 }
 
-export const CalendarView = ({
-  bookings,
+export const ReservationCalendar = ({
+  reservations,
   areaColor,
   onSelectSlot,
 }: CalendarViewProps) => {
@@ -52,10 +52,10 @@ export const CalendarView = ({
 
   return (
     <Card padding="lg" radius="md" shadow="sm">
-      <div style={{ height: '75vh', minHeight: 650 }}>
+      <div style={{ height: '60vh', minHeight: 650 }}>
         <Calendar
           localizer={localizer}
-          events={bookings}
+          events={reservations}
           startAccessor="start"
           endAccessor="end"
           titleAccessor="title"
@@ -68,7 +68,7 @@ export const CalendarView = ({
           onView={setView}
           date={date}
           onNavigate={setDate}
-          min={new Date(2026, 0, 1, 6, 0, 0)}
+          min={new Date(2026, 0, 1, 8, 0, 0)}
           max={new Date(2026, 0, 1, 23, 0, 0)}
           step={30}
           timeslots={2}

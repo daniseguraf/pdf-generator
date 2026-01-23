@@ -9,14 +9,14 @@ import {
   ThemeIcon,
   Card,
   Title,
-  List
+  List,
 } from '@mantine/core'
 import {
   BuildingOfficeIcon,
   CaretDoubleLeftIcon,
   CheckIcon,
   PencilIcon,
-  HouseIcon
+  HouseIcon,
 } from '@phosphor-icons/react'
 
 import { useBuilding } from '@features/buildings/hooks/queries/buildings/useBuilding'
@@ -63,7 +63,7 @@ export const BuildingDetailPage = () => {
     yearBuilt,
     manager,
     amenities = [],
-    commonAreas = []
+    commonAreas = [],
   } = building
 
   return (

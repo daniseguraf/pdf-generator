@@ -14,11 +14,12 @@ import { type CommonArea } from '@my-buildings/shared/index'
 import { useDisclosure } from '@mantine/hooks'
 
 import { CommonAreaForm } from '@features/buildings/components/CommonAreaForm/CommonAreaForm'
-import { useState } from 'react'
+import { useState, type FC } from 'react'
 import { useDeleteCommonArea } from '@features/buildings/hooks/mutations/commonAreas/useDeleteCommonArea'
 import { CommonAreaCard } from '@components/CommonAreaCard/CommonAreaCard'
+import type { CommonAreasProps } from '@features/buildings/components/CommonAreas/CommonAreas.types'
 
-export const CommonAreas = ({ commonAreas }: { commonAreas: CommonArea[] }) => {
+export const CommonAreas: FC<CommonAreasProps> = ({ commonAreas }) => {
   const [opened, { open, close }] = useDisclosure(false)
   const [selectedCommonArea, setSelectedCommonArea] = useState<
     CommonArea | undefined
@@ -30,6 +31,11 @@ export const CommonAreas = ({ commonAreas }: { commonAreas: CommonArea[] }) => {
   const handleClose = () => {
     setSelectedCommonArea(undefined)
     close()
+  }
+
+  const handleEditCommonArea = (commonArea: CommonArea) => {
+    setSelectedCommonArea(commonArea)
+    open()
   }
 
   const handleDeleteCommonArea = (commonAreaId: number) => {
@@ -75,11 +81,38 @@ export const CommonAreas = ({ commonAreas }: { commonAreas: CommonArea[] }) => {
           </Card>
         ) : (
           <Grid>
-            {commonAreas?.map(commonArea => (
-              <Grid.Col key={commonArea.id} span={{ base: 12, sm: 6, md: 4 }}>
-                <CommonAreaCard commonArea={commonArea} />
-              </Grid.Col>
-            ))}
+            {commonAreas?.map(commonArea => {
+              const {
+                type,
+                isActive,
+                id,
+                description,
+                capacity,
+                maxHoursPerReservation,
+                openTime,
+                closeTime,
+                daysAvailable,
+              } = commonArea
+
+              return (
+                <Grid.Col key={id} span={{ base: 12, sm: 6, md: 4 }}>
+                  <CommonAreaCard
+                    type={type}
+                    isActive={isActive}
+                    id={id}
+                    description={description}
+                    capacity={capacity}
+                    maxHoursPerReservation={maxHoursPerReservation}
+                    openTime={openTime}
+                    closeTime={closeTime}
+                    daysAvailable={daysAvailable}
+                    onDelete={() => handleDeleteCommonArea(id)}
+                    onEdit={() => handleEditCommonArea(commonArea)}
+                    withActions
+                  />
+                </Grid.Col>
+              )
+            })}
           </Grid>
         )}
       </Container>
