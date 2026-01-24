@@ -86,6 +86,7 @@ model CommonArea {
 
 model Reservation {
   id           Int               @id @default(autoincrement())
+  title        String?           @map("title") @db.Text
   commonAreaId Int               @map("common_area_id")
   commonArea   CommonArea        @relation(fields: [commonAreaId], references: [id], onDelete: Cascade)
   userId       Int               @map("user_id")

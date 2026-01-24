@@ -142,6 +142,7 @@ export type CommonArea = {
 
 export type Reservation = {
   id: number
+  title: string | null
   commonAreaId: number
   commonArea?: CommonArea
   userId: number

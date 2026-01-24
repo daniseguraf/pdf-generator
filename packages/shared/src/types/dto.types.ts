@@ -4,1235 +4,1217 @@
  */
 
 export interface paths {
-  '/api/v1/buildings': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** Get all buildings */
-    get: operations['BuildingsController_findAll']
-    put?: never
-    /** Create a new building */
-    post: operations['BuildingsController_create']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/buildings/{id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** Get a building by id */
-    get: operations['BuildingsController_findOne']
-    put?: never
-    post?: never
-    /** Delete a building by id */
-    delete: operations['BuildingsController_remove']
-    options?: never
-    head?: never
-    /** Update a building by id */
-    patch: operations['BuildingsController_update']
-    trace?: never
-  }
-  '/api/v1/buildings/{id}/restore': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    /** Restore a deleted building */
-    patch: operations['BuildingsController_restore']
-    trace?: never
-  }
-  '/api/v1/auth/register': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /** Register a new user */
-    post: operations['AuthController_register']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/auth/login': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /** Login user */
-    post: operations['AuthController_login']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/auth/check-auth-status': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['AuthController_checkAuthStatus']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/auth/me': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['AuthController_me']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/seed': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['SeedController_seedDB']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/common-areas': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    post: operations['CommonAreasController_create']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/common-areas/building/{buildingId}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['CommonAreasController_findAllByBuildingId']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/common-areas/{id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['CommonAreasController_findOne']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/common-areas/{commonAreaId}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    post?: never
-    delete: operations['CommonAreasController_remove']
-    options?: never
-    head?: never
-    patch: operations['CommonAreasController_update']
-    trace?: never
-  }
-  '/api/v1/reservations': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['ReservationsController_findBuildingByResidentId']
-    put?: never
-    post: operations['ReservationsController_create']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/reservations/{id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['ReservationsController_findOne']
-    put?: never
-    post?: never
-    delete: operations['ReservationsController_remove']
-    options?: never
-    head?: never
-    patch: operations['ReservationsController_update']
-    trace?: never
-  }
+    "/api/v1/buildings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all buildings */
+        get: operations["BuildingsController_findAll"];
+        put?: never;
+        /** Create a new building */
+        post: operations["BuildingsController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/buildings/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get a building by id */
+        get: operations["BuildingsController_findOne"];
+        put?: never;
+        post?: never;
+        /** Delete a building by id */
+        delete: operations["BuildingsController_remove"];
+        options?: never;
+        head?: never;
+        /** Update a building by id */
+        patch: operations["BuildingsController_update"];
+        trace?: never;
+    };
+    "/api/v1/buildings/{id}/restore": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Restore a deleted building */
+        patch: operations["BuildingsController_restore"];
+        trace?: never;
+    };
+    "/api/v1/auth/register": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Register a new user */
+        post: operations["AuthController_register"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Login user */
+        post: operations["AuthController_login"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/check-auth-status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["AuthController_checkAuthStatus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["AuthController_me"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/seed": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["SeedController_seedDB"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/common-areas": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["CommonAreasController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/common-areas/building/{buildingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["CommonAreasController_findAllByBuildingId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/common-areas/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["CommonAreasController_findOne"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/common-areas/{commonAreaId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["CommonAreasController_remove"];
+        options?: never;
+        head?: never;
+        patch: operations["CommonAreasController_update"];
+        trace?: never;
+    };
+    "/api/v1/reservations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["ReservationsController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reservations/building": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ReservationsController_findBuildingByResidentId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reservations/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ReservationsController_findOne"];
+        put?: never;
+        post?: never;
+        delete: operations["ReservationsController_remove"];
+        options?: never;
+        head?: never;
+        patch: operations["ReservationsController_update"];
+        trace?: never;
+    };
 }
-export type webhooks = Record<string, never>
+export type webhooks = Record<string, never>;
 export interface components {
-  schemas: {
-    CreateBuildingDto: {
-      /**
-       * @description Building name
-       * @example Main Building
-       */
-      name: string
-      /**
-       * @description Building description
-       * @example New building in the city
-       */
-      description?: string
-      /**
-       * @description Year built
-       * @example 2020
-       */
-      yearBuilt: number
-      /**
-       * @description Property type
-       * @example RESIDENTIAL
-       * @enum {string}
-       */
-      propertyType: 'RESIDENTIAL' | 'COMMERCIAL' | 'MIXED'
-      /**
-       * @description Building address
-       * @example Main Street
-       */
-      address: string
-      /**
-       * @description Building district
-       * @example Main District
-       */
-      district: string
-      /**
-       * @description Building city
-       * @example Main City
-       */
-      city: string
-      /**
-       * @description Building province
-       * @example Main Province
-       */
-      province: string
-      /**
-       * @description Building postal code
-       * @example 15001
-       */
-      postalCode?: string
-      /**
-       * @description Number of floors
-       * @example 10
-       */
-      floors: number
-      /**
-       * @description Building phone number
-       * @example +51 987 654 321
-       */
-      phoneNumber?: string
-      /**
-       * @description Building email
-       * @example contact@building.com
-       */
-      email?: string
-      /**
-       * @description Building amenities
-       * @example [
-       *       "ELEVATOR",
-       *       "PARKING"
-       *     ]
-       */
-      amenities: (
-        | 'PARKING'
-        | 'SECURITY_24_7'
-        | 'ELEVATOR'
-        | 'WHEELCHAIR_ACCESS'
-        | 'WHEELCHAIR_LIFT'
-        | 'FIRE_ALARM'
-        | 'CAMERAS'
-      )[]
-    }
-    Building: Record<string, never>
-    UpdateBuildingDto: {
-      /**
-       * @description Building name
-       * @example Main Building
-       */
-      name?: string
-      /**
-       * @description Building description
-       * @example New building in the city
-       */
-      description?: string
-      /**
-       * @description Year built
-       * @example 2020
-       */
-      yearBuilt?: number
-      /**
-       * @description Property type
-       * @example RESIDENTIAL
-       * @enum {string}
-       */
-      propertyType?: 'RESIDENTIAL' | 'COMMERCIAL' | 'MIXED'
-      /**
-       * @description Building address
-       * @example Main Street
-       */
-      address?: string
-      /**
-       * @description Building district
-       * @example Main District
-       */
-      district?: string
-      /**
-       * @description Building city
-       * @example Main City
-       */
-      city?: string
-      /**
-       * @description Building province
-       * @example Main Province
-       */
-      province?: string
-      /**
-       * @description Building postal code
-       * @example 15001
-       */
-      postalCode?: string
-      /**
-       * @description Number of floors
-       * @example 10
-       */
-      floors?: number
-      /**
-       * @description Building phone number
-       * @example +51 987 654 321
-       */
-      phoneNumber?: string
-      /**
-       * @description Building email
-       * @example contact@building.com
-       */
-      email?: string
-      /**
-       * @description Building amenities
-       * @example [
-       *       "ELEVATOR",
-       *       "PARKING"
-       *     ]
-       */
-      amenities?: (
-        | 'PARKING'
-        | 'SECURITY_24_7'
-        | 'ELEVATOR'
-        | 'WHEELCHAIR_ACCESS'
-        | 'WHEELCHAIR_LIFT'
-        | 'FIRE_ALARM'
-        | 'CAMERAS'
-      )[]
-    }
-    RegisterUserDto: {
-      /**
-       * @description User first name
-       * @example John Doe
-       */
-      firstName: string
-      /**
-       * @description User last name
-       * @example Doe
-       */
-      lastName: string
-      /**
-       * @description User email
-       * @example john.doe@example.com
-       */
-      email: string
-      /**
-       * @description User password
-       * @example password
-       */
-      password: string
-    }
-    AuthResponse: {
-      /**
-       * @description User ID
-       * @example 1
-       */
-      id: number
-      /**
-       * @description User first name
-       * @example John
-       */
-      firstName: string
-      /**
-       * @description User last name
-       * @example Doe
-       */
-      lastName: string
-      /**
-       * @description User email
-       * @example john.doe@example.com
-       */
-      email: string
-      /**
-       * @description User role
-       * @example RESIDENT
-       * @enum {string}
-       */
-      role: 'ADMIN' | 'MANAGER' | 'RESIDENT'
-      /**
-       * @description JWT access token
-       * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-       */
-      accessToken: string
-    }
-    LoginUserDto: {
-      /**
-       * @description User email
-       * @example john.doe@example.com
-       */
-      email: string
-      /**
-       * @description User password
-       * @example password
-       */
-      password: string
-    }
-    CreateCommonAreaDto: {
-      /**
-       * @description Common area type
-       * @example CAFETERIA
-       * @enum {string}
-       */
-      type:
-        | 'GYM'
-        | 'POOL'
-        | 'GRILL_AREA'
-        | 'CAFETERIA'
-        | 'EVENT_ROOM'
-        | 'ROOF_TOP'
-        | 'COWORKING'
-      /**
-       * @description Building ID
-       * @example 1
-       */
-      buildingId: number
-      /**
-       * @description Common area description
-       * @example Common area description
-       */
-      description?: string
-      /**
-       * @description Common area capacity
-       * @example 20
-       */
-      capacity: number
-      /**
-       * @description Common area maximum hours per reservation
-       * @example 4
-       */
-      maxHoursPerReservation: number
-      /**
-       * @description Common area open time (HH:MM:SS format)
-       * @example 08:00:00
-       */
-      openTime: string
-      /**
-       * @description Common area close time (HH:MM:SS format)
-       * @example 22:00:00
-       */
-      closeTime: string
-      /**
-       * @description Common area days available
-       * @example [
-       *       "MONDAY",
-       *       "TUESDAY"
-       *     ]
-       * @enum {string}
-       */
-      daysAvailable?:
-        | 'MONDAY'
-        | 'TUESDAY'
-        | 'WEDNESDAY'
-        | 'THURSDAY'
-        | 'FRIDAY'
-        | 'SATURDAY'
-        | 'SUNDAY'
-    }
-    UpdateCommonAreaDto: {
-      /**
-       * @description Common area type
-       * @example CAFETERIA
-       * @enum {string}
-       */
-      type?:
-        | 'GYM'
-        | 'POOL'
-        | 'GRILL_AREA'
-        | 'CAFETERIA'
-        | 'EVENT_ROOM'
-        | 'ROOF_TOP'
-        | 'COWORKING'
-      /**
-       * @description Building ID
-       * @example 1
-       */
-      buildingId?: number
-      /**
-       * @description Common area description
-       * @example Common area description
-       */
-      description?: string
-      /**
-       * @description Common area capacity
-       * @example 20
-       */
-      capacity?: number
-      /**
-       * @description Common area maximum hours per reservation
-       * @example 4
-       */
-      maxHoursPerReservation?: number
-      /**
-       * @description Common area open time (HH:MM:SS format)
-       * @example 08:00:00
-       */
-      openTime?: string
-      /**
-       * @description Common area close time (HH:MM:SS format)
-       * @example 22:00:00
-       */
-      closeTime?: string
-      /**
-       * @description Common area days available
-       * @example [
-       *       "MONDAY",
-       *       "TUESDAY"
-       *     ]
-       * @enum {string}
-       */
-      daysAvailable?:
-        | 'MONDAY'
-        | 'TUESDAY'
-        | 'WEDNESDAY'
-        | 'THURSDAY'
-        | 'FRIDAY'
-        | 'SATURDAY'
-        | 'SUNDAY'
-    }
-    CreateReservationDto: {
-      /**
-       * @description Common area ID
-       * @example 1
-       */
-      commonAreaId: number
-      /**
-       * Format: date-time
-       * @description Reservation date
-       * @example 2026-01-20
-       */
-      date: string
-      /**
-       * Format: date-time
-       * @description Reservation start time (ISO 8601 format)
-       * @example 2026-01-20T14:00:00.000Z
-       */
-      startTime: string
-      /**
-       * Format: date-time
-       * @description Reservation end time (ISO 8601 format)
-       * @example 2026-01-20T15:00:00.000Z
-       */
-      endTime: string
-      /**
-       * @description Reservation notes
-       * @example Reservation notes
-       */
-      notes?: string
-      /**
-       * @description Number of attendees
-       * @example 1
-       */
-      attendees: number
-    }
-    UpdateReservationDto: {
-      /**
-       * @description Common area ID
-       * @example 1
-       */
-      commonAreaId?: number
-      /**
-       * Format: date-time
-       * @description Reservation date
-       * @example 2026-01-20
-       */
-      date?: string
-      /**
-       * Format: date-time
-       * @description Reservation start time (ISO 8601 format)
-       * @example 2026-01-20T14:00:00.000Z
-       */
-      startTime?: string
-      /**
-       * Format: date-time
-       * @description Reservation end time (ISO 8601 format)
-       * @example 2026-01-20T15:00:00.000Z
-       */
-      endTime?: string
-      /**
-       * @description Reservation notes
-       * @example Reservation notes
-       */
-      notes?: string
-      /**
-       * @description Number of attendees
-       * @example 1
-       */
-      attendees?: number
-    }
-  }
-  responses: never
-  parameters: never
-  requestBodies: never
-  headers: never
-  pathItems: never
+    schemas: {
+        CreateBuildingDto: {
+            /**
+             * @description Building name
+             * @example Main Building
+             */
+            name: string;
+            /**
+             * @description Building description
+             * @example New building in the city
+             */
+            description?: string;
+            /**
+             * @description Year built
+             * @example 2020
+             */
+            yearBuilt: number;
+            /**
+             * @description Property type
+             * @example RESIDENTIAL
+             * @enum {string}
+             */
+            propertyType: "RESIDENTIAL" | "COMMERCIAL" | "MIXED";
+            /**
+             * @description Building address
+             * @example Main Street
+             */
+            address: string;
+            /**
+             * @description Building district
+             * @example Main District
+             */
+            district: string;
+            /**
+             * @description Building city
+             * @example Main City
+             */
+            city: string;
+            /**
+             * @description Building province
+             * @example Main Province
+             */
+            province: string;
+            /**
+             * @description Building postal code
+             * @example 15001
+             */
+            postalCode?: string;
+            /**
+             * @description Number of floors
+             * @example 10
+             */
+            floors: number;
+            /**
+             * @description Building phone number
+             * @example +51 987 654 321
+             */
+            phoneNumber?: string;
+            /**
+             * @description Building email
+             * @example contact@building.com
+             */
+            email?: string;
+            /**
+             * @description Building amenities
+             * @example [
+             *       "ELEVATOR",
+             *       "PARKING"
+             *     ]
+             */
+            amenities: ("PARKING" | "SECURITY_24_7" | "ELEVATOR" | "WHEELCHAIR_ACCESS" | "WHEELCHAIR_LIFT" | "FIRE_ALARM" | "CAMERAS")[];
+        };
+        Building: Record<string, never>;
+        UpdateBuildingDto: {
+            /**
+             * @description Building name
+             * @example Main Building
+             */
+            name?: string;
+            /**
+             * @description Building description
+             * @example New building in the city
+             */
+            description?: string;
+            /**
+             * @description Year built
+             * @example 2020
+             */
+            yearBuilt?: number;
+            /**
+             * @description Property type
+             * @example RESIDENTIAL
+             * @enum {string}
+             */
+            propertyType?: "RESIDENTIAL" | "COMMERCIAL" | "MIXED";
+            /**
+             * @description Building address
+             * @example Main Street
+             */
+            address?: string;
+            /**
+             * @description Building district
+             * @example Main District
+             */
+            district?: string;
+            /**
+             * @description Building city
+             * @example Main City
+             */
+            city?: string;
+            /**
+             * @description Building province
+             * @example Main Province
+             */
+            province?: string;
+            /**
+             * @description Building postal code
+             * @example 15001
+             */
+            postalCode?: string;
+            /**
+             * @description Number of floors
+             * @example 10
+             */
+            floors?: number;
+            /**
+             * @description Building phone number
+             * @example +51 987 654 321
+             */
+            phoneNumber?: string;
+            /**
+             * @description Building email
+             * @example contact@building.com
+             */
+            email?: string;
+            /**
+             * @description Building amenities
+             * @example [
+             *       "ELEVATOR",
+             *       "PARKING"
+             *     ]
+             */
+            amenities?: ("PARKING" | "SECURITY_24_7" | "ELEVATOR" | "WHEELCHAIR_ACCESS" | "WHEELCHAIR_LIFT" | "FIRE_ALARM" | "CAMERAS")[];
+        };
+        RegisterUserDto: {
+            /**
+             * @description User first name
+             * @example John Doe
+             */
+            firstName: string;
+            /**
+             * @description User last name
+             * @example Doe
+             */
+            lastName: string;
+            /**
+             * @description User email
+             * @example john.doe@example.com
+             */
+            email: string;
+            /**
+             * @description User password
+             * @example password
+             */
+            password: string;
+        };
+        AuthResponse: {
+            /**
+             * @description User ID
+             * @example 1
+             */
+            id: number;
+            /**
+             * @description User first name
+             * @example John
+             */
+            firstName: string;
+            /**
+             * @description User last name
+             * @example Doe
+             */
+            lastName: string;
+            /**
+             * @description User email
+             * @example john.doe@example.com
+             */
+            email: string;
+            /**
+             * @description User role
+             * @example RESIDENT
+             * @enum {string}
+             */
+            role: "ADMIN" | "MANAGER" | "RESIDENT";
+            /**
+             * @description JWT access token
+             * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+             */
+            accessToken: string;
+        };
+        LoginUserDto: {
+            /**
+             * @description User email
+             * @example john.doe@example.com
+             */
+            email: string;
+            /**
+             * @description User password
+             * @example password
+             */
+            password: string;
+        };
+        CreateCommonAreaDto: {
+            /**
+             * @description Common area type
+             * @example CAFETERIA
+             * @enum {string}
+             */
+            type: "GYM" | "POOL" | "GRILL_AREA" | "CAFETERIA" | "EVENT_ROOM" | "ROOF_TOP" | "COWORKING";
+            /**
+             * @description Building ID
+             * @example 1
+             */
+            buildingId: number;
+            /**
+             * @description Common area description
+             * @example Common area description
+             */
+            description?: string;
+            /**
+             * @description Common area capacity
+             * @example 20
+             */
+            capacity: number;
+            /**
+             * @description Common area maximum hours per reservation
+             * @example 4
+             */
+            maxHoursPerReservation: number;
+            /**
+             * @description Common area open time (HH:MM:SS format)
+             * @example 08:00:00
+             */
+            openTime: string;
+            /**
+             * @description Common area close time (HH:MM:SS format)
+             * @example 22:00:00
+             */
+            closeTime: string;
+            /**
+             * @description Common area days available
+             * @example [
+             *       "MONDAY",
+             *       "TUESDAY"
+             *     ]
+             * @enum {string}
+             */
+            daysAvailable?: "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
+        };
+        UpdateCommonAreaDto: {
+            /**
+             * @description Common area type
+             * @example CAFETERIA
+             * @enum {string}
+             */
+            type?: "GYM" | "POOL" | "GRILL_AREA" | "CAFETERIA" | "EVENT_ROOM" | "ROOF_TOP" | "COWORKING";
+            /**
+             * @description Building ID
+             * @example 1
+             */
+            buildingId?: number;
+            /**
+             * @description Common area description
+             * @example Common area description
+             */
+            description?: string;
+            /**
+             * @description Common area capacity
+             * @example 20
+             */
+            capacity?: number;
+            /**
+             * @description Common area maximum hours per reservation
+             * @example 4
+             */
+            maxHoursPerReservation?: number;
+            /**
+             * @description Common area open time (HH:MM:SS format)
+             * @example 08:00:00
+             */
+            openTime?: string;
+            /**
+             * @description Common area close time (HH:MM:SS format)
+             * @example 22:00:00
+             */
+            closeTime?: string;
+            /**
+             * @description Common area days available
+             * @example [
+             *       "MONDAY",
+             *       "TUESDAY"
+             *     ]
+             * @enum {string}
+             */
+            daysAvailable?: "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
+        };
+        CreateReservationDto: {
+            /**
+             * @description Reservation title
+             * @example Reservation title
+             */
+            title?: string;
+            /**
+             * @description Common area ID
+             * @example 1
+             */
+            commonAreaId: number;
+            /**
+             * Format: date-time
+             * @description Reservation date
+             * @example 2026-01-20T00:00:00.000Z
+             */
+            date: string;
+            /**
+             * Format: date-time
+             * @description Reservation start time (ISO 8601 format)
+             * @example 2026-01-20T14:00:00.000Z
+             */
+            startTime: string;
+            /**
+             * Format: date-time
+             * @description Reservation end time (ISO 8601 format)
+             * @example 2026-01-20T15:00:00.000Z
+             */
+            endTime: string;
+            /**
+             * @description Reservation notes
+             * @example Reservation notes
+             */
+            notes?: string;
+            /**
+             * @description Number of attendees
+             * @example 1
+             */
+            attendees: number;
+        };
+        UpdateReservationDto: {
+            /**
+             * @description Reservation title
+             * @example Reservation title
+             */
+            title?: string;
+            /**
+             * @description Common area ID
+             * @example 1
+             */
+            commonAreaId?: number;
+            /**
+             * Format: date-time
+             * @description Reservation date
+             * @example 2026-01-20T00:00:00.000Z
+             */
+            date?: string;
+            /**
+             * Format: date-time
+             * @description Reservation start time (ISO 8601 format)
+             * @example 2026-01-20T14:00:00.000Z
+             */
+            startTime?: string;
+            /**
+             * Format: date-time
+             * @description Reservation end time (ISO 8601 format)
+             * @example 2026-01-20T15:00:00.000Z
+             */
+            endTime?: string;
+            /**
+             * @description Reservation notes
+             * @example Reservation notes
+             */
+            notes?: string;
+            /**
+             * @description Number of attendees
+             * @example 1
+             */
+            attendees?: number;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
-export type $defs = Record<string, never>
+export type $defs = Record<string, never>;
 export interface operations {
-  BuildingsController_findAll: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description The buildings has been successfully retrieved. */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['Building'][]
-        }
-      }
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  BuildingsController_create: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CreateBuildingDto']
-      }
-    }
-    responses: {
-      /** @description The building has been successfully created. */
-      201: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['Building']
-        }
-      }
-      /** @description Bad Request */
-      400: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  BuildingsController_findOne: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        id: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description The building has been successfully retrieved. */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['Building']
-        }
-      }
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description building not found. */
-      404: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  BuildingsController_remove: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        id: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description The building has been successfully deleted. */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['Building']
-        }
-      }
-      /** @description Bad Request */
-      400: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  BuildingsController_update: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        id: number
-      }
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UpdateBuildingDto']
-      }
-    }
-    responses: {
-      /** @description The building has been successfully updated. */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['Building']
-        }
-      }
-      /** @description Bad Request */
-      400: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description building not found. */
-      404: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  BuildingsController_restore: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        id: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description The building has been successfully updated. */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['Building']
-        }
-      }
-      /** @description Bad Request */
-      400: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description building not found. */
-      404: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  AuthController_register: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RegisterUserDto']
-      }
-    }
-    responses: {
-      /** @description User successfully registered */
-      201: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['AuthResponse']
-        }
-      }
-    }
-  }
-  AuthController_login: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['LoginUserDto']
-      }
-    }
-    responses: {
-      /** @description User successfully logged in */
-      201: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['AuthResponse']
-        }
-      }
-    }
-  }
-  AuthController_checkAuthStatus: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  AuthController_me: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  SeedController_seedDB: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  CommonAreasController_create: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CreateCommonAreaDto']
-      }
-    }
-    responses: {
-      201: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  CommonAreasController_findAllByBuildingId: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        buildingId: string
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  CommonAreasController_findOne: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        id: string
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  CommonAreasController_remove: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        commonAreaId: string
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  CommonAreasController_update: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        commonAreaId: string
-      }
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UpdateCommonAreaDto']
-      }
-    }
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  ReservationsController_findBuildingByResidentId: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  ReservationsController_create: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CreateReservationDto']
-      }
-    }
-    responses: {
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  ReservationsController_findOne: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        id: string
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  ReservationsController_remove: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        id: string
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  ReservationsController_update: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        id: string
-      }
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UpdateReservationDto']
-      }
-    }
-    responses: {
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
+    BuildingsController_findAll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The buildings has been successfully retrieved. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Building"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    BuildingsController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateBuildingDto"];
+            };
+        };
+        responses: {
+            /** @description The building has been successfully created. */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Building"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    BuildingsController_findOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The building has been successfully retrieved. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Building"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description building not found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    BuildingsController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The building has been successfully deleted. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Building"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    BuildingsController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateBuildingDto"];
+            };
+        };
+        responses: {
+            /** @description The building has been successfully updated. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Building"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description building not found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    BuildingsController_restore: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The building has been successfully updated. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Building"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description building not found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_register: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RegisterUserDto"];
+            };
+        };
+        responses: {
+            /** @description User successfully registered */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthResponse"];
+                };
+            };
+        };
+    };
+    AuthController_login: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoginUserDto"];
+            };
+        };
+        responses: {
+            /** @description User successfully logged in */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthResponse"];
+                };
+            };
+        };
+    };
+    AuthController_checkAuthStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_me: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    SeedController_seedDB: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CommonAreasController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateCommonAreaDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CommonAreasController_findAllByBuildingId: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                buildingId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CommonAreasController_findOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CommonAreasController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                commonAreaId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CommonAreasController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                commonAreaId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateCommonAreaDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateReservationDto"];
+            };
+        };
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_findBuildingByResidentId: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_findOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateReservationDto"];
+            };
+        };
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
 }

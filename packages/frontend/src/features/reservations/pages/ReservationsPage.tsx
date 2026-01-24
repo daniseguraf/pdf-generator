@@ -1,44 +1,27 @@
-import { Container, Select, Stack, Tabs, Title } from '@mantine/core'
+import { Container, Select, Stack, Tabs, Text, Title } from '@mantine/core'
 import { useBuildingByResidentId } from '@features/reservations/hooks/queries/useBuildingByResidentId'
 import { BuildingCardInfo } from '@components/BuildingCardInfo/BuildingCardInfo'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDisclosure } from '@mantine/hooks'
 import { getAreaLabel } from '@features/buildings/components/CommonAreas/CommonAreas.helpers'
-import type { CommonArea } from '@my-buildings/shared/index'
 import { CommonAreaCard } from '@components/CommonAreaCard/CommonAreaCard'
 import { CalendarBlankIcon, ListChecksIcon } from '@phosphor-icons/react'
 import { ReservationCalendar } from '@features/reservations/components/ReservationCalendar'
+import { ReservationForm } from '@features/reservations/components/ReservationForm/ReservationForm'
 
 export const ReservationsPage = () => {
   const { isPending, data: building } = useBuildingByResidentId()
-  const [opened, { open, close }] = useDisclosure(false)
+  const [openedForm, { open: openForm, close: closeForm }] =
+    useDisclosure(false)
 
-  const [selectedCommonArea, setSelectedCommonArea] = useState<
-    number | undefined
-  >(undefined)
-  console.log('selectedCommonArea', selectedCommonArea)
+  const [selectedAreaId, setSelectedAreaId] = useState<number | undefined>(
+    undefined
+  )
 
-  const [currentCommonArea, setCurrentCommonArea] = useState<
-    CommonArea | undefined
-  >(undefined)
-
-  useEffect(() => {
-    if (!selectedCommonArea) {
-      setCurrentCommonArea(undefined)
-      return
-    }
-
-    const commonArea = commonAreas.find(area => area.id === selectedCommonArea)
-    setCurrentCommonArea(commonArea)
-  }, [selectedCommonArea])
-
-  if (!building) {
-    return <span>Building not found</span>
-  }
-
-  if (!building?.commonAreas) {
-    return <span>Common areas not found</span>
-  }
+  const [selectedSlot, setSelectedSlot] = useState<{
+    start: Date
+    end: Date
+  } | null>(null)
 
   const {
     propertyType,
@@ -50,19 +33,30 @@ export const ReservationsPage = () => {
     province,
     description,
     commonAreas,
-    reservations,
-  } = building
+  } = building || {}
+  // console.log('building', building)
 
-  const commonAreaOptions = commonAreas.map(area => ({
+  const commonAreaOptions = commonAreas?.map(area => ({
     value: area.id.toString(),
     label: getAreaLabel(area.type),
   }))
 
+  const selectedArea = commonAreas?.find(area => area.id === selectedAreaId)
+
+  const handleSelectSlot = (slotInfo: { start: Date; end: Date }) => {
+    console.log('slotInfo', slotInfo)
+    setSelectedSlot(slotInfo)
+    openForm()
+  }
+
+  const handleClose = () => {
+    closeForm()
+    setSelectedSlot(null)
+  }
+
   if (isPending) {
     return <span>Loading...</span>
   }
-
-  console.log(building)
 
   return (
     <Container fluid>
@@ -89,25 +83,25 @@ export const ReservationsPage = () => {
             checkIconPosition="right"
             clearable
             onChange={value =>
-              setSelectedCommonArea(value ? Number(value) : undefined)
+              setSelectedAreaId(value ? Number(value) : undefined)
             }
           />
 
-          {currentCommonArea && (
+          {selectedArea && (
             <CommonAreaCard
-              id={currentCommonArea.id}
-              type={currentCommonArea.type}
-              isActive={currentCommonArea.isActive}
-              description={currentCommonArea.description}
-              capacity={currentCommonArea.capacity}
-              maxHoursPerReservation={currentCommonArea.maxHoursPerReservation}
-              openTime={currentCommonArea.openTime}
-              closeTime={currentCommonArea.closeTime}
-              daysAvailable={currentCommonArea.daysAvailable}
+              id={selectedArea.id}
+              type={selectedArea.type}
+              isActive={selectedArea.isActive}
+              description={selectedArea.description}
+              capacity={selectedArea.capacity}
+              maxHoursPerReservation={selectedArea.maxHoursPerReservation}
+              openTime={selectedArea.openTime}
+              closeTime={selectedArea.closeTime}
+              daysAvailable={selectedArea.daysAvailable}
             />
           )}
 
-          {currentCommonArea && (
+          {selectedArea && (
             <Tabs defaultValue="calendar" variant="pills" radius="md">
               <Tabs.List mb="lg">
                 <Tabs.Tab
@@ -120,19 +114,20 @@ export const ReservationsPage = () => {
                   value="reservations"
                   leftSection={<ListChecksIcon size={18} weight="duotone" />}
                 >
-                  Mis Reservas ({currentCommonArea.reservations?.length ?? 0})
+                  Mis Reservas ({selectedArea.reservations?.length ?? 0})
                 </Tabs.Tab>
               </Tabs.List>
 
               <Tabs.Panel value="calendar">
                 <ReservationCalendar
-                  reservations={currentCommonArea.reservations ?? []}
+                  reservations={selectedArea.reservations ?? []}
                   // areaColor={selectedAreaData.color}
-                  // onSelectSlot={handleSelectSlot}
+                  onSelectSlot={handleSelectSlot}
                 />
               </Tabs.Panel>
 
               <Tabs.Panel value="reservations">
+                <Text>Mis Reservas</Text>
                 {/* <BookingList
                   bookings={filteredBookings}
                   area={selectedAreaData}
@@ -144,16 +139,14 @@ export const ReservationsPage = () => {
         </Stack>
       </Container>
 
-      {/* <BookingModal
-        opened={opened}
-        onClose={() => {
-          close()
-          setSelectedSlot(null)
-        }}
-        selectedSlot={selectedSlot}
-        selectedArea={selectedAreaData}
-        onCreateBooking={handleCreateBooking}
-      /> */}
+      {selectedArea && (
+        <ReservationForm
+          opened={openedForm}
+          onClose={handleClose}
+          selectedSlot={selectedSlot}
+          selectedArea={selectedArea}
+        />
+      )}
     </Container>
   )
 }

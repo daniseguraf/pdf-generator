@@ -4,6 +4,9 @@ import { IsDate, IsInt, IsNotEmpty, IsPositive } from 'class-validator'
 import { IsOptionalString } from 'src/common/decorators/validation.decorators'
 
 export class CreateReservationDto {
+  @IsOptionalString(255, 'Reservation title', 'Reservation title')
+  title?: string
+
   @ApiProperty({
     example: 1,
     description: 'Common area ID',
