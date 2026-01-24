@@ -3,6 +3,8 @@ import type {
   ReservationFormProps,
   ReservationFormValues,
 } from '@features/reservations/components/ReservationForm/ReservationForm.types'
+import { useCreateReservation } from '@features/reservations/hooks/mutations/useCreateReservation'
+import type { CreateReservationDto } from '@features/reservations/types/reservation.types'
 import {
   Modal,
   TextInput,
@@ -11,11 +13,13 @@ import {
   Stack,
   Group,
   Text,
+  Box,
+  Textarea,
 } from '@mantine/core'
 import { TimeValue } from '@mantine/dates'
 import { useForm } from '@mantine/form'
 import { CalendarIcon, ClockIcon } from '@phosphor-icons/react'
-import { getCommonAreaColor } from '@utils/commonAreasColors'
+import { getCommonAreaColor } from '@utils/getCommonAreaColor'
 import dayjs from 'dayjs'
 
 export const ReservationForm = ({
@@ -24,7 +28,7 @@ export const ReservationForm = ({
   selectedSlot,
   selectedArea,
 }: ReservationFormProps) => {
-  console.log('selectedArea', selectedArea)
+  const { mutate: createReservation } = useCreateReservation()
   const color = getCommonAreaColor(selectedArea?.type)
 
   const form = useForm<ReservationFormValues>({
@@ -36,7 +40,23 @@ export const ReservationForm = ({
     },
   })
 
-  const handleSubmit = () => {}
+  const handleSubmit = () => {
+    const createReservationDto = {
+      ...form.values,
+      commonAreaId: selectedArea.id,
+      date: selectedSlot?.start.toISOString(),
+      startTime: selectedSlot?.start.toISOString(),
+      endTime: selectedSlot?.end.toISOString(),
+    } as CreateReservationDto
+
+    console.log('createReservationDto', createReservationDto)
+
+    createReservation(createReservationDto, {
+      onSuccess: () => {
+        onClose()
+      },
+    })
+  }
 
   return (
     <Modal
@@ -52,32 +72,27 @@ export const ReservationForm = ({
     >
       <Stack gap="md">
         {selectedArea && (
-          <div
+          <Box
+            p="xs"
+            bg={`${color}10`}
             style={{
-              padding: '1rem',
-              backgroundColor: `${color}10`,
               borderRadius: '8px',
               border: `1px solid ${color}30`,
             }}
           >
-            <Text
-              size="sm"
-              mb={8}
-              fw={600}
-              style={{ color: selectedArea.color }}
-            >
+            <Text size="sm" mb={8} fw={600} c={color}>
               {getAreaLabel(selectedArea.type)}
             </Text>
             {selectedSlot && (
               <>
                 <Group gap="xs" mb={4}>
-                  <CalendarIcon size={16} color={selectedArea.color} />
+                  <CalendarIcon size={16} color={color} />
                   <Text size="sm">
                     {dayjs(selectedSlot.start).format('dddd, D [de] MMMM YYYY')}
                   </Text>
                 </Group>
                 <Group gap="xs">
-                  <ClockIcon size={16} color={selectedArea.color} />
+                  <ClockIcon size={16} color={color} />
                   <Text size="sm">
                     <TimeValue value={selectedSlot.start} format="12h" /> -
                     <TimeValue value={selectedSlot.end} format="12h" />
@@ -85,16 +100,16 @@ export const ReservationForm = ({
                 </Group>
               </>
             )}
-          </div>
+          </Box>
         )}
 
         <TextInput
           label="Título de la reserva"
-          placeholder="Ej: Reunión familiar, Entrenamiento, etc."
+          placeholder="Ej: Reunión familiar, Cumpleaños, etc."
           {...form.getInputProps('title')}
         />
 
-        <TextInput
+        <Textarea
           label="Notas"
           placeholder="Notas adicionales de la reserva"
           {...form.getInputProps('notes')}
@@ -105,9 +120,9 @@ export const ReservationForm = ({
           placeholder="0"
           {...form.getInputProps('attendees')}
           min={1}
-          max={selectedArea?.capacity || 100}
+          max={selectedArea?.capacity || 50}
           required
-          // leftSection={<UsersThree size={18} />}
+          hideControls
           description={`Capacidad máxima: ${selectedArea?.capacity || 0} personas`}
         />
 

@@ -25,10 +25,10 @@ import {
 } from '@features/buildings/components/CommonAreas/CommonAreas.helpers'
 import { fromISO8601To24HFormat } from '@utils/dates/fromISO8601To24HFormat'
 import { TimeValue } from '@mantine/dates'
-import type { FC } from 'react'
 import type { CommonAreaCardProps } from '@components/CommonAreaCard/CommonAreaCard.types'
+import { getCommonAreaColor } from '@utils/getCommonAreaColor'
 
-export const CommonAreaCard: FC<CommonAreaCardProps> = ({
+export const CommonAreaCard = ({
   type,
   isActive,
   description,
@@ -40,9 +40,17 @@ export const CommonAreaCard: FC<CommonAreaCardProps> = ({
   onDelete,
   onEdit,
   withActions,
-}) => {
+}: CommonAreaCardProps) => {
+  const color = getCommonAreaColor(type)
+
   return (
-    <Card shadow="sm" padding="md" radius="md" withBorder>
+    <Card
+      shadow="sm"
+      padding="md"
+      radius="md"
+      withBorder
+      style={{ border: `1px solid ${color}30`, backgroundColor: `${color}10` }}
+    >
       <Group justify="space-between" mb={2}>
         <Group gap={8} align="center">
           <Text size="xl">{getAreaIcon(type)}</Text>

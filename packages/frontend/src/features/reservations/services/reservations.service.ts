@@ -1,3 +1,4 @@
+import type { CreateReservationDto } from '@features/reservations/types/reservation.types'
 import { api } from '@lib/axios'
 import type { Building, Reservation } from '@my-buildings/shared'
 
@@ -7,10 +8,11 @@ export const reservationsServices = {
 
     return response.data
   },
+
   createReservation: async (
-    reservation: CreateReservationDto
+    createReservationDto: CreateReservationDto
   ): Promise<Reservation> => {
-    const response = await api.post('/reservations', reservation)
+    const response = await api.post('/reservations', createReservationDto)
 
     return response.data
   },

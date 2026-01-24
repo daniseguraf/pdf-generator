@@ -8,6 +8,19 @@ import { CommonAreaCard } from '@components/CommonAreaCard/CommonAreaCard'
 import { CalendarBlankIcon, ListChecksIcon } from '@phosphor-icons/react'
 import { ReservationCalendar } from '@features/reservations/components/ReservationCalendar'
 import { ReservationForm } from '@features/reservations/components/ReservationForm/ReservationForm'
+import { getCommonAreaColor } from '@utils/getCommonAreaColor'
+
+const isoToDateConstructor = (isoString: string) => {
+  const date = new Date(isoString)
+  return new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    date.getHours(),
+    date.getMinutes(),
+    date.getSeconds()
+  )
+}
 
 export const ReservationsPage = () => {
   const { isPending, data: building } = useBuildingByResidentId()
@@ -23,28 +36,32 @@ export const ReservationsPage = () => {
     end: Date
   } | null>(null)
 
+  if (isPending || !building) {
+    return <span>Loading...</span>
+  }
+
   const {
     propertyType,
-    isActive,
+    isActive: buildingIsActive,
     name,
     address,
     district,
     city,
     province,
-    description,
-    commonAreas,
-  } = building || {}
-  // console.log('building', building)
+    description: buildingDescription,
+    commonAreas = [],
+  } = building
 
   const commonAreaOptions = commonAreas?.map(area => ({
     value: area.id.toString(),
     label: getAreaLabel(area.type),
   }))
 
-  const selectedArea = commonAreas?.find(area => area.id === selectedAreaId)
+  const selectedCommonArea = commonAreas?.find(
+    area => area.id === selectedAreaId
+  )
 
   const handleSelectSlot = (slotInfo: { start: Date; end: Date }) => {
-    console.log('slotInfo', slotInfo)
     setSelectedSlot(slotInfo)
     openForm()
   }
@@ -54,21 +71,23 @@ export const ReservationsPage = () => {
     setSelectedSlot(null)
   }
 
-  if (isPending) {
-    return <span>Loading...</span>
-  }
+  const reservations = selectedCommonArea?.reservations?.map(reservation => ({
+    ...reservation,
+    start: isoToDateConstructor(reservation.startTime),
+    end: isoToDateConstructor(reservation.endTime),
+  }))
 
   return (
     <Container fluid>
       <BuildingCardInfo
         propertyType={propertyType}
-        isActive={isActive}
+        isActive={buildingIsActive}
         name={name}
         address={address}
         district={district}
         city={city}
         province={province}
-        description={description}
+        description={buildingDescription}
       />
 
       <Title order={1} size="h2">
@@ -87,21 +106,21 @@ export const ReservationsPage = () => {
             }
           />
 
-          {selectedArea && (
+          {selectedCommonArea && (
             <CommonAreaCard
-              id={selectedArea.id}
-              type={selectedArea.type}
-              isActive={selectedArea.isActive}
-              description={selectedArea.description}
-              capacity={selectedArea.capacity}
-              maxHoursPerReservation={selectedArea.maxHoursPerReservation}
-              openTime={selectedArea.openTime}
-              closeTime={selectedArea.closeTime}
-              daysAvailable={selectedArea.daysAvailable}
+              id={selectedCommonArea.id}
+              type={selectedCommonArea.type}
+              isActive={selectedCommonArea.isActive}
+              description={selectedCommonArea.description}
+              capacity={selectedCommonArea.capacity}
+              maxHoursPerReservation={selectedCommonArea.maxHoursPerReservation}
+              openTime={selectedCommonArea.openTime}
+              closeTime={selectedCommonArea.closeTime}
+              daysAvailable={selectedCommonArea.daysAvailable}
             />
           )}
 
-          {selectedArea && (
+          {selectedCommonArea && (
             <Tabs defaultValue="calendar" variant="pills" radius="md">
               <Tabs.List mb="lg">
                 <Tabs.Tab
@@ -114,14 +133,14 @@ export const ReservationsPage = () => {
                   value="reservations"
                   leftSection={<ListChecksIcon size={18} weight="duotone" />}
                 >
-                  Mis Reservas ({selectedArea.reservations?.length ?? 0})
+                  Mis Reservas ({selectedCommonArea.reservations?.length ?? 0})
                 </Tabs.Tab>
               </Tabs.List>
 
               <Tabs.Panel value="calendar">
                 <ReservationCalendar
-                  reservations={selectedArea.reservations ?? []}
-                  // areaColor={selectedAreaData.color}
+                  reservations={reservations}
+                  areaColor={getCommonAreaColor(selectedCommonArea.type)}
                   onSelectSlot={handleSelectSlot}
                 />
               </Tabs.Panel>
@@ -139,12 +158,12 @@ export const ReservationsPage = () => {
         </Stack>
       </Container>
 
-      {selectedArea && (
+      {selectedCommonArea && (
         <ReservationForm
           opened={openedForm}
           onClose={handleClose}
           selectedSlot={selectedSlot}
-          selectedArea={selectedArea}
+          selectedArea={selectedCommonArea}
         />
       )}
     </Container>
