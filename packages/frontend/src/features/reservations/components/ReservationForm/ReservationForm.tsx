@@ -53,9 +53,14 @@ export const ReservationForm = ({
 
     createReservation(createReservationDto, {
       onSuccess: () => {
-        onClose()
+        handleClose()
       },
     })
+  }
+
+  const handleClose = () => {
+    onClose()
+    form.reset()
   }
 
   return (

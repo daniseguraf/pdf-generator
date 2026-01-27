@@ -49,7 +49,6 @@ export const BuildingForm: FC<BuildingFormProps> = ({
     city,
     province,
     postalCode,
-    // managerId,
     propertyType,
     yearBuilt,
     floors,
@@ -58,12 +57,6 @@ export const BuildingForm: FC<BuildingFormProps> = ({
     description,
     amenities,
   } = (building as Building) ?? {}
-
-  // const managerOptions =
-  //   employees?.map(employee => ({
-  //     value: `${employee.id}`,
-  //     label: `${employee.firstName} ${employee.lastName}`,
-  //   })) ?? []
 
   const initialValues = {
     name: name ?? '',

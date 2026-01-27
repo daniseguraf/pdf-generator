@@ -6,21 +6,9 @@ import { useDisclosure } from '@mantine/hooks'
 import { getAreaLabel } from '@features/buildings/components/CommonAreas/CommonAreas.helpers'
 import { CommonAreaCard } from '@components/CommonAreaCard/CommonAreaCard'
 import { CalendarBlankIcon, ListChecksIcon } from '@phosphor-icons/react'
-import { ReservationCalendar } from '@features/reservations/components/ReservationCalendar'
+import { ReservationCalendar } from '@features/reservations/components/ReservationCalendar/ReservationCalendar'
 import { ReservationForm } from '@features/reservations/components/ReservationForm/ReservationForm'
 import { getCommonAreaColor } from '@utils/getCommonAreaColor'
-
-const isoToDateConstructor = (isoString: string) => {
-  const date = new Date(isoString)
-  return new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-    date.getHours(),
-    date.getMinutes(),
-    date.getSeconds()
-  )
-}
 
 export const ReservationsPage = () => {
   const { isPending, data: building } = useBuildingByResidentId()
@@ -70,12 +58,6 @@ export const ReservationsPage = () => {
     closeForm()
     setSelectedSlot(null)
   }
-
-  const reservations = selectedCommonArea?.reservations?.map(reservation => ({
-    ...reservation,
-    start: isoToDateConstructor(reservation.startTime),
-    end: isoToDateConstructor(reservation.endTime),
-  }))
 
   return (
     <Container fluid>
@@ -139,9 +121,12 @@ export const ReservationsPage = () => {
 
               <Tabs.Panel value="calendar">
                 <ReservationCalendar
-                  reservations={reservations}
+                  reservations={selectedCommonArea.reservations ?? []}
                   areaColor={getCommonAreaColor(selectedCommonArea.type)}
                   onSelectSlot={handleSelectSlot}
+                  openTime={selectedCommonArea.openTime}
+                  closeTime={selectedCommonArea.closeTime}
+                  daysAvailable={selectedCommonArea.daysAvailable}
                 />
               </Tabs.Panel>
 

@@ -8,14 +8,14 @@ import type {
 export type CreateBuildingDto = components['schemas']['CreateBuildingDto']
 export type UpdateBuildingDto = components['schemas']['UpdateBuildingDto']
 
-export type BuildingFormProps = {
+export interface BuildingFormProps {
   opened: boolean
   onClose: () => void
   building?: Building
   isEdit?: boolean
 }
 
-export type BuildingFormValues = {
+export interface BuildingFormValues {
   name: string
   address: string
   district: string
