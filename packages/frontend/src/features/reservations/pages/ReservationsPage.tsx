@@ -9,6 +9,7 @@ import { CalendarBlankIcon, ListChecksIcon } from '@phosphor-icons/react'
 import { ReservationCalendar } from '@features/reservations/components/ReservationCalendar/ReservationCalendar'
 import { ReservationForm } from '@features/reservations/components/ReservationForm/ReservationForm'
 import { getCommonAreaColor } from '@utils/getCommonAreaColor'
+import { ReservationList } from '@features/reservations/components/ReservationList/ReservationList'
 
 export const ReservationsPage = () => {
   const { isPending, data: building } = useBuildingByResidentId()
@@ -132,11 +133,10 @@ export const ReservationsPage = () => {
 
               <Tabs.Panel value="reservations">
                 <Text>Mis Reservas</Text>
-                {/* <BookingList
-                  bookings={filteredBookings}
-                  area={selectedAreaData}
-                  onDeleteBooking={handleDeleteBooking}
-                /> */}
+                <ReservationList
+                  reservations={selectedCommonArea.reservations ?? []}
+                  areaColor={getCommonAreaColor(selectedCommonArea.type)}
+                />
               </Tabs.Panel>
             </Tabs>
           )}

@@ -5,32 +5,15 @@ import { CalendarIcon } from '@phosphor-icons/react/dist/csr/Calendar'
 import { useLocation, useNavigate } from 'react-router'
 import { useRole } from '@features/auth/hooks/useRole'
 
-const menuItems = [
-  {
-    label: 'Dashboard',
-
-    icon: HouseIcon,
-    path: '/',
-    description: 'Vista general y estadísticas',
-  },
-  {
-    label: 'Buildings',
-    icon: BuildingIcon,
-    path: '/buildings',
-    description: 'Gestión de edificios',
-  },
-  {
-    label: 'Reservations',
-    icon: CalendarIcon,
-    path: '/reservations',
-    description: 'Reservas de áreas comunes',
-  },
-]
-
 export const Navbar = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { isAdmin, isManager, isResident } = useRole()
+
+  const styles = {
+    borderRadius: '0.5rem',
+    marginBottom: '0.5rem',
+  }
 
   return (
     <AppShell.Navbar p="md">
@@ -42,10 +25,7 @@ export const Navbar = () => {
             onClick={() => navigate('/')}
             description="Vista general y estadísticas"
             active={location.pathname === '/'}
-            mb="xs"
-            style={{
-              borderRadius: '8px',
-            }}
+            style={styles}
           />
         )}
 
@@ -56,10 +36,7 @@ export const Navbar = () => {
             onClick={() => navigate('/buildings')}
             description="Gestión de edificios"
             active={location.pathname === '/buildings'}
-            mb="xs"
-            style={{
-              borderRadius: '8px',
-            }}
+            style={styles}
           />
         )}
 
@@ -69,11 +46,8 @@ export const Navbar = () => {
             leftSection={<CalendarIcon size={20} />}
             onClick={() => navigate('/reservations')}
             description="Reservas de áreas comunes"
-            active={location.pathname === '/reservations'}
-            mb="xs"
-            style={{
-              borderRadius: '8px',
-            }}
+            active={location.pathname === '/'}
+            style={styles}
           />
         )}
       </AppShell.Section>

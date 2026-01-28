@@ -14,8 +14,10 @@ import {
   CaretDownIcon,
   SignOutIcon,
 } from '@phosphor-icons/react'
+import { useNavigate } from 'react-router'
 export const Header = () => {
   const { user, logout } = useAuth()
+  const navigate = useNavigate()
 
   return (
     <AppShell.Header>
@@ -24,8 +26,13 @@ export const Header = () => {
 
         <Group gap="xs">
           <BuildingApartmentIcon size={24} weight="regular" />
-          <Title order={1} size="xl">
-            Buildings Manager System
+          <Title
+            order={1}
+            size="xl"
+            onClick={() => navigate('/')}
+            style={{ cursor: 'pointer' }}
+          >
+            My Buildings
           </Title>
         </Group>
 

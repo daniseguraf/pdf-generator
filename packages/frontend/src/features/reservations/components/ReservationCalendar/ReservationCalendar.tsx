@@ -4,7 +4,7 @@ import { useState } from 'react'
 import dayjs from 'dayjs'
 import type { ReservationCalendarProps } from '@features/reservations/components/ReservationCalendar/ReservationCalendar.types'
 import { isoToDateConstructor } from '@utils/dates/isoToDateConstructor'
-import { fromISO8601ToHour } from '@utils/dates/fromISO8601ToHOUR'
+import { fromISO8601ToHour } from '@utils/dates/fromISO8601ToHour'
 import updateLocale from 'dayjs/plugin/updateLocale'
 
 dayjs.extend(updateLocale)
@@ -26,8 +26,6 @@ export const ReservationCalendar = ({
 
   const openTimeFormatted = fromISO8601ToHour(openTime)
   const closeTimeFormatted = fromISO8601ToHour(closeTime)
-
-  console.log('daysAvailable', daysAvailable)
 
   const formattedReservations = reservations.map(reservation => ({
     ...reservation,
