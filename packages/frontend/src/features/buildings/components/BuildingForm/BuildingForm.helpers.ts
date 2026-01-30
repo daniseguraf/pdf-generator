@@ -21,17 +21,17 @@ export const buildingFormSchema = z.object({
 })
 
 export const amenitiesOptions = [
-  { value: AmenitiesValues.PARKING, label: 'Estacionamiento' },
-  { value: AmenitiesValues.SECURITY_24_7, label: 'Seguridad 24/7' },
-  { value: AmenitiesValues.ELEVATOR, label: 'Elevador' },
+  { value: AmenitiesValues.PARKING, label: 'Parking' },
+  { value: AmenitiesValues.SECURITY_24_7, label: '24/7 Security' },
+  { value: AmenitiesValues.ELEVATOR, label: 'Elevator' },
   {
     value: AmenitiesValues.WHEELCHAIR_ACCESS,
-    label: 'Acceso para sillas de ruedas',
+    label: 'Wheelchair Access',
   },
   {
     value: AmenitiesValues.WHEELCHAIR_LIFT,
-    label: 'Ascensor para sillas de ruedas',
+    label: 'Wheelchair Lift',
   },
-  { value: AmenitiesValues.FIRE_ALARM, label: 'Alarma de incendio' },
-  { value: AmenitiesValues.CAMERAS, label: 'Cámaras de seguridad' },
+  { value: AmenitiesValues.FIRE_ALARM, label: 'Fire Alarm' },
+  { value: AmenitiesValues.CAMERAS, label: 'Security Cameras' },
 ]

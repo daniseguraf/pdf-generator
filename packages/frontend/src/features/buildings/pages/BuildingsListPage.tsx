@@ -112,7 +112,7 @@ export const BuildingsListPage = () => {
                               <div>
                                 <Text>{name}</Text>
                                 <Text size="sm" c="dimmed">
-                                  {floors} pisos
+                                  {floors} floors
                                 </Text>
                               </div>
                             </Group>

@@ -66,14 +66,14 @@ export const ReservationList = ({
     <>
       <Stack gap="md">
         <Text fw={600} size="lg" mb="md">
-          Reservas
+          Reservations
         </Text>
 
         <Paper shadow="sm" withBorder>
           {isEmptyReservations ? (
             <Alert icon={<InfoIcon size={20} />} color="blue" radius="md">
-              No hay reservas para este espacio. Selecciona un espacio en el
-              calendario para crear una nueva reserva.
+              No reservations for this space. Select a slot in the calendar to
+              create a new reservation.
             </Alert>
           ) : (
             <Table.ScrollContainer minWidth={800}>

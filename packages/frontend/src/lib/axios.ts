@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-// Agregar al inicio del archivo axios.ts
+// Add to the beginning of the axios.ts file
 declare module 'axios' {
   export interface AxiosRequestConfig {
     metadata?: {
@@ -17,7 +17,7 @@ export const api = axios.create({
   },
 })
 
-//Request Interceptor - Agregar token JWT automáticamente
+// Request Interceptor - Automatically add JWT token
 api.interceptors.request.use(
   config => {
     const accessToken = localStorage.getItem('accessToken')
@@ -36,7 +36,7 @@ api.interceptors.request.use(
   error => Promise.reject(error)
 )
 
-//Response Interceptor - Manejo de errores y refresh token
+// Response Interceptor - Error handling and refresh token
 api.interceptors.response.use(
   response => response,
   error => {

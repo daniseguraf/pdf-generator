@@ -76,7 +76,7 @@ export const Header = () => {
                 leftSection={<SignOutIcon size={14} />}
                 onClick={logout}
               >
-                Cerrar Sesión
+                Sign Out
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>

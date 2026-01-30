@@ -88,7 +88,7 @@ export const ReservationsPage = () => {
       <Container size="xl" py="xl">
         <Stack gap="xl">
           <Select
-            label="Seleccionar Área Común"
+            label="Select Common Area"
             data={commonAreaOptions}
             checkIconPosition="right"
             clearable
@@ -118,13 +118,13 @@ export const ReservationsPage = () => {
                   value="calendar"
                   leftSection={<CalendarBlankIcon size={18} weight="duotone" />}
                 >
-                  Calendario
+                  Calendar
                 </Tabs.Tab>
                 <Tabs.Tab
                   value="reservations"
                   leftSection={<ListChecksIcon size={18} weight="duotone" />}
                 >
-                  Mis Reservas (
+                  My Reservations (
                   {reservationsByLoggedUserAndCommonArea?.length ?? 0})
                 </Tabs.Tab>
               </Tabs.List>
@@ -142,7 +142,7 @@ export const ReservationsPage = () => {
               </Tabs.Panel>
 
               <Tabs.Panel value="reservations">
-                <Text>Mis Reservas</Text>
+                <Text>My Reservations</Text>
                 <ReservationList
                   reservations={reservationsByLoggedUserAndCommonArea}
                   areaColor={getCommonAreaColor(selectedCommonArea.type)}

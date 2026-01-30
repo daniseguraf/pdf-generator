@@ -23,7 +23,7 @@ export const Navbar = () => {
             label="Dashboard"
             leftSection={<HouseIcon size={20} />}
             onClick={() => navigate('/')}
-            description="Vista general y estadísticas"
+            description="Overview and statistics"
             active={location.pathname === '/'}
             style={styles}
           />
@@ -34,7 +34,7 @@ export const Navbar = () => {
             label="Buildings"
             leftSection={<BuildingIcon size={20} />}
             onClick={() => navigate('/buildings')}
-            description="Gestión de edificios"
+            description="Building management"
             active={location.pathname === '/buildings'}
             style={styles}
           />
@@ -45,7 +45,7 @@ export const Navbar = () => {
             label="Reservations"
             leftSection={<CalendarIcon size={20} />}
             onClick={() => navigate('/reservations')}
-            description="Reservas de áreas comunes"
+            description="Common area reservations"
             active={location.pathname === '/'}
             style={styles}
           />

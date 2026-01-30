@@ -23,9 +23,9 @@ export const ProtectedRoute = ({
       return (
         <Stack align="center" justify="center" h="100vh">
           <Text size="xl" fw={700}>
-            Acceso denegado
+            Access denied
           </Text>
-          <Text c="dimmed">No tienes permisos para acceder a esta página</Text>
+          <Text c="dimmed">You don't have permission to access this page</Text>
           <Navigate to="/" replace />
         </Stack>
       )

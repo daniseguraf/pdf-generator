@@ -66,7 +66,7 @@ export const LoginPage = () => {
 
         <Paper radius="md" p="xl" withBorder shadow="xl">
           <Title order={2} ta="center" mb="md">
-            Iniciar Sesión
+            Sign In
           </Title>
 
           <form onSubmit={form.onSubmit(handleLogin)}>
@@ -81,8 +81,8 @@ export const LoginPage = () => {
               />
 
               <PasswordInput
-                label="Contraseña"
-                placeholder="Tu contraseña"
+                label="Password"
+                placeholder="Your password"
                 leftSection={<LockIcon size={18} />}
                 size="md"
                 withAsterisk
@@ -97,28 +97,28 @@ export const LoginPage = () => {
                   size="sm"
                   onClick={() => {}}
                 >
-                  ¿Olvidaste tu contraseña?
+                  Forgot your password?
                 </Anchor>
               </Group>
 
               <Button fullWidth size="md" type="submit">
-                Iniciar Sesión
+                Sign In
               </Button>
             </Stack>
           </form>
 
-          <Divider label="O" labelPosition="center" my="lg" />
+          <Divider label="Or" labelPosition="center" my="lg" />
 
           <Text c="dimmed" size="sm" ta="center">
-            ¿No tienes una cuenta?{' '}
+            Don't have an account?{' '}
             <Anchor size="sm" onClick={() => navigate('/signup')}>
-              Crear cuenta
+              Create account
             </Anchor>
           </Text>
         </Paper>
 
         <Text c="white" size="xs" ta="center" mt="xl" opacity={0.8}>
-          © 2026 My Buildings. Sistema de gestión inmobiliaria.
+          © 2026 My Buildings. Real estate management system.
         </Text>
       </Container>
     </Box>

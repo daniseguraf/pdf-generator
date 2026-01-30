@@ -15,7 +15,7 @@ export const AreaSelector = ({
   return (
     <div>
       <Text fw={600} size="lg" mb="md">
-        Selecciona un área común
+        Select a common area
       </Text>
 
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md">
@@ -50,6 +50,6 @@ export const AreaSelector = ({
 //                   color={area.color}
 //                   fullWidth
 //                 >
-//                   Área seleccionada
+//                   Selected area
 //                 </Badge>
 //               )}

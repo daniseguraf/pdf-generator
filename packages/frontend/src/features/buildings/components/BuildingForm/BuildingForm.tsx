@@ -146,23 +146,23 @@ export const BuildingForm = ({
     <Drawer
       opened={opened}
       onClose={handleClose}
-      title={isEdit ? 'Editar Edificio' : 'Crear Nuevo Edificio'}
+      title={isEdit ? 'Edit Building' : 'Create New Building'}
       position="right"
       size="lg"
       padding="xl"
     >
       <Stack gap="md">
         <TextInput
-          label="Nombre del Edificio"
-          placeholder="Ej: Torre Residencial Los Pinos"
+          label="Building Name"
+          placeholder="E.g.: Residential Tower Los Pinos"
           required
           disabled={isFormDisabled}
           {...form.getInputProps('name')}
         />
 
         <TextInput
-          label="Dirección"
-          placeholder="Ej: Av. Principal 123"
+          label="Address"
+          placeholder="E.g.: Main Ave 123"
           required
           disabled={isFormDisabled}
           {...form.getInputProps('address')}
@@ -170,16 +170,16 @@ export const BuildingForm = ({
 
         <Group grow>
           <TextInput
-            label="Distrito"
-            placeholder="Ej: San Isidro"
+            label="District"
+            placeholder="E.g.: San Isidro"
             required
             disabled={isFormDisabled}
             {...form.getInputProps('district')}
           />
 
           <TextInput
-            label="Ciudad"
-            placeholder="Ej: Lima"
+            label="City"
+            placeholder="E.g.: Lima"
             required
             disabled={isFormDisabled}
             {...form.getInputProps('city')}
@@ -188,38 +188,38 @@ export const BuildingForm = ({
 
         <Group grow>
           <TextInput
-            label="Provincia"
-            placeholder="Ej: Lima"
+            label="Province"
+            placeholder="E.g.: Lima"
             required
             disabled={isFormDisabled}
             {...form.getInputProps('province')}
           />
 
           <TextInput
-            label="Código Postal"
-            placeholder="Ej: 15001"
+            label="Postal Code"
+            placeholder="E.g.: 15001"
             disabled={isFormDisabled}
             {...form.getInputProps('postalCode')}
           />
         </Group>
 
         <Select
-          label="Tipo de Propiedad"
-          placeholder="Selecciona el tipo"
+          label="Property Type"
+          placeholder="Select type"
           required
           disabled={isFormDisabled}
           data={[
-            { value: PropertyTypeValues.RESIDENTIAL, label: 'Residencial' },
-            { value: PropertyTypeValues.COMMERCIAL, label: 'Comercial' },
-            { value: PropertyTypeValues.MIXED, label: 'Mixto' },
+            { value: PropertyTypeValues.RESIDENTIAL, label: 'Residential' },
+            { value: PropertyTypeValues.COMMERCIAL, label: 'Commercial' },
+            { value: PropertyTypeValues.MIXED, label: 'Mixed' },
           ]}
           {...form.getInputProps('propertyType')}
         />
 
         <Group grow>
           <NumberInput
-            label="Año de Construcción"
-            placeholder="Ej: 2020"
+            label="Year Built"
+            placeholder="E.g.: 2020"
             required
             min={1800}
             max={new Date().getFullYear()}
@@ -229,8 +229,8 @@ export const BuildingForm = ({
           />
 
           <NumberInput
-            label="Número de Pisos"
-            placeholder="Ej: 10"
+            label="Number of Floors"
+            placeholder="E.g.: 10"
             required
             min={1}
             max={200}
@@ -242,15 +242,15 @@ export const BuildingForm = ({
 
         <Group grow>
           <TextInput
-            label="Teléfono"
-            placeholder="Ej: +51 987 654 321"
+            label="Phone"
+            placeholder="E.g.: +51 987 654 321"
             disabled={isFormDisabled}
             {...form.getInputProps('phoneNumber')}
           />
 
           <TextInput
             label="Email"
-            placeholder="Ej: contacto@edificio.com"
+            placeholder="E.g.: contact@building.com"
             type="email"
             disabled={isFormDisabled}
             {...form.getInputProps('email')}
@@ -258,16 +258,16 @@ export const BuildingForm = ({
         </Group>
 
         <MultiSelect
-          label="Amenidades"
-          placeholder="Selecciona las amenidades"
+          label="Amenities"
+          placeholder="Select amenities"
           data={amenitiesOptions}
           disabled={isFormDisabled}
           {...form.getInputProps('amenities')}
         />
 
         <Textarea
-          label="Descripción"
-          placeholder="Descripción del edificio (opcional)"
+          label="Description"
+          placeholder="Building description (optional)"
           rows={3}
           disabled={isFormDisabled}
           {...form.getInputProps('description')}
@@ -280,11 +280,11 @@ export const BuildingForm = ({
             onClick={handleClose}
             disabled={isFormDisabled}
           >
-            Cancelar
+            Cancel
           </Button>
 
           <Button size="sm" onClick={handleSubmit} loading={isFormDisabled}>
-            {isEdit ? 'Editar Edificio' : 'Crear Edificio'}
+            {isEdit ? 'Edit Building' : 'Create Building'}
           </Button>
         </Group>
       </Stack>

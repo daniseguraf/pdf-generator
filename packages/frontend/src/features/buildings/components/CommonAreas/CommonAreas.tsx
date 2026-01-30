@@ -47,15 +47,15 @@ export const CommonAreas = ({ commonAreas }: CommonAreasProps) => {
       <Container size="xl">
         <Group justify="space-between" mb="xl">
           <div>
-            <Title order={2}>Áreas Comunes</Title>
+            <Title order={2}>Common Areas</Title>
             <Text c="dimmed" size="sm" mt="xs">
-              Gestiona las áreas comunes y espacios compartidos del edificio
+              Manage the building's common areas and shared spaces
             </Text>
           </div>
 
           {hasCommonAreas && (
             <Button leftSection={<PlusIcon size={20} />} onClick={open}>
-              Agregar Área Común
+              Add Common Area
             </Button>
           )}
         </Group>
@@ -68,14 +68,14 @@ export const CommonAreas = ({ commonAreas }: CommonAreasProps) => {
               </Text>
               <div style={{ textAlign: 'center' }}>
                 <Title order={4} mb="xs">
-                  No hay áreas comunes registradas
+                  No common areas registered
                 </Title>
                 <Text c="dimmed" size="sm" mb="lg">
-                  Agrega la primera área común para este edificio
+                  Add the first common area for this building
                 </Text>
               </div>
               <Button leftSection={<PlusIcon size={18} />} onClick={open}>
-                Agregar Área Común
+                Add Common Area
               </Button>
             </Stack>
           </Card>

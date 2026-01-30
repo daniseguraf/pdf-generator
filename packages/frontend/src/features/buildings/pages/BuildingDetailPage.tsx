@@ -42,9 +42,9 @@ export const BuildingDetailPage = () => {
   if (!building) {
     return (
       <Container size="xl" py="xl">
-        <Text>Edificio no encontrado</Text>
+        <Text>Building not found</Text>
         <Button onClick={() => navigate('/')} mt="md">
-          Volver al listado
+          Back to list
         </Button>
       </Container>
     )
@@ -102,15 +102,15 @@ export const BuildingDetailPage = () => {
               value="general"
               leftSection={<BuildingOfficeIcon size={18} />}
             >
-              Información General
+              General Information
             </Tabs.Tab>
 
             <Tabs.Tab value="commonAreas" leftSection={<HouseIcon size={18} />}>
-              Areas Comunes
+              Common Areas
             </Tabs.Tab>
 
             <Tabs.Tab value="amenities" leftSection={<CheckIcon size={18} />}>
-              Amenidades
+              Amenities
             </Tabs.Tab>
           </Tabs.List>
 

@@ -62,7 +62,7 @@ export const CommonAreaCard = ({
 
               {isActive && (
                 <Badge color={getStatusColor(isActive)} variant="dot" size="xs">
-                  {isActive ? 'Activo' : 'Inactivo'}
+                  {isActive ? 'Active' : 'Inactive'}
                 </Badge>
               )}
             </Group>
@@ -81,14 +81,14 @@ export const CommonAreaCard = ({
             </Menu.Target>
             <Menu.Dropdown>
               <Menu.Item leftSection={<PencilIcon />} onClick={onEdit}>
-                Editar
+                Edit
               </Menu.Item>
               <Menu.Item
                 color="red"
                 leftSection={<TrashIcon />}
                 onClick={onDelete}
               >
-                Eliminar
+                Delete
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>
@@ -107,19 +107,19 @@ export const CommonAreaCard = ({
 
         <Group gap="xs">
           <UsersIcon size={16} color="#868e96" />
-          <Text size="sm">Capacidad: {capacity} personas</Text>
+          <Text size="sm">Capacity: {capacity} people</Text>
         </Group>
 
         <Group gap="xs">
           <CalendarIcon size={16} color="#868e96" />
-          <Text size="sm">Máx. {maxHoursPerReservation}h por reserva</Text>
+          <Text size="sm">Max. {maxHoursPerReservation}h per reservation</Text>
         </Group>
       </Stack>
 
       <Divider my={8} />
       <Group justify="space-between">
         <Text size="xs" c="dimmed">
-          Días disponibles:
+          Available days:
         </Text>
         <Group gap={4}>
           {daysAvailable?.map(day => (

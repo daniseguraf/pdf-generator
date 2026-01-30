@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             role: userData.role,
           })
         } catch (error) {
-          console.error('Error al obtener el usuario', error)
+          console.error('Error fetching user', error)
           localStorage.removeItem('accessToken')
           setUser(null)
         } finally {

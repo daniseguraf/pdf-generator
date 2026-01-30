@@ -4,11 +4,11 @@ import { DaysOfWeekValues } from '@my-buildings/shared/index'
 
 export const getAreaLabel = (type: CommonAreas) => {
   const areaLabels: Record<CommonAreas, string> = {
-    [CommonAreasValues.GYM]: 'Gimnasio',
-    [CommonAreasValues.POOL]: 'Piscina',
-    [CommonAreasValues.GRILL_AREA]: 'Área de Parrillas',
-    [CommonAreasValues.CAFETERIA]: 'Cafetería',
-    [CommonAreasValues.EVENT_ROOM]: 'Salón de Eventos',
+    [CommonAreasValues.GYM]: 'Gym',
+    [CommonAreasValues.POOL]: 'Pool',
+    [CommonAreasValues.GRILL_AREA]: 'Grill Area',
+    [CommonAreasValues.CAFETERIA]: 'Cafeteria',
+    [CommonAreasValues.EVENT_ROOM]: 'Event Room',
     [CommonAreasValues.ROOF_TOP]: 'Roof Top',
     [CommonAreasValues.COWORKING]: 'Coworking',
   }
@@ -17,13 +17,13 @@ export const getAreaLabel = (type: CommonAreas) => {
 }
 
 export const dayLabels = {
-  [DaysOfWeekValues.MONDAY]: 'Lunes',
-  [DaysOfWeekValues.TUESDAY]: 'Martes',
-  [DaysOfWeekValues.WEDNESDAY]: 'Miércoles',
-  [DaysOfWeekValues.THURSDAY]: 'Jueves',
-  [DaysOfWeekValues.FRIDAY]: 'Viernes',
-  [DaysOfWeekValues.SATURDAY]: 'Sábado',
-  [DaysOfWeekValues.SUNDAY]: 'Domingo',
+  [DaysOfWeekValues.MONDAY]: 'Monday',
+  [DaysOfWeekValues.TUESDAY]: 'Tuesday',
+  [DaysOfWeekValues.WEDNESDAY]: 'Wednesday',
+  [DaysOfWeekValues.THURSDAY]: 'Thursday',
+  [DaysOfWeekValues.FRIDAY]: 'Friday',
+  [DaysOfWeekValues.SATURDAY]: 'Saturday',
+  [DaysOfWeekValues.SUNDAY]: 'Sunday',
 }
 
 export const getStatusColor = (status: boolean) => {

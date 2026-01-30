@@ -146,7 +146,7 @@ export const CommonAreaForm = ({
     <Drawer
       opened={opened}
       onClose={handleClose}
-      title={isEdit ? 'Editar Área Común' : 'Agregar Área Común'}
+      title={isEdit ? 'Edit Common Area' : 'Add Common Area'}
       position="right"
       size="lg"
       padding="lg"
@@ -154,13 +154,13 @@ export const CommonAreaForm = ({
       <Stack gap="md">
         <Text size="sm" c="dimmed">
           {isEdit
-            ? 'Actualiza la información del área común'
-            : 'Completa la información del área común que deseas agregar'}
+            ? 'Update the common area information'
+            : 'Complete the information for the common area you want to add'}
         </Text>
 
         <Select
-          label="Tipo de Área Común"
-          placeholder="Selecciona el tipo"
+          label="Common Area Type"
+          placeholder="Select type"
           required
           data={commonAreaOptions}
           checkIconPosition="right"
@@ -169,30 +169,30 @@ export const CommonAreaForm = ({
         />
 
         <Textarea
-          label="Descripción"
-          placeholder="Describe el área común y sus características..."
+          label="Description"
+          placeholder="Describe the common area and its features..."
           minRows={3}
           {...form.getInputProps('description')}
         />
 
         <Group grow>
           <NumberInput
-            label="Capacidad"
+            label="Capacity"
             placeholder="20"
             min={1}
             max={100}
-            description="Número máximo de personas"
+            description="Maximum number of people"
             hideControls
             required
             {...form.getInputProps('capacity')}
           />
 
           <NumberInput
-            label="Horas Máximas"
+            label="Maximum Hours"
             placeholder="4"
             min={1}
             max={24}
-            description="Por reservación"
+            description="Per reservation"
             hideControls
             required
             {...form.getInputProps('maxHoursPerReservation')}
@@ -201,7 +201,7 @@ export const CommonAreaForm = ({
 
         <Group grow>
           <TimeInput
-            label="Hora de Apertura"
+            label="Opening Time"
             placeholder="08:00"
             leftSection={<ClockIcon size={16} />}
             required
@@ -209,7 +209,7 @@ export const CommonAreaForm = ({
           />
 
           <TimeInput
-            label="Hora de Cierre"
+            label="Closing Time"
             placeholder="22:00"
             leftSection={<ClockIcon size={16} />}
             required
@@ -218,8 +218,8 @@ export const CommonAreaForm = ({
         </Group>
 
         <MultiSelect
-          label="Días Disponibles"
-          placeholder="Selecciona los días"
+          label="Available Days"
+          placeholder="Select days"
           data={dayOptions}
           searchable
           clearable
@@ -229,10 +229,10 @@ export const CommonAreaForm = ({
 
         <Group justify="flex-end" mt="xl">
           <Button variant="light" onClick={handleClose}>
-            Cancelar
+            Cancel
           </Button>
           <Button onClick={handleSubmit}>
-            {isEdit ? 'Guardar Cambios' : 'Agregar Área Común'}
+            {isEdit ? 'Save Changes' : 'Add Common Area'}
           </Button>
         </Group>
       </Stack>

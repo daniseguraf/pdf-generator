@@ -69,7 +69,7 @@ export const ReservationForm = ({
       onClose={onClose}
       title={
         <Text fw={600} size="lg">
-          Nueva Reserva
+          New Reservation
         </Text>
       }
       size="md"
@@ -93,7 +93,7 @@ export const ReservationForm = ({
                 <Group gap="xs" mb={4}>
                   <CalendarIcon size={16} color={color} />
                   <Text size="sm">
-                    {dayjs(selectedSlot.start).format('dddd, D [de] MMMM YYYY')}
+                    {dayjs(selectedSlot.start).format('dddd, MMMM D, YYYY')}
                   </Text>
                 </Group>
                 <Group gap="xs">
@@ -109,34 +109,34 @@ export const ReservationForm = ({
         )}
 
         <TextInput
-          label="Título de la reserva"
-          placeholder="Ej: Reunión familiar, Cumpleaños, etc."
+          label="Reservation title"
+          placeholder="E.g.: Family reunion, Birthday, etc."
           {...form.getInputProps('title')}
         />
 
         <Textarea
-          label="Notas"
-          placeholder="Notas adicionales de la reserva"
+          label="Notes"
+          placeholder="Additional reservation notes"
           {...form.getInputProps('notes')}
         />
 
         <NumberInput
-          label="Número de asistentes"
+          label="Number of attendees"
           placeholder="0"
           {...form.getInputProps('attendees')}
           min={1}
           max={selectedArea?.capacity || 50}
           required
           hideControls
-          description={`Capacidad máxima: ${selectedArea?.capacity || 0} personas`}
+          description={`Maximum capacity: ${selectedArea?.capacity || 0} people`}
         />
 
         <Group justify="flex-end" mt="md">
           <Button variant="subtle" onClick={onClose}>
-            Cancelar
+            Cancel
           </Button>
 
-          <Button onClick={handleSubmit}>Crear Reserva</Button>
+          <Button onClick={handleSubmit}>Create Reservation</Button>
         </Group>
       </Stack>
     </Modal>

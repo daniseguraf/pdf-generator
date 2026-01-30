@@ -13,10 +13,10 @@ export const BuildingsEmptyState = ({
       <BuildingApartmentIcon size={64} strokeWidth={1.5} color="#adb5bd" />
       <div style={{ textAlign: 'center' }}>
         <Title order={3} mb="xs">
-          No existen edificios creados
+          No buildings created yet
         </Title>
         <Text c="dimmed" size="sm" mb="xl">
-          Comienza creando tu primer edificio para gestionar tus propiedades
+          Start by creating your first building to manage your properties
         </Text>
       </div>
       <Button
@@ -24,7 +24,7 @@ export const BuildingsEmptyState = ({
         size="md"
         onClick={onCreateBuilding}
       >
-        Crear Primer Edificio
+        Create First Building
       </Button>
     </Stack>
   </Center>

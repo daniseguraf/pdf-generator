@@ -33,7 +33,7 @@ export const GeneralInformation = ({
                 </ThemeIcon>
                 <div>
                   <Text size="sm" c="dimmed">
-                    Pisos
+                    Floors
                   </Text>
                   <Text size="xl">{floors}</Text>
                 </div>
@@ -46,7 +46,7 @@ export const GeneralInformation = ({
               </ThemeIcon>
               <div>
                 <Text size="sm" c="dimmed">
-                  Unidades
+                  Units
                 </Text>
                 <Text size="xl">100</Text>
               </div>
@@ -59,7 +59,7 @@ export const GeneralInformation = ({
                 </ThemeIcon>
                 <div>
                   <Text size="sm" c="dimmed">
-                    Año de Construcción
+                    Year Built
                   </Text>
                   <Text size="xl">{yearBuilt}</Text>
                 </div>
@@ -78,7 +78,7 @@ export const GeneralInformation = ({
               </Avatar>
               <div>
                 <Text size="sm" c="dimmed">
-                  Manager Responsable
+                  Responsible Manager
                 </Text>
                 <Text size="lg">
                   {manager?.firstName} {manager?.lastName}
