@@ -23,11 +23,9 @@ import {
   getAreaLabel,
   getStatusColor,
 } from '@features/buildings/components/CommonAreas/CommonAreas.helpers'
-import { fromISO8601To24HFormat } from '@utils/dates/fromISO8601To24HFormat'
-import { TimeValue } from '@mantine/dates'
 import type { CommonAreaCardProps } from '@components/CommonAreaCard/CommonAreaCard.types'
 import { getCommonAreaColor } from '@utils/getCommonAreaColor'
-
+import { ScheduleRange } from '@components/ScheduleRange/ScheduleRange'
 export const CommonAreaCard = ({
   type,
   isActive,
@@ -98,11 +96,7 @@ export const CommonAreaCard = ({
       <Stack gap="xs">
         <Group gap="xs">
           <ClockIcon size={16} color="#868e96" />
-          <Text size="sm">
-            <TimeValue value={fromISO8601To24HFormat(openTime)} format="12h" />{' '}
-            -{' '}
-            <TimeValue value={fromISO8601To24HFormat(closeTime)} format="12h" />
-          </Text>
+          <ScheduleRange openTime={openTime} closeTime={closeTime} />
         </Group>
 
         <Group gap="xs">

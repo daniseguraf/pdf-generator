@@ -16,12 +16,13 @@ import {
   Modal,
   Button,
 } from '@mantine/core'
-import { TimeValue } from '@mantine/dates'
 import { useDisclosure } from '@mantine/hooks'
 import { InfoIcon, TrashIcon } from '@phosphor-icons/react'
-import { fromISO8601To24HFormat } from '@utils/dates/fromISO8601To24HFormat'
 import dayjs from 'dayjs'
 import { useState } from 'react'
+import localeData from 'dayjs/plugin/localeData'
+
+dayjs.extend(localeData)
 
 export const ReservationList = ({
   reservations,
@@ -95,7 +96,6 @@ export const ReservationList = ({
                     ({
                       id,
                       title,
-                      date,
                       startTime,
                       endTime,
                       status,
@@ -106,6 +106,7 @@ export const ReservationList = ({
                         <Table.Td>
                           <Text size="sm">{id}</Text>
                         </Table.Td>
+
                         <Table.Td>
                           <Text size="sm" lineClamp={2}>
                             {title ?? 'No title'}
@@ -113,23 +114,12 @@ export const ReservationList = ({
                         </Table.Td>
 
                         <Table.Td>
-                          <Text size="sm">
-                            {dayjs(date).format('DD/MM/YYYY')}
-                          </Text>
+                          <Text size="sm">{dayjs(startTime).format('ll')}</Text>
                         </Table.Td>
 
                         <Table.Td>
-                          <Group gap={4}>
-                            <TimeValue
-                              value={fromISO8601To24HFormat(startTime)}
-                              format="12h"
-                            />
-                            <Text size="sm">-</Text>
-                            <TimeValue
-                              value={fromISO8601To24HFormat(endTime)}
-                              format="12h"
-                            />
-                          </Group>
+                          {dayjs(startTime).format('h:mm A')} -{' '}
+                          {dayjs(endTime).format('h:mm A')}
                         </Table.Td>
 
                         <Table.Td>

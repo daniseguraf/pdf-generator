@@ -32,7 +32,7 @@ import type {
 } from '@features/buildings/types/commonAreas.types'
 import { useUpdateCommonArea } from '@features/buildings/hooks/mutations/commonAreas/useUpdateCommonArea'
 import { ClockIcon } from '@phosphor-icons/react'
-import { fromISO8601To24HFormat } from '@utils/dates/fromISO8601To24HFormat'
+import { getHourFromISO8601 } from '@utils/dates/getHourFromISO8601'
 
 export const CommonAreaForm: FC<CommonAreaFormProps> = ({
   opened,
@@ -46,8 +46,8 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
 
   const isEdit = !!commonArea
 
-  const openTime = fromISO8601To24HFormat(commonArea?.openTime ?? '')
-  const closeTime = fromISO8601To24HFormat(commonArea?.closeTime ?? '')
+  const openTime = getHourFromISO8601(commonArea?.openTime ?? '')
+  const closeTime = getHourFromISO8601(commonArea?.closeTime ?? '')
 
   const initialValues = {
     type: commonArea?.type ?? '',
@@ -90,6 +90,9 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
         : undefined,
     } as CreateCommonAreaDto
 
+    console.log('createCommonAreaDto', createCommonAreaDto)
+
+    return
     createCommonArea(createCommonAreaDto, {
       onSuccess: () => {
         handleClose()

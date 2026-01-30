@@ -152,7 +152,6 @@ export type Reservation = {
   commonArea?: CommonArea
   userId: number
   user?: User
-  date: Date
   startTime: Date
   endTime: Date
   status: ReservationStatus

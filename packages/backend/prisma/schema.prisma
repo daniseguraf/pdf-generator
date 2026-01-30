@@ -91,7 +91,6 @@ model Reservation {
   commonArea   CommonArea        @relation(fields: [commonAreaId], references: [id], onDelete: Cascade)
   userId       Int               @map("user_id")
   user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  date         DateTime          @map("date") @db.Date
   startTime    DateTime          @map("start_time") @db.Timestamptz(3)
   endTime      DateTime          @map("end_time") @db.Timestamptz(3)
   status       ReservationStatus @default(IN_REVIEW)
