@@ -1,6 +1,6 @@
 import type { User } from '@my-buildings/shared'
 
-export type GeneralInformationProps = {
+export interface GeneralInformationProps {
   floors?: number
   yearBuilt?: number
   manager?: User

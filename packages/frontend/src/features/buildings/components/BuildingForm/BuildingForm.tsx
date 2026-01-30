@@ -14,7 +14,7 @@ import type {
   BuildingFormProps,
   BuildingFormValues,
 } from '../../types/building.types'
-import { useEffect, type FC } from 'react'
+import { useEffect } from 'react'
 import { PropertyTypeValues, type Building } from '@my-buildings/shared/index'
 import { useCreateBuilding } from '@features/buildings/hooks/mutations/buildings/useCreateBuilding'
 import {
@@ -24,12 +24,12 @@ import {
 import { zod4Resolver } from 'mantine-form-zod-resolver'
 import { useUpdateBuilding } from '@features/buildings/hooks/mutations/buildings/useUpdateBuilding'
 
-export const BuildingForm: FC<BuildingFormProps> = ({
+export const BuildingForm = ({
   opened,
   onClose,
   building,
   isEdit,
-}) => {
+}: BuildingFormProps) => {
   const { mutate: createBuilding, isPending: isCreatePending } =
     useCreateBuilding()
 
@@ -202,14 +202,6 @@ export const BuildingForm: FC<BuildingFormProps> = ({
             {...form.getInputProps('postalCode')}
           />
         </Group>
-
-        {/* <Select
-          label="Gerente del Edificio"
-          placeholder="Selecciona el gerente"
-          required
-          data={managerOptions}
-          {...form.getInputProps('managerId')}
-        /> */}
 
         <Select
           label="Tipo de Propiedad"

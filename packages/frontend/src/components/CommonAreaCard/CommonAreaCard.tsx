@@ -55,13 +55,19 @@ export const CommonAreaCard = ({
           <Text size="xl">{getAreaIcon(type)}</Text>
 
           <Stack gap={4}>
-            {isActive && (
-              <Badge color={getStatusColor(isActive)} variant="dot" size="xs">
-                {isActive ? 'Activo' : 'Inactivo'}
+            <Group gap={4}>
+              <Badge variant="default" size="xs">
+                ID: {id}
               </Badge>
-            )}
+
+              {isActive && (
+                <Badge color={getStatusColor(isActive)} variant="dot" size="xs">
+                  {isActive ? 'Activo' : 'Inactivo'}
+                </Badge>
+              )}
+            </Group>
             <Text fw={600} size="lg">
-              {getAreaLabel(type)} - {id}
+              {getAreaLabel(type)}
             </Text>
           </Stack>
         </Group>

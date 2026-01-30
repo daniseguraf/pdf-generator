@@ -6,6 +6,7 @@ import { Badge, Group, Paper, Stack } from '@mantine/core'
 import { MapPinIcon } from '@phosphor-icons/react'
 
 export const BuildingCardInfo = ({
+  id,
   propertyType,
   isActive,
   name,
@@ -19,6 +20,9 @@ export const BuildingCardInfo = ({
     <Paper shadow="md" radius="md" withBorder mb="xl" p="lg">
       <Stack gap={4}>
         <Group gap={8}>
+          <Badge variant="default" size="md">
+            ID: {id}
+          </Badge>
           <Badge color={getTypeColor(propertyType)} variant="light" size="md">
             {propertyType}
           </Badge>

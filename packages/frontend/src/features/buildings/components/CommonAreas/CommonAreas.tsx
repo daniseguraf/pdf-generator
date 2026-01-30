@@ -14,12 +14,12 @@ import { type CommonArea } from '@my-buildings/shared/index'
 import { useDisclosure } from '@mantine/hooks'
 
 import { CommonAreaForm } from '@features/buildings/components/CommonAreaForm/CommonAreaForm'
-import { useState, type FC } from 'react'
+import { useState } from 'react'
 import { useDeleteCommonArea } from '@features/buildings/hooks/mutations/commonAreas/useDeleteCommonArea'
 import { CommonAreaCard } from '@components/CommonAreaCard/CommonAreaCard'
 import type { CommonAreasProps } from '@features/buildings/components/CommonAreas/CommonAreas.types'
 
-export const CommonAreas: FC<CommonAreasProps> = ({ commonAreas }) => {
+export const CommonAreas = ({ commonAreas }: CommonAreasProps) => {
   const [opened, { open, close }] = useDisclosure(false)
   const [selectedCommonArea, setSelectedCommonArea] = useState<
     CommonArea | undefined

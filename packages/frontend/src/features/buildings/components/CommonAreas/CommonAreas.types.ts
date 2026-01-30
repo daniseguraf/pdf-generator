@@ -1,5 +1,5 @@
 import type { CommonArea } from '@my-buildings/shared/index'
 
-export type CommonAreasProps = {
+export interface CommonAreasProps {
   commonAreas: CommonArea[]
 }

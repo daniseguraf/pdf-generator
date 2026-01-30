@@ -51,6 +51,7 @@ export const BuildingDetailPage = () => {
   }
 
   const {
+    id: buildingId,
     name,
     propertyType,
     isActive,
@@ -83,6 +84,7 @@ export const BuildingDetailPage = () => {
         </Group>
 
         <BuildingCardInfo
+          id={buildingId}
           propertyType={propertyType}
           isActive={isActive}
           name={name}

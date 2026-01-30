@@ -7,7 +7,7 @@ export type AuthResponse = components['schemas']['AuthResponse']
 
 export type AuthenticatedUser = Omit<AuthResponse, 'accessToken'>
 
-export type AuthContextType = {
+export interface AuthContextType {
   login: (credentials: LoginUserDto) => Promise<void>
   logout: () => void
   user: AuthenticatedUser | null
@@ -15,6 +15,6 @@ export type AuthContextType = {
   isAuthenticated: boolean
 }
 
-export type AuthProviderProps = {
+export interface AuthProviderProps {
   children: ReactNode
 }

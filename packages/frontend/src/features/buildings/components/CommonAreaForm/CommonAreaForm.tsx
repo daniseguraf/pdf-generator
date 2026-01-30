@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react'
+import { useEffect } from 'react'
 import {
   Drawer,
   Stack,
@@ -32,30 +32,36 @@ import type {
 } from '@features/buildings/types/commonAreas.types'
 import { useUpdateCommonArea } from '@features/buildings/hooks/mutations/commonAreas/useUpdateCommonArea'
 import { ClockIcon } from '@phosphor-icons/react'
-import { getHourFromISO8601 } from '@utils/dates/getHourFromISO8601'
+import dayjs from 'dayjs'
 
-export const CommonAreaForm: FC<CommonAreaFormProps> = ({
+export const CommonAreaForm = ({
   opened,
   onClose,
   commonArea,
-}) => {
+}: CommonAreaFormProps) => {
   const { id } = useParams()
   const buildingId = Number(id)
   const { mutate: createCommonArea } = useCreateCommonArea()
   const { mutate: updateCommonArea } = useUpdateCommonArea()
 
   const isEdit = !!commonArea
+  console.log('commonArea', commonArea)
 
-  const openTime = getHourFromISO8601(commonArea?.openTime ?? '')
-  const closeTime = getHourFromISO8601(commonArea?.closeTime ?? '')
+  const openTime = commonArea?.openTime
+    ? dayjs.utc(commonArea?.openTime).format('HH:mm')
+    : undefined
+  const closeTime = commonArea?.closeTime
+    ? dayjs.utc(commonArea?.closeTime).format('HH:mm')
+    : undefined
+  console.log('openTime', openTime)
 
   const initialValues = {
     type: commonArea?.type ?? '',
     description: commonArea?.description ?? undefined,
     capacity: commonArea?.capacity ?? undefined,
     maxHoursPerReservation: commonArea?.maxHoursPerReservation ?? undefined,
-    openTime: openTime ?? undefined,
-    closeTime: closeTime ?? undefined,
+    openTime,
+    closeTime,
     daysAvailable: commonArea?.daysAvailable ?? undefined,
   }
 
@@ -92,7 +98,6 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
 
     console.log('createCommonAreaDto', createCommonAreaDto)
 
-    return
     createCommonArea(createCommonAreaDto, {
       onSuccess: () => {
         handleClose()
@@ -178,6 +183,7 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
             max={100}
             description="Número máximo de personas"
             hideControls
+            required
             {...form.getInputProps('capacity')}
           />
 
@@ -188,6 +194,7 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
             max={24}
             description="Por reservación"
             hideControls
+            required
             {...form.getInputProps('maxHoursPerReservation')}
           />
         </Group>
@@ -197,6 +204,7 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
             label="Hora de Apertura"
             placeholder="08:00"
             leftSection={<ClockIcon size={16} />}
+            required
             {...form.getInputProps('openTime')}
           />
 
@@ -204,6 +212,7 @@ export const CommonAreaForm: FC<CommonAreaFormProps> = ({
             label="Hora de Cierre"
             placeholder="22:00"
             leftSection={<ClockIcon size={16} />}
+            required
             {...form.getInputProps('closeTime')}
           />
         </Group>

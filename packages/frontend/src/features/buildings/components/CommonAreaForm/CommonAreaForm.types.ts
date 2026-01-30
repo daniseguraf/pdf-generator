@@ -1,13 +1,12 @@
 import type { CommonArea, DaysOfWeek } from '@my-buildings/shared/index'
 
-export type CommonAreaFormProps = {
+export interface CommonAreaFormProps {
   opened: boolean
   onClose: () => void
   commonArea?: CommonArea
-  isEdit?: boolean
 }
 
-export type CommonAreaFormValues = {
+export interface CommonAreaFormValues {
   type: string
   description?: string
   capacity?: number
