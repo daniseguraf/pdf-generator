@@ -6,6 +6,7 @@ import type { ReservationCalendarProps } from '@features/reservations/components
 import { isoToDateConstructor } from '@utils/dates/isoToDateConstructor'
 import { fromISO8601ToHour } from '@utils/dates/fromISO8601ToHour'
 import updateLocale from 'dayjs/plugin/updateLocale'
+import type { Reservation } from '@my-buildings/shared/index'
 
 dayjs.extend(updateLocale)
 dayjs.updateLocale('en', {
@@ -20,6 +21,7 @@ export const ReservationCalendar = ({
   openTime,
   closeTime,
   daysAvailable,
+  currentUserId,
 }: ReservationCalendarProps) => {
   const [view, setView] = useState<View>('week')
   const [date, setDate] = useState(new Date())
@@ -33,17 +35,21 @@ export const ReservationCalendar = ({
     end: isoToDateConstructor(reservation.endTime),
   }))
 
-  const eventStyleGetter = () => {
+  const slotStyles = (reservation: Reservation) => {
+    const isCurrentUserReservation = currentUserId === reservation.userId
+    const backgroundColor = isCurrentUserReservation ? areaColor : '#9e9e9e'
+    const opacity = isCurrentUserReservation ? 0.9 : 0.8
+
     return {
       style: {
-        backgroundColor: areaColor,
+        backgroundColor,
         borderRadius: '6px',
-        opacity: 0.9,
         color: 'white',
         border: 'none',
         display: 'block',
         fontSize: '0.875rem',
         fontWeight: 500,
+        opacity,
       },
     }
   }
@@ -53,11 +59,6 @@ export const ReservationCalendar = ({
     const slotHour = slotStart.getHours()
     const openHour = openTimeFormatted.getHours()
     const closeHour = closeTimeFormatted.getHours()
-
-    // Validar que esté dentro del rango
-    if (slotHour < openHour || slotHour >= closeHour) {
-      return // No hacer nada si está fuera del rango
-    }
 
     onSelectSlot(slotInfo)
   }
@@ -79,7 +80,7 @@ export const ReservationCalendar = ({
         style={{ height: '100%' }}
         selectable
         onSelectSlot={handleSelectSlot}
-        eventPropGetter={eventStyleGetter}
+        eventPropGetter={slotStyles}
         view={view}
         onView={setView}
         date={date}

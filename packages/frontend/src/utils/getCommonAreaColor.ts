@@ -8,8 +8,8 @@ export const getCommonAreaColor = (type: CommonAreas): string => {
     [CommonAreasValues.CAFETERIA]: '#2f9e44',
     [CommonAreasValues.EVENT_ROOM]: '#f59f00',
     [CommonAreasValues.ROOF_TOP]: '#ae3ec9',
-    [CommonAreasValues.COWORKING]: '#f27d00',
+    [CommonAreasValues.COWORKING]: '#03d1ca',
   }
 
-  return colors[type] || '#000000'
+  return colors[type] || '#7d7d7d'
 }

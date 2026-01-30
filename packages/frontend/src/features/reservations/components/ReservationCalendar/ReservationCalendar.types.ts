@@ -6,6 +6,7 @@ export interface ReservationCalendarProps {
   openTime: Date
   closeTime: Date
   daysAvailable: DaysOfWeek[]
+  currentUserId: number
 
   onSelectSlot: (slotInfo: { start: Date; end: Date }) => void
 }

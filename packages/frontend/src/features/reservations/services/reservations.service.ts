@@ -16,4 +16,8 @@ export const reservationsServices = {
 
     return response.data
   },
+
+  deleteReservation: async (reservationId: number): Promise<void> => {
+    await api.delete(`/reservations/${reservationId}`)
+  },
 }

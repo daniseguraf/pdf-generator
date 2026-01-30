@@ -6,7 +6,7 @@ import {
 import { CreateReservationDto } from './dto/create-reservation.dto'
 import { UpdateReservationDto } from './dto/update-reservation.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { User } from 'generated/prisma/client'
+import { ReservationStatus, User } from 'generated/prisma/client'
 
 @Injectable()
 export class ReservationsService {
@@ -105,7 +105,9 @@ export class ReservationsService {
             openTime: true,
             closeTime: true,
             daysAvailable: true,
-            reservations: true,
+            reservations: {
+              where: { deletedAt: null },
+            },
           },
           orderBy: {
             id: 'desc',
@@ -129,8 +131,21 @@ export class ReservationsService {
     return `This action updates a #${id} reservation`
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} reservation`
+  async remove(reservationId: number) {
+    const reservation = await this.prismaService.reservation.findUnique({
+      where: { id: reservationId },
+    })
+
+    if (!reservation) {
+      throw new NotFoundException(
+        `Reservation with id ${reservationId} not found`
+      )
+    }
+
+    return await this.prismaService.reservation.update({
+      where: { id: reservationId },
+      data: { deletedAt: new Date(), status: ReservationStatus.CANCELLED },
+    })
   }
 
   /**

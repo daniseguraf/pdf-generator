@@ -10,9 +10,12 @@ import { ReservationCalendar } from '@features/reservations/components/Reservati
 import { ReservationForm } from '@features/reservations/components/ReservationForm/ReservationForm'
 import { getCommonAreaColor } from '@utils/getCommonAreaColor'
 import { ReservationList } from '@features/reservations/components/ReservationList/ReservationList'
+import { useAuth } from '@features/auth/hooks/useAuth'
 
 export const ReservationsPage = () => {
   const { isPending, data: building } = useBuildingByResidentId()
+  const { user } = useAuth()
+
   const [openedForm, { open: openForm, close: closeForm }] =
     useDisclosure(false)
 
@@ -49,6 +52,11 @@ export const ReservationsPage = () => {
   const selectedCommonArea = commonAreas?.find(
     area => area.id === selectedAreaId
   )
+
+  const reservationsByLoggedUserAndCommonArea =
+    selectedCommonArea?.reservations?.filter(
+      reservation => reservation.userId === user?.id
+    ) ?? []
 
   const handleSelectSlot = (slotInfo: { start: Date; end: Date }) => {
     setSelectedSlot(slotInfo)
@@ -116,7 +124,8 @@ export const ReservationsPage = () => {
                   value="reservations"
                   leftSection={<ListChecksIcon size={18} weight="duotone" />}
                 >
-                  Mis Reservas ({selectedCommonArea.reservations?.length ?? 0})
+                  Mis Reservas (
+                  {reservationsByLoggedUserAndCommonArea?.length ?? 0})
                 </Tabs.Tab>
               </Tabs.List>
 
@@ -128,13 +137,14 @@ export const ReservationsPage = () => {
                   openTime={selectedCommonArea.openTime}
                   closeTime={selectedCommonArea.closeTime}
                   daysAvailable={selectedCommonArea.daysAvailable}
+                  currentUserId={user?.id ?? 0}
                 />
               </Tabs.Panel>
 
               <Tabs.Panel value="reservations">
                 <Text>Mis Reservas</Text>
                 <ReservationList
-                  reservations={selectedCommonArea.reservations ?? []}
+                  reservations={reservationsByLoggedUserAndCommonArea}
                   areaColor={getCommonAreaColor(selectedCommonArea.type)}
                 />
               </Tabs.Panel>

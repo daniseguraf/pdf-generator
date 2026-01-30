@@ -99,6 +99,7 @@ model Reservation {
   attendees    Int
   createdAt    DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt    DateTime          @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt    DateTime?         @map("deleted_at") @db.Timestamptz(3)
 
   @@index([commonAreaId, startTime, endTime])
   @@index([userId])
@@ -109,6 +110,7 @@ enum ReservationStatus {
   IN_REVIEW
   CONFIRMED
   CANCELLED
+  FINISHED
 }
 
 enum PropertyType {

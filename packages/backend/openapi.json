@@ -279,8 +279,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Register a new user",
         "tags": [
           "auth"
@@ -645,12 +653,14 @@
         "tags": [
           "Reservations"
         ]
-      },
+      }
+    },
+    "/api/v1/reservations/{reservationId}": {
       "delete": {
         "operationId": "ReservationsController_remove",
         "parameters": [
           {
-            "name": "id",
+            "name": "reservationId",
             "required": true,
             "in": "path",
             "schema": {

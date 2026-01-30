@@ -40,6 +40,7 @@ export const CommonAreaCard = ({
   onDelete,
   onEdit,
   withActions,
+  id,
 }: CommonAreaCardProps) => {
   const color = getCommonAreaColor(type)
 
@@ -62,7 +63,7 @@ export const CommonAreaCard = ({
               </Badge>
             )}
             <Text fw={600} size="lg">
-              {getAreaLabel(type)}
+              {getAreaLabel(type)} - {id}
             </Text>
           </Stack>
         </Group>

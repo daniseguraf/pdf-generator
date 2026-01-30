@@ -48,9 +48,9 @@ export class ReservationsController {
     return this.reservationsService.update(+id, updateReservationDto)
   }
 
-  @Delete(':id')
-  @Auth(UserRole.RESIDENT)
-  remove(@Param('id') id: string) {
-    return this.reservationsService.remove(+id)
+  @Delete(':reservationId')
+  @Auth(UserRole.RESIDENT, UserRole.MANAGER)
+  remove(@Param('reservationId') reservationId: string) {
+    return this.reservationsService.remove(+reservationId)
   }
 }
