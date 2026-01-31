@@ -4,7 +4,7 @@ import { useRole } from '@features/auth/hooks/useRole'
 import { LoginPage } from '@features/auth/pages/LoginPage/LoginPage'
 import { BuildingDetailPage } from '@features/buildings/pages/BuildingDetailPage'
 import { BuildingsListPage } from '@features/buildings/pages/BuildingsListPage'
-import { ReservationsPage } from '@features/reservations/pages/ReservationsPage'
+import { ReservationsPage } from '@features/reservations/pages/ReservationsPage/ReservationsPage'
 import { UserRoleValues } from '@my-buildings/shared/index'
 import { Navigate, Route, Routes } from 'react-router'
 

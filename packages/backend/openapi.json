@@ -1140,12 +1140,6 @@
             "example": 1,
             "description": "Common area ID"
           },
-          "date": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2026-01-20T00:00:00.000Z",
-            "description": "Reservation date"
-          },
           "startTime": {
             "format": "date-time",
             "type": "string",
@@ -1171,7 +1165,6 @@
         },
         "required": [
           "commonAreaId",
-          "date",
           "startTime",
           "endTime",
           "attendees"
@@ -1189,12 +1182,6 @@
             "type": "number",
             "example": 1,
             "description": "Common area ID"
-          },
-          "date": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2026-01-20T00:00:00.000Z",
-            "description": "Reservation date"
           },
           "startTime": {
             "format": "date-time",

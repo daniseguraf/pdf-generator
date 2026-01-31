@@ -35,7 +35,9 @@ export const Navbar = () => {
             leftSection={<BuildingIcon size={20} />}
             onClick={() => navigate('/buildings')}
             description="Building management"
-            active={location.pathname === '/buildings'}
+            active={
+              location.pathname === '/' || location.pathname === '/buildings'
+            }
             style={styles}
           />
         )}

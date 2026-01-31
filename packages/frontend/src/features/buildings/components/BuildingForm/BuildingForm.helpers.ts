@@ -7,7 +7,6 @@ export const buildingFormSchema = z.object({
   district: z.string().min(1),
   city: z.string().min(1),
   province: z.string().min(1),
-  // managerId: z.string().min(1),
   propertyType: z.enum([
     PropertyTypeValues.RESIDENTIAL,
     PropertyTypeValues.COMMERCIAL,

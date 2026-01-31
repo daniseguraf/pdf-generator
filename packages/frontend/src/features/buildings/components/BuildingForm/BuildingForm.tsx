@@ -9,7 +9,7 @@ import {
   Textarea,
   TextInput,
 } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { useForm, type FormValidateInput } from '@mantine/form'
 import type {
   BuildingFormProps,
   BuildingFormValues,
@@ -66,8 +66,8 @@ export const BuildingForm = ({
     province: province ?? '',
     postalCode: postalCode ?? undefined,
     propertyType: propertyType ?? PropertyTypeValues.RESIDENTIAL,
-    yearBuilt: yearBuilt ?? '',
-    floors: floors ?? '',
+    yearBuilt: yearBuilt ?? undefined,
+    floors: floors ?? undefined,
     phoneNumber: phoneNumber ?? undefined,
     email: email ?? undefined,
     description: description ?? undefined,
@@ -77,7 +77,9 @@ export const BuildingForm = ({
   const form = useForm<BuildingFormValues>({
     validateInputOnBlur: true,
     initialValues,
-    validate: zod4Resolver(buildingFormSchema),
+    validate: zod4Resolver(
+      buildingFormSchema
+    ) as unknown as FormValidateInput<BuildingFormValues>,
   })
 
   const handleClose = () => {

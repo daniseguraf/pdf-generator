@@ -108,7 +108,7 @@ export const BuildingsListPage = () => {
                         <Table.Tr key={id}>
                           <Table.Td>
                             <Group>
-                              <Avatar radius="md" size="lg" />
+                              <Avatar radius="md" name={name} color="blue" />
                               <div>
                                 <Text>{name}</Text>
                                 <Text size="sm" c="dimmed">

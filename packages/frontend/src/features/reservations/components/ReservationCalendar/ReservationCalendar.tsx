@@ -10,7 +10,7 @@ import type { Reservation } from '@my-buildings/shared/index'
 
 dayjs.extend(updateLocale)
 dayjs.updateLocale('en', {
-  weekStart: 1, // 1 = Lunes, 0 = Domingo
+  weekStart: 1,
 })
 const localizer = dayjsLocalizer(dayjs)
 
@@ -20,7 +20,6 @@ export const ReservationCalendar = ({
   onSelectSlot,
   openTime,
   closeTime,
-  daysAvailable,
   currentUserId,
 }: ReservationCalendarProps) => {
   const [view, setView] = useState<View>('week')
@@ -54,15 +53,6 @@ export const ReservationCalendar = ({
     }
   }
 
-  const handleSelectSlot = slotInfo => {
-    const slotStart = new Date(slotInfo.start)
-    const slotHour = slotStart.getHours()
-    const openHour = openTimeFormatted.getHours()
-    const closeHour = closeTimeFormatted.getHours()
-
-    onSelectSlot(slotInfo)
-  }
-
   return (
     <Card
       padding="xs"
@@ -79,7 +69,7 @@ export const ReservationCalendar = ({
         titleAccessor="title"
         style={{ height: '100%' }}
         selectable
-        onSelectSlot={handleSelectSlot}
+        onSelectSlot={onSelectSlot}
         eventPropGetter={slotStyles}
         view={view}
         onView={setView}

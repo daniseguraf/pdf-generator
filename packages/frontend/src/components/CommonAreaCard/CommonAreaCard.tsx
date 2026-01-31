@@ -56,12 +56,12 @@ export const CommonAreaCard = ({
 
           <Stack gap={4}>
             <Group gap={4}>
-              <Badge variant="default" size="xs">
+              <Badge variant="default" size="sm">
                 ID: {id}
               </Badge>
 
               {isActive && (
-                <Badge color={getStatusColor(isActive)} variant="dot" size="xs">
+                <Badge color={getStatusColor(isActive)} variant="dot" size="sm">
                   {isActive ? 'Active' : 'Inactive'}
                 </Badge>
               )}
@@ -95,9 +95,11 @@ export const CommonAreaCard = ({
         )}
       </Group>
 
-      <Text size="sm" c="dimmed" mb="md">
-        {description}
-      </Text>
+      {description && (
+        <Text size="sm" c="dimmed" mb="md">
+          {description}
+        </Text>
+      )}
 
       <Stack gap="xs">
         <Group gap="xs">
@@ -116,19 +118,21 @@ export const CommonAreaCard = ({
         </Group>
       </Stack>
 
-      <Divider my={8} />
-      <Group justify="space-between">
-        <Text size="xs" c="dimmed">
-          Available days:
-        </Text>
-        <Group gap={4}>
-          {daysAvailable?.map(day => (
-            <Badge key={day} size="xs" variant="light" color="blue">
-              {dayLabels[day].slice(0, 3)}
-            </Badge>
-          ))}
+      {daysAvailable.length > 0 && <Divider my={8} />}
+      {daysAvailable.length > 0 && (
+        <Group justify="space-between">
+          <Text size="xs" c="dimmed">
+            Available days:
+          </Text>
+          <Group gap={4}>
+            {daysAvailable?.map(day => (
+              <Badge key={day} size="xs" variant="light" color="blue">
+                {dayLabels[day].slice(0, 3)}
+              </Badge>
+            ))}
+          </Group>
         </Group>
-      </Group>
+      )}
     </Card>
   )
 }

@@ -56,11 +56,11 @@ export class CreateBuildingDto {
   })
   @IsOptional()
   @IsEmail()
-  @Transform(({ value }) =>
-    typeof value === 'string'
+  @Transform(({ value }) => {
+    return typeof value === 'string'
       ? value.trim().toLowerCase() || undefined
       : undefined
-  )
+  })
   email?: string
 
   @ApiProperty({

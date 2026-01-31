@@ -8,7 +8,6 @@ import {
   Text,
   Group,
   Badge,
-  Alert,
   Paper,
   Table,
   Stack,
@@ -17,10 +16,11 @@ import {
   Button,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { InfoIcon, TrashIcon } from '@phosphor-icons/react'
+import { TrashIcon } from '@phosphor-icons/react'
 import dayjs from 'dayjs'
 import { useState } from 'react'
 import localeData from 'dayjs/plugin/localeData'
+import { NoElementsAvailable } from '@components/NoElementsAvailable'
 
 dayjs.extend(localeData)
 
@@ -71,10 +71,7 @@ export const ReservationList = ({
 
         <Paper shadow="sm" withBorder>
           {isEmptyReservations ? (
-            <Alert icon={<InfoIcon size={20} />} color="blue" radius="md">
-              No reservations for this space. Select a slot in the calendar to
-              create a new reservation.
-            </Alert>
+            <NoElementsAvailable message="No reservations for this space. Select a slot in the calendar to create a new reservation." />
           ) : (
             <Table.ScrollContainer minWidth={800}>
               <Table verticalSpacing="xs" striped withColumnBorders>

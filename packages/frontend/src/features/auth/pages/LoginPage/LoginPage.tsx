@@ -7,13 +7,10 @@ import {
   PasswordInput,
   Button,
   Group,
-  Anchor,
   Stack,
-  Divider,
   Center,
   Box,
 } from '@mantine/core'
-import { useNavigate } from 'react-router'
 import {
   BuildingApartmentIcon,
   LockIcon,
@@ -26,7 +23,6 @@ import type { LoginUserDto } from '@features/auth/types/auth.types'
 import { useLogin } from '@features/auth/hooks/mutations/useLogin'
 
 export const LoginPage = () => {
-  const navigate = useNavigate()
   const loginMutation = useLogin()
 
   const form = useForm<LoginUserDto>({
@@ -89,7 +85,8 @@ export const LoginPage = () => {
                 {...form.getInputProps('password')}
               />
 
-              <Group justify="space-between" mt="xs">
+              {/* TODO: Add forgot password functionality */}
+              {/* <Group justify="space-between" mt="xs">
                 <Anchor
                   component="button"
                   type="button"
@@ -99,7 +96,7 @@ export const LoginPage = () => {
                 >
                   Forgot your password?
                 </Anchor>
-              </Group>
+              </Group> */}
 
               <Button fullWidth size="md" type="submit">
                 Sign In
@@ -107,14 +104,15 @@ export const LoginPage = () => {
             </Stack>
           </form>
 
-          <Divider label="Or" labelPosition="center" my="lg" />
+          {/* TODO: Add register functionality */}
+          {/* <Divider label="Or" labelPosition="center" my="lg" />
 
           <Text c="dimmed" size="sm" ta="center">
             Don't have an account?{' '}
             <Anchor size="sm" onClick={() => navigate('/signup')}>
               Create account
             </Anchor>
-          </Text>
+          </Text> */}
         </Paper>
 
         <Text c="white" size="xs" ta="center" mt="xl" opacity={0.8}>

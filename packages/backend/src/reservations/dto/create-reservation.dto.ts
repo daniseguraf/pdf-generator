@@ -16,15 +16,6 @@ export class CreateReservationDto {
   commonAreaId: number
 
   @ApiProperty({
-    example: '2026-01-20T00:00:00.000Z',
-    description: 'Reservation date',
-  })
-  @Type(() => Date)
-  @IsDate()
-  @IsNotEmpty()
-  date: Date
-
-  @ApiProperty({
     example: '2026-01-20T14:00:00.000Z',
     description: 'Reservation start time (ISO 8601 format)',
   })

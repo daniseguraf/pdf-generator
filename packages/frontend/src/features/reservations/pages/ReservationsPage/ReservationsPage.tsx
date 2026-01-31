@@ -11,6 +11,7 @@ import { ReservationForm } from '@features/reservations/components/ReservationFo
 import { getCommonAreaColor } from '@utils/getCommonAreaColor'
 import { ReservationList } from '@features/reservations/components/ReservationList/ReservationList'
 import { useAuth } from '@features/auth/hooks/useAuth'
+import type { CalendarSlot } from '@features/reservations/pages/ReservationsPage/ReservationsPage.types'
 
 export const ReservationsPage = () => {
   const { isPending, data: building } = useBuildingByResidentId()
@@ -23,16 +24,14 @@ export const ReservationsPage = () => {
     undefined
   )
 
-  const [selectedSlot, setSelectedSlot] = useState<{
-    start: Date
-    end: Date
-  } | null>(null)
+  const [selectedSlot, setSelectedSlot] = useState<CalendarSlot | null>(null)
 
   if (isPending || !building) {
     return <span>Loading...</span>
   }
 
   const {
+    id,
     propertyType,
     isActive: buildingIsActive,
     name,
@@ -58,7 +57,7 @@ export const ReservationsPage = () => {
       reservation => reservation.userId === user?.id
     ) ?? []
 
-  const handleSelectSlot = (slotInfo: { start: Date; end: Date }) => {
+  const handleSelectSlot = (slotInfo: CalendarSlot) => {
     setSelectedSlot(slotInfo)
     openForm()
   }
@@ -71,6 +70,7 @@ export const ReservationsPage = () => {
   return (
     <Container fluid>
       <BuildingCardInfo
+        id={id}
         propertyType={propertyType}
         isActive={buildingIsActive}
         name={name}
@@ -82,13 +82,14 @@ export const ReservationsPage = () => {
       />
 
       <Title order={1} size="h2">
-        Reservations
+        Make a Reservation
       </Title>
 
-      <Container size="xl" py="xl">
+      <Container fluid py="lg">
         <Stack gap="xl">
           <Select
-            label="Select Common Area"
+            label="Common Area"
+            placeholder="Select a common area"
             data={commonAreaOptions}
             checkIconPosition="right"
             clearable
@@ -112,7 +113,7 @@ export const ReservationsPage = () => {
           )}
 
           {selectedCommonArea && (
-            <Tabs defaultValue="calendar" variant="pills" radius="md">
+            <Tabs defaultValue="calendar" variant="outline" radius="md">
               <Tabs.List mb="lg">
                 <Tabs.Tab
                   value="calendar"

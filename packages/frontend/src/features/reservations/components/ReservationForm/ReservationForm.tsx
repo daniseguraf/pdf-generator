@@ -44,12 +44,9 @@ export const ReservationForm = ({
     const createReservationDto = {
       ...form.values,
       commonAreaId: selectedArea.id,
-      date: selectedSlot?.start.toISOString(),
       startTime: selectedSlot?.start.toISOString(),
       endTime: selectedSlot?.end.toISOString(),
     } as CreateReservationDto
-
-    console.log('createReservationDto', createReservationDto)
 
     createReservation(createReservationDto, {
       onSuccess: () => {

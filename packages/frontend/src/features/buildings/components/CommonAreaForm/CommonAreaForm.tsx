@@ -14,7 +14,7 @@ import type {
   CommonAreaFormProps,
   CommonAreaFormValues,
 } from '@features/buildings/components/CommonAreaForm/CommonAreaForm.types'
-import { useForm } from '@mantine/form'
+import { useForm, type FormValidateInput } from '@mantine/form'
 import {
   commonAreaFormSchema,
   commonAreaOptions,
@@ -68,7 +68,9 @@ export const CommonAreaForm = ({
   const form = useForm<CommonAreaFormValues>({
     validateInputOnBlur: true,
     initialValues,
-    validate: zod4Resolver(commonAreaFormSchema),
+    validate: zod4Resolver(
+      commonAreaFormSchema
+    ) as FormValidateInput<CommonAreaFormValues>,
   })
 
   const handleSubmit = () => {
@@ -95,8 +97,6 @@ export const CommonAreaForm = ({
         ? `${form.values.closeTime}:00`
         : undefined,
     } as CreateCommonAreaDto
-
-    console.log('createCommonAreaDto', createCommonAreaDto)
 
     createCommonArea(createCommonAreaDto, {
       onSuccess: () => {

@@ -94,7 +94,6 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] `services/auth.service.ts`
   - [x] `context/AuthContext.tsx`
   - [x] `pages/LoginPage.tsx`
-  - [ ] `pages/RegisterPage.tsx`
 
 - [x] Crear servicio `services/auth.service.ts`
   - [x] `login(dto: LoginDto)` - POST /auth/login
@@ -637,11 +636,11 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ### Backend - Reservations Module
 
-- [ ] Generar módulo
+- [x] Generar módulo
   - [x] `nest g resource reservations --no-spec`
 
-- [ ] Crear DTOs en `src/reservations/dto/`
-  - [ ] `CreateReservationDto`
+- [x] Crear DTOs en `src/reservations/dto/`
+  - [x] `CreateReservationDto`
     ```typescript
     commonAreaId: number;
     residentId: number;
@@ -649,14 +648,6 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
     endTime: Date;
     attendees?: number;
     notes?: string;
-    ```
-  - [ ] `FilterReservationsDto`
-    ```typescript
-    residentId?: number;
-    commonAreaId?: number;
-    buildingId?: number;
-    startDate?: Date;
-    endDate?: Date;
     ```
 
 - [ ] Implementar validaciones en `reservations.service.ts`

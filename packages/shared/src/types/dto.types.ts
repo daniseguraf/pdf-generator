@@ -246,10 +246,26 @@ export interface paths {
         get: operations["ReservationsController_findOne"];
         put?: never;
         post?: never;
-        delete: operations["ReservationsController_remove"];
+        delete?: never;
         options?: never;
         head?: never;
         patch: operations["ReservationsController_update"];
+        trace?: never;
+    };
+    "/api/v1/reservations/{reservationId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["ReservationsController_remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
 }
@@ -573,12 +589,6 @@ export interface components {
             commonAreaId: number;
             /**
              * Format: date-time
-             * @description Reservation date
-             * @example 2026-01-20T00:00:00.000Z
-             */
-            date: string;
-            /**
-             * Format: date-time
              * @description Reservation start time (ISO 8601 format)
              * @example 2026-01-20T14:00:00.000Z
              */
@@ -611,12 +621,6 @@ export interface components {
              * @example 1
              */
             commonAreaId?: number;
-            /**
-             * Format: date-time
-             * @description Reservation date
-             * @example 2026-01-20T00:00:00.000Z
-             */
-            date?: string;
             /**
              * Format: date-time
              * @description Reservation start time (ISO 8601 format)
@@ -898,6 +902,13 @@ export interface operations {
                     "application/json": components["schemas"]["AuthResponse"];
                 };
             };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
     AuthController_login: {
@@ -1173,26 +1184,6 @@ export interface operations {
             };
         };
     };
-    ReservationsController_remove: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
     ReservationsController_update: {
         parameters: {
             query?: never;
@@ -1207,6 +1198,26 @@ export interface operations {
                 "application/json": components["schemas"]["UpdateReservationDto"];
             };
         };
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                reservationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
         responses: {
             /** @description Unauthorized */
             401: {

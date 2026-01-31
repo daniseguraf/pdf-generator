@@ -12,7 +12,6 @@ import {
 import {
   BuildingOfficeIcon,
   CalendarIcon,
-  StackIcon,
   UsersIcon,
 } from '@phosphor-icons/react'
 
@@ -39,18 +38,6 @@ export const GeneralInformation = ({
                 </div>
               </Group>
             )}
-
-            <Group>
-              <ThemeIcon size="xl" variant="light" color="violet">
-                <StackIcon size={24} />
-              </ThemeIcon>
-              <div>
-                <Text size="sm" c="dimmed">
-                  Units
-                </Text>
-                <Text size="xl">100</Text>
-              </div>
-            </Group>
 
             {yearBuilt && (
               <Group>

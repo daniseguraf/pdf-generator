@@ -23,8 +23,8 @@ export interface BuildingFormValues {
   province: string
   postalCode?: string
   propertyType: PropertyType
-  yearBuilt: number | string
-  floors: number | string
+  yearBuilt?: number
+  floors?: number
   phoneNumber?: string
   email?: string
   description?: string

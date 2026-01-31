@@ -27,6 +27,7 @@ import { amenitiesDictionary } from '@utils/amenities.dictionary'
 import { CommonAreas } from '@features/buildings/components/CommonAreas/CommonAreas'
 import { GeneralInformation } from '@features/buildings/components/GeneralInformation/GeneralInformation'
 import { BuildingCardInfo } from '@components/BuildingCardInfo/BuildingCardInfo'
+import { NoElementsAvailable } from '@components/NoElementsAvailable'
 
 export const BuildingDetailPage = () => {
   const { id } = useParams()
@@ -67,6 +68,8 @@ export const BuildingDetailPage = () => {
     commonAreas = [],
   } = building
 
+  const isAmenitiesEmpty = amenities.length === 0
+
   return (
     <>
       <Container size="xl">
@@ -96,7 +99,7 @@ export const BuildingDetailPage = () => {
         />
 
         {/* Tabs */}
-        <Tabs defaultValue="general" variant="outline">
+        <Tabs defaultValue="commonAreas" variant="outline">
           <Tabs.List mb="xl">
             <Tabs.Tab
               value="general"
@@ -127,33 +130,37 @@ export const BuildingDetailPage = () => {
           </Tabs.Panel>
 
           <Tabs.Panel value="amenities">
-            <Grid>
-              <Grid.Col span={{ base: 12, md: 6 }}>
-                <Card shadow="sm" padding="lg" radius="md" withBorder>
-                  <Title order={3} mb="lg">
-                    Available Amenities
-                  </Title>
-                  {amenities?.length > 0 && (
-                    <>
-                      <List
-                        spacing="md"
-                        icon={
-                          <ThemeIcon color="teal" size={24} radius="xl">
-                            <CheckIcon size={16} />
-                          </ThemeIcon>
-                        }
-                      >
-                        {amenities.map(amenity => (
-                          <List.Item key={amenity}>
-                            <Text>{amenitiesDictionary[amenity]}</Text>
-                          </List.Item>
-                        ))}
-                      </List>
-                    </>
-                  )}
-                </Card>
-              </Grid.Col>
-            </Grid>
+            {isAmenitiesEmpty ? (
+              <NoElementsAvailable message="No amenities available for this building." />
+            ) : (
+              <Grid>
+                <Grid.Col span={{ base: 12, md: 6 }}>
+                  <Card shadow="sm" padding="lg" radius="md" withBorder>
+                    <Title order={3} mb="lg">
+                      Available Amenities
+                    </Title>
+                    {amenities?.length > 0 && (
+                      <>
+                        <List
+                          spacing="md"
+                          icon={
+                            <ThemeIcon color="teal" size={24} radius="xl">
+                              <CheckIcon size={16} />
+                            </ThemeIcon>
+                          }
+                        >
+                          {amenities.map(amenity => (
+                            <List.Item key={amenity}>
+                              <Text>{amenitiesDictionary[amenity]}</Text>
+                            </List.Item>
+                          ))}
+                        </List>
+                      </>
+                    )}
+                  </Card>
+                </Grid.Col>
+              </Grid>
+            )}
           </Tabs.Panel>
         </Tabs>
       </Container>
