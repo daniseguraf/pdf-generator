@@ -129,12 +129,6 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] Mostrar errores con notificaciones
   - [x] Al éxito: guardar token, navegar a /
 
-- [ ] Crear `pages/RegisterPage.tsx`
-  - [ ] Campos: email, password, confirmPassword, firstName, lastName
-  - [ ] Validación: passwords match
-  - [ ] useMutation para register
-  - [ ] Al éxito: auto-login o navegar a /login
-
 - [x] Crear `components/ProtectedRoute.tsx`
 
 - [x] Actualizar rutas en `src/app/routes/`
@@ -204,7 +198,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] `hooks/mutations/useUpdateBuilding.ts`
     - [x] Agregar notificaciones similares
 
-- [ ] Mejorar componentes existentes
+- [x] Mejorar componentes existentes
   - [x] `components/BuildingForm/BuildingForm.tsx`
     - [x] Verificar validaciones completas
     - [x] Loading state en botón submit
@@ -326,7 +320,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## 🔒 FASE 3.5: Mejoras de Seguridad y Autenticación
+## 🔒 FASE 4: Mejoras de Seguridad y Autenticación
 
 > **Objetivo:** Fortalecer la seguridad de la aplicación antes de implementar funcionalidades críticas
 
@@ -630,7 +624,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## 📅 FASE 4: Sistema de Reservaciones (3-4 días)
+## 📅 FASE 5: Sistema de Reservaciones (3-4 días)
 
 > **Objetivo:** Reservar áreas comunes con validaciones
 
@@ -783,7 +777,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## 🌐 FASE 5: Despliegue (1-2 días)
+## 🌐 FASE 6: Despliegue (1-2 días)
 
 ### Backend - Preparación
 
@@ -915,7 +909,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## 📝 FASE 6: Polish y README (1 día)
+## 📝 FASE 7: Polish y README (1 día)
 
 ### Frontend - UX Final
 
@@ -1127,3 +1121,11 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 - ✅ CI/CD automático
 
 ---
+
+## Nice to have
+
+- [ ] Crear `pages/RegisterPage.tsx`
+  - [ ] Campos: email, password, confirmPassword, firstName, lastName
+  - [ ] Validación: passwords match
+  - [ ] useMutation para register
+  - [ ] Al éxito: auto-login o navegar a /login
