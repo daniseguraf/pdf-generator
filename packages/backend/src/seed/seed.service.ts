@@ -34,6 +34,7 @@ export class SeedService {
 
     const users = await Promise.all(
       usersData.map(user => {
+        // eslint-disable-next-line unused-imports/no-unused-vars
         const { buildingId, ...userData } = user
 
         return this.prismaService.user.create({

@@ -1,15 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common'
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common'
 import { ReservationsService } from './reservations.service'
 import { CreateReservationDto } from './dto/create-reservation.dto'
-import { UpdateReservationDto } from './dto/update-reservation.dto'
 import { UserRole } from 'generated/prisma/enums'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { GetUser } from 'src/common/decorators/get-user.decorator'
@@ -39,14 +30,15 @@ export class ReservationsController {
     return this.reservationsService.findOne(+id)
   }
 
-  @Patch(':id')
-  @Auth(UserRole.RESIDENT)
-  update(
-    @Param('id') id: string,
-    @Body() updateReservationDto: UpdateReservationDto
-  ) {
-    return this.reservationsService.update(+id, updateReservationDto)
-  }
+  // TODO: Implement update reservation status
+  // @Patch(':id')
+  // @Auth(UserRole.RESIDENT)
+  // update(
+  //   @Param('id') id: string,
+  //   @Body() updateReservationDto: UpdateReservationDto
+  // ) {
+  //   return this.reservationsService.update(+id, updateReservationDto)
+  // }
 
   @Delete(':reservationId')
   @Auth(UserRole.RESIDENT, UserRole.MANAGER)

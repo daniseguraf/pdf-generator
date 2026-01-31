@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common'
 import { CreateReservationDto } from './dto/create-reservation.dto'
-import { UpdateReservationDto } from './dto/update-reservation.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { ReservationStatus, User } from 'generated/prisma/client'
 
@@ -127,9 +126,10 @@ export class ReservationsService {
     return `This action returns a #${id} reservation`
   }
 
-  update(id: number, updateReservationDto: UpdateReservationDto) {
-    return `This action updates a #${id} reservation`
-  }
+  // TODO: Implement update reservation status
+  // update(id: number, updateReservationDto: UpdateReservationDto) {
+  //   return `This action updates a #${id} reservation`
+  // }
 
   async remove(reservationId: number) {
     const reservation = await this.prismaService.reservation.findUnique({
