@@ -617,42 +617,6 @@
         "tags": [
           "Reservations"
         ]
-      },
-      "patch": {
-        "operationId": "ReservationsController_update",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateReservationDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "tags": [
-          "Reservations"
-        ]
       }
     },
     "/api/v1/reservations/{reservationId}": {
@@ -1169,43 +1133,6 @@
           "endTime",
           "attendees"
         ]
-      },
-      "UpdateReservationDto": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "example": "Reservation title",
-            "description": "Reservation title"
-          },
-          "commonAreaId": {
-            "type": "number",
-            "example": 1,
-            "description": "Common area ID"
-          },
-          "startTime": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2026-01-20T14:00:00.000Z",
-            "description": "Reservation start time (ISO 8601 format)"
-          },
-          "endTime": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2026-01-20T15:00:00.000Z",
-            "description": "Reservation end time (ISO 8601 format)"
-          },
-          "notes": {
-            "type": "string",
-            "example": "Reservation notes",
-            "description": "Reservation notes"
-          },
-          "attendees": {
-            "type": "number",
-            "example": 1,
-            "description": "Number of attendees"
-          }
-        }
       }
     }
   }

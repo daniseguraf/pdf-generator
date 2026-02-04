@@ -15,7 +15,7 @@
     "build:backend": "pnpm --filter @pdf-generator/backend build",
     "build:frontend": "pnpm --filter @pdf-generator/frontend build",
     "lint": "pnpm --color run -r lint",
-     "format": "prettier --write \"packages/**/*.{ts,tsx,js,jsx,json,css,scss,md}\" \"*.{json,md}\"",
+    "format": "prettier --write \"packages/**/*.{ts,tsx,js,jsx,json,css,scss,md}\" \"*.{json,md}\"",
     "format:check": "prettier --check \"packages/**/*.{ts,tsx,js,jsx,json,css,scss,md}\" \"*.{json,md}\"",
     "format:fix": "pnpm format"
   },
@@ -34,5 +34,8 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-unused-imports": "^4.3.0",
     "prettier": "3.8.1"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
   }
 }

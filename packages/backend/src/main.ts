@@ -2,10 +2,15 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { Logger, ValidationPipe } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { ConfigService } from '@nestjs/config'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   app.enableCors()
+
+  const configService = app.get(ConfigService)
+  const environment = configService.getOrThrow<string>('environment')
+  const port = configService.getOrThrow<number>('port')
 
   const logger = new Logger()
 
@@ -18,7 +23,7 @@ async function bootstrap() {
       transformOptions: {
         enableImplicitConversion: true,
       },
-      disableErrorMessages: process.env.NODE_ENV === 'production',
+      disableErrorMessages: environment === 'production',
     })
   )
 
@@ -31,7 +36,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api/docs', app, document)
 
-  if (process.env.NODE_ENV === 'development') {
+  if (environment === 'development') {
     const fs = await import('fs')
     const path = await import('path')
     fs.writeFileSync(
@@ -40,8 +45,8 @@ async function bootstrap() {
     )
   }
 
-  await app.listen(process.env.PORT ?? 3000)
-  logger.log(`App running on port ${process.env.PORT}`)
+  await app.listen(port)
+  logger.log(`App running on port ${port}`)
 }
 bootstrap().catch(err => {
   console.error(err)
