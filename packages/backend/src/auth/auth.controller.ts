@@ -14,7 +14,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  @Auth(UserRole.MANAGER)
+  @Auth(UserRole.ADMIN)
   @ApiOperation({ summary: 'Register a new user' })
   @ApiResponse({
     status: 201,
