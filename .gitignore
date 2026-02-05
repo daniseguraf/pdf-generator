@@ -26,5 +26,7 @@ coverage
 EOF
 .env
 .env.local
+.env.prod
+
 
 postgres
