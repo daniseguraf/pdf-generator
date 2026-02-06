@@ -1,38 +1,19 @@
-# Plan MVP - Sistema de Gestión de Edificios (Portfolio Fullstack)
+# Sistema de Gestión de Edificios
 
 ## 🎯 Objetivo
 
-Crear un sistema funcional y desplegado que demuestre habilidades fullstack completas. Cada fase implementa un feature completo (Backend + Frontend) para tener funcionalidad demostrable desde el inicio.
+Crear un sistema funcional y desplegado que demuestre habilidades fullstack completas. Cada fase implementa un feature completo (Backend + Frontend).
 
 ---
 
-## 🏗️ FASE 1: Autenticación y Login
+## 🏗️ FASE 1: Autenticación y Login ✅
 
 > **Objetivo:** Sistema de autenticación completo funcionando end-to-end
 
 ### Backend - User Model y Auth
 
 - [x] Actualizar Prisma Schema
-  - [x] Agregar modelo User:
-
-    ```prisma
-    model User {
-      id        Int      @id @default(autoincrement())
-      email     String   @unique
-      password  String
-      firstName String   @map("first_name")
-      lastName  String   @map("last_name")
-      role      UserRole @default(RESIDENT)
-      isActive  Boolean  @default(true) @map("is_active")
-      createdAt DateTime @default(now()) @map("created_at")
-      updatedAt DateTime @updatedAt @map("updated_at")
-
-      @@map("users")
-    }
-    ```
-
-  - [x] Ejecutar migración: `cd packages/backend && npx prisma migrate dev --name add_user_model`
-
+- [x] Agregar modelo User
 - [x] Instalar dependencias JWT
 
   ```bash
@@ -42,9 +23,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   ```
 
 - [x] Generar módulo Auth
-  - [x] `nest g module auth`
-  - [x] `nest g service auth --no-spec`
-  - [x] `nest g controller auth --no-spec`
+  - [x] `nest g res auth --no-spec`
 
 - [x] Crear DTOs en `src/auth/dto/`
   - [x] `RegisterDto` - email, password, firstName, lastName
@@ -84,8 +63,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 - [x] Registrar en `app.module.ts`
 
-- [x] Configurar CORS en `main.ts`
-  - [x] `app.enableCors({ origin: process.env.CORS_ORIGIN || 'http://localhost:5173', credentials: true })`
+- [x] Configurar CORS básico en `main.ts`
 
 ### Frontend - Auth Module
 
@@ -119,7 +97,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 - [x] Crear AuthContext en `context/AuthContext.tsx`
   - [x] Estado: user, token, isAuthenticated, isLoading
   - [x] Actions: login, logout, checkAuth
-  - [x] Guardar token en localStorage
+  - [x] Guardar token en localStorage (TO DO: despues cambiar a metodo por cookies)
   - [x] useEffect para restaurar sesión al montar
 
 - [x] Crear `pages/LoginPage.tsx`
@@ -132,7 +110,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 - [x] Crear `components/ProtectedRoute.tsx`
 
 - [x] Actualizar rutas en `src/app/routes/`
-  - [x] Rutas públicas: /login, /register
+  - [x] Rutas públicas: /login
   - [x] Rutas protegidas: wrap con ProtectedRoute
 
 - [x] Agregar User Menu en header
@@ -143,7 +121,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ### Testing Fase 1
 
-- [x] Backend: Probar con Postman/Insomnia
+- [x] Backend: Probar con Postman
   - [x] POST /auth/register → crea usuario
   - [x] POST /auth/login → retorna token
   - [x] GET /auth/me → retorna usuario (con token)
@@ -157,7 +135,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## 🏢 FASE 2: Buildings CRUD Completo
+## 🏢 FASE 2: Buildings CRUD Completo ✅
 
 > **Objetivo:** Gestión completa de edificios end-to-end con autenticación
 
@@ -178,14 +156,11 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 - [x] Proteger `buildings.controller.ts`
   - [x] Agregar `@UseGuards(JwtAuthGuard, RolesGuard)` a nivel de controller
-  - [x] `@Roles('ADMIN', 'MANAGER')` en create, update, delete
+  - [x] `@Roles()` en create, update, delete
 
 - [x] Crear seeder inicial `prisma/seed.ts`
   - [x] Crear 1 usuario admin (email: admin@demo.com, pass: password123)
-  - [x] Crear 1 empleado manager
   - [x] Crear 2 edificios
-  - [x] Configurar en package.json: `"prisma": { "seed": "ts-node prisma/seed.ts" }`
-  - [x] Ejecutar: `npx prisma db seed`
 
 ### Frontend - Buildings Module
 
@@ -214,7 +189,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 - [x] Mejorar [`pages/BuildingDetailPage.tsx`](packages/frontend/src/features/buildings/pages/BuildingDetailPage.tsx)
   - [x] useBuilding hook para cargar detalle
-  - [x] Tabs: "Información General", "Áreas Comunes" (vacío por ahora)
+  - [x] Tabs: "Información General", "Áreas Comunes", "Amenities"
   - [x] Botón editar (abre modal)
   - [x] Botón eliminar (confirmación + delete mutation)
 
@@ -224,7 +199,6 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] GET /buildings (con token) → lista edificios
   - [x] POST /buildings (sin token) → 401
   - [x] POST /buildings (con token RESIDENT) → 403
-  - [x] POST /buildings (con token ADMIN) → crea edificio
 
 - [x] Frontend: Probar CRUD completo
   - [x] Login como admin
@@ -236,7 +210,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## 🏛️ FASE 3: Áreas Comunes
+## 🏛️ FASE 3: Áreas Comunes ✅
 
 > **Objetivo:** CRUD de áreas comunes vinculadas a edificios
 
@@ -250,11 +224,9 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] `UpdateCommonAreaDto` - PartialType
   - [x] Agregar decoradores de validación
 
-- [ ] Implementar `common-areas.service.ts`
+- [x] Implementar `common-areas.service.ts`
   - [x] `findAll(buildingId?: number)`
-    - [ ] Si buildingId: filtrar `where: { buildingId }`
-    - [ ] Incluir relación building
-  - [ ] `findOne(id)` - incluir building
+    - [x] Incluir relación building
   - [x] `create(dto)`
     - [x] Validar que buildingId existe
     - [x] Crear área común
@@ -265,10 +237,6 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] `POST /common-areas` - @UseGuards + @Roles('MANAGER')
   - [x] `PATCH /common-areas/:id` - @UseGuards + @Roles('MANAGER')
   - [x] `DELETE /common-areas/:id` - @UseGuards + @Roles('MANAGER')
-
-- [ ] Actualizar seeder
-  - [ ] Agregar 3 áreas comunes por cada edificio
-  - [ ] Ejemplos: "Salón de Eventos", "Piscina", "Gimnasio"
 
 ### Frontend - CommonAreas Module
 
@@ -318,13 +286,500 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] Editar área
   - [x] Eliminar área
 
+## 📅 FASE 4: Sistema de Reservaciones (3-4 días)
+
+> **Objetivo:** Reservar áreas comunes con validaciones
+
+### Backend - Reservations Module
+
+- [x] Generar módulo
+  - [x] `nest g resource reservations --no-spec`
+
+- [x] Crear DTOs en `src/reservations/dto/`
+  - [x] `CreateReservationDto`
+
+- [ ] Implementar validaciones en `reservations.service.ts`
+  - [ ] Helper: `validateNoOverlap(commonAreaId, startTime, endTime)`
+    - [ ] Query reservations con solapamiento
+    - [ ] WHERE commonAreaId AND status != CANCELLED
+    - [ ] AND ((startTime BETWEEN ? AND ?) OR (endTime BETWEEN ? AND ?))
+    - [ ] Si existe: throw ConflictException
+  - [ ] Helper: `validateTimeRules(commonArea, startTime, endTime)`
+    - [ ] Validar horario dentro de openTime/closeTime
+    - [ ] Validar duración <= maxHoursPerReservation
+    - [ ] Validar día está en daysAvailable
+  - [ ] Helper: `validateResident(residentId)`
+    - [ ] Verificar que resident existe
+  - [ ] Helper: `validateCommonArea(commonAreaId)`
+    - [ ] Verificar que existe y isActive = true
+
+- [ ] Implementar métodos en `reservations.service.ts`
+  - [ ] `findAll(filters: FilterReservationsDto)`
+    - [ ] Query con where dinámico según filtros
+    - [ ] Include: commonArea, resident
+    - [ ] OrderBy: startTime desc
+  - [ ] `findOne(id)` - con relaciones
+  - [ ] `create(dto)`
+    - [ ] Ejecutar todas las validaciones
+    - [ ] Si pasan: crear reservación con status CONFIRMED
+  - [ ] `cancel(id, userId)`
+    - [ ] Verificar que reservación existe
+    - [ ] Verificar que userId es el owner
+    - [ ] Actualizar status a CANCELLED
+  - [ ] `getAvailableSlots(commonAreaId: number, date: Date)`
+    - [ ] Obtener commonArea con horarios
+    - [ ] Generar slots desde openTime hasta closeTime
+    - [ ] Filtrar slots ocupados por reservaciones existentes
+    - [ ] Retornar array de slots disponibles
+
+- [ ] Implementar `reservations.controller.ts`
+  - [ ] `GET /reservations` - con @Query(FilterReservationsDto)
+  - [ ] `GET /reservations/:id`
+  - [ ] `POST /reservations` - @UseGuards(JwtAuthGuard)
+  - [ ] `PATCH /reservations/:id/cancel` - @UseGuards + validar ownership
+  - [ ] `GET /reservations/available-slots` - @Query(commonAreaId, date)
+
+- [ ] Registrar en `app.module.ts`
+
+- [ ] Actualizar seeder
+  - [ ] Crear 2 residentes
+  - [ ] Crear 2-3 reservaciones de ejemplo
+
+### Frontend - Reservations Module
+
+- [ ] Crear estructura `features/reservations/`
+  - [ ] `types/reservation.types.ts`
+  - [ ] `services/reservations.service.ts`
+  - [ ] `hooks/queries/useReservations.ts`
+  - [ ] `hooks/queries/useAvailableSlots.ts`
+  - [ ] `hooks/mutations/useCreateReservation.ts`
+  - [ ] `hooks/mutations/useCancelReservation.ts`
+  - [ ] `components/ReservationCalendar.tsx`
+  - [ ] `components/ReservationForm.tsx`
+  - [ ] `components/ReservationCard.tsx`
+  - [ ] `components/ReservationsList.tsx`
+  - [ ] `pages/ReservationsPage.tsx`
+
+- [ ] Implementar tipos
+  - [ ] Interface Reservation
+  - [ ] Interface CreateReservationDto
+  - [ ] Interface AvailableSlot
+  - [ ] Enum ReservationStatus
+
+- [ ] Implementar servicio
+  - [ ] `getReservations(filters)`
+  - [ ] `getReservation(id)`
+  - [ ] `createReservation(dto)`
+  - [ ] `cancelReservation(id)`
+  - [ ] `getAvailableSlots(commonAreaId, date)`
+
+- [ ] Implementar hooks
+  - [ ] `useReservations(filters)` - useQuery
+  - [ ] `useAvailableSlots(commonAreaId, date)` - useQuery habilitado condicionalmente
+  - [ ] `useCreateReservation()` - useMutation con notificaciones
+  - [ ] `useCancelReservation()` - useMutation con confirmación
+
+- [ ] Crear `components/ReservationCalendar.tsx`
+  - [ ] Usar Calendar de Mantine
+  - [ ] Mostrar días con reservaciones (indicador visual)
+  - [ ] onClick en día: abrir modal de reservación
+
+- [ ] Crear `components/ReservationForm.tsx`
+  - [ ] Select: Edificio (useBuildings)
+  - [ ] Select: Área Común (useCommonAreas filtrado por buildingId)
+  - [ ] DatePicker: Fecha
+  - [ ] TimeInput: Hora inicio
+  - [ ] TimeInput: Hora fin
+  - [ ] NumberInput: Asistentes
+  - [ ] Textarea: Notas
+  - [ ] useAvailableSlots: mostrar slots disponibles al seleccionar área y fecha
+  - [ ] Validación: hora fin > hora inicio
+  - [ ] Submit: useCreateReservation
+
+- [ ] Crear `components/ReservationCard.tsx`
+  - [ ] Card con info: área común, fecha, horario
+  - [ ] Badge: status (CONFIRMED, CANCELLED)
+  - [ ] Botón "Cancelar" si status = CONFIRMED
+
+- [ ] Crear `components/ReservationsList.tsx`
+  - [ ] Stack de ReservationCard
+  - [ ] Filtros: edificio, área común
+  - [ ] Empty state
+
+- [ ] Mejorar [`pages/ReservationsPage.tsx`](packages/frontend/src/features/buildings/pages/ReservationsPage.tsx)
+  - [ ] Grid con 2 columnas
+  - [ ] Columna izquierda: ReservationCalendar
+  - [ ] Columna derecha: ReservationsList ("Mis Reservaciones")
+  - [ ] Botón: "Nueva Reservación" (abre modal con ReservationForm)
+  - [ ] useReservations filtrado por userId actual
+
+### Testing Fase 4
+
+- [ ] Backend
+  - [ ] POST /reservations con datos válidos → crea
+  - [ ] POST /reservations con overlap → 409 Conflict
+  - [ ] POST /reservations fuera de horario → 400 Bad Request
+  - [ ] GET /reservations/available-slots → retorna slots
+
+- [ ] Frontend
+  - [ ] Abrir página de reservaciones
+  - [ ] Seleccionar edificio y área común
+  - [ ] Ver slots disponibles
+  - [ ] Crear reservación
+  - [ ] Ver en "Mis Reservaciones"
+  - [ ] Cancelar reservación
+
 ---
+
+## 🌐 FASE 6: Despliegue (1-2 días) ✅
+
+### Backend - Preparación
+
+- [x] Configurar variables de entorno
+  - [x] Crear `.env.example`
+    ```
+    DATABASE_URL=
+    JWT_SECRET=
+    NODE_ENV=development
+    PORT=3000
+    CORS_ORIGIN=http://localhost:5173
+    ```
+
+- [x] Verificar scripts en `package.json`
+  - [x] `"build": "nest build"`
+  - [x] `"start:prod": "node dist/main.js"`
+  - [x] `"prisma:deploy": "npx prisma migrate deploy"`
+
+- [ ] Configurar main.ts para producción
+  - [ ] CORS: leer desde env
+  - [x] Global prefix: '/api' (opcional)
+  - [x] ValidationPipe global
+
+### Backend - Deploy Railway
+
+- [x] Crear cuenta en Railway (railway.app)
+
+- [x] Crear nuevo proyecto
+  - [x] Connect GitHub repository
+  - [x] Seleccionar rama: main
+
+- [x] Agregar PostgreSQL
+  - [x] New → Database → PostgreSQL
+  - [x] Variable DATABASE_URL se genera automáticamente
+
+- [x] Configurar servicio backend
+  - [x] Root Directory: `packages/backend`
+  - [x] Build Command: `pnpm install && pnpm run build`
+  - [x] Start Command: `pnpm run start:prod`
+
+- [x] Agregar variables de entorno
+  - [x] `DATABASE_URL` (ya existe)
+  - [x] `JWT_SECRET` - generar: `openssl rand -base64 32`
+  - [x] `NODE_ENV=production`
+  - [x] `PORT=3000`
+  - [x] `CORS_ORIGIN` (actualizar después con URL de Vercel)
+
+- [x] Deploy
+  - [x] Push a GitHub → auto-deploy
+  - [x] O manual: "Deploy Now"
+
+- [x] Ejecutar migraciones
+  - [x] Desde Railway CLI o dashboard
+  - [x] `npx prisma migrate deploy`
+
+- [x] Verificar
+  - [x] Abrir URL de Railway
+  - [x] Probar: GET /api (si configuraste prefix)
+  - [x] Probar: POST /auth/login
+
+### Frontend - Preparación
+
+- [x] Configurar env
+  - [x] Crear `.env.example`
+    ```
+    VITE_API_URL=http://localhost:3000
+    ```
+  - [x] Crear `.env.production`
+    ```
+    VITE_API_URL=https://tu-backend.railway.app
+    ```
+
+- [x] Verificar build local
+  - [x] `cd packages/frontend && pnpm run build`
+  - [x] Verificar que dist/ se genera sin errores
+
+### Frontend - Deploy Vercel
+
+- [x] Crear cuenta en Vercel (vercel.com)
+
+- [x] Importar proyecto
+  - [x] New Project → Import Git Repository
+  - [x] Seleccionar repo de GitHub
+
+- [x] Configurar proyecto
+  - [x] Framework Preset: Vite
+  - [x] Root Directory: `packages/frontend`
+  - [x] Build Command: `pnpm install && pnpm run build`
+  - [x] Output Directory: `dist`
+  - [x] Install Command: `pnpm install`
+
+- [x] Agregar variables de entorno
+  - [x] `VITE_API_URL=https://tu-backend.railway.app`
+
+- [x] Deploy
+  - [x] Click "Deploy"
+
+- [x] Actualizar CORS en Railway
+  - [x] Ir a Railway → Variables
+  - [x] Actualizar `CORS_ORIGIN=https://tu-app.vercel.app`
+  - [x] Redeploy backend
+
+### Testing Post-Deploy
+
+- [ ] Smoke testing completo
+  - [x] Abrir app en Vercel
+  - [x] Login con credenciales del seeder
+  - [x] Listar edificios
+  - [x] Crear edificio nuevo
+  - [x] Ver detalle de edificio
+  - [x] Ver áreas comunes
+  - [x] Crear área común
+  - [x] Ir a página de reservaciones
+  - [x] Crear reservación
+  - [x] Ver mis reservaciones
+  - [x] Logout
+
+---
+
+## 📝 FASE 7: Polish y README (1 día)
+
+### Frontend - UX Final
+
+- [ ] Notificaciones
+  - [ ] Importar Notifications en main.tsx
+  - [ ] Success: verde con ícono de check
+  - [ ] Error: rojo con mensaje descriptivo
+  - [ ] Posición: top-right
+
+- [ ] Loading states
+  - [ ] Skeletons en todas las listas
+  - [ ] Loading en botones: `<Button loading={isLoading}>`
+  - [ ] Spinner global durante navegación (opcional)
+
+- [ ] Confirmaciones
+  - [ ] Modal de confirmación antes de eliminar
+  - [ ] Modal antes de cancelar reservación
+  - [ ] Usar modals.openConfirmModal de Mantine
+
+- [ ] Empty states
+  - [ ] Edificios: "No hay edificios registrados. Crea uno nuevo."
+  - [ ] Áreas comunes: "No hay áreas comunes en este edificio."
+  - [ ] Reservaciones: "No tienes reservaciones activas."
+  - [ ] Ícono + mensaje + CTA button
+
+- [ ] Errores
+  - [ ] Mensajes descriptivos en español
+  - [ ] Validaciones en tiempo real
+  - [ ] Deshabilitar submit si hay errores
+
+### Backend - Cleanup
+
+- [ ] Eliminar console.log
+
+### Frontend - Cleanup
+
+- [ ] Eliminar console.log
+
+### README Profesional
+
+- [ ] Tomar screenshots
+  - [ ] Login page
+  - [ ] Buildings list
+  - [ ] Building detail con áreas comunes
+  - [ ] Reservations page con calendario
+  - [ ] Guardar en `docs/screenshots/`
+
+- [ ] Actualizar [`README.md`](README.md) principal
+
+  ```markdown
+  # 🏢 Sistema de Gestión de Edificios
+
+  Sistema fullstack para gestionar edificios, áreas comunes y reservaciones.
+
+  ## 🚀 Demo en Vivo
+
+  - **Aplicación:** https://tu-app.vercel.app
+  - **API:** https://tu-backend.railway.app/api
+  - **Documentación API:** https://tu-backend.railway.app/api
+
+  **Credenciales de prueba:**
+
+  - Admin: admin@demo.com / password123
+
+  ## ✨ Características
+
+  - ✅ Autenticación JWT con roles (Admin, Manager, Resident)
+  - ✅ CRUD completo de edificios
+  - ✅ Gestión de áreas comunes
+  - ✅ Sistema de reservaciones con validación de horarios
+  - ✅ Prevención de solapamiento de reservaciones
+  - ✅ Interfaz responsive y moderna
+
+  ## 🛠 Stack Tecnológico
+
+  **Backend:**
+
+  - NestJS
+  - Prisma ORM
+  - PostgreSQL
+  - JWT Authentication
+  - TypeScript
+
+  **Frontend:**
+
+  - React 18
+  - TypeScript
+  - Mantine UI
+  - TanStack Query
+  - React Router
+  - Axios
+
+  **DevOps:**
+
+  - Railway (Backend + PostgreSQL)
+  - Vercel (Frontend)
+  - GitHub Actions (CI/CD)
+  - Docker (Desarrollo local)
+
+  ## 📦 Instalación Local
+
+  ### Prerequisitos
+
+  - Node.js 18+
+  - pnpm 8+
+  - Docker
+
+  ### Pasos
+
+  [instrucciones detalladas]
+
+  ## 📸 Screenshots
+
+  [insertar imágenes]
+
+  ## 🏗 Arquitectura
+
+  [diagrama o descripción]
+
+  ## 📚 API Documentation
+
+  Swagger disponible en: `https://tu-backend.railway.app/api`
+
+  ## 👤 Autor
+
+  [Tu nombre] - [LinkedIn] - [Portfolio]
+  ```
+
+- [ ] Crear `packages/backend/README.md`
+  - [ ] Documentar estructura del proyecto
+  - [ ] Documentar principales endpoints
+  - [ ] Explicar modelos de datos
+
+- [ ] Crear `packages/frontend/README.md`
+  - [ ] Documentar estructura de features
+  - [ ] Explicar patrón de hooks
+  - [ ] Guía de componentes
+
+### Git Final
+
+- [ ] Review commits
+  - [ ] Verificar mensajes descriptivos
+  - [ ] Squash si es necesario
+
+- [ ] Actualizar .gitignore
+  - [ ] Verificar que .env no está trackeado
+  - [ ] Verificar que node_modules no está trackeado
+
+- [ ] Tag de versión
+  - [ ] `git tag v1.0.0`
+  - [ ] `git push --tags`
+
+---
+
+## ✅ Checklist Pre-Portfolio
+
+- [ ] ✅ App desplegada 24/7
+- [ ] ✅ Login funciona
+- [ ] ✅ CRUD edificios funciona
+- [ ] ✅ CRUD áreas comunes funciona
+- [ ] ✅ Sistema reservaciones funciona
+- [ ] ✅ Validación de solapamiento funciona
+- [ ] ✅ Responsive en mobile
+- [ ] ✅ Sin errores en consola
+- [ ] ✅ Sin warnings TypeScript
+- [ ] ✅ README con screenshots
+- [ ] ✅ Links en CV/LinkedIn
+- [ ] ✅ Credenciales de demo funcionan
+
+---
+
+## 🎯 Lo Que Este Proyecto Demuestra
+
+**Backend Skills:**
+
+- ✅ NestJS con arquitectura modular
+- ✅ Prisma ORM con relaciones complejas
+- ✅ Autenticación JWT completa (Strategy, Guards, Decorators)
+- ✅ Validaciones de negocio complejas (no-overlapping)
+- ✅ DTOs con class-validator
+- ✅ RESTful API design
+- ✅ Manejo apropiado de errores
+- ✅ Seeders para datos de prueba
+
+**Frontend Skills:**
+
+- ✅ React 18 con TypeScript
+- ✅ Context API para estado global
+- ✅ TanStack Query (data fetching, cache, mutations)
+- ✅ Mantine UI (componentes modernos)
+- ✅ Formularios complejos con validaciones
+- ✅ Protected routes y autorización
+- ✅ Axios con interceptors
+- ✅ Arquitectura escalable por features
+
+**DevOps Skills:**
+
+- ✅ Monorepo con pnpm workspaces
+- ✅ Docker para desarrollo local
+- ✅ Deploy en Railway (backend + DB)
+- ✅ Deploy en Vercel (frontend)
+- ✅ Variables de entorno por ambiente
+- ✅ CI/CD automático
+
+---
+
+## Improvements before share project
+
+- [] Add loading state to forms buttons
+
+## Nice to have
+
+- [ ] Crear `pages/RegisterPage.tsx`
+  - [ ] Campos: email, password, confirmPassword, firstName, lastName
+  - [ ] Validación: passwords match
+  - [ ] useMutation para register
+  - [ ] Al éxito: auto-login o navegar a /login
+
+- [ ] Verificar en mobile
+  - [ ] Abrir desde teléfono
+  - [ ] Navegar por la app
+  - [ ] Verificar que sea usable
 
 ## 🔒 FASE 4: Mejoras de Seguridad y Autenticación
 
-> **Objetivo:** Fortalecer la seguridad de la aplicación antes de implementar funcionalidades críticas
+> **Objetivo:** Fortalecer la seguridad de la aplicación
 
-### 🚨 PRIORIDAD CRÍTICA (Implementar AHORA)
+### 🚨 PRIORIDAD CRÍTICA
 
 #### 1. Configurar CORS correctamente
 
@@ -621,511 +1076,3 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [ ] Mencionar HttpOnly Cookies
   - [ ] Mencionar Rate Limiting
   - [ ] Mencionar validaciones implementadas
-
----
-
-## 📅 FASE 5: Sistema de Reservaciones (3-4 días)
-
-> **Objetivo:** Reservar áreas comunes con validaciones
-
-### Backend - Reservations Module
-
-- [x] Generar módulo
-  - [x] `nest g resource reservations --no-spec`
-
-- [x] Crear DTOs en `src/reservations/dto/`
-  - [x] `CreateReservationDto`
-    ```typescript
-    commonAreaId: number;
-    residentId: number;
-    startTime: Date;
-    endTime: Date;
-    attendees?: number;
-    notes?: string;
-    ```
-
-- [ ] Implementar validaciones en `reservations.service.ts`
-  - [ ] Helper: `validateNoOverlap(commonAreaId, startTime, endTime)`
-    - [ ] Query reservations con solapamiento
-    - [ ] WHERE commonAreaId AND status != CANCELLED
-    - [ ] AND ((startTime BETWEEN ? AND ?) OR (endTime BETWEEN ? AND ?))
-    - [ ] Si existe: throw ConflictException
-  - [ ] Helper: `validateTimeRules(commonArea, startTime, endTime)`
-    - [ ] Validar horario dentro de openTime/closeTime
-    - [ ] Validar duración <= maxHoursPerReservation
-    - [ ] Validar día está en daysAvailable
-  - [ ] Helper: `validateResident(residentId)`
-    - [ ] Verificar que resident existe
-  - [ ] Helper: `validateCommonArea(commonAreaId)`
-    - [ ] Verificar que existe y isActive = true
-
-- [ ] Implementar métodos en `reservations.service.ts`
-  - [ ] `findAll(filters: FilterReservationsDto)`
-    - [ ] Query con where dinámico según filtros
-    - [ ] Include: commonArea, resident
-    - [ ] OrderBy: startTime desc
-  - [ ] `findOne(id)` - con relaciones
-  - [ ] `create(dto)`
-    - [ ] Ejecutar todas las validaciones
-    - [ ] Si pasan: crear reservación con status CONFIRMED
-  - [ ] `cancel(id, userId)`
-    - [ ] Verificar que reservación existe
-    - [ ] Verificar que userId es el owner
-    - [ ] Actualizar status a CANCELLED
-  - [ ] `getAvailableSlots(commonAreaId: number, date: Date)`
-    - [ ] Obtener commonArea con horarios
-    - [ ] Generar slots desde openTime hasta closeTime
-    - [ ] Filtrar slots ocupados por reservaciones existentes
-    - [ ] Retornar array de slots disponibles
-
-- [ ] Implementar `reservations.controller.ts`
-  - [ ] `GET /reservations` - con @Query(FilterReservationsDto)
-  - [ ] `GET /reservations/:id`
-  - [ ] `POST /reservations` - @UseGuards(JwtAuthGuard)
-  - [ ] `PATCH /reservations/:id/cancel` - @UseGuards + validar ownership
-  - [ ] `GET /reservations/available-slots` - @Query(commonAreaId, date)
-
-- [ ] Registrar en `app.module.ts`
-
-- [ ] Actualizar seeder
-  - [ ] Crear 2 residentes
-  - [ ] Crear 2-3 reservaciones de ejemplo
-
-### Frontend - Reservations Module
-
-- [ ] Crear estructura `features/reservations/`
-  - [ ] `types/reservation.types.ts`
-  - [ ] `services/reservations.service.ts`
-  - [ ] `hooks/queries/useReservations.ts`
-  - [ ] `hooks/queries/useAvailableSlots.ts`
-  - [ ] `hooks/mutations/useCreateReservation.ts`
-  - [ ] `hooks/mutations/useCancelReservation.ts`
-  - [ ] `components/ReservationCalendar.tsx`
-  - [ ] `components/ReservationForm.tsx`
-  - [ ] `components/ReservationCard.tsx`
-  - [ ] `components/ReservationsList.tsx`
-  - [ ] `pages/ReservationsPage.tsx`
-
-- [ ] Implementar tipos
-  - [ ] Interface Reservation
-  - [ ] Interface CreateReservationDto
-  - [ ] Interface AvailableSlot
-  - [ ] Enum ReservationStatus
-
-- [ ] Implementar servicio
-  - [ ] `getReservations(filters)`
-  - [ ] `getReservation(id)`
-  - [ ] `createReservation(dto)`
-  - [ ] `cancelReservation(id)`
-  - [ ] `getAvailableSlots(commonAreaId, date)`
-
-- [ ] Implementar hooks
-  - [ ] `useReservations(filters)` - useQuery
-  - [ ] `useAvailableSlots(commonAreaId, date)` - useQuery habilitado condicionalmente
-  - [ ] `useCreateReservation()` - useMutation con notificaciones
-  - [ ] `useCancelReservation()` - useMutation con confirmación
-
-- [ ] Crear `components/ReservationCalendar.tsx`
-  - [ ] Usar Calendar de Mantine
-  - [ ] Mostrar días con reservaciones (indicador visual)
-  - [ ] onClick en día: abrir modal de reservación
-
-- [ ] Crear `components/ReservationForm.tsx`
-  - [ ] Select: Edificio (useBuildings)
-  - [ ] Select: Área Común (useCommonAreas filtrado por buildingId)
-  - [ ] DatePicker: Fecha
-  - [ ] TimeInput: Hora inicio
-  - [ ] TimeInput: Hora fin
-  - [ ] NumberInput: Asistentes
-  - [ ] Textarea: Notas
-  - [ ] useAvailableSlots: mostrar slots disponibles al seleccionar área y fecha
-  - [ ] Validación: hora fin > hora inicio
-  - [ ] Submit: useCreateReservation
-
-- [ ] Crear `components/ReservationCard.tsx`
-  - [ ] Card con info: área común, fecha, horario
-  - [ ] Badge: status (CONFIRMED, CANCELLED)
-  - [ ] Botón "Cancelar" si status = CONFIRMED
-
-- [ ] Crear `components/ReservationsList.tsx`
-  - [ ] Stack de ReservationCard
-  - [ ] Filtros: edificio, área común
-  - [ ] Empty state
-
-- [ ] Mejorar [`pages/ReservationsPage.tsx`](packages/frontend/src/features/buildings/pages/ReservationsPage.tsx)
-  - [ ] Grid con 2 columnas
-  - [ ] Columna izquierda: ReservationCalendar
-  - [ ] Columna derecha: ReservationsList ("Mis Reservaciones")
-  - [ ] Botón: "Nueva Reservación" (abre modal con ReservationForm)
-  - [ ] useReservations filtrado por userId actual
-
-### Testing Fase 4
-
-- [ ] Backend
-  - [ ] POST /reservations con datos válidos → crea
-  - [ ] POST /reservations con overlap → 409 Conflict
-  - [ ] POST /reservations fuera de horario → 400 Bad Request
-  - [ ] GET /reservations/available-slots → retorna slots
-
-- [ ] Frontend
-  - [ ] Abrir página de reservaciones
-  - [ ] Seleccionar edificio y área común
-  - [ ] Ver slots disponibles
-  - [ ] Crear reservación
-  - [ ] Ver en "Mis Reservaciones"
-  - [ ] Cancelar reservación
-
----
-
-## 🌐 FASE 6: Despliegue (1-2 días)
-
-### Backend - Preparación
-
-- [ ] Configurar variables de entorno
-  - [ ] Crear `.env.example`
-    ```
-    DATABASE_URL=
-    JWT_SECRET=
-    NODE_ENV=development
-    PORT=3000
-    CORS_ORIGIN=http://localhost:5173
-    ```
-
-- [ ] Verificar scripts en `package.json`
-  - [ ] `"build": "nest build"`
-  - [ ] `"start:prod": "node dist/main.js"`
-  - [ ] `"prisma:deploy": "npx prisma migrate deploy"`
-
-- [ ] Configurar main.ts para producción
-  - [ ] CORS: leer desde env
-  - [ ] Global prefix: '/api' (opcional)
-  - [ ] ValidationPipe global
-
-### Backend - Deploy Railway
-
-- [ ] Crear cuenta en Railway (railway.app)
-
-- [ ] Crear nuevo proyecto
-  - [ ] Connect GitHub repository
-  - [ ] Seleccionar rama: main
-
-- [ ] Agregar PostgreSQL
-  - [ ] New → Database → PostgreSQL
-  - [ ] Variable DATABASE_URL se genera automáticamente
-
-- [ ] Configurar servicio backend
-  - [ ] Root Directory: `packages/backend`
-  - [ ] Build Command: `pnpm install && pnpm run build`
-  - [ ] Start Command: `pnpm run start:prod`
-
-- [ ] Agregar variables de entorno
-  - [ ] `DATABASE_URL` (ya existe)
-  - [ ] `JWT_SECRET` - generar: `openssl rand -base64 32`
-  - [ ] `NODE_ENV=production`
-  - [ ] `PORT=3000`
-  - [ ] `CORS_ORIGIN` (actualizar después con URL de Vercel)
-
-- [ ] Deploy
-  - [ ] Push a GitHub → auto-deploy
-  - [ ] O manual: "Deploy Now"
-
-- [ ] Ejecutar migraciones
-  - [ ] Desde Railway CLI o dashboard
-  - [ ] `npx prisma migrate deploy`
-
-- [ ] Ejecutar seeder
-  - [ ] `npx prisma db seed`
-
-- [ ] Verificar
-  - [ ] Abrir URL de Railway
-  - [ ] Probar: GET /api (si configuraste prefix)
-  - [ ] Probar: POST /auth/login
-
-### Frontend - Preparación
-
-- [ ] Configurar env
-  - [ ] Crear `.env.example`
-    ```
-    VITE_API_URL=http://localhost:3000
-    ```
-  - [ ] Crear `.env.production`
-    ```
-    VITE_API_URL=https://tu-backend.railway.app
-    ```
-
-- [ ] Verificar build local
-  - [ ] `cd packages/frontend && pnpm run build`
-  - [ ] Verificar que dist/ se genera sin errores
-
-### Frontend - Deploy Vercel
-
-- [ ] Crear cuenta en Vercel (vercel.com)
-
-- [ ] Importar proyecto
-  - [ ] New Project → Import Git Repository
-  - [ ] Seleccionar repo de GitHub
-
-- [ ] Configurar proyecto
-  - [ ] Framework Preset: Vite
-  - [ ] Root Directory: `packages/frontend`
-  - [ ] Build Command: `pnpm install && pnpm run build`
-  - [ ] Output Directory: `dist`
-  - [ ] Install Command: `pnpm install`
-
-- [ ] Agregar variables de entorno
-  - [ ] `VITE_API_URL=https://tu-backend.railway.app`
-
-- [ ] Deploy
-  - [ ] Click "Deploy"
-  - [ ] Esperar build (2-3 min)
-
-- [ ] Actualizar CORS en Railway
-  - [ ] Ir a Railway → Variables
-  - [ ] Actualizar `CORS_ORIGIN=https://tu-app.vercel.app`
-  - [ ] Redeploy backend
-
-### Testing Post-Deploy
-
-- [ ] Smoke testing completo
-  - [ ] Abrir app en Vercel
-  - [ ] Login con credenciales del seeder
-    - [ ] Email: admin@demo.com
-    - [ ] Password: password123
-  - [ ] Listar edificios
-  - [ ] Crear edificio nuevo
-  - [ ] Ver detalle de edificio
-  - [ ] Ver áreas comunes
-  - [ ] Crear área común
-  - [ ] Ir a página de reservaciones
-  - [ ] Crear reservación
-  - [ ] Ver mis reservaciones
-  - [ ] Cancelar reservación
-  - [ ] Logout
-
-- [ ] Verificar en mobile
-  - [ ] Abrir desde teléfono
-  - [ ] Navegar por la app
-  - [ ] Verificar que sea usable
-
----
-
-## 📝 FASE 7: Polish y README (1 día)
-
-### Frontend - UX Final
-
-- [ ] Notificaciones
-  - [ ] Importar Notifications en main.tsx
-  - [ ] Success: verde con ícono de check
-  - [ ] Error: rojo con mensaje descriptivo
-  - [ ] Posición: top-right
-
-- [ ] Loading states
-  - [ ] Skeletons en todas las listas
-  - [ ] Loading en botones: `<Button loading={isLoading}>`
-  - [ ] Spinner global durante navegación (opcional)
-
-- [ ] Confirmaciones
-  - [ ] Modal de confirmación antes de eliminar
-  - [ ] Modal antes de cancelar reservación
-  - [ ] Usar modals.openConfirmModal de Mantine
-
-- [ ] Empty states
-  - [ ] Edificios: "No hay edificios registrados. Crea uno nuevo."
-  - [ ] Áreas comunes: "No hay áreas comunes en este edificio."
-  - [ ] Reservaciones: "No tienes reservaciones activas."
-  - [ ] Ícono + mensaje + CTA button
-
-- [ ] Errores
-  - [ ] Mensajes descriptivos en español
-  - [ ] Validaciones en tiempo real
-  - [ ] Deshabilitar submit si hay errores
-
-### Backend - Cleanup
-
-- [ ] Eliminar console.log
-- [ ] Formatear código: `pnpm run format`
-- [ ] Lintear: `pnpm run lint`
-- [ ] Verificar imports no usados
-
-### Frontend - Cleanup
-
-- [ ] Eliminar console.log
-- [ ] Eliminar imports no usados
-- [ ] Formatear: `pnpm run format`
-- [ ] Lintear: `pnpm run lint`
-
-### README Profesional
-
-- [ ] Tomar screenshots
-  - [ ] Login page
-  - [ ] Buildings list
-  - [ ] Building detail con áreas comunes
-  - [ ] Reservations page con calendario
-  - [ ] Guardar en `docs/screenshots/`
-
-- [ ] Actualizar [`README.md`](README.md) principal
-
-  ```markdown
-  # 🏢 Sistema de Gestión de Edificios
-
-  Sistema fullstack para gestionar edificios, áreas comunes y reservaciones.
-
-  ## 🚀 Demo en Vivo
-
-  - **Aplicación:** https://tu-app.vercel.app
-  - **API:** https://tu-backend.railway.app/api
-  - **Documentación API:** https://tu-backend.railway.app/api
-
-  **Credenciales de prueba:**
-
-  - Admin: admin@demo.com / password123
-
-  ## ✨ Características
-
-  - ✅ Autenticación JWT con roles (Admin, Manager, Resident)
-  - ✅ CRUD completo de edificios
-  - ✅ Gestión de áreas comunes
-  - ✅ Sistema de reservaciones con validación de horarios
-  - ✅ Prevención de solapamiento de reservaciones
-  - ✅ Interfaz responsive y moderna
-
-  ## 🛠 Stack Tecnológico
-
-  **Backend:**
-
-  - NestJS
-  - Prisma ORM
-  - PostgreSQL
-  - JWT Authentication
-  - TypeScript
-
-  **Frontend:**
-
-  - React 18
-  - TypeScript
-  - Mantine UI
-  - TanStack Query
-  - React Router
-  - Axios
-
-  **DevOps:**
-
-  - Railway (Backend + PostgreSQL)
-  - Vercel (Frontend)
-  - GitHub Actions (CI/CD)
-  - Docker (Desarrollo local)
-
-  ## 📦 Instalación Local
-
-  ### Prerequisitos
-
-  - Node.js 18+
-  - pnpm 8+
-  - Docker
-
-  ### Pasos
-
-  [instrucciones detalladas]
-
-  ## 📸 Screenshots
-
-  [insertar imágenes]
-
-  ## 🏗 Arquitectura
-
-  [diagrama o descripción]
-
-  ## 📚 API Documentation
-
-  Swagger disponible en: `https://tu-backend.railway.app/api`
-
-  ## 👤 Autor
-
-  [Tu nombre] - [LinkedIn] - [Portfolio]
-  ```
-
-- [ ] Crear `packages/backend/README.md`
-  - [ ] Documentar estructura del proyecto
-  - [ ] Documentar principales endpoints
-  - [ ] Explicar modelos de datos
-
-- [ ] Crear `packages/frontend/README.md`
-  - [ ] Documentar estructura de features
-  - [ ] Explicar patrón de hooks
-  - [ ] Guía de componentes
-
-### Git Final
-
-- [ ] Review commits
-  - [ ] Verificar mensajes descriptivos
-  - [ ] Squash si es necesario
-
-- [ ] Actualizar .gitignore
-  - [ ] Verificar que .env no está trackeado
-  - [ ] Verificar que node_modules no está trackeado
-
-- [ ] Tag de versión
-  - [ ] `git tag v1.0.0`
-  - [ ] `git push --tags`
-
----
-
-## ✅ Checklist Pre-Portfolio
-
-- [ ] ✅ App desplegada 24/7
-- [ ] ✅ Login funciona
-- [ ] ✅ CRUD edificios funciona
-- [ ] ✅ CRUD áreas comunes funciona
-- [ ] ✅ Sistema reservaciones funciona
-- [ ] ✅ Validación de solapamiento funciona
-- [ ] ✅ Responsive en mobile
-- [ ] ✅ Sin errores en consola
-- [ ] ✅ Sin warnings TypeScript
-- [ ] ✅ README con screenshots
-- [ ] ✅ Links en CV/LinkedIn
-- [ ] ✅ Credenciales de demo funcionan
-
----
-
-## 🎯 Lo Que Este Proyecto Demuestra
-
-**Backend Skills:**
-
-- ✅ NestJS con arquitectura modular
-- ✅ Prisma ORM con relaciones complejas
-- ✅ Autenticación JWT completa (Strategy, Guards, Decorators)
-- ✅ Validaciones de negocio complejas (no-overlapping)
-- ✅ DTOs con class-validator
-- ✅ RESTful API design
-- ✅ Manejo apropiado de errores
-- ✅ Seeders para datos de prueba
-
-**Frontend Skills:**
-
-- ✅ React 18 con TypeScript
-- ✅ Context API para estado global
-- ✅ TanStack Query (data fetching, cache, mutations)
-- ✅ Mantine UI (componentes modernos)
-- ✅ Formularios complejos con validaciones
-- ✅ Protected routes y autorización
-- ✅ Axios con interceptors
-- ✅ Arquitectura escalable por features
-
-**DevOps Skills:**
-
-- ✅ Monorepo con pnpm workspaces
-- ✅ Docker para desarrollo local
-- ✅ Deploy en Railway (backend + DB)
-- ✅ Deploy en Vercel (frontend)
-- ✅ Variables de entorno por ambiente
-- ✅ CI/CD automático
-
----
-
-## Nice to have
-
-- [ ] Crear `pages/RegisterPage.tsx`
-  - [ ] Campos: email, password, confirmPassword, firstName, lastName
-  - [ ] Validación: passwords match
-  - [ ] useMutation para register
-  - [ ] Al éxito: auto-login o navegar a /login

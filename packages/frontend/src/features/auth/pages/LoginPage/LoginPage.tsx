@@ -23,7 +23,7 @@ import type { LoginUserDto } from '@features/auth/types/auth.types'
 import { useLogin } from '@features/auth/hooks/mutations/useLogin'
 
 export const LoginPage = () => {
-  const loginMutation = useLogin()
+  const { mutate: loginMutation, isPending: isLoginPending } = useLogin()
 
   const form = useForm<LoginUserDto>({
     validateInputOnBlur: true,
@@ -37,7 +37,7 @@ export const LoginPage = () => {
   const handleLogin = () => {
     if (form.validate().hasErrors) return
 
-    loginMutation.mutate(form.values)
+    loginMutation(form.values)
   }
 
   return (
@@ -98,7 +98,12 @@ export const LoginPage = () => {
                 </Anchor>
               </Group> */}
 
-              <Button fullWidth size="md" type="submit">
+              <Button
+                fullWidth
+                size="md"
+                type="submit"
+                loading={isLoginPending}
+              >
                 Sign In
               </Button>
             </Stack>

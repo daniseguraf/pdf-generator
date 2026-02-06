@@ -41,11 +41,14 @@ export const CommonAreaForm = ({
 }: CommonAreaFormProps) => {
   const { id } = useParams()
   const buildingId = Number(id)
-  const { mutate: createCommonArea } = useCreateCommonArea()
-  const { mutate: updateCommonArea } = useUpdateCommonArea()
+  const { mutate: createCommonArea, isPending: isCreatePending } =
+    useCreateCommonArea()
+  const { mutate: updateCommonArea, isPending: isUpdatePending } =
+    useUpdateCommonArea()
+
+  const isFormDisabled = isCreatePending || isUpdatePending
 
   const isEdit = !!commonArea
-  console.log('commonArea', commonArea)
 
   const openTime = commonArea?.openTime
     ? dayjs.utc(commonArea?.openTime).format('HH:mm')
@@ -53,7 +56,6 @@ export const CommonAreaForm = ({
   const closeTime = commonArea?.closeTime
     ? dayjs.utc(commonArea?.closeTime).format('HH:mm')
     : undefined
-  console.log('openTime', openTime)
 
   const initialValues = {
     type: commonArea?.type ?? '',
@@ -76,7 +78,7 @@ export const CommonAreaForm = ({
   const handleSubmit = () => {
     const errors = form.validate()
 
-    if (errors.hasErrors) {
+    if (errors.hasErrors || !form.isDirty()) {
       return
     }
 
@@ -130,8 +132,12 @@ export const CommonAreaForm = ({
   }
 
   const handleClose = () => {
-    console.log('handleClose')
+    if (!isEdit) {
+      form.setValues(initialValues)
+    }
     form.reset()
+    form.resetDirty()
+
     onClose()
   }
 
@@ -165,6 +171,7 @@ export const CommonAreaForm = ({
           data={commonAreaOptions}
           checkIconPosition="right"
           clearable
+          disabled={isFormDisabled}
           {...form.getInputProps('type')}
         />
 
@@ -172,6 +179,7 @@ export const CommonAreaForm = ({
           label="Description"
           placeholder="Describe the common area and its features..."
           minRows={3}
+          disabled={isFormDisabled}
           {...form.getInputProps('description')}
         />
 
@@ -184,6 +192,7 @@ export const CommonAreaForm = ({
             description="Maximum number of people"
             hideControls
             required
+            disabled={isFormDisabled}
             {...form.getInputProps('capacity')}
           />
 
@@ -195,6 +204,7 @@ export const CommonAreaForm = ({
             description="Per reservation"
             hideControls
             required
+            disabled={isFormDisabled}
             {...form.getInputProps('maxHoursPerReservation')}
           />
         </Group>
@@ -205,6 +215,7 @@ export const CommonAreaForm = ({
             placeholder="08:00"
             leftSection={<ClockIcon size={16} />}
             required
+            disabled={isFormDisabled}
             {...form.getInputProps('openTime')}
           />
 
@@ -213,6 +224,7 @@ export const CommonAreaForm = ({
             placeholder="22:00"
             leftSection={<ClockIcon size={16} />}
             required
+            disabled={isFormDisabled}
             {...form.getInputProps('closeTime')}
           />
         </Group>
@@ -224,14 +236,19 @@ export const CommonAreaForm = ({
           searchable
           clearable
           checkIconPosition="right"
+          disabled={isFormDisabled}
           {...form.getInputProps('daysAvailable')}
         />
 
         <Group justify="flex-end" mt="xl">
-          <Button variant="light" onClick={handleClose}>
+          <Button
+            variant="light"
+            onClick={handleClose}
+            disabled={isFormDisabled}
+          >
             Cancel
           </Button>
-          <Button onClick={handleSubmit}>
+          <Button onClick={handleSubmit} loading={isFormDisabled}>
             {isEdit ? 'Save Changes' : 'Add Common Area'}
           </Button>
         </Group>

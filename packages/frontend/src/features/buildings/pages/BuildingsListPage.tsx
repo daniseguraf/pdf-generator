@@ -34,7 +34,8 @@ export const BuildingsListPage = () => {
     null
   )
 
-  const { mutate: deleteBuilding } = useDeleteBuilding()
+  const { mutate: deleteBuilding, isPending: isDeletingBuilding } =
+    useDeleteBuilding()
 
   const isEmptyBuildings = buildings?.length === 0
 
@@ -152,6 +153,7 @@ export const BuildingsListPage = () => {
                               <ActionIcon
                                 variant="subtle"
                                 onClick={() => handleOpenDeleteModal(id)}
+                                disabled
                               >
                                 <TrashIcon size={20} />
                               </ActionIcon>
@@ -178,10 +180,18 @@ export const BuildingsListPage = () => {
         Are you sure you want to delete this building? This action cannot be
         undone.
         <Group mt="lg" justify="flex-end">
-          <Button onClick={closeDeleteModal} variant="default">
+          <Button
+            onClick={closeDeleteModal}
+            variant="default"
+            disabled={isDeletingBuilding}
+          >
             Cancel
           </Button>
-          <Button onClick={handleDeleteBuilding} color="red">
+          <Button
+            onClick={handleDeleteBuilding}
+            color="red"
+            loading={isDeletingBuilding}
+          >
             Delete
           </Button>
         </Group>
