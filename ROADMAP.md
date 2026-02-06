@@ -1,8 +1,8 @@
-# Plan MVP - Sistema de Gestión de Edificios (Portfolio Fullstack)
+# Sistema de Gestión de Edificios
 
 ## 🎯 Objetivo
 
-Crear un sistema funcional y desplegado que demuestre habilidades fullstack completas. Cada fase implementa un feature completo (Backend + Frontend) para tener funcionalidad demostrable desde el inicio.
+Crear un sistema funcional y desplegado que demuestre habilidades fullstack completas. Cada fase implementa un feature completo (Backend + Frontend).
 
 ---
 
@@ -13,26 +13,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 ### Backend - User Model y Auth
 
 - [x] Actualizar Prisma Schema
-  - [x] Agregar modelo User:
-
-    ```prisma
-    model User {
-      id        Int      @id @default(autoincrement())
-      email     String   @unique
-      password  String
-      firstName String   @map("first_name")
-      lastName  String   @map("last_name")
-      role      UserRole @default(RESIDENT)
-      isActive  Boolean  @default(true) @map("is_active")
-      createdAt DateTime @default(now()) @map("created_at")
-      updatedAt DateTime @updatedAt @map("updated_at")
-
-      @@map("users")
-    }
-    ```
-
-  - [x] Ejecutar migración: `cd packages/backend && npx prisma migrate dev --name add_user_model`
-
+- [x] Agregar modelo User
 - [x] Instalar dependencias JWT
 
   ```bash
@@ -42,9 +23,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   ```
 
 - [x] Generar módulo Auth
-  - [x] `nest g module auth`
-  - [x] `nest g service auth --no-spec`
-  - [x] `nest g controller auth --no-spec`
+  - [x] `nest g res auth --no-spec`
 
 - [x] Crear DTOs en `src/auth/dto/`
   - [x] `RegisterDto` - email, password, firstName, lastName
@@ -84,8 +63,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 - [x] Registrar en `app.module.ts`
 
-- [x] Configurar CORS en `main.ts`
-  - [x] `app.enableCors({ origin: process.env.CORS_ORIGIN || 'http://localhost:5173', credentials: true })`
+- [x] Configurar CORS básico en `main.ts`
 
 ### Frontend - Auth Module
 
@@ -119,7 +97,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 - [x] Crear AuthContext en `context/AuthContext.tsx`
   - [x] Estado: user, token, isAuthenticated, isLoading
   - [x] Actions: login, logout, checkAuth
-  - [x] Guardar token en localStorage
+  - [x] Guardar token en localStorage (TO DO: despues cambiar a metodo por cookies)
   - [x] useEffect para restaurar sesión al montar
 
 - [x] Crear `pages/LoginPage.tsx`
@@ -132,7 +110,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 - [x] Crear `components/ProtectedRoute.tsx`
 
 - [x] Actualizar rutas en `src/app/routes/`
-  - [x] Rutas públicas: /login, /register
+  - [x] Rutas públicas: /login
   - [x] Rutas protegidas: wrap con ProtectedRoute
 
 - [x] Agregar User Menu en header
@@ -143,7 +121,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ### Testing Fase 1
 
-- [x] Backend: Probar con Postman/Insomnia
+- [x] Backend: Probar con Postman
   - [x] POST /auth/register → crea usuario
   - [x] POST /auth/login → retorna token
   - [x] GET /auth/me → retorna usuario (con token)
@@ -178,14 +156,11 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 - [x] Proteger `buildings.controller.ts`
   - [x] Agregar `@UseGuards(JwtAuthGuard, RolesGuard)` a nivel de controller
-  - [x] `@Roles('ADMIN', 'MANAGER')` en create, update, delete
+  - [x] `@Roles()` en create, update, delete
 
 - [x] Crear seeder inicial `prisma/seed.ts`
   - [x] Crear 1 usuario admin (email: admin@demo.com, pass: password123)
-  - [x] Crear 1 empleado manager
   - [x] Crear 2 edificios
-  - [x] Configurar en package.json: `"prisma": { "seed": "ts-node prisma/seed.ts" }`
-  - [x] Ejecutar: `npx prisma db seed`
 
 ### Frontend - Buildings Module
 
@@ -1121,6 +1096,10 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 - ✅ CI/CD automático
 
 ---
+
+## Improvements before share project
+
+- [] Add loading state to forms buttons
 
 ## Nice to have
 

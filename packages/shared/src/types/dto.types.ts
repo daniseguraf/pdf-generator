@@ -249,7 +249,7 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch: operations["ReservationsController_update"];
+        patch?: never;
         trace?: never;
     };
     "/api/v1/reservations/{reservationId}": {
@@ -609,40 +609,6 @@ export interface components {
              * @example 1
              */
             attendees: number;
-        };
-        UpdateReservationDto: {
-            /**
-             * @description Reservation title
-             * @example Reservation title
-             */
-            title?: string;
-            /**
-             * @description Common area ID
-             * @example 1
-             */
-            commonAreaId?: number;
-            /**
-             * Format: date-time
-             * @description Reservation start time (ISO 8601 format)
-             * @example 2026-01-20T14:00:00.000Z
-             */
-            startTime?: string;
-            /**
-             * Format: date-time
-             * @description Reservation end time (ISO 8601 format)
-             * @example 2026-01-20T15:00:00.000Z
-             */
-            endTime?: string;
-            /**
-             * @description Reservation notes
-             * @example Reservation notes
-             */
-            notes?: string;
-            /**
-             * @description Number of attendees
-             * @example 1
-             */
-            attendees?: number;
         };
     };
     responses: never;
@@ -1177,30 +1143,6 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ReservationsController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateReservationDto"];
-            };
-        };
-        responses: {
-            /** @description Unauthorized */
-            401: {
                 headers: {
                     [name: string]: unknown;
                 };

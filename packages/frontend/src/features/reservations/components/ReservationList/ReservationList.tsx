@@ -65,10 +65,6 @@ export const ReservationList = ({
   return (
     <>
       <Stack gap="md">
-        <Text fw={600} size="lg" mb="md">
-          Reservations
-        </Text>
-
         <Paper shadow="sm" withBorder>
           {isEmptyReservations ? (
             <NoElementsAvailable message="No reservations for this space. Select a slot in the calendar to create a new reservation." />
@@ -168,10 +164,18 @@ export const ReservationList = ({
         Are you sure you want to delete this reservation? This action cannot be
         undone.
         <Group mt="lg" justify="flex-end">
-          <Button onClick={handleCloseDeleteModal} variant="default">
+          <Button
+            onClick={handleCloseDeleteModal}
+            variant="default"
+            disabled={isDeletingReservation}
+          >
             Cancel
           </Button>
-          <Button onClick={handleDeleteReservation} color="red">
+          <Button
+            onClick={handleDeleteReservation}
+            color="red"
+            loading={isDeletingReservation}
+          >
             Delete
           </Button>
         </Group>

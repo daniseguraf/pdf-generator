@@ -39,9 +39,14 @@ export const IsOptionalString = (
     IsString(),
     IsOptional(),
     MaxLength(maxLength),
-    Transform(({ value }) =>
-      typeof value === 'string' ? value.trim() || undefined : undefined
-    )
+    Transform(({ value }) => {
+      if (!value || value === '0') return null
+
+      if (typeof value === 'string' && value.trim().length > 0)
+        return value.trim()
+
+      return null
+    })
   )
 }
 

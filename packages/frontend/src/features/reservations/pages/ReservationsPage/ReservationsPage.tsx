@@ -1,4 +1,4 @@
-import { Container, Select, Stack, Tabs, Text, Title } from '@mantine/core'
+import { Container, Select, Stack, Tabs, Title } from '@mantine/core'
 import { useBuildingByResidentId } from '@features/reservations/hooks/queries/useBuildingByResidentId'
 import { BuildingCardInfo } from '@components/BuildingCardInfo/BuildingCardInfo'
 import { useState } from 'react'
@@ -143,7 +143,6 @@ export const ReservationsPage = () => {
               </Tabs.Panel>
 
               <Tabs.Panel value="reservations">
-                <Text>My Reservations</Text>
                 <ReservationList
                   reservations={reservationsByLoggedUserAndCommonArea}
                   areaColor={getCommonAreaColor(selectedCommonArea.type)}

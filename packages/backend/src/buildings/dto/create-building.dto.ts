@@ -54,13 +54,18 @@ export class CreateBuildingDto {
     example: 'contact@building.com',
     description: 'Building email',
   })
+  @Transform(({ value }) => {
+    if (!value || value === '0') return null
+
+    if (typeof value === 'string' && value.trim().length > 0) {
+      const trimmed = value.trim().toLowerCase()
+      return trimmed.length > 0 ? trimmed : null
+    }
+
+    return null
+  })
   @IsOptional()
   @IsEmail()
-  @Transform(({ value }) => {
-    return typeof value === 'string'
-      ? value.trim().toLowerCase() || undefined
-      : undefined
-  })
   email?: string
 
   @ApiProperty({

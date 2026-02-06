@@ -84,15 +84,14 @@ export const BuildingForm = ({
 
   const handleClose = () => {
     onClose()
+    form.resetDirty()
     form.reset()
   }
 
   const handleSubmit = () => {
     const errors = form.validate()
 
-    if (errors.hasErrors) {
-      return
-    }
+    if (errors.hasErrors || !form.isDirty()) return
 
     if (isEdit) {
       handleEdit()

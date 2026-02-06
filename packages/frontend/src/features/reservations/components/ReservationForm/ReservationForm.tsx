@@ -1,4 +1,5 @@
 import { getAreaLabel } from '@features/buildings/components/CommonAreas/CommonAreas.helpers'
+import { reservationFormSchema } from '@features/reservations/components/ReservationForm/ReservationForm.helpers'
 import type {
   ReservationFormProps,
   ReservationFormValues,
@@ -17,10 +18,11 @@ import {
   Textarea,
 } from '@mantine/core'
 import { TimeValue } from '@mantine/dates'
-import { useForm } from '@mantine/form'
+import { useForm, type FormValidateInput } from '@mantine/form'
 import { CalendarIcon, ClockIcon } from '@phosphor-icons/react'
 import { getCommonAreaColor } from '@utils/getCommonAreaColor'
 import dayjs from 'dayjs'
+import { zod4Resolver } from 'mantine-form-zod-resolver'
 
 export const ReservationForm = ({
   opened,
@@ -28,7 +30,9 @@ export const ReservationForm = ({
   selectedSlot,
   selectedArea,
 }: ReservationFormProps) => {
-  const { mutate: createReservation } = useCreateReservation()
+  const { mutate: createReservation, isPending: isCreatePending } =
+    useCreateReservation()
+  const isFormDisabled = isCreatePending
   const color = getCommonAreaColor(selectedArea?.type)
 
   const form = useForm<ReservationFormValues>({
@@ -38,9 +42,16 @@ export const ReservationForm = ({
       attendees: undefined,
       notes: '',
     },
+    validate: zod4Resolver(
+      reservationFormSchema
+    ) as unknown as FormValidateInput<ReservationFormValues>,
   })
 
   const handleSubmit = () => {
+    const errors = form.validate()
+
+    if (errors.hasErrors || !form.isDirty()) return
+
     const createReservationDto = {
       ...form.values,
       commonAreaId: selectedArea.id,
@@ -56,8 +67,9 @@ export const ReservationForm = ({
   }
 
   const handleClose = () => {
-    onClose()
+    form.resetDirty()
     form.reset()
+    onClose()
   }
 
   return (
@@ -108,32 +120,37 @@ export const ReservationForm = ({
         <TextInput
           label="Reservation title"
           placeholder="E.g.: Family reunion, Birthday, etc."
+          disabled={isFormDisabled}
           {...form.getInputProps('title')}
         />
 
         <Textarea
           label="Notes"
           placeholder="Additional reservation notes"
+          disabled={isFormDisabled}
           {...form.getInputProps('notes')}
         />
 
         <NumberInput
           label="Number of attendees"
+          description={`Maximum capacity: ${selectedArea?.capacity || 0} people`}
           placeholder="0"
-          {...form.getInputProps('attendees')}
           min={1}
           max={selectedArea?.capacity || 50}
-          required
           hideControls
-          description={`Maximum capacity: ${selectedArea?.capacity || 0} people`}
+          required
+          disabled={isFormDisabled}
+          {...form.getInputProps('attendees')}
         />
 
         <Group justify="flex-end" mt="md">
-          <Button variant="subtle" onClick={onClose}>
+          <Button variant="subtle" onClick={onClose} disabled={isFormDisabled}>
             Cancel
           </Button>
 
-          <Button onClick={handleSubmit}>Create Reservation</Button>
+          <Button onClick={handleSubmit} loading={isFormDisabled}>
+            Create Reservation
+          </Button>
         </Group>
       </Stack>
     </Modal>

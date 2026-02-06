@@ -12,6 +12,8 @@ import {
 import {
   BuildingOfficeIcon,
   CalendarIcon,
+  EnvelopeIcon,
+  PhoneIcon,
   UsersIcon,
 } from '@phosphor-icons/react'
 
@@ -19,6 +21,8 @@ export const GeneralInformation = ({
   floors,
   yearBuilt,
   manager,
+  phoneNumber,
+  email,
 }: GeneralInformationProps) => {
   return (
     <Grid gutter="lg">
@@ -49,6 +53,34 @@ export const GeneralInformation = ({
                     Year Built
                   </Text>
                   <Text size="xl">{yearBuilt}</Text>
+                </div>
+              </Group>
+            )}
+
+            {phoneNumber && (
+              <Group>
+                <ThemeIcon size="xl" variant="light" color="teal">
+                  <PhoneIcon size={24} />
+                </ThemeIcon>
+                <div>
+                  <Text size="sm" c="dimmed">
+                    Phone Number
+                  </Text>
+                  <Text size="xl">{phoneNumber}</Text>
+                </div>
+              </Group>
+            )}
+
+            {email && (
+              <Group>
+                <ThemeIcon size="xl" variant="light" color="teal">
+                  <EnvelopeIcon size={24} />
+                </ThemeIcon>
+                <div>
+                  <Text size="sm" c="dimmed">
+                    Email
+                  </Text>
+                  <Text size="xl">{email}</Text>
                 </div>
               </Group>
             )}

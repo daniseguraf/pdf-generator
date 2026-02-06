@@ -66,6 +66,8 @@ export const BuildingDetailPage = () => {
     manager,
     amenities = [],
     commonAreas = [],
+    phoneNumber,
+    email,
   } = building
 
   const isAmenitiesEmpty = amenities.length === 0
@@ -101,13 +103,6 @@ export const BuildingDetailPage = () => {
         {/* Tabs */}
         <Tabs defaultValue="commonAreas" variant="outline">
           <Tabs.List mb="xl">
-            <Tabs.Tab
-              value="general"
-              leftSection={<BuildingOfficeIcon size={18} />}
-            >
-              General Information
-            </Tabs.Tab>
-
             <Tabs.Tab value="commonAreas" leftSection={<HouseIcon size={18} />}>
               Common Areas
             </Tabs.Tab>
@@ -115,15 +110,14 @@ export const BuildingDetailPage = () => {
             <Tabs.Tab value="amenities" leftSection={<CheckIcon size={18} />}>
               Amenities
             </Tabs.Tab>
-          </Tabs.List>
 
-          <Tabs.Panel value="general">
-            <GeneralInformation
-              floors={floors}
-              yearBuilt={yearBuilt}
-              manager={manager}
-            />
-          </Tabs.Panel>
+            <Tabs.Tab
+              value="general"
+              leftSection={<BuildingOfficeIcon size={18} />}
+            >
+              General Information
+            </Tabs.Tab>
+          </Tabs.List>
 
           <Tabs.Panel value="commonAreas">
             <CommonAreas commonAreas={commonAreas} />
@@ -161,6 +155,16 @@ export const BuildingDetailPage = () => {
                 </Grid.Col>
               </Grid>
             )}
+          </Tabs.Panel>
+
+          <Tabs.Panel value="general">
+            <GeneralInformation
+              floors={floors}
+              yearBuilt={yearBuilt}
+              manager={manager}
+              phoneNumber={phoneNumber}
+              email={email}
+            />
           </Tabs.Panel>
         </Tabs>
       </Container>
