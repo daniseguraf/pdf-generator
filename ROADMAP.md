@@ -315,7 +315,6 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 - [ ] Implementar métodos en `reservations.service.ts`
   - [ ] `findAll(filters: FilterReservationsDto)`
-    - [ ] Query con where dinámico según filtros
     - [ ] Include: commonArea, resident
     - [ ] OrderBy: startTime desc
   - [ ] `findOne(id)` - con relaciones
@@ -341,17 +340,12 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 - [ ] Registrar en `app.module.ts`
 
-- [ ] Actualizar seeder
-  - [ ] Crear 2 residentes
-  - [ ] Crear 2-3 reservaciones de ejemplo
-
 ### Frontend - Reservations Module
 
 - [ ] Crear estructura `features/reservations/`
   - [ ] `types/reservation.types.ts`
   - [ ] `services/reservations.service.ts`
   - [ ] `hooks/queries/useReservations.ts`
-  - [ ] `hooks/queries/useAvailableSlots.ts`
   - [ ] `hooks/mutations/useCreateReservation.ts`
   - [ ] `hooks/mutations/useCancelReservation.ts`
   - [ ] `components/ReservationCalendar.tsx`
@@ -558,7 +552,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 - [ ] Notificaciones
   - [ ] Importar Notifications en main.tsx
   - [ ] Success: verde con ícono de check
-  - [ ] Error: rojo con mensaje descriptivo
+  - [x] Error: rojo con mensaje descriptivo
   - [ ] Posición: top-right
 
 - [ ] Loading states
@@ -584,11 +578,11 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ### Backend - Cleanup
 
-- [ ] Eliminar console.log
+- [x] Eliminar console.log
 
 ### Frontend - Cleanup
 
-- [ ] Eliminar console.log
+- [x] Eliminar console.log
 
 ### README Profesional
 

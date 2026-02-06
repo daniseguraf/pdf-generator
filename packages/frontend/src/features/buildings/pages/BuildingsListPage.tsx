@@ -40,7 +40,6 @@ export const BuildingsListPage = () => {
   const isEmptyBuildings = buildings?.length === 0
 
   const handleOpenDeleteModal = (buildingId: number) => {
-    console.log('handleOpenDeleteModal', buildingId)
     setBuildingIdToDelete(buildingId)
     openDeleteModal()
   }
