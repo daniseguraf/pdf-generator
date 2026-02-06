@@ -148,18 +148,9 @@ export class ReservationsService {
     })
   }
 
-  /**
-   * Extrae la hora en formato HH:MM:SS de un Date o string
-   * @param date - Date object o string
-   * @returns String en formato "HH:MM:SS"
-   */
   private extractTimeString(date: Date | string): string {
-    if (typeof date === 'string') {
-      // Si es string, asumimos que ya está en formato de hora
-      return date
-    }
+    if (typeof date === 'string') return date
 
-    // Si es Date, extraemos la hora en formato HH:MM:SS
     return date.toISOString().split('T')[1].split('.')[0]
   }
 }
