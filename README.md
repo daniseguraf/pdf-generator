@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**A modern, full-stack building management platform built with cutting-edge technologies**
+**A modern, fullstack building management platform built with cutting-edge technologies**
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![NestJS](https://img.shields.io/badge/NestJS-11.0+-red?logo=nestjs&logoColor=white)](https://nestjs.com/)
@@ -15,11 +15,20 @@
 
 </div>
 
+## 👤 Author
+
+**Daniel Segura**
+
+- GitHub: [@daniseguraf](https://github.com/daniseguraf)
+- LinkedIn: [linkedin.com/in/daniel-segura-fang](https://linkedin.com/in/daniel-segura-fang)
+
 ---
 
 ## 🎯 Overview
 
 **My Buildings** is a comprehensive building management system designed to streamline property administration, employee management, unit tracking, and facility operations. Built with enterprise-grade architecture and modern best practices, it provides a robust solution for property managers, building administrators, and facility operators.
+
+This project showcases a complete fullstack application with authentication, authorization, complex business logic, and a modern user interface - all deployed and ready to use.
 
 ### Why My Buildings?
 
@@ -27,9 +36,10 @@
 - 🏗️ **Scalable Architecture**: Monorepo structure with shared types and clean separation of concerns
 - 🎨 **Modern UI/UX**: Beautiful interface built with Mantine UI and professional design patterns
 - 🔒 **Type-Safe**: End-to-end TypeScript with OpenAPI schema generation
+- 🔐 **Secure**: JWT authentication with role-based access control
 - 📱 **Responsive**: Mobile-first design that works seamlessly across all devices
 - 🐳 **Docker Ready**: Containerized database for easy deployment
-- 📊 **PDF Generation**: Built-in PDF reports using pdfmake
+- ✅ **Production Ready**: Deployed on Railway (backend) and Vercel (frontend)
 
 ---
 
@@ -37,39 +47,76 @@
 
 ### Current Features
 
+- **🔐 Authentication & Authorization**
+  - JWT-based authentication with secure token management
+  - Role-based access control (Admin, Manager, Resident)
+  - Protected routes and API endpoints
+  - User session management
+  - Login/Logout functionality
+
 - **🏢 Building Management**
   - Complete CRUD operations for buildings
   - Property type classification (Residential, Commercial, Mixed)
   - Detailed building information (floors, address, contact details)
   - Building status tracking and soft delete support
-
-- **👥 Employee Management**
-  - Employee profiles with role assignment
-  - Multiple roles support (Manager, Security, Cleaner, Maintenance, Gardener, Receptionist)
-  - Employment history tracking
-  - Active/inactive status management
-
-- **🏠 Unit Management**
-  - Unit tracking per building
-  - Unit types (Apartment, Office, Commercial)
-  - Status management (Available, Occupied, Maintenance)
-  - Floor-based organization
+  - Role-based permissions for building operations
 
 - **🏛️ Common Areas**
-  - Common area registration
-  - Capacity management
-  - Active/inactive status
+  - Complete CRUD operations for common areas
+  - Capacity management and tracking
+  - Active/inactive status control
+  - Association with specific buildings
+  - Operating hours configuration
+
+- **📅 Reservation System**
+  - Book common areas with date and time selection
+  - Automatic validation of operating hours
+  - Overlap prevention system
+  - Maximum duration enforcement
+  - Reservation status tracking (Confirmed, Cancelled, On Review, Finished)
+  - View and manage personal reservations
+  - Cancel active reservations
 
 ### Coming Soon
 
-- 🔐 Authentication & Authorization (JWT, Role-based access control)
-- 📅 Booking System for common areas
 - 🎫 Maintenance ticket system
 - 📊 Advanced analytics dashboard
 - 📱 Push notifications
 - 🌐 Multi-language support (i18n)
 - 📧 Email notifications
 - 📈 Reporting and data visualization
+- 📄 PDF report generation for buildings and reservations
+- 🔄 Refresh token implementation
+- 🛡️ Enhanced security features (Rate limiting, HttpOnly cookies)
+- 🧪 Unit and end-to-end testing
+
+---
+
+## 📸 Screenshots
+
+### Login Page
+
+_Secure authentication with JWT tokens_
+
+![Login Page](docs/screenshots/login.png)
+
+### Buildings List
+
+_Manage all your buildings in one place_
+
+![Buildings List](docs/screenshots/buildings-list.png)
+
+### Building Details
+
+_Detailed view with common areas and amenities_
+
+![Building Details](docs/screenshots/building-detail.png)
+
+### Reservations
+
+_Book common areas with smart validation_
+
+![Reservations](docs/screenshots/reservations.png)
 
 ---
 
@@ -111,32 +158,48 @@
 ```
 my-buildings/
 ├── packages/
-│   ├── backend/          # NestJS API server
+│   ├── backend/                # NestJS API server
 │   │   ├── src/
-│   │   │   ├── buildings/     # Buildings module
-│   │   │   ├── employees/     # Employees module
-│   │   │   ├── printer/       # PDF generation service
-│   │   │   ├── prisma/        # Database service
-│   │   │   └── common/        # Shared decorators & DTOs
+│   │   │   ├── auth/         # Authentication module (JWT, Guards, Strategies)
+│   │   │   ├── buildings/    # Buildings CRUD module
+│   │   │   ├── common-areas/ # Common areas module
+│   │   │   ├── reservations/ # Reservations system
+│   │   │   ├── seed/         # Database seeding
+│   │   │   ├── printer/      # PDF generation service
+│   │   │   ├── prisma/       # Database service
+│   │   │   ├── config/       # Environment configuration
+│   │   │   ├── common/       # Shared decorators & validators
+│   │   │   └── main.ts       # Application entry point
 │   │   ├── prisma/
-│   │   │   └── schema.prisma  # Database schema
-│   │   └── fonts/             # Fonts for PDF generation
+│   │   │   ├── schema.prisma # Database schema
+│   │   │   └── migrations/   # Database migrations
+│   │   ├── fonts/            # Fonts for PDF generation
+│   │   └── test/             # E2E tests
 │   │
-│   ├── frontend/         # React application
+│   ├── frontend/             # React application
 │   │   ├── src/
-│   │   │   ├── app/           # App configuration & routes
-│   │   │   ├── features/      # Feature-based modules
-│   │   │   ├── components/    # Shared components
-│   │   │   ├── hooks/         # Custom React hooks
-│   │   │   └── lib/           # Utilities & configs
-│   │   └── public/
+│   │   │   ├── app/          # App configuration & routes
+│   │   │   │   ├── layouts/  # Layout components
+│   │   │   │   └── routes/   # Route definitions
+│   │   │   ├── features/     # Feature-based modules
+│   │   │   │   ├── auth/     # Authentication (Login, Context)
+│   │   │   │   ├── buildings/    # Buildings & Common Areas
+│   │   │   │   └── reservations/ # Reservation system
+│   │   │   ├── components/   # Shared UI components
+│   │   │   ├── hooks/        # Custom React hooks
+│   │   │   ├── lib/          # Axios & QueryClient configs
+│   │   │   ├── utils/        # Helper functions
+│   │   │   └── theme.ts      # Mantine theme configuration
+│   │   └── public/           # Static assets
 │   │
-│   └── shared/           # Shared types between FE & BE
+│   └── shared/               # Shared types between FE & BE
 │       └── src/
-│           └── types/         # Generated TypeScript types
+│           └── types/        # Generated TypeScript types
 │
-├── docker-compose.yaml   # Docker services configuration
-└── pnpm-workspace.yaml  # Monorepo workspace config
+├── docs/
+│   └── screenshots/          # Application screenshots
+├── docker-compose.yaml       # Docker services configuration
+└── pnpm-workspace.yaml       # Monorepo workspace config
 ```
 
 ### Design Patterns & Best Practices
@@ -208,6 +271,7 @@ pnpm migrate
 6. **Generate Prisma client and types**
 
 ```bash
+cd packages/backend
 pnpm generate
 ```
 
@@ -247,69 +311,100 @@ cd packages/backend
 pnpm start:prod
 ```
 
-### Available Scripts
-
-| Command             | Description                          |
-| ------------------- | ------------------------------------ |
-| `pnpm dev`          | Run all packages in development mode |
-| `pnpm dev:frontend` | Run only frontend                    |
-| `pnpm dev:backend`  | Run only backend                     |
-| `pnpm build`        | Build all packages                   |
-| `pnpm lint`         | Lint all packages                    |
-| `pnpm format`       | Format code with Prettier            |
-| `pnpm migrate`      | Run database migrations              |
-| `pnpm generate`     | Generate Prisma client & types       |
-
 ---
 
 ## 📡 API Documentation
 
 Once the backend is running, access the interactive API documentation:
 
-- **Swagger UI**: [http://localhost:3000/api/v1](http://localhost:3000/api/v1)
-- **OpenAPI JSON**: [http://localhost:3000/api/v1-json](http://localhost:3000/api/v1-json)
+- **Swagger UI**: [http://localhost:3000/api/docs](http://localhost:3000/api/docs)
+- **OpenAPI JSON**: Generated automatically in development mode
 
 ### Key Endpoints
 
-- `GET /api/v1/buildings` - List all buildings
-- `POST /api/v1/buildings` - Create a new building
-- `GET /api/v1/buildings/:id` - Get building details
-- `PATCH /api/v1/buildings/:id` - Update building
-- `DELETE /api/v1/buildings/:id` - Soft delete building
-- `GET /api/v1/employees` - List all employees
-- `POST /api/v1/employees` - Create employee
+**Authentication** (`/api/v1/auth`)
 
----
+- `POST /auth/register` - Register new user
+- `POST /auth/login` - Login and get JWT token
+- `GET /auth/me` - Get current user profile
+- `GET /auth/check-auth-status` - Verify authentication status
 
-## 🧪 Testing
+**Buildings** (`/api/v1/buildings`)
 
-```bash
-# Unit tests
-pnpm test
+- `GET /buildings` - List all buildings (with filters)
+- `POST /buildings` - Create a new building (Admin/Manager)
+- `GET /buildings/:id` - Get building details
+- `PATCH /buildings/:id` - Update building (Admin/Manager)
+- `DELETE /buildings/:id` - Soft delete building (Admin)
+- `PATCH /buildings/:id/restore` - Restore deleted building (Admin)
 
-# E2E tests
-pnpm test:e2e
+**Common Areas** (`/api/v1/common-areas`)
 
-# Test coverage
-pnpm test:cov
-```
+- `GET /common-areas/building/:buildingId` - List areas by building
+- `POST /common-areas` - Create common area (Manager)
+- `GET /common-areas/:id` - Get area details
+- `PATCH /common-areas/:id` - Update common area (Manager)
+- `DELETE /common-areas/:id` - Delete common area (Manager)
+
+**Reservations** (`/api/v1/reservations`)
+
+- `POST /reservations` - Create new reservation (Resident)
+- `GET /reservations/building` - Get reservations by resident's building
+- `DELETE /reservations/:id` - Cancel reservation (Resident/Admin)
+
+**Seed** (`/api/v1/seed`)
+
+- `GET /seed` - Populate database with test data (Development only)
 
 ---
 
 ## 📈 Database Schema
 
-The application uses PostgreSQL with Prisma ORM. Key entities:
+The application uses **PostgreSQL** with **Prisma ORM**. The schema includes:
+
+### Core Entities
+
+- **User**: Application users with role-based access (Admin, Manager, Resident)
+  - Authentication credentials (email, password)
+  - Role assignment and building association
+  - Relationship with reservations and managed buildings
 
 - **Building**: Core entity for property management
-- **Employee**: Staff members managing buildings
-- **Unit**: Individual units within buildings
-- **CommonArea**: Shared spaces in buildings
+  - Property information (name, address, type, year built)
+  - Manager assignment (User with MANAGER role)
+  - Soft delete support with `deletedAt` field
+  - Amenities (parking, security, elevator, etc.)
 
-### Relationships
+- **CommonArea**: Shared spaces within buildings
+  - Type classification (Gym, Pool, Event Room, etc.)
+  - Capacity and availability management
+  - Operating hours and days configuration
+  - Maximum reservation duration rules
 
-- Building → Employee (many-to-one via manager)
-- Building → Unit (one-to-many)
-- Building → CommonArea (one-to-many)
+- **Reservation**: Booking system for common areas
+  - Time slot management with overlap prevention
+  - Status tracking (In Review, Confirmed, Cancelled, Finished)
+  - User and common area associations
+  - Attendees count and notes
+
+### Key Relationships
+
+```
+User (Manager) ──< manages >── Building
+User (Resident) ──< lives in >── Building
+Building ──< has >── CommonArea
+User ──< makes >── Reservation
+CommonArea ──< has >── Reservation
+```
+
+### Enums
+
+- **UserRole**: `ADMIN`, `MANAGER`, `RESIDENT`
+- **PropertyType**: `RESIDENTIAL`, `COMMERCIAL`, `MIXED`
+- **ReservationStatus**: `IN_REVIEW`, `CONFIRMED`, `CANCELLED`, `FINISHED`
+- **CommonAreas**: `GYM`, `POOL`, `GRILL_AREA`, `CAFETERIA`, `EVENT_ROOM`, `ROOF_TOP`, `COWORKING`
+- **Amenities**: `PARKING`, `SECURITY_24_7`, `ELEVATOR`, `WHEELCHAIR_ACCESS`, `FIRE_ALARM`, `CAMERAS`
+- **DaysOfWeek**: `MONDAY` through `SUNDAY`
 
 For detailed schema, see [`packages/backend/prisma/schema.prisma`](packages/backend/prisma/schema.prisma)
 
@@ -319,33 +414,54 @@ For detailed schema, see [`packages/backend/prisma/schema.prisma`](packages/back
 
 See [ROADMAP.md](ROADMAP.md) for detailed development plan.
 
+**Completed Phases:**
+
+- ✅ Phase 1: Authentication & Authorization (JWT, Role-based access)
+- ✅ Phase 2: Buildings CRUD with protected routes
+- ✅ Phase 3: Common Areas management
+- ✅ Phase 4: Reservation system with validations
+- ✅ Phase 5: Deployment (Railway + Vercel)
+- ✅ Phase 6: Polish & UX improvements (partial)
+
 **Upcoming Features:**
 
-- [ ] Authentication & Authorization system
-- [ ] Booking system for common areas
-- [ ] Maintenance ticket management
-- [ ] Advanced dashboard with analytics
-- [ ] PDF report generation
-- [ ] Email notifications
-- [ ] Mobile app (React Native)
-- [ ] Multi-tenant support
-- [ ] Internationalization (i18n)
-
 ---
 
-## 👤 Author
+## 🎯 What This Project Demonstrates
 
-**Your Name**
+### Backend Skills
 
-- GitHub: [@daniseguraf](https://github.com/daniseguraf)
-- LinkedIn: [linkedin.com/in/daniel-segura-fang](https://linkedin.com/in/daniel-segura-fang)
+- ✅ NestJS with modular architecture and dependency injection
+- ✅ Prisma ORM with complex relationships and migrations
+- ✅ Complete JWT authentication (Strategy, Guards, Decorators)
+- ✅ Complex business validations (no-overlapping reservations)
+- ✅ DTOs with class-validator for request validation
+- ✅ RESTful API design with proper HTTP methods
+- ✅ Proper error handling with custom exceptions
+- ✅ Database seeders for test data
+- ✅ Soft deletes for data integrity
+- ✅ Role-based authorization at endpoint level
 
----
+### Frontend Skills
 
-<div align="center">
+- ✅ React 19 with TypeScript and strict type checking
+- ✅ Context API for global state management
+- ✅ TanStack Query for data fetching, caching, and mutations
+- ✅ Mantine UI for modern component library
+- ✅ Complex forms with real-time validation
+- ✅ Protected routes with role-based access control
+- ✅ Axios interceptors for authentication
+- ✅ Feature-based scalable architecture
+- ✅ Custom hooks for reusable logic
+- ✅ Loading states, error handling, and empty states
 
-**⭐ Star this repo if you find it helpful!**
+### DevOps Skills
 
-Made with ❤️ and TypeScript
-
-</div>
+- ✅ Monorepo structure with pnpm workspaces
+- ✅ Docker Compose for local development
+- ✅ Deployment on Railway (backend + PostgreSQL)
+- ✅ Deployment on Vercel (frontend)
+- ✅ Environment variables per environment
+- ✅ Automatic CI/CD with GitHub integration
+- ✅ CORS configuration for production
+- ✅ Database migrations in production

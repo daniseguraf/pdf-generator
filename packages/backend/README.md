@@ -1,98 +1,426 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🏗️ My Buildings - Backend API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+RESTful API built with NestJS for the My Buildings management system.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📋 Table of Contents
 
-## Description
+- [Description](#-description)
+- [Technologies](#-technologies)
+- [Architecture](#-architecture)
+- [Configuration](#-configuration)
+- [Available Scripts](#-available-scripts)
+- [Database](#-database)
+- [Modules](#-modules)
+- [Authentication](#-authentication)
+- [API Documentation](#-api-documentation)
+- [Development](#-development)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## 🎯 Description
 
-```bash
-$ pnpm install
+This backend provides a complete API for managing buildings, common areas, reservations, and users. It implements JWT authentication, role-based authorization, complex business validations, and PDF report generation.
+
+**Key Features:**
+
+- 🔐 JWT authentication with Passport strategies
+- 🛡️ Role-based authorization (Admin, Manager, Resident)
+- 📊 Prisma ORM with PostgreSQL
+- 📝 DTO validation with class-validator
+- 📄 PDF generation with pdfmake
+- 🔄 Soft deletes for data integrity
+- 📚 Automatic documentation with Swagger/OpenAPI
+- 🌱 Seeders for test data
+
+---
+
+## 🛠️ Technologies
+
+| Technology          | Version | Purpose             |
+| ------------------- | ------- | ------------------- |
+| **NestJS**          | 11.0+   | Main framework      |
+| **Prisma**          | 7.0+    | ORM and migrations  |
+| **PostgreSQL**      | 14+     | Database            |
+| **Passport JWT**    | 11.0+   | Authentication      |
+| **class-validator** | 0.14+   | DTO validation      |
+| **pdfmake**         | 0.2+    | PDF generation      |
+| **Swagger**         | 11.2+   | API documentation   |
+| **bcrypt**          | 6.0+    | Password hashing    |
+
+---
+
+## 🏛️ Architecture
+
+### Module Structure
+
+```
+src/
+├── auth/                    # Authentication and authorization
+│   ├── decorators/         # @Auth(), @Roles(), custom decorators
+│   ├── dto/                # Login and register DTOs
+│   ├── guards/             # Role guards
+│   ├── strategies/         # JWT Strategy
+│   └── types/              # JWT payload types
+│
+├── buildings/              # Buildings CRUD
+│   ├── dto/                # Create and update DTOs
+│   ├── entities/           # Response entities
+│   └── buildings.service.ts
+│
+├── common-areas/           # Common areas management
+│   ├── dto/
+│   ├── entities/
+│   └── common-areas.service.ts
+│
+├── reservations/           # Reservation system
+│   ├── dto/
+│   ├── entities/
+│   └── reservations.service.ts
+│
+├── seed/                   # Database seeders
+│   ├── data/               # Test data
+│   └── seed.service.ts
+│
+├── printer/                # PDF generation service
+│   └── printer.service.ts
+│
+├── prisma/                 # Prisma service
+│   └── prisma.service.ts
+│
+├── config/                 # Environment configuration and validation
+│   ├── env.config.ts
+│   └── env.validation.ts
+│
+└── common/                 # Shared decorators and utilities
+    └── decorators/
 ```
 
-## Compile and run the project
+### Architecture Pattern
 
-```bash
-# development
-$ pnpm run start
+The backend follows a **NestJS modular architecture** with the following principles:
 
-# watch mode
-$ pnpm run start:dev
+- **Independent modules**: Each feature has its own module with controllers, services, and DTOs
+- **Dependency injection**: Extensive use of DI for testability and maintainability
+- **Separation of concerns**: Controllers (routing) → Services (business logic) → Prisma (data access)
+- **Validated DTOs**: All inputs are validated with class-validator
+- **Guards and decorators**: Route protection with custom guards
+- **Exception filters**: Centralized error handling
 
-# production mode
-$ pnpm run start:prod
+---
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+Create a `.env` file in the `packages/backend` directory:
+
+```env
+# Database
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/my_buildings?schema=public"
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_NAME=my_buildings
+
+# Server
+PORT=3000
+NODE_ENV=development
+
+# JWT (optional, has default values)
+JWT_SECRET=your-secret-key-here
+JWT_EXPIRES_IN=7d
 ```
 
-## Run tests
+### Prerequisites
+
+- Node.js >= 18.x
+- pnpm >= 10.23
+- PostgreSQL 14+ (or Docker)
+
+### Installation
+
+From the monorepo root directory:
 
 ```bash
-# unit tests
-$ pnpm run test
+# Install dependencies
+pnpm install
 
-# e2e tests
-$ pnpm run test:e2e
+# Start database with Docker
+docker-compose up -d
 
-# test coverage
-$ pnpm run test:cov
+# Generate Prisma client
+cd packages/backend
+pnpm generate
+
+# Run migrations
+pnpm migrate
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## 📜 Available Scripts
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+| Script         | Command              | Description                            |
+| -------------- | -------------------- | -------------------------------------- |
+| **Development** | `pnpm dev`           | Start server in watch mode             |
+| **Build**      | `pnpm build`         | Build project for production           |
+| **Production** | `pnpm start:prod`    | Run migrations and start server        |
+| **Lint**       | `pnpm lint`          | Run ESLint with auto-fix               |
+| **Format**     | `pnpm format`        | Format code with Prettier              |
+| **Tests**      | `pnpm test`          | Run unit tests                         |
+| **E2E Tests**  | `pnpm test:e2e`      | Run end-to-end tests                   |
+| **Coverage**   | `pnpm test:cov`      | Generate coverage report               |
+| **Generate**   | `pnpm generate`      | Generate Prisma client and types       |
+| **Migrate**    | `pnpm migrate`       | Run migrations in development          |
+| **Deploy**     | `pnpm prisma:deploy` | Run migrations in production           |
+
+---
+
+## 🗄️ Database
+
+### Prisma ORM
+
+The project uses **Prisma** as ORM with the following features:
+
+- **Declarative schema**: Model definitions in `prisma/schema.prisma`
+- **Migrations**: Database version control
+- **Type safety**: Automatically generated TypeScript types
+- **Relations**: Full support for complex relationships
+- **Soft deletes**: Implemented with `deletedAt` field
+
+### Main Schema
+
+```prisma
+model User {
+  id          String    @id @default(uuid())
+  email       String    @unique
+  password    String
+  fullName    String
+  role        UserRole
+  buildingId  String?
+  building    Building? @relation("BuildingResidents")
+  // ... more fields
+}
+
+model Building {
+  id          String       @id @default(uuid())
+  name        String
+  address     String
+  floors      Int
+  propertyType PropertyType
+  managerId   String?
+  manager     User?        @relation("BuildingManager")
+  residents   User[]       @relation("BuildingResidents")
+  commonAreas CommonArea[]
+  deletedAt   DateTime?
+  // ... more fields
+}
+
+model CommonArea {
+  id              String        @id @default(uuid())
+  name            String
+  type            CommonAreas
+  capacity        Int
+  buildingId      String
+  building        Building      @relation(...)
+  reservations    Reservation[]
+  operatingHours  Json
+  // ... more fields
+}
+
+model Reservation {
+  id            String            @id @default(uuid())
+  userId        String
+  user          User              @relation(...)
+  commonAreaId  String
+  commonArea    CommonArea        @relation(...)
+  startTime     DateTime
+  endTime       DateTime
+  status        ReservationStatus
+  // ... more fields
+}
+```
+
+### Migrations
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+# Create a new migration
+pnpm migrate
+
+# Apply migrations in production
+pnpm prisma:deploy
+
+# Reset database (development)
+npx prisma migrate reset
+
+# Check migration status
+npx prisma migrate status
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Seeders
 
-## Resources
+The system includes seeders to populate the database with test data:
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+# Run seeder (development only)
+curl http://localhost:3000/api/v1/seed
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+**Generated data:**
 
-## Support
+- 3 users (Admin, Manager, Resident)
+- 2 buildings with common areas
+- Realistic test data
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+## 📦 Modules
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Auth Module
 
-## License
+**Responsibility**: Authentication and authorization
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+**Main endpoints:**
+
+- `POST /auth/register` - User registration
+- `POST /auth/login` - Login with JWT
+- `GET /auth/me` - Authenticated user profile
+- `GET /auth/check-auth-status` - Verify authentication status
+
+**Key components:**
+
+- `JwtStrategy`: Passport strategy to validate tokens
+- `UserRoleGuard`: Guard to verify roles
+- `@Auth()`: Custom decorator that combines authentication and roles
+- `@GetUser()`: Decorator to get user from request
+
+### Buildings Module
+
+**Responsibility**: Buildings CRUD
+
+**Features:**
+
+- Filtering by property type and manager
+- Soft deletes with restore capability
+- Role-based permission validations
+- Relationships with managers and residents
+
+### Common Areas Module
+
+**Responsibility**: Common areas management
+
+**Features:**
+
+- Association with buildings
+- Operating hours configuration
+- Capacity control
+- Availability validation
+
+### Reservations Module
+
+**Responsibility**: Reservation system
+
+**Features:**
+
+- Operating hours validation
+- Reservation overlap prevention
+- Maximum duration limit
+- Reservation statuses (Confirmed, Cancelled, In Review, Finished)
+- Filtering by user's building
+
+### Printer Module
+
+**Responsibility**: PDF report generation
+
+**Features:**
+
+- Building report generation
+- Reservation report generation
+- Custom fonts usage (Roboto)
+- Professional format with tables and styles
+
+### Seed Module
+
+**Responsibility**: Test data population
+
+**Usage**: Only available in development environment
+
+---
+
+## 🔐 Authentication
+
+### JWT Strategy
+
+The system uses **JWT (JSON Web Tokens)** for authentication:
+
+```typescript
+// JWT Payload
+interface JwtPayload {
+  id: string
+  email: string
+  role: UserRole
+}
+```
+
+### Route Protection
+
+Use the `@Auth()` decorator to protect endpoints:
+
+```typescript
+// Authenticated users only
+@Auth()
+@Get('profile')
+getProfile(@GetUser() user: User) {
+  return user;
+}
+
+// Admins only
+@Auth(UserRole.ADMIN)
+@Delete(':id')
+deleteBuilding(@Param('id') id: string) {
+  // ...
+}
+
+// Admins or Managers
+@Auth(UserRole.ADMIN, UserRole.MANAGER)
+@Post()
+createBuilding(@Body() dto: CreateBuildingDto) {
+  // ...
+}
+```
+
+### Custom Guards
+
+- `JwtAuthGuard`: Verifies valid JWT token
+- `UserRoleGuard`: Verifies allowed roles
+
+---
+
+## 📚 API Documentation
+
+### Swagger UI
+
+Once the server is running, access the interactive documentation:
+
+**URL**: [http://localhost:3000/api/docs](http://localhost:3000/api/docs)
+
+### OpenAPI Spec
+
+The OpenAPI file is automatically generated and used for:
+
+- Interactive Swagger documentation
+- TypeScript type generation for frontend
+- API testing
+- Integration with development tools
+
+### Documentation Decorators
+
+```typescript
+@ApiTags('buildings')
+@ApiOperation({ summary: 'Get all buildings' })
+@ApiResponse({ status: 200, description: 'List of buildings', type: [Building] })
+@ApiResponse({ status: 401, description: 'Unauthorized' })
+@Get()
+findAll() {
+  // ...
+}
+```

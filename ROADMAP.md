@@ -1,4 +1,4 @@
-# Sistema de Gestión de Edificios
+# 🏢 My Buildings - Enterprise Building Management System
 
 ## 🎯 Objetivo
 
@@ -380,7 +380,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## 🌐 FASE 6: Despliegue ✅
+## 🌐 FASE 5: Despliegue ✅
 
 ### Backend - Preparación
 
@@ -500,7 +500,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## 📝 FASE 7: Polish y README
+## 📝 FASE 6: Polish y README
 
 ### Frontend
 
@@ -534,85 +534,6 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 - [ ] Actualizar [`README.md`](README.md) principal
 
-  ```markdown
-  # 🏢 Sistema de Gestión de Edificios
-
-  Sistema fullstack para gestionar edificios, áreas comunes y reservaciones.
-
-  ## 🚀 Demo en Vivo
-
-  - **Aplicación:** https://tu-app.vercel.app
-  - **API:** https://tu-backend.railway.app/api
-  - **Documentación API:** https://tu-backend.railway.app/api
-
-  **Credenciales de prueba:**
-
-  - Admin: admin@demo.com / password123
-
-  ## ✨ Características
-
-  - ✅ Autenticación JWT con roles (Admin, Manager, Resident)
-  - ✅ CRUD completo de edificios
-  - ✅ Gestión de áreas comunes
-  - ✅ Sistema de reservaciones con validación de horarios
-  - ✅ Prevención de solapamiento de reservaciones
-  - ✅ Interfaz responsive y moderna
-
-  ## 🛠 Stack Tecnológico
-
-  **Backend:**
-
-  - NestJS
-  - Prisma ORM
-  - PostgreSQL
-  - JWT Authentication
-  - TypeScript
-
-  **Frontend:**
-
-  - React 18
-  - TypeScript
-  - Mantine UI
-  - TanStack Query
-  - React Router
-  - Axios
-
-  **DevOps:**
-
-  - Railway (Backend + PostgreSQL)
-  - Vercel (Frontend)
-  - GitHub Actions (CI/CD)
-  - Docker (Desarrollo local)
-
-  ## 📦 Instalación Local
-
-  ### Prerequisitos
-
-  - Node.js 18+
-  - pnpm 8+
-  - Docker
-
-  ### Pasos
-
-  [instrucciones detalladas]
-
-  ## 📸 Screenshots
-
-  [insertar imágenes]
-
-  ## 🏗 Arquitectura
-
-  [diagrama o descripción]
-
-  ## 📚 API Documentation
-
-  Swagger disponible en: `https://tu-backend.railway.app/api`
-
-  ## 👤 Autor
-
-  [Tu nombre] - [LinkedIn] - [Portfolio]
-  ```
-
 - [ ] Crear `packages/backend/README.md`
   - [ ] Documentar estructura del proyecto
   - [ ] Documentar principales endpoints
@@ -635,71 +556,24 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## FASE 8: Checklist Pre-Portfolio
+## FASE 7: Checklist Pre-Portfolio
 
-- [ ] App desplegada 24/7
-- [ ] Login funciona
-- [ ] CRUD edificios funciona
-- [ ] CRUD áreas comunes funciona
-- [ ] Sistema reservaciones funciona
+- [x] App desplegada 24/7
+- [x] Login funciona
+- [x] CRUD edificios funciona
+- [x] CRUD áreas comunes funciona
+- [x] Sistema reservaciones funciona
 - [ ] Validación de solapamiento funciona
 - [ ] Responsive en mobile
 - [ ] Sin errores en consola
 - [ ] Sin warnings TypeScript
 - [ ] README con screenshots
-- [ ] Links en CV/LinkedIn
+- [x] Links CV/LinkedIn
 - [ ] Credenciales de demo funcionan
 
 ---
 
-## 🎯 Lo Que Este Proyecto Demuestra
-
-**Backend Skills:**
-
-- ✅ NestJS con arquitectura modular
-- ✅ Prisma ORM con relaciones complejas
-- ✅ Autenticación JWT completa (Strategy, Guards, Decorators)
-- ✅ Validaciones de negocio complejas (no-overlapping)
-- ✅ DTOs con class-validator
-- ✅ RESTful API design
-- ✅ Manejo apropiado de errores
-- ✅ Seeders para datos de prueba
-
-**Frontend Skills:**
-
-- ✅ React 18 con TypeScript
-- ✅ Context API para estado global
-- ✅ TanStack Query (data fetching, cache, mutations)
-- ✅ Mantine UI (componentes modernos)
-- ✅ Formularios complejos con validaciones
-- ✅ Protected routes y autorización
-- ✅ Axios con interceptors
-- ✅ Arquitectura escalable por features
-
-**DevOps Skills:**
-
-- ✅ Monorepo con pnpm workspaces
-- ✅ Docker para desarrollo local
-- ✅ Deploy en Railway (backend + DB)
-- ✅ Deploy en Vercel (frontend)
-- ✅ Variables de entorno por ambiente
-- ✅ CI/CD automático
-
----
-
-## Fase 9: Nice to have
-
-- [ ] Crear `pages/RegisterPage.tsx`
-  - [ ] Campos: email, password, confirmPassword, firstName, lastName
-  - [ ] Validación: passwords match
-  - [ ] Al éxito: auto-login o navegar a /login
-
-- [ ] Verificar en mobile
-  - [ ] Abrir desde teléfono
-  - [ ] Navegar por la app
-  - [ ] Verificar que sea usable
-
-## 🔒 FASE 10: Mejoras de Seguridad y Autenticación
+## 🔒 FASE 8: Mejoras de Seguridad y Autenticación
 
 > **Objetivo:** Fortalecer la seguridad de la aplicación
 
@@ -1000,3 +874,10 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [ ] Mencionar HttpOnly Cookies
   - [ ] Mencionar Rate Limiting
   - [ ] Mencionar validaciones implementadas
+
+## Fase 9: Nice to have
+
+- [ ] Crear `pages/RegisterPage.tsx`
+  - [ ] Campos: email, password, confirmPassword, firstName, lastName
+  - [ ] Validación: passwords match
+  - [ ] Al éxito: auto-login o navegar a /login

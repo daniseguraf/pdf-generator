@@ -1,576 +1,368 @@
-# 🏗️ Arquitectura Frontend - Sistema de Gestión de Edificios
+# 🎨 My Buildings - Frontend
 
-## 📋 Tabla de Contenidos
+A modern, high-performance React application built with React 19, TypeScript, and Mantine UI. This frontend provides a beautiful and intuitive interface for the My Buildings management system.
 
-- [Stack Tecnológico](#stack-tecnológico)
-- [Arquitectura General](#arquitectura-general)
-- [Estructura de Carpetas](#estructura-de-carpetas)
-- [Flujo de Datos](#flujo-de-datos)
-- [Patrones de Diseño](#patrones-de-diseño)
-- [Convenciones](#convenciones)
+## 🚀 Tech Stack
 
----
+- **[React 19](https://react.dev/)** - Latest React with React Compiler for automatic optimization
+- **[TypeScript](https://www.typescriptlang.org/)** - Type-safe development
+- **[Vite](https://vite.dev/)** - Lightning-fast build tool and dev server
+- **[Mantine UI](https://mantine.dev/)** - Comprehensive React component library
+- **[TanStack Query](https://tanstack.com/query)** - Powerful data synchronization and caching
+- **[React Router 7](https://reactrouter.com/)** - Modern routing solution
+- **[Axios](https://axios-http.com/)** - Promise-based HTTP client
+- **[Zod](https://zod.dev/)** - TypeScript-first schema validation
+- **[React Big Calendar](https://jquense.github.io/react-big-calendar/)** - Calendar component for reservations
+- **[Phosphor Icons](https://phosphoricons.com/)** - Beautiful icon library
+- **[Day.js](https://day.js.org/)** - Lightweight date manipulation library
 
-## 🛠️ Stack Tecnológico
+## ✨ Features
 
-| Capa                 | Tecnología     | Versión | Propósito              |
-| -------------------- | -------------- | ------- | ---------------------- |
-| **Framework**        | React          | 18.x    | Librería UI            |
-| **Lenguaje**         | TypeScript     | 5.x     | Type safety            |
-| **Build Tool**       | Vite           | 5.x     | Bundler y dev server   |
-| **UI Library**       | Mantine        | 7.x     | Sistema de componentes |
-| **Routing**          | React Router   | 6.x     | Navegación SPA         |
-| **State Management** | TanStack Query | 5.x     | Server state           |
-| **HTTP Client**      | Axios          | 1.x     | Peticiones API         |
-| **Icons**            | Lucide React   | -       | Iconografía            |
-| **Date Utils**       | Day.js         | -       | Manejo de fechas       |
+### Core Functionality
 
----
+- **🔐 Authentication**
+  - JWT-based authentication with secure token storage
+  - Login/Logout functionality
+  - Protected routes with role-based access control
+  - Automatic token refresh and session management
 
-## 🏛️ Arquitectura General
+- **🏢 Building Management** (Admin/Manager)
+  - List all buildings
+  - Create new buildings with detailed information
+  - Edit building details and amenities
+  - Soft delete and restore buildings
+  - View building details with common areas
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                         BROWSER                                  │
-│  ┌───────────────────────────────────────────────────────────┐  │
-│  │                     React Application                      │  │
-│  │                                                             │  │
-│  │  ┌─────────────────────────────────────────────────────┐  │  │
-│  │  │              Presentation Layer                      │  │  │
-│  │  │  ┌──────────┐  ┌──────────┐  ┌──────────┐          │  │  │
-│  │  │  │  Pages   │  │Components│  │ Layouts  │          │  │  │
-│  │  │  └────┬─────┘  └────┬─────┘  └────┬─────┘          │  │  │
-│  │  └───────┼─────────────┼─────────────┼────────────────┘  │  │
-│  │          │             │             │                     │  │
-│  │  ┌───────▼─────────────▼─────────────▼────────────────┐  │  │
-│  │  │              Business Logic Layer                   │  │  │
-│  │  │  ┌──────────┐  ┌──────────┐  ┌──────────┐         │  │  │
-│  │  │  │  Hooks   │  │   State  │  │  Utils   │         │  │  │
-│  │  │  │  Custom  │  │  (Query) │  │          │         │  │  │
-│  │  │  └────┬─────┘  └────┬─────┘  └──────────┘         │  │  │
-│  │  └───────┼─────────────┼────────────────────────────┘  │  │
-│  │          │             │                                 │  │
-│  │  ┌───────▼─────────────▼────────────────────────────┐  │  │
-│  │  │              Data Access Layer                    │  │  │
-│  │  │  ┌──────────┐  ┌──────────┐  ┌──────────┐       │  │  │
-│  │  │  │ Services │  │  Axios   │  │  Cache   │       │  │  │
-│  │  │  │   API    │  │  Client  │  │ (Query)  │       │  │  │
-│  │  │  └────┬─────┘  └────┬─────┘  └──────────┘       │  │  │
-│  │  └───────┼─────────────┼────────────────────────────┘  │  │
-│  └──────────┼─────────────┼─────────────────────────────────┘  │
-│             │             │                                     │
-│             │             │                                     │
-└─────────────┼─────────────┼─────────────────────────────────────┘
-              │             │
-              ▼             ▼
-    ┌─────────────────────────────────┐
-    │       NestJS Backend API        │
-    │     http://localhost:3000       │
-    └─────────────────────────────────┘
-```
+- **🏛️ Common Areas Management** (Manager)
+  - Create and manage common areas per building
+  - Configure capacity and operating hours
+  - Set maximum reservation duration
+  - Enable/disable common areas
 
----
+- **📅 Reservation System** (Resident)
+  - Interactive calendar view for reservations
+  - Book common areas with date/time selection
+  - Automatic validation of operating hours
+  - Overlap prevention
+  - View and cancel personal reservations
 
-## 📁 Estructura de Carpetas
+### UI/UX Features
+
+- **🎨 Modern Design**
+  - Clean and intuitive interface
+  - Responsive layout for all screen sizes
+  - Dark/Light theme toggle
+  - Smooth animations and transitions
+  - Loading states and skeletons
+  - Empty states with helpful messages
+
+- **⚡ Performance**
+  - React 19 Compiler for automatic optimization
+  - Efficient data caching and invalidation
+  - Minimal bundle size
+
+## 📁 Project Structure
 
 ```
 src/
-├── 🎯 app/                      # Configuración de la aplicación
-│   ├── providers/               # Context providers (Query, Mantine, Auth)
-│   ├── router/                  # Configuración de rutas
-│   └── App.tsx
+├── app/                          # Application configuration
+│   ├── layouts/                  # Layout components
+│   │   ├── AppLayout.tsx        # Main app layout with header/nav
+│   │   ├── AuthLayout.tsx       # Authentication layout
+│   │   └── PublicLayout.tsx     # Public pages layout
+│   └── routes/
+│       └── AppRoutes.tsx        # Route definitions
 │
-├── 🎨 features/                 # Módulos por funcionalidad (Feature-First)
-│   ├── auth/
-│   │   ├── components/          # UI específica de auth
-│   │   ├── hooks/               # useAuth, useLogin, etc.
-│   │   ├── services/            # API calls de auth
-│   │   ├── types/               # Types de auth
-│   │   └── pages/               # LoginPage, RegisterPage
+├── features/                     # Feature-based modules
+│   ├── auth/                    # Authentication feature
+│   │   ├── components/          # ProtectedRoute component
+│   │   ├── context/             # Auth context and provider
+│   │   ├── hooks/               # useAuth, useRole, useLogin
+│   │   ├── pages/               # Login and Register pages
+│   │   ├── services/            # Auth API service
+│   │   └── types/               # Auth type definitions
 │   │
-│   ├── buildings/
-│   │   ├── components/          # BuildingForm, BuildingTable, etc.
-│   │   ├── hooks/               # useBuildings, useCreateBuilding
-│   │   ├── services/            # buildings.service.ts
-│   │   ├── types/               # building.types.ts
-│   │   └── pages/               # BuildingsListPage, BuildingDetailPage
+│   ├── buildings/               # Buildings & Common Areas
+│   │   ├── components/          # Building forms, lists, details
+│   │   ├── helpers/             # Utility functions
+│   │   ├── hooks/               # Data fetching and mutations
+│   │   ├── pages/               # Buildings list and detail pages
+│   │   ├── services/            # Buildings API service
+│   │   └── types/               # Building type definitions
 │   │
-│   ├── units/                   # Gestión de unidades
-│   ├── bookings/                # Sistema de reservas
-│   ├── tickets/                 # Sistema de incidencias
-│   ├── staff/                   # Gestión de personal
-│   └── dashboard/               # Dashboard y métricas
+│   └── reservations/            # Reservation system
+│       ├── components/          # Calendar, forms, lists
+│       ├── helpers/             # Date and validation helpers
+│       ├── hooks/               # Reservation queries and mutations
+│       ├── pages/               # Reservations page
+│       ├── services/            # Reservations API service
+│       └── types/               # Reservation type definitions
 │
-├── 🧩 components/               # Componentes compartidos/reutilizables
-│   ├── ui/                      # Wrappers de Mantine
-│   │   ├── DataTable/
-│   │   ├── FormModal/
-│   │   └── ConfirmDialog/
-│   ├── layout/                  # Layouts de página
-│   │   ├── AppShell/
-│   │   ├── PageHeader/
-│   │   └── EmptyState/
-│   └── common/                  # Componentes comunes
-│       ├── ErrorBoundary/
-│       └── LoadingSpinner/
+├── components/                   # Shared UI components
+│   ├── BuildingCardInfo/        # Building card component
+│   ├── CommonAreaCard/          # Common area card
+│   ├── ScheduleRange/           # Schedule display component
+│   ├── layout/                  # Header, Navbar
+│   ├── NoElementsAvailable.tsx  # Empty state component
+│   └── ThemeToggle.tsx          # Dark/Light mode toggle
 │
-├── 🪝 hooks/                    # Hooks compartidos globalmente
-│   ├── useDebounce.ts
-│   ├── useLocalStorage.ts
-│   └── usePagination.ts
+├── hooks/                        # Global custom hooks
+│   └── useColorScheme.ts        # Theme management hook
 │
-├── 📚 lib/                      # Configuraciones de librerías
-│   ├── axios.ts                 # Instancia + interceptors
-│   ├── queryClient.ts           # Config de React Query
-│   └── mantine-theme.ts         # Tema customizado
+├── lib/                          # Library configurations
+│   ├── axios.ts                 # Axios instance with interceptors
+│   └── queryClient.ts           # TanStack Query configuration
 │
-├── 🔧 services/                 # Servicios compartidos
-│   ├── api.ts                   # Funciones base de API
-│   └── storage.ts               # LocalStorage helpers
+├── utils/                        # Utility functions
+│   ├── amenities.dictionary.ts  # Amenities translations
+│   ├── dates/                   # Date formatting utilities
+│   └── getCommonAreaColor.ts    # Color mapping for areas
 │
-├── 📝 types/                    # Types globales
-│   ├── api.types.ts
-│   ├── common.types.ts
-│   └── models.types.ts
-│
-├── 🛠️ utils/                    # Utilidades
-│   ├── format.ts                # Formateo de datos
-│   ├── validation.ts            # Validaciones
-│   └── constants.ts             # Constantes
-│
-├── 🎨 styles/                   # Estilos globales
-│   └── global.css
-│
-└── 📦 assets/                   # Assets estáticos
-    ├── images/
-    └── icons/
+├── App.tsx                       # Root component
+├── main.tsx                      # Application entry point
+├── main.css                      # Global styles
+└── theme.ts                      # Mantine theme configuration
 ```
 
----
+## 🛠️ Getting Started
 
-## 🔄 Flujo de Datos
+### Prerequisites
 
-### 1. Lectura de Datos (Query)
+- Node.js >= 18.x
+- pnpm >= 10.23
+- Backend API running (see `packages/backend/README.md`)
 
-```
-┌──────────────┐
-│   Usuario    │
-│  hace click  │
-└──────┬───────┘
-       │
-       ▼
-┌─────────────────────┐
-│  BuildingsListPage  │  (Page Component)
-│  useBuildings()     │
-└──────┬──────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│  useBuildings hook  │  (Custom Hook)
-│  + React Query      │
-└──────┬──────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│ buildings.service   │  (Service Layer)
-│ buildingsService    │
-│   .getAll()         │
-└──────┬──────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│   Axios Client      │  (HTTP Layer)
-│  GET /buildings     │
-└──────┬──────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│   Backend API       │
-│   NestJS + Prisma   │
-└──────┬──────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│   PostgreSQL DB     │
-└─────────────────────┘
+### Installation
 
-Response Flow (inverso):
-DB → Backend → Axios → Service → React Query Cache → Hook → Component → UI
+1. **Install dependencies** (from root directory)
+
+```bash
+pnpm install
 ```
 
-### 2. Escritura de Datos (Mutation)
+2. **Set up environment variables**
 
-```
-┌──────────────┐
-│   Usuario    │
-│  submit form │
-└──────┬───────┘
-       │
-       ▼
-┌─────────────────────┐
-│   BuildingForm      │  (Form Component)
-│  mutation.mutate()  │
-└──────┬──────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│useCreateBuilding    │  (Custom Hook)
-│  + React Query      │
-│  useMutation()      │
-└──────┬──────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│buildings.service    │  (Service Layer)
-│  .create(dto)       │
-└──────┬──────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│   Axios Client      │  (HTTP Layer)
-│  POST /buildings    │
-└──────┬──────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│   Backend API       │
-└──────┬──────────────┘
-       │
-       ▼ (Success)
-┌─────────────────────┐
-│  Query Invalidation │  React Query invalida cache
-│  + Refetch          │  UI se actualiza automáticamente
-└─────────────────────┘
+Create a `.env` file in the `packages/frontend` directory:
+
+```env
+VITE_API_URL=http://localhost:3000
 ```
 
-### 3. Autenticación (JWT)
+For production:
 
-```
-┌──────────┐
-│  Login   │
-└────┬─────┘
-     │
-     ▼
-POST /auth/login
-     │
-     ▼
-┌──────────────────┐
-│  Backend retorna │
-│  { access_token }│
-└────┬─────────────┘
-     │
-     ▼
-┌──────────────────────┐
-│ localStorage.setItem │
-│ ('access_token', ..) │
-└────┬─────────────────┘
-     │
-     ▼
-┌──────────────────────────┐
-│ Axios Request Interceptor│
-│ Agrega header:           │
-│ Authorization: Bearer ..  │
-└──────────────────────────┘
-     │
-     ▼
-Todas las requests incluyen token automáticamente
+```env
+VITE_API_URL=https://your-api-domain.com
 ```
 
----
+### Development
 
-## 🎯 Patrones de Diseño
+Run the development server:
 
-### 1. Feature-First Architecture
+```bash
+# From root directory
+pnpm dev:frontend
 
-Cada módulo de negocio es autocontenido:
-
-```
-features/buildings/
-├── components/     # UI solo para buildings
-├── hooks/         # Lógica solo para buildings
-├── services/      # API calls solo para buildings
-├── types/         # Types solo para buildings
-└── pages/         # Páginas de buildings
-
-✅ Alta cohesión
-✅ Bajo acoplamiento
-✅ Fácil de escalar
+# Or from packages/frontend
+pnpm dev
 ```
 
-### 2. Custom Hooks Pattern
+The application will be available at [http://localhost:5173](http://localhost:5173)
 
-Encapsular lógica de React Query en hooks reutilizables:
+### Build
+
+Build for production:
+
+```bash
+# From root directory
+pnpm build:frontend
+
+# Or from packages/frontend
+pnpm build
+```
+
+Preview production build:
+
+```bash
+pnpm preview
+```
+
+## 🔧 Configuration
+
+### Path Aliases
+
+The project uses path aliases for cleaner imports:
 
 ```typescript
-// ❌ Evitar: React Query directo en componentes
-function BuildingsPage() {
-  const { data } = useQuery({
-    queryKey: ['buildings'],
-    queryFn: () => fetch('/buildings'),
-  })
-}
-
-// ✅ Mejor: Custom hook
-function BuildingsPage() {
-  const { data, isLoading } = useBuildings()
-}
+import { Component } from '@app/...' // App configuration
+import { Feature } from '@features/...' // Feature modules
+import { Component } from '@components/...' // Shared components
+import { useHook } from '@hooks/...' // Custom hooks
+import { api } from '@lib/...' // Library configs
+import { util } from '@utils/...' // Utilities
+import { Type } from '@types/...' // Type definitions
+import { asset } from '@assets/...' // Static assets
 ```
 
-### 3. Service Layer Pattern
+### Environment Variables
 
-Separar lógica de API de componentes:
+| Variable       | Description          | Default                 |
+| -------------- | -------------------- | ----------------------- |
+| `VITE_API_URL` | Backend API base URL | `http://localhost:3000` |
+
+## 📝 Scripts
+
+| Command                     | Description                                |
+| --------------------------- | ------------------------------------------ |
+| `pnpm dev`                  | Start development server                   |
+| `pnpm build`                | Build for production                       |
+| `pnpm preview`              | Preview production build                   |
+| `pnpm lint`                 | Run ESLint                                 |
+| `pnpm types:generate`       | Generate TypeScript types from running API |
+| `pnpm types:generate:local` | Generate types from local OpenAPI spec     |
+
+## 🔐 Authentication Flow
+
+1. User enters credentials on login page
+2. Frontend sends POST request to `/api/v1/auth/login`
+3. Backend validates and returns JWT token
+4. Token is stored in localStorage
+5. Axios interceptor adds token to all requests
+6. Protected routes check authentication status
+7. Role-based access control restricts certain pages
+
+## 🎯 Key Features Implementation
+
+### Data Fetching with TanStack Query
 
 ```typescript
-// services/buildings.service.ts
-export const buildingsService = {
-  getAll: () => api.get('/buildings'),
-  create: dto => api.post('/buildings', dto),
-  // ...
-}
+// Query example
+const { data, isLoading, error } = useBuildings()
 
-// hooks/useBuildings.ts
-export const useBuildings = () => {
-  return useQuery({
-    queryKey: ['buildings'],
-    queryFn: buildingsService.getAll,
-  })
-}
+// Mutation example
+const { mutate } = useCreateBuilding()
+mutate(buildingData, {
+  onSuccess: () => {
+    // Invalidate and refetch
+    queryClient.invalidateQueries(['buildings'])
+  },
+})
 ```
 
-### 4. Compound Components
-
-Para componentes complejos como tablas:
+### Form Validation with Zod
 
 ```typescript
-<DataTable data={buildings}>
-  <DataTable.Column field="name" header="Nombre" />
-  <DataTable.Column field="address" header="Dirección" />
-  <DataTable.Actions>
-    <ActionButton icon="view" />
-    <ActionButton icon="edit" />
-  </DataTable.Actions>
-</DataTable>
+const schema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Invalid email'),
+})
+
+const form = useForm({
+  validate: zodResolver(schema),
+})
 ```
 
----
-
-## 📐 Convenciones
-
-### Nomenclatura de Archivos
+### Protected Routes
 
 ```typescript
-// Componentes
-BuildingForm.tsx // PascalCase
-BuildingTable.tsx
-
-// Hooks
-useBuildings.ts // camelCase + 'use' prefix
-useCreateBuilding.ts
-
-// Services
-buildings.service.ts // camelCase + '.service'
-auth.service.ts
-
-// Types
-building.types.ts // camelCase + '.types'
-api.types.ts
-
-// Utils
-format.ts // camelCase
-validation.ts
-```
-
-### Imports con Alias
-
-```typescript
-// ✅ Con alias (configurado en vite.config.ts)
-import { api } from '@/lib/axios'
-import { useBuildings } from '@/features/buildings/hooks/useBuildings'
-import { DataTable } from '@/components/ui/DataTable'
-
-// ❌ Sin alias (difícil de mantener)
-import { api } from '../../../lib/axios'
-import { useBuildings } from '../../features/buildings/hooks/useBuildings'
-```
-
-### Organización de Imports
-
-```typescript
-// 1. React y librerías externas
-import React, { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { Button, Group } from '@mantine/core'
-
-// 2. Imports internos (ordenados por cercanía)
-import { useBuildings } from '@/features/buildings/hooks/useBuildings'
-import { BuildingForm } from '../components/BuildingForm'
-import { formatDate } from '@/utils/format'
-
-// 3. Types
-import type { Building } from '@/features/buildings/types/building.types'
-
-// 4. Estilos (si aplica)
-import './styles.css'
-```
-
-### TypeScript Guidelines
-
-```typescript
-// ✅ Interfaces para objetos de datos
-interface Building {
-  id: string
-  name: string
-}
-
-// ✅ Types para unions, utilities
-type BuildingStatus = 'active' | 'inactive'
-type PartialBuilding = Partial<Building>
-
-// ✅ Evitar 'any', usar 'unknown' si es necesario
-const data: unknown = await fetchData()
-
-// ✅ Props de componentes
-interface BuildingFormProps {
-  buildingId?: string
-  onSuccess?: () => void
-}
-```
-
----
-
-## 🔐 Seguridad
-
-### Protección de Rutas
-
-```typescript
-// router/ProtectedRoute.tsx
-<ProtectedRoute roles={['ADMIN', 'MANAGER']}>
-  <BuildingsPage />
+<ProtectedRoute allowedRoles={['ADMIN', 'MANAGER']}>
+  <BuildingsListPage />
 </ProtectedRoute>
 ```
 
-### Manejo de Tokens
+## 🎨 UI Components
 
-```typescript
-// lib/axios.ts
-api.interceptors.request.use(config => {
-  const token = localStorage.getItem('access_token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-})
+### Mantine Components Used
 
-// Refresh automático en 401
-api.interceptors.response.use(
-  response => response,
-  error => {
-    if (error.response?.status === 401) {
-      // Redirect a login
-      window.location.href = '/login'
-    }
-    return Promise.reject(error)
-  }
-)
+- **Layout**: AppShell, Container, Stack, Group, Grid
+- **Forms**: TextInput, NumberInput, Select, MultiSelect, DateTimePicker
+- **Data Display**: Table, Card, Badge, Avatar, Text
+- **Feedback**: Notifications, Modal, Loader, Skeleton
+- **Navigation**: Tabs, Menu, Breadcrumbs
+- **Buttons**: Button, ActionIcon
+
+### Custom Components
+
+- `BuildingCardInfo` - Display building information
+- `CommonAreaCard` - Show common area details
+- `ScheduleRange` - Display operating hours
+- `NoElementsAvailable` - Empty state placeholder
+- `ThemeToggle` - Dark/Light mode switcher
+
+## 🧪 Testing
+
+Testing infrastructure is ready for implementation:
+
+- **Unit Tests**: Vitest (planned)
+- **E2E Tests**: Playwright (planned)
+- **Component Tests**: React Testing Library (planned)
+
+## 📦 Type Generation
+
+The frontend uses automatically generated types from the backend OpenAPI specification:
+
+```bash
+# Generate types from running backend
+pnpm types:generate
+
+# Generate types from local OpenAPI file
+pnpm types:generate:local
 ```
 
----
+Generated types are stored in `packages/shared/src/types/dto.types.ts` and shared between frontend and backend.
 
-## 🚀 Performance
+## 🚀 Deployment
 
-### Code Splitting
+The frontend is deployed on **Vercel** with automatic deployments from the main branch.
 
-```typescript
-// Lazy loading de páginas
-const BuildingsPage = lazy(() => import('@/features/buildings/pages/BuildingsListPage'));
+### Vercel Configuration
 
-<Route path="/buildings" element={
-  <Suspense fallback={<LoadingSpinner />}>
-    <BuildingsPage />
-  </Suspense>
-} />
-```
+See `vercel.json` for deployment settings:
 
-### React Query Cache
+- Build command: `pnpm build`
+- Output directory: `dist`
+- Environment variables configured in Vercel dashboard
 
-```typescript
-// lib/queryClient.ts
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutos
-      cacheTime: 10 * 60 * 1000, // 10 minutos
-      retry: 1,
-      refetchOnWindowFocus: false,
-    },
-  },
-})
-```
+### Build Optimization
 
-### Optimistic Updates
+- Tree shaking for minimal bundle size
+- Code splitting by route
+- Asset optimization (images, fonts)
+- CSS minification
+- Gzip compression
 
-```typescript
-const mutation = useMutation({
-  mutationFn: updateBuilding,
-  onMutate: async updatedBuilding => {
-    // Actualizar UI inmediatamente
-    await queryClient.cancelQueries(['buildings'])
-    const previous = queryClient.getQueryData(['buildings'])
-    queryClient.setQueryData(['buildings'], old =>
-      old.map(b => (b.id === updatedBuilding.id ? updatedBuilding : b))
-    )
-    return { previous }
-  },
-  onError: (err, updatedBuilding, context) => {
-    // Rollback si falla
-    queryClient.setQueryData(['buildings'], context.previous)
-  },
-})
-```
+## 🐛 Debugging
 
----
+### React Query Devtools
 
-## 🧪 Testing Strategy
+The app includes React Query Devtools for debugging data fetching:
 
-```
-src/
-├── features/
-│   └── buildings/
-│       ├── components/
-│       │   ├── BuildingForm.tsx
-│       │   └── BuildingForm.test.tsx      # Tests de componentes
-│       ├── hooks/
-│       │   ├── useBuildings.ts
-│       │   └── useBuildings.test.ts       # Tests de hooks
-│       └── services/
-│           ├── buildings.service.ts
-│           └── buildings.service.test.ts  # Tests de servicios
-```
+- Press the floating icon in the bottom-left corner
+- Inspect queries, mutations, and cache
+- View query states and timings
 
----
+### Browser DevTools
 
-## 📚 Referencias
+- Redux DevTools compatible with React Query
+- Network tab for API requests
+- Console for error messages
+- React DevTools for component inspection
 
-- [React Documentation](https://react.dev)
-- [TanStack Query](https://tanstack.com/query)
-- [Mantine UI](https://mantine.dev)
-- [Vite](https://vitejs.dev)
-- [TypeScript](https://www.typescriptlang.org)
+## 🔄 State Management
 
----
+### Global State
 
-## 🤝 Contribución
+- **Auth Context**: User authentication and role information
+- **TanStack Query**: Server state caching and synchronization
+- **Local Storage**: Token persistence
 
-Este proyecto sigue:
+### Local State
 
-- ✅ Feature-First Architecture
-- ✅ TypeScript Strict Mode
-- ✅ ESLint + Prettier
-- ✅ Conventional Commits
+- React hooks (useState, useReducer)
+- Mantine form state
+- URL state with React Router
 
-Para agregar una nueva feature:
+## 🔗 Related Documentation
 
-1. Crear carpeta en `features/[feature-name]`
-2. Agregar estructura completa (components, hooks, services, types, pages)
-3. Registrar rutas en `app/router/routes.tsx`
-4. Actualizar este README si es necesario
+- [Backend README](../backend/README.md)
+- [Project Root README](../../README.md)
+- [Roadmap](../../ROADMAP.md)
