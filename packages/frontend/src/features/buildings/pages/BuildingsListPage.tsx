@@ -152,7 +152,6 @@ export const BuildingsListPage = () => {
                               <ActionIcon
                                 variant="subtle"
                                 onClick={() => handleOpenDeleteModal(id)}
-                                disabled
                               >
                                 <TrashIcon size={20} />
                               </ActionIcon>

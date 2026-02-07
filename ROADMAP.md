@@ -286,7 +286,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] Editar área
   - [x] Eliminar área
 
-## 📅 FASE 4: Sistema de Reservaciones (3-4 días)
+## 📅 FASE 4: Sistema de Reservaciones ✅
 
 > **Objetivo:** Reservar áreas comunes con validaciones
 
@@ -299,133 +299,88 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] `CreateReservationDto`
 
 - [ ] Implementar validaciones en `reservations.service.ts`
-  - [ ] Helper: `validateNoOverlap(commonAreaId, startTime, endTime)`
-    - [ ] Query reservations con solapamiento
-    - [ ] WHERE commonAreaId AND status != CANCELLED
-    - [ ] AND ((startTime BETWEEN ? AND ?) OR (endTime BETWEEN ? AND ?))
-    - [ ] Si existe: throw ConflictException
-  - [ ] Helper: `validateTimeRules(commonArea, startTime, endTime)`
-    - [ ] Validar horario dentro de openTime/closeTime
-    - [ ] Validar duración <= maxHoursPerReservation
-    - [ ] Validar día está en daysAvailable
-  - [ ] Helper: `validateResident(residentId)`
-    - [ ] Verificar que resident existe
-  - [ ] Helper: `validateCommonArea(commonAreaId)`
-    - [ ] Verificar que existe y isActive = true
+  - [x] Helper: `validateTimeRules(commonArea, startTime, endTime)`
+    - [x] Validar horario dentro de openTime/closeTime
+    - [x] Validar duración <= maxHoursPerReservation
+    - [x] Validar día está en daysAvailable
 
-- [ ] Implementar métodos en `reservations.service.ts`
-  - [ ] `findAll(filters: FilterReservationsDto)`
-    - [ ] Include: commonArea, resident
-    - [ ] OrderBy: startTime desc
-  - [ ] `findOne(id)` - con relaciones
-  - [ ] `create(dto)`
-    - [ ] Ejecutar todas las validaciones
-    - [ ] Si pasan: crear reservación con status CONFIRMED
-  - [ ] `cancel(id, userId)`
-    - [ ] Verificar que reservación existe
-    - [ ] Verificar que userId es el owner
-    - [ ] Actualizar status a CANCELLED
-  - [ ] `getAvailableSlots(commonAreaId: number, date: Date)`
-    - [ ] Obtener commonArea con horarios
-    - [ ] Generar slots desde openTime hasta closeTime
-    - [ ] Filtrar slots ocupados por reservaciones existentes
-    - [ ] Retornar array de slots disponibles
+  - [x] Helper: `validateCommonArea(commonAreaId)`
+    - [x] Verificar que existe y isActive = true
 
-- [ ] Implementar `reservations.controller.ts`
-  - [ ] `GET /reservations` - con @Query(FilterReservationsDto)
-  - [ ] `GET /reservations/:id`
-  - [ ] `POST /reservations` - @UseGuards(JwtAuthGuard)
-  - [ ] `PATCH /reservations/:id/cancel` - @UseGuards + validar ownership
-  - [ ] `GET /reservations/available-slots` - @Query(commonAreaId, date)
+- [x] Implementar métodos en `reservations.service.ts`
+  - [x] `findBuildingByResidentId`
+  - [x] `create(dto)`
+    - [x] Ejecutar todas las validaciones
+    - [x] Si pasan: crear reservación con status ON_REVIEW
+  - [x] `updateReservation()`
 
-- [ ] Registrar en `app.module.ts`
+- [x] Implementar `reservations.controller.ts`
+  - [x] `POST /reservations` - @UseGuards(JwtAuthGuard)
 
 ### Frontend - Reservations Module
 
-- [ ] Crear estructura `features/reservations/`
-  - [ ] `types/reservation.types.ts`
-  - [ ] `services/reservations.service.ts`
-  - [ ] `hooks/queries/useReservations.ts`
-  - [ ] `hooks/mutations/useCreateReservation.ts`
-  - [ ] `hooks/mutations/useCancelReservation.ts`
-  - [ ] `components/ReservationCalendar.tsx`
-  - [ ] `components/ReservationForm.tsx`
-  - [ ] `components/ReservationCard.tsx`
-  - [ ] `components/ReservationsList.tsx`
-  - [ ] `pages/ReservationsPage.tsx`
+- [x] Crear estructura `features/reservations/`
+  - [x] `types/reservation.types.ts`
+  - [x] `services/reservations.service.ts`
+  - [x] `hooks/mutations/useCreateReservation.ts`
+  - [x] `components/ReservationCalendar.tsx`
+  - [x] `components/ReservationForm.tsx`
+  - [x] `components/ReservationsList.tsx`
+  - [x] `pages/ReservationsPage.tsx`
 
-- [ ] Implementar tipos
-  - [ ] Interface Reservation
-  - [ ] Interface CreateReservationDto
-  - [ ] Interface AvailableSlot
-  - [ ] Enum ReservationStatus
+- [x] Implementar tipos
+  - [x] Interface CreateReservationDto
 
-- [ ] Implementar servicio
-  - [ ] `getReservations(filters)`
-  - [ ] `getReservation(id)`
-  - [ ] `createReservation(dto)`
-  - [ ] `cancelReservation(id)`
-  - [ ] `getAvailableSlots(commonAreaId, date)`
+- [x] Implementar servicio
+  - [x] `createReservation(dto)`
+  - [x] `deleteReservation(id)`
+  - [x] `getBuildingByResidentId`
 
-- [ ] Implementar hooks
-  - [ ] `useReservations(filters)` - useQuery
-  - [ ] `useAvailableSlots(commonAreaId, date)` - useQuery habilitado condicionalmente
-  - [ ] `useCreateReservation()` - useMutation con notificaciones
-  - [ ] `useCancelReservation()` - useMutation con confirmación
+- [x] Implementar hooks
+  - [x] `useBuildingByResidentId()`
+  - [x] `useCreateReservation()`
+  - [x] `useDeleteReservation()`
 
-- [ ] Crear `components/ReservationCalendar.tsx`
-  - [ ] Usar Calendar de Mantine
-  - [ ] Mostrar días con reservaciones (indicador visual)
-  - [ ] onClick en día: abrir modal de reservación
+- [x] Crear `components/ReservationCalendar.tsx`
+  - [x] Mostrar días con reservaciones (indicador visual)
+  - [x] onClick en horarios: abrir modal de reservación
 
-- [ ] Crear `components/ReservationForm.tsx`
-  - [ ] Select: Edificio (useBuildings)
-  - [ ] Select: Área Común (useCommonAreas filtrado por buildingId)
-  - [ ] DatePicker: Fecha
-  - [ ] TimeInput: Hora inicio
-  - [ ] TimeInput: Hora fin
-  - [ ] NumberInput: Asistentes
-  - [ ] Textarea: Notas
-  - [ ] useAvailableSlots: mostrar slots disponibles al seleccionar área y fecha
-  - [ ] Validación: hora fin > hora inicio
-  - [ ] Submit: useCreateReservation
+- [x] Crear `components/ReservationForm.tsx`
+  - [x] Select: Área Común (useCommonAreas filtrado por buildingId)
+  - [x] DatePicker: Fecha
+  - [x] TimeInput: Hora inicio
+  - [x] TimeInput: Hora fin
+  - [x] NumberInput: Asistentes
+  - [x] Textarea: Notas
+  - [x] Submit: useCreateReservation
 
-- [ ] Crear `components/ReservationCard.tsx`
-  - [ ] Card con info: área común, fecha, horario
-  - [ ] Badge: status (CONFIRMED, CANCELLED)
-  - [ ] Botón "Cancelar" si status = CONFIRMED
+- [x] Crear `components/ReservationCard.tsx`
+  - [x] Card con info: área común, fecha, horario
+  - [x] Badge: status (CONFIRMED, CANCELLED)
+  - [x] Botón "Cancelar" si status = CONFIRMED
 
-- [ ] Crear `components/ReservationsList.tsx`
-  - [ ] Stack de ReservationCard
-  - [ ] Filtros: edificio, área común
-  - [ ] Empty state
-
-- [ ] Mejorar [`pages/ReservationsPage.tsx`](packages/frontend/src/features/buildings/pages/ReservationsPage.tsx)
-  - [ ] Grid con 2 columnas
-  - [ ] Columna izquierda: ReservationCalendar
-  - [ ] Columna derecha: ReservationsList ("Mis Reservaciones")
-  - [ ] Botón: "Nueva Reservación" (abre modal con ReservationForm)
-  - [ ] useReservations filtrado por userId actual
+- [x] Crear `components/ReservationsList.tsx`
+  - [x] Stack de ReservationCard
+  - [x] Empty state
 
 ### Testing Fase 4
 
-- [ ] Backend
-  - [ ] POST /reservations con datos válidos → crea
-  - [ ] POST /reservations con overlap → 409 Conflict
-  - [ ] POST /reservations fuera de horario → 400 Bad Request
-  - [ ] GET /reservations/available-slots → retorna slots
+- [x] Backend
+  - [x] POST /reservations con datos válidos → crea
+  - [x] POST /reservations con overlap → 409 Conflict
+  - [x] POST /reservations fuera de horario → 400 Bad Request
 
-- [ ] Frontend
-  - [ ] Abrir página de reservaciones
-  - [ ] Seleccionar edificio y área común
-  - [ ] Ver slots disponibles
-  - [ ] Crear reservación
-  - [ ] Ver en "Mis Reservaciones"
-  - [ ] Cancelar reservación
+- [x] Frontend
+  - [x] Abrir página de reservaciones
+  - [x] Seleccionar edificio y área común
+  - [x] Ver slots disponibles
+  - [x] Crear reservación
+  - [x] Ver en "Mis Reservaciones"
+  - [x] Cancelar reservación
 
 ---
 
-## 🌐 FASE 6: Despliegue (1-2 días) ✅
+## 🌐 FASE 6: Despliegue ✅
 
 ### Backend - Preparación
 
@@ -545,44 +500,28 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## 📝 FASE 7: Polish y README (1 día)
+## 📝 FASE 7: Polish y README
 
-### Frontend - UX Final
-
-- [ ] Notificaciones
-  - [ ] Importar Notifications en main.tsx
-  - [ ] Success: verde con ícono de check
-  - [x] Error: rojo con mensaje descriptivo
-  - [ ] Posición: top-right
+### Frontend
 
 - [ ] Loading states
-  - [ ] Skeletons en todas las listas
-  - [ ] Loading en botones: `<Button loading={isLoading}>`
-  - [ ] Spinner global durante navegación (opcional)
+  - [x] Skeletons en todas las listas
+  - [x] Loading en botones: `<Button loading={isLoading}>`
+  - [x] Spinner global durante navegación (opcional)
 
-- [ ] Confirmaciones
-  - [ ] Modal de confirmación antes de eliminar
-  - [ ] Modal antes de cancelar reservación
-  - [ ] Usar modals.openConfirmModal de Mantine
+- [x] Confirmaciones
+  - [x] Modal de confirmación antes de eliminar
 
-- [ ] Empty states
-  - [ ] Edificios: "No hay edificios registrados. Crea uno nuevo."
-  - [ ] Áreas comunes: "No hay áreas comunes en este edificio."
-  - [ ] Reservaciones: "No tienes reservaciones activas."
-  - [ ] Ícono + mensaje + CTA button
+- [x] Empty states
+  - [x] Edificios: "No hay edificios registrados. Crea uno nuevo."
+  - [x] Áreas comunes: "No hay áreas comunes en este edificio."
+  - [x] Reservaciones: "No tienes reservaciones activas."
+  - [x] Ícono + mensaje + CTA button
 
-- [ ] Errores
-  - [ ] Mensajes descriptivos en español
-  - [ ] Validaciones en tiempo real
-  - [ ] Deshabilitar submit si hay errores
-
-### Backend - Cleanup
-
-- [x] Eliminar console.log
-
-### Frontend - Cleanup
-
-- [x] Eliminar console.log
+- [x] Errores
+  - [x] Mensajes descriptivos en español
+  - [x] Validaciones en tiempo real
+  - [x] Deshabilitar submit si hay errores
 
 ### README Profesional
 
@@ -694,26 +633,22 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [ ] Verificar que .env no está trackeado
   - [ ] Verificar que node_modules no está trackeado
 
-- [ ] Tag de versión
-  - [ ] `git tag v1.0.0`
-  - [ ] `git push --tags`
-
 ---
 
-## ✅ Checklist Pre-Portfolio
+## FASE 8: Checklist Pre-Portfolio
 
-- [ ] ✅ App desplegada 24/7
-- [ ] ✅ Login funciona
-- [ ] ✅ CRUD edificios funciona
-- [ ] ✅ CRUD áreas comunes funciona
-- [ ] ✅ Sistema reservaciones funciona
-- [ ] ✅ Validación de solapamiento funciona
-- [ ] ✅ Responsive en mobile
-- [ ] ✅ Sin errores en consola
-- [ ] ✅ Sin warnings TypeScript
-- [ ] ✅ README con screenshots
-- [ ] ✅ Links en CV/LinkedIn
-- [ ] ✅ Credenciales de demo funcionan
+- [ ] App desplegada 24/7
+- [ ] Login funciona
+- [ ] CRUD edificios funciona
+- [ ] CRUD áreas comunes funciona
+- [ ] Sistema reservaciones funciona
+- [ ] Validación de solapamiento funciona
+- [ ] Responsive en mobile
+- [ ] Sin errores en consola
+- [ ] Sin warnings TypeScript
+- [ ] README con screenshots
+- [ ] Links en CV/LinkedIn
+- [ ] Credenciales de demo funcionan
 
 ---
 
@@ -752,16 +687,11 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ---
 
-## Improvements before share project
-
-- [] Add loading state to forms buttons
-
-## Nice to have
+## Fase 9: Nice to have
 
 - [ ] Crear `pages/RegisterPage.tsx`
   - [ ] Campos: email, password, confirmPassword, firstName, lastName
   - [ ] Validación: passwords match
-  - [ ] useMutation para register
   - [ ] Al éxito: auto-login o navegar a /login
 
 - [ ] Verificar en mobile
@@ -769,7 +699,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [ ] Navegar por la app
   - [ ] Verificar que sea usable
 
-## 🔒 FASE 4: Mejoras de Seguridad y Autenticación
+## 🔒 FASE 10: Mejoras de Seguridad y Autenticación
 
 > **Objetivo:** Fortalecer la seguridad de la aplicación
 
@@ -904,7 +834,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 - [ ] Generar nuevo JWT_SECRET seguro: `openssl rand -base64 32`
 - [ ] Actualizar en variables de entorno
 
-### 🔐 PRIORIDAD ALTA (Implementar esta semana)
+### 🔐 PRIORIDAD ALTA
 
 #### 6. Validación de contraseñas fuertes
 
@@ -961,7 +891,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 - [ ] Agregar helper `validateOwnership(resourceId, userId, userRole)`
 - [ ] Aplicar a todos los recursos (buildings, common-areas, reservations)
 
-### 🛡️ PRIORIDAD MEDIA (Implementar este mes)
+### 🛡️ PRIORIDAD MEDIA
 
 #### 10. Helmet para headers de seguridad
 

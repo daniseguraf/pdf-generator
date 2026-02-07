@@ -596,29 +596,6 @@
         ]
       }
     },
-    "/api/v1/reservations/{id}": {
-      "get": {
-        "operationId": "ReservationsController_findOne",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "Reservations"
-        ]
-      }
-    },
     "/api/v1/reservations/{reservationId}": {
       "delete": {
         "operationId": "ReservationsController_remove",

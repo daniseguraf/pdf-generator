@@ -10,6 +10,7 @@ import {
   Card,
   Title,
   List,
+  Alert,
 } from '@mantine/core'
 import {
   BuildingOfficeIcon,
@@ -17,6 +18,7 @@ import {
   CheckIcon,
   PencilIcon,
   HouseIcon,
+  InfoIcon,
 } from '@phosphor-icons/react'
 
 import { useBuilding } from '@features/buildings/hooks/queries/buildings/useBuilding'
@@ -28,6 +30,7 @@ import { CommonAreas } from '@features/buildings/components/CommonAreas/CommonAr
 import { GeneralInformation } from '@features/buildings/components/GeneralInformation/GeneralInformation'
 import { BuildingCardInfo } from '@components/BuildingCardInfo/BuildingCardInfo'
 import { NoElementsAvailable } from '@components/NoElementsAvailable'
+import { BuildingDetailPageSkeleton } from '@features/buildings/components/BuildingDetailPageSkeleton'
 
 export const BuildingDetailPage = () => {
   const { id } = useParams()
@@ -36,18 +39,16 @@ export const BuildingDetailPage = () => {
 
   const { isPending, data: building } = useBuilding(Number(id))
 
-  if (isPending) {
-    return <span>Loading...</span>
-  }
+  if (isPending) return <BuildingDetailPageSkeleton />
 
   if (!building) {
     return (
-      <Container size="xl" py="xl">
-        <Text>Building not found</Text>
-        <Button onClick={() => navigate('/')} mt="md">
-          Back to list
-        </Button>
-      </Container>
+      <Alert icon={<InfoIcon size={20} />} color="yellow" radius="md">
+        <Text size="sm" mb="sm">
+          The building you are looking for is not available
+        </Text>
+        <Button onClick={() => navigate('/')}>Back to buildings</Button>
+      </Alert>
     )
   }
 

@@ -25,11 +25,6 @@ export class ReservationsController {
     return this.reservationsService.findBuildingByResidentId(user)
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.reservationsService.findOne(+id)
-  }
-
   // TODO: Implement update reservation status
   // @Patch(':id')
   // @Auth(UserRole.RESIDENT)

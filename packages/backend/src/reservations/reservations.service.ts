@@ -122,10 +122,6 @@ export class ReservationsService {
     return building
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} reservation`
-  }
-
   // TODO: Implement update reservation status
   // update(id: number, updateReservationDto: UpdateReservationDto) {
   //   return `This action updates a #${id} reservation`

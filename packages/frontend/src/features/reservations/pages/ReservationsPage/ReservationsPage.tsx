@@ -1,17 +1,22 @@
-import { Container, Select, Stack, Tabs, Title } from '@mantine/core'
+import { Alert, Container, Select, Stack, Tabs, Title } from '@mantine/core'
 import { useBuildingByResidentId } from '@features/reservations/hooks/queries/useBuildingByResidentId'
 import { BuildingCardInfo } from '@components/BuildingCardInfo/BuildingCardInfo'
 import { useState } from 'react'
 import { useDisclosure } from '@mantine/hooks'
 import { getAreaLabel } from '@features/buildings/components/CommonAreas/CommonAreas.helpers'
 import { CommonAreaCard } from '@components/CommonAreaCard/CommonAreaCard'
-import { CalendarBlankIcon, ListChecksIcon } from '@phosphor-icons/react'
+import {
+  CalendarBlankIcon,
+  InfoIcon,
+  ListChecksIcon,
+} from '@phosphor-icons/react'
 import { ReservationCalendar } from '@features/reservations/components/ReservationCalendar/ReservationCalendar'
 import { ReservationForm } from '@features/reservations/components/ReservationForm/ReservationForm'
 import { getCommonAreaColor } from '@utils/getCommonAreaColor'
 import { ReservationList } from '@features/reservations/components/ReservationList/ReservationList'
 import { useAuth } from '@features/auth/hooks/useAuth'
 import type { CalendarSlot } from '@features/reservations/pages/ReservationsPage/ReservationsPage.types'
+import { ReservationsPageSkeleton } from '@features/reservations/components/ReservationsPageSkeleton'
 
 export const ReservationsPage = () => {
   const { isPending, data: building } = useBuildingByResidentId()
@@ -26,8 +31,14 @@ export const ReservationsPage = () => {
 
   const [selectedSlot, setSelectedSlot] = useState<CalendarSlot | null>(null)
 
-  if (isPending || !building) {
-    return <span>Loading...</span>
+  if (isPending) return <ReservationsPageSkeleton />
+
+  if (!building) {
+    return (
+      <Alert icon={<InfoIcon size={20} />} color="yellow" radius="md">
+        The building you are looking for is not available
+      </Alert>
+    )
   }
 
   const {
