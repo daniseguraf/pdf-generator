@@ -25,6 +25,11 @@ export const ReservationCalendar = ({
   const [view, setView] = useState<View>('week')
   const [date, setDate] = useState(new Date())
 
+  // No se debe poder reservar en fechas pasadas al momento actual
+  // No se debe poder reservar en horarios fuera de los horarios de apertura y cierre del área común
+  // El form no debe permitir crear reservas en horarios ya reservados
+  // Se debe poder deshabilitar los dias no disponibles segun está definido en cada area comun
+
   const openTimeFormatted = fromISO8601ToHour(openTime)
   const closeTimeFormatted = fromISO8601ToHour(closeTime)
 
