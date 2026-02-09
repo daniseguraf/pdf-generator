@@ -15,8 +15,8 @@ import { ReservationForm } from '@features/reservations/components/ReservationFo
 import { getCommonAreaColor } from '@utils/getCommonAreaColor'
 import { ReservationList } from '@features/reservations/components/ReservationList/ReservationList'
 import { useAuth } from '@features/auth/hooks/useAuth'
-import type { CalendarSlot } from '@features/reservations/pages/ReservationsPage/ReservationsPage.types'
 import { ReservationsPageSkeleton } from '@features/reservations/components/ReservationsPageSkeleton'
+import type { CalendarSlotRange } from '@features/reservations/types/reservation.types'
 
 export const ReservationsPage = () => {
   const { isPending, data: building } = useBuildingByResidentId()
@@ -29,7 +29,9 @@ export const ReservationsPage = () => {
     undefined
   )
 
-  const [selectedSlot, setSelectedSlot] = useState<CalendarSlot | null>(null)
+  const [selectedSlot, setSelectedSlot] = useState<CalendarSlotRange | null>(
+    null
+  )
 
   if (isPending) return <ReservationsPageSkeleton />
 
@@ -68,7 +70,7 @@ export const ReservationsPage = () => {
       reservation => reservation.userId === user?.id
     ) ?? []
 
-  const handleSelectSlot = (slotInfo: CalendarSlot) => {
+  const handleSelectSlot = (slotInfo: CalendarSlotRange) => {
     setSelectedSlot(slotInfo)
     openForm()
   }

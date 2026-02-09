@@ -1,3 +1,4 @@
+import type { CalendarSlotRange } from '@features/reservations/types/reservation.types'
 import type { DaysOfWeek, Reservation } from '@my-buildings/shared/index'
 
 export interface ReservationCalendarProps {
@@ -8,5 +9,5 @@ export interface ReservationCalendarProps {
   daysAvailable: DaysOfWeek[]
   currentUserId: number
 
-  onSelectSlot: (slotInfo: { start: Date; end: Date }) => void
+  onSelectSlot: (slotInfo: CalendarSlotRange) => void
 }

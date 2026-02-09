@@ -7,6 +7,7 @@ import { isoToDateConstructor } from '@utils/dates/isoToDateConstructor'
 import { fromISO8601ToHour } from '@utils/dates/fromISO8601ToHour'
 import updateLocale from 'dayjs/plugin/updateLocale'
 import type { Reservation } from '@my-buildings/shared/index'
+import type { CalendarSlotRange } from '@features/reservations/types/reservation.types'
 
 dayjs.extend(updateLocale)
 dayjs.updateLocale('en', {
@@ -25,10 +26,8 @@ export const ReservationCalendar = ({
   const [view, setView] = useState<View>('week')
   const [date, setDate] = useState(new Date())
 
-  // No se debe poder reservar en fechas pasadas al momento actual
-  // No se debe poder reservar en horarios fuera de los horarios de apertura y cierre del área común
-  // El form no debe permitir crear reservas en horarios ya reservados
-  // Se debe poder deshabilitar los dias no disponibles segun está definido en cada area comun
+  // Validations
+  // Deactivate days not available according to the definition in each common area
 
   const openTimeFormatted = fromISO8601ToHour(openTime)
   const closeTimeFormatted = fromISO8601ToHour(closeTime)
@@ -56,6 +55,18 @@ export const ReservationCalendar = ({
         opacity,
       },
     }
+  }
+
+  const handleSelecting = (range: CalendarSlotRange) => {
+    const hasOverlap = formattedReservations.some(reservation => {
+      return (
+        (range.start >= reservation.start && range.start < reservation.end) ||
+        (range.end > reservation.start && range.end <= reservation.end) ||
+        (range.start <= reservation.start && range.end >= reservation.end)
+      )
+    })
+
+    return !hasOverlap
   }
 
   return (
@@ -87,6 +98,8 @@ export const ReservationCalendar = ({
         allDayAccessor={() => false}
         culture="es"
         scrollToTime={openTimeFormatted}
+        onSelecting={handleSelecting}
+        dayLayoutAlgorithm="no-overlap"
       />
     </Card>
   )

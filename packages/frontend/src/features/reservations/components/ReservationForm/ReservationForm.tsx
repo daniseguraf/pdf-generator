@@ -1,5 +1,5 @@
 import { getAreaLabel } from '@features/buildings/components/CommonAreas/CommonAreas.helpers'
-import { reservationFormSchema } from '@features/reservations/components/ReservationForm/ReservationForm.helpers'
+import { getReservationFormSchema } from '@features/reservations/components/ReservationForm/ReservationForm.helpers'
 import type {
   ReservationFormProps,
   ReservationFormValues,
@@ -16,6 +16,7 @@ import {
   Text,
   Box,
   Textarea,
+  Alert,
 } from '@mantine/core'
 import { TimeValue } from '@mantine/dates'
 import { useForm, type FormValidateInput } from '@mantine/form'
@@ -23,6 +24,12 @@ import { CalendarIcon, ClockIcon } from '@phosphor-icons/react'
 import { getCommonAreaColor } from '@utils/getCommonAreaColor'
 import dayjs from 'dayjs'
 import { zod4Resolver } from 'mantine-form-zod-resolver'
+
+const initialValues = {
+  title: '',
+  attendees: undefined,
+  notes: '',
+}
 
 export const ReservationForm = ({
   opened,
@@ -35,15 +42,19 @@ export const ReservationForm = ({
   const isFormDisabled = isCreatePending
   const color = getCommonAreaColor(selectedArea?.type)
 
+  const durationInHours =
+    ((selectedSlot?.end?.getTime() ?? 0) -
+      (selectedSlot?.start?.getTime() ?? 0)) /
+    (1000 * 60 * 60)
+
+  const isHoursForReservationAllowed =
+    durationInHours <= selectedArea?.maxHoursPerReservation
+
   const form = useForm<ReservationFormValues>({
     validateInputOnBlur: true,
-    initialValues: {
-      title: '',
-      attendees: undefined,
-      notes: '',
-    },
+    initialValues,
     validate: zod4Resolver(
-      reservationFormSchema
+      getReservationFormSchema(selectedArea?.capacity || 50)
     ) as unknown as FormValidateInput<ReservationFormValues>,
   })
 
@@ -69,13 +80,14 @@ export const ReservationForm = ({
   const handleClose = () => {
     form.resetDirty()
     form.reset()
+    form.setValues(initialValues)
     onClose()
   }
 
   return (
     <Modal
       opened={opened}
-      onClose={onClose}
+      onClose={handleClose}
       title={
         <Text fw={600} size="lg">
           New Reservation
@@ -117,6 +129,13 @@ export const ReservationForm = ({
           </Box>
         )}
 
+        {!isHoursForReservationAllowed && (
+          <Alert color="red" radius="md" autoContrast>
+            The maximum hours per reservation is
+            {selectedArea?.maxHoursPerReservation} hour(s)
+          </Alert>
+        )}
+
         <TextInput
           label="Reservation title"
           placeholder="E.g.: Family reunion, Birthday, etc."
@@ -136,7 +155,6 @@ export const ReservationForm = ({
           description={`Maximum capacity: ${selectedArea?.capacity || 0} people`}
           placeholder="0"
           min={1}
-          max={selectedArea?.capacity || 50}
           hideControls
           required
           disabled={isFormDisabled}
@@ -144,11 +162,19 @@ export const ReservationForm = ({
         />
 
         <Group justify="flex-end" mt="md">
-          <Button variant="subtle" onClick={onClose} disabled={isFormDisabled}>
+          <Button
+            variant="subtle"
+            onClick={handleClose}
+            disabled={isFormDisabled}
+          >
             Cancel
           </Button>
 
-          <Button onClick={handleSubmit} loading={isFormDisabled}>
+          <Button
+            onClick={handleSubmit}
+            loading={isFormDisabled}
+            disabled={!isHoursForReservationAllowed}
+          >
             Create Reservation
           </Button>
         </Group>
