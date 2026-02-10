@@ -26,7 +26,7 @@
 
 ## 🎯 Overview
 
-**My Buildings** is a comprehensive building management system designed to streamline property administration, employee management, unit tracking, and facility operations. Built with enterprise-grade architecture and modern best practices, it provides a robust solution for property managers, building administrators, and facility operators.
+**My Buildings** is a comprehensive building management system designed to streamline property administration. Built with enterprise-grade architecture and modern best practices, it provides a robust solution for property managers, building administrators, and facility operators.
 
 This project showcases a complete fullstack application with authentication, authorization, complex business logic, and a modern user interface - all deployed and ready to use.
 
@@ -106,13 +106,9 @@ _Manage all your buildings in one place_
 
 ![Buildings List](docs/screenshots/buildings-list.png)
 
-_Buildings page with dark theme_
+### Building Detail View
 
-![Buildings List Dark Theme](docs/screenshots/buildings-list-dark-theme.png)
-
-### Building Details
-
-_Building detailed view - common areas list_
+_Detailed common areas list_
 
 ![Building Details](docs/screenshots/building-detail-common-areas.png)
 
@@ -120,19 +116,43 @@ _Amenities_
 
 ![Building Details](docs/screenshots/building-detail-amenities.png)
 
-_General Information_
+_Building general information_
 
 ![Building Details](docs/screenshots/building-detail-general-information.png)
 
-_Building details dark theme_
+_Create new building form_
 
-![Building Details](docs/screenshots/buildings-list-dark-theme.png)
+![Building Details](docs/screenshots/create-building.png)
 
-### Reservations
+### Create new common area form
 
-_Book common areas with smart validation_
+![Building Details](docs/screenshots/add-common-area.png)
+
+### Reservations Page
 
 ![Reservations](docs/screenshots/reservations.png)
+
+_Reservations Calendar_
+
+![Reservations](docs/screenshots/reservations-calendar.png)
+
+_My reservations lists_
+
+![Reservations](docs/screenshots/my-reservations.png)
+
+_Create reservation form_
+
+![Reservations](docs/screenshots/create-reservation.png)
+
+### Dark Theme
+
+_Buildings page_
+
+![Buildings List Dark Theme](docs/screenshots/buildings-list-dark-theme.png)
+
+_Building detail page dark theme_
+
+![Building Details](docs/screenshots/buildings-list-dark-theme.png)
 
 ---
 
@@ -429,15 +449,6 @@ For detailed schema, see [`packages/backend/prisma/schema.prisma`](packages/back
 ## 🗺️ Roadmap
 
 See [ROADMAP.md](ROADMAP.md) for detailed development plan.
-
-**Completed Phases:**
-
-- ✅ Phase 1: Authentication & Authorization (JWT, Role-based access)
-- ✅ Phase 2: Buildings CRUD with protected routes
-- ✅ Phase 3: Common Areas management
-- ✅ Phase 4: Reservation system with validations
-- ✅ Phase 5: Deployment (Railway + Vercel)
-- ✅ Phase 6: Polish & UX improvements (partial)
 
 **Upcoming Features:**
 
