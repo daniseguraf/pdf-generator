@@ -106,11 +106,27 @@ _Manage all your buildings in one place_
 
 ![Buildings List](docs/screenshots/buildings-list.png)
 
+_Buildings page with dark theme_
+
+![Buildings List Dark Theme](docs/screenshots/buildings-list-dark-theme.png)
+
 ### Building Details
 
-_Detailed view with common areas and amenities_
+_Building detailed view - common areas list_
 
-![Building Details](docs/screenshots/building-detail.png)
+![Building Details](docs/screenshots/building-detail-common-areas.png)
+
+_Amenities_
+
+![Building Details](docs/screenshots/building-detail-amenities.png)
+
+_General Information_
+
+![Building Details](docs/screenshots/building-detail-general-information.png)
+
+_Building details dark theme_
+
+![Building Details](docs/screenshots/buildings-list-dark-theme.png)
 
 ### Reservations
 

@@ -177,7 +177,7 @@ export const CommonAreaForm = ({
 
         <Textarea
           label="Description"
-          placeholder="Describe the common area and its features..."
+          placeholder="Describe the common area and its features"
           minRows={3}
           disabled={isFormDisabled}
           {...form.getInputProps('description')}
@@ -186,7 +186,7 @@ export const CommonAreaForm = ({
         <Group grow>
           <NumberInput
             label="Capacity"
-            placeholder="20"
+            placeholder="e.g. 20"
             min={1}
             max={100}
             description="Maximum number of people"
@@ -198,7 +198,7 @@ export const CommonAreaForm = ({
 
           <NumberInput
             label="Maximum Hours"
-            placeholder="4"
+            placeholder="e.g. 4"
             min={1}
             max={24}
             description="Per reservation"

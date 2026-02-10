@@ -137,8 +137,8 @@ export const ReservationForm = ({
         )}
 
         <TextInput
-          label="Reservation title"
-          placeholder="E.g.: Family reunion, Birthday, etc."
+          label="Reservation Title"
+          placeholder="e.g. Birthday Party"
           disabled={isFormDisabled}
           {...form.getInputProps('title')}
         />
@@ -153,7 +153,7 @@ export const ReservationForm = ({
         <NumberInput
           label="Number of attendees"
           description={`Maximum capacity: ${selectedArea?.capacity || 0} people`}
-          placeholder="0"
+          placeholder="e.g. 10"
           min={1}
           hideControls
           required

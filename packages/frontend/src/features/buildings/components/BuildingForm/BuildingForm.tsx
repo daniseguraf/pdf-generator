@@ -155,7 +155,7 @@ export const BuildingForm = ({
       <Stack gap="md">
         <TextInput
           label="Building Name"
-          placeholder="E.g.: Residential Tower Los Pinos"
+          placeholder="e.g. Residential Towers"
           required
           disabled={isFormDisabled}
           {...form.getInputProps('name')}
@@ -163,7 +163,7 @@ export const BuildingForm = ({
 
         <TextInput
           label="Address"
-          placeholder="E.g.: Main Ave 123"
+          placeholder="e.g. 1223 Avenue of the Americas"
           required
           disabled={isFormDisabled}
           {...form.getInputProps('address')}
@@ -172,7 +172,7 @@ export const BuildingForm = ({
         <Group grow>
           <TextInput
             label="District"
-            placeholder="E.g.: San Isidro"
+            placeholder="e.g. Downtown"
             required
             disabled={isFormDisabled}
             {...form.getInputProps('district')}
@@ -180,7 +180,7 @@ export const BuildingForm = ({
 
           <TextInput
             label="City"
-            placeholder="E.g.: Lima"
+            placeholder="e.g. New York"
             required
             disabled={isFormDisabled}
             {...form.getInputProps('city')}
@@ -190,7 +190,7 @@ export const BuildingForm = ({
         <Group grow>
           <TextInput
             label="Province"
-            placeholder="E.g.: Lima"
+            placeholder="e.g. New York"
             required
             disabled={isFormDisabled}
             {...form.getInputProps('province')}
@@ -198,7 +198,7 @@ export const BuildingForm = ({
 
           <TextInput
             label="Postal Code"
-            placeholder="E.g.: 15001"
+            placeholder="e.g. 10001"
             disabled={isFormDisabled}
             {...form.getInputProps('postalCode')}
           />
@@ -220,7 +220,7 @@ export const BuildingForm = ({
         <Group grow>
           <NumberInput
             label="Year Built"
-            placeholder="E.g.: 2020"
+            placeholder="e.g. 2020"
             required
             min={1800}
             max={new Date().getFullYear()}
@@ -231,7 +231,7 @@ export const BuildingForm = ({
 
           <NumberInput
             label="Number of Floors"
-            placeholder="E.g.: 10"
+            placeholder="e.g. 18"
             required
             min={1}
             max={200}
@@ -244,14 +244,14 @@ export const BuildingForm = ({
         <Group grow>
           <TextInput
             label="Phone"
-            placeholder="E.g.: +51 987 654 321"
+            placeholder="e.g. +1 212-555-1234"
             disabled={isFormDisabled}
             {...form.getInputProps('phoneNumber')}
           />
 
           <TextInput
             label="Email"
-            placeholder="E.g.: contact@building.com"
+            placeholder="e.g. contact@residentialtowers.com"
             type="email"
             disabled={isFormDisabled}
             {...form.getInputProps('email')}
