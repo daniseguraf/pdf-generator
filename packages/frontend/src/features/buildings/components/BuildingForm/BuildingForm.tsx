@@ -150,7 +150,7 @@ export const BuildingForm = ({
       title={isEdit ? 'Edit Building' : 'Create New Building'}
       position="right"
       size="lg"
-      padding="xl"
+      padding="lg"
     >
       <Stack gap="md">
         <TextInput

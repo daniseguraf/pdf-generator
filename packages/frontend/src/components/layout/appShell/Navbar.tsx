@@ -1,14 +1,18 @@
-import { AppShell, NavLink } from '@mantine/core'
+import { AppShell, NavLink, useMantineTheme } from '@mantine/core'
 import { BuildingIcon } from '@phosphor-icons/react/dist/csr/Building'
 import { HouseIcon } from '@phosphor-icons/react/dist/csr/House'
 import { CalendarIcon } from '@phosphor-icons/react/dist/csr/Calendar'
 import { useLocation, useNavigate } from 'react-router'
 import { useRole } from '@features/auth/hooks/useRole'
+import { SecondaryMenu } from '@components/SecondaryMenu/SecondaryMenu'
+import { useMediaQuery } from '@mantine/hooks'
 
 export const Navbar = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { isAdmin, isManager, isResident } = useRole()
+  const theme = useMantineTheme()
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
 
   const styles = {
     borderRadius: '0.5rem',
@@ -53,6 +57,12 @@ export const Navbar = () => {
           />
         )}
       </AppShell.Section>
+
+      {isMobile && (
+        <AppShell.Section>
+          <SecondaryMenu />
+        </AppShell.Section>
+      )}
     </AppShell.Navbar>
   )
 }

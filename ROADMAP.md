@@ -523,57 +523,9 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [x] Validaciones en tiempo real
   - [x] Deshabilitar submit si hay errores
 
-### README Profesional
-
-- [ ] Tomar screenshots
-  - [ ] Login page
-  - [ ] Buildings list
-  - [ ] Building detail con áreas comunes
-  - [ ] Reservations page con calendario
-  - [ ] Guardar en `docs/screenshots/`
-
-- [ ] Actualizar [`README.md`](README.md) principal
-
-- [ ] Crear `packages/backend/README.md`
-  - [ ] Documentar estructura del proyecto
-  - [ ] Documentar principales endpoints
-  - [ ] Explicar modelos de datos
-
-- [ ] Crear `packages/frontend/README.md`
-  - [ ] Documentar estructura de features
-  - [ ] Explicar patrón de hooks
-  - [ ] Guía de componentes
-
-### Git Final
-
-- [ ] Review commits
-  - [ ] Verificar mensajes descriptivos
-  - [ ] Squash si es necesario
-
-- [ ] Actualizar .gitignore
-  - [ ] Verificar que .env no está trackeado
-  - [ ] Verificar que node_modules no está trackeado
-
 ---
 
-## FASE 7: Checklist Pre-Portfolio
-
-- [x] App desplegada 24/7
-- [x] Login funciona
-- [x] CRUD edificios funciona
-- [x] CRUD áreas comunes funciona
-- [x] Sistema reservaciones funciona
-- [ ] Validación de solapamiento funciona
-- [ ] Responsive en mobile
-- [ ] Sin errores en consola
-- [ ] Sin warnings TypeScript
-- [ ] README con screenshots
-- [x] Links CV/LinkedIn
-- [ ] Credenciales de demo funcionan
-
----
-
-## 🔒 FASE 8: Mejoras de Seguridad y Autenticación
+## 🔒 FASE 7: Mejoras de Seguridad y Autenticación
 
 > **Objetivo:** Fortalecer la seguridad de la aplicación
 
@@ -875,7 +827,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
   - [ ] Mencionar Rate Limiting
   - [ ] Mencionar validaciones implementadas
 
-## Fase 9: Nice to have
+## Fase 8: Nice to have
 
 - [ ] Crear `pages/RegisterPage.tsx`
   - [ ] Campos: email, password, confirmPassword, firstName, lastName
