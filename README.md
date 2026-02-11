@@ -1,4 +1,4 @@
-# 🏢 My Buildings - Enterprise Building Management System
+# 🏢 My Buildings - Building Management System
 
 <div align="center">
 
@@ -26,69 +26,55 @@
 
 ## 🎯 Overview
 
-**My Buildings** is a comprehensive building management system designed to streamline property administration. Built with enterprise-grade architecture and modern best practices, it provides a robust solution for property managers, building administrators, and facility operators.
+My Buildings is a fullstack building management application designed to simplify property administration.
+It includes authentication, authorization, and a modern UI, showcasing end-to-end feature delivery and real-world business logic.
 
-This project showcases a complete fullstack application with authentication, authorization, complex business logic, and a modern user interface - all deployed and ready to use.
+### Highlights
 
-### Why My Buildings?
-
-- ⚡ **High Performance**: Optimized React 19 with Compiler, efficient database queries with Prisma
-- 🏗️ **Scalable Architecture**: Monorepo structure with shared types and clean separation of concerns
-- 🎨 **Modern UI/UX**: Beautiful interface built with Mantine UI and professional design patterns
-- 🔒 **Type-Safe**: End-to-end TypeScript with OpenAPI schema generation
-- 🔐 **Secure**: JWT authentication with role-based access control
-- 📱 **Responsive**: Mobile-first design that works seamlessly across all devices
-- 🐳 **Docker Ready**: Containerized database for easy deployment
-- ✅ **Production Ready**: Deployed on Railway (backend) and Vercel (frontend)
+- **Fullstack TypeScript** – React + Node.js with shared types
+- **Authentication & RBAC** – JWT with role-based access
+- **Scalable Architecture** – Monorepo structure and clean separation of concerns
+- **Modern UI – Responsive** interface built with Mantine
+- **Production Ready** – Deployed on Vercel (frontend) and Railway (backend)
+- **Dockerized DB** – Easy local setup and deployment
 
 ---
 
-## ✨ Features
-
-### Current Features
+## ✨ Core Features
 
 - **🔐 Authentication & Authorization**
-  - JWT-based authentication with secure token management
-  - Role-based access control (Admin, Manager, Resident)
+  - JWT authentication and secure session handling
+  - Role-based access (Admin, Manager, Resident)
   - Protected routes and API endpoints
-  - User session management
-  - Login/Logout functionality
+  - Login / Logout flows
 
 - **🏢 Building Management**
-  - Complete CRUD operations for buildings
+  - Full CRUD operations for buildings
   - Property type classification (Residential, Commercial, Mixed)
-  - Detailed building information (floors, address, contact details)
-  - Building status tracking and soft delete support
+  - Detailed infor (floors, address, contact data)
   - Role-based permissions for building operations
 
 - **🏛️ Common Areas**
-  - Complete CRUD operations for common areas
-  - Capacity management and tracking
-  - Active/inactive status control
+  - CRUD operations for common areas
+  - Capacity management and active/inactive status
   - Association with specific buildings
   - Operating hours configuration
 
 - **📅 Reservation System**
-  - Book common areas with date and time selection
-  - Automatic validation of operating hours
+  - Date and time booking
+  - Automatic operating-hours validation
   - Overlap prevention system
   - Maximum duration enforcement
-  - Reservation status tracking (Confirmed, Cancelled, On Review, Finished)
+  - Reservation statuses (Confirmed, Cancelled, On Review, Finished)
   - View and manage personal reservations
-  - Cancel active reservations
 
-### Coming Soon
+### Next Improvements
 
 - 🎫 Maintenance ticket system
-- 📊 Advanced analytics dashboard
-- 📱 Push notifications
-- 🌐 Multi-language support (i18n)
+- 📊 Analytics dashboard
 - 📧 Email notifications
-- 📈 Reporting and data visualization
 - 📄 PDF report generation for buildings and reservations
-- 🔄 Refresh token implementation
-- 🛡️ Enhanced security features (Rate limiting, HttpOnly cookies)
-- 🧪 Unit and end-to-end testing
+- 🧪 Testing coverage
 
 ---
 
@@ -407,7 +393,6 @@ The application uses **PostgreSQL** with **Prisma ORM**. The schema includes:
 
 - **Building**: Core entity for property management
   - Property information (name, address, type, year built)
-  - Manager assignment (User with MANAGER role)
   - Soft delete support with `deletedAt` field
   - Amenities (parking, security, elevator, etc.)
 
@@ -432,15 +417,6 @@ Building ──< has >── CommonArea
 User ──< makes >── Reservation
 CommonArea ──< has >── Reservation
 ```
-
-### Enums
-
-- **UserRole**: `ADMIN`, `MANAGER`, `RESIDENT`
-- **PropertyType**: `RESIDENTIAL`, `COMMERCIAL`, `MIXED`
-- **ReservationStatus**: `IN_REVIEW`, `CONFIRMED`, `CANCELLED`, `FINISHED`
-- **CommonAreas**: `GYM`, `POOL`, `GRILL_AREA`, `CAFETERIA`, `EVENT_ROOM`, `ROOF_TOP`, `COWORKING`
-- **Amenities**: `PARKING`, `SECURITY_24_7`, `ELEVATOR`, `WHEELCHAIR_ACCESS`, `FIRE_ALARM`, `CAMERAS`
-- **DaysOfWeek**: `MONDAY` through `SUNDAY`
 
 For detailed schema, see [`packages/backend/prisma/schema.prisma`](packages/backend/prisma/schema.prisma)
 
