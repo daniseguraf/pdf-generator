@@ -63,6 +63,11 @@ export const BuildingsListPage = () => {
             Buildings List
           </Title>
 
+          <div>
+            <Text>WebSocket Client</Text>
+            <span>offline</span>
+          </div>
+
           {!isEmptyBuildings && (
             <Button
               leftSection={<PlusIcon size={20} />}

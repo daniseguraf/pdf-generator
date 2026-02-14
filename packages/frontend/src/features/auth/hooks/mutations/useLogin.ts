@@ -1,5 +1,6 @@
 import { useAuth } from '@features/auth/hooks/useAuth'
 import type { LoginUserDto } from '@features/auth/types/auth.types'
+import { connectToServer } from '@lib/socketClient'
 import { notifications } from '@mantine/notifications'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router'
@@ -19,6 +20,7 @@ export const useLogin = () => {
         color: 'green',
       })
       navigate('/')
+      connectToServer()
     },
     onError: error => {
       notifications.show({

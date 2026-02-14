@@ -8,6 +8,7 @@ import { SeedModule } from './seed/seed.module'
 import { CommonAreasModule } from './common-areas/common-areas.module'
 import { ReservationsModule } from './reservations/reservations.module'
 import { envConfig } from 'src/config/env.config'
+import { ChatModule } from './chat/chat.module'
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { envConfig } from 'src/config/env.config'
     SeedModule,
     CommonAreasModule,
     ReservationsModule,
+    ChatModule,
   ],
 })
 export class AppModule {}

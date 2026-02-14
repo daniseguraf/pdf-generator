@@ -23,7 +23,7 @@ import type { LoginUserDto } from '@features/auth/types/auth.types'
 import { useLogin } from '@features/auth/hooks/mutations/useLogin'
 
 export const LoginPage = () => {
-  const { mutate: loginMutation, isPending: isLoginPending } = useLogin()
+  const { mutate: login, isPending: isLoginPending } = useLogin()
 
   const form = useForm<LoginUserDto>({
     validateInputOnBlur: true,
@@ -37,7 +37,7 @@ export const LoginPage = () => {
   const handleLogin = () => {
     if (form.validate().hasErrors) return
 
-    loginMutation(form.values)
+    login(form.values)
   }
 
   return (
