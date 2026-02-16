@@ -50,15 +50,6 @@ export const AppRoutes = () => {
           />
         )}
 
-        {/* <Route
-          path="/buildings"
-          element={
-            <ProtectedRoute allowedRoles={[admin, manager]}>
-              <BuildingsListPage />
-            </ProtectedRoute>
-          }
-        /> */}
-
         <Route
           path="/buildings/:id"
           element={
