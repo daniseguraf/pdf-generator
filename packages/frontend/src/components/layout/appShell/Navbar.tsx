@@ -34,16 +34,27 @@ export const Navbar = () => {
         )}
 
         {isManager() && (
-          <NavLink
-            label="Buildings"
-            leftSection={<BuildingIcon size={20} />}
-            onClick={() => navigate('/buildings')}
-            description="Building management"
-            active={
-              location.pathname === '/' || location.pathname === '/buildings'
-            }
-            style={styles}
-          />
+          <>
+            <NavLink
+              label="Buildings"
+              leftSection={<BuildingIcon size={20} />}
+              onClick={() => navigate('/buildings')}
+              description="Building management"
+              active={
+                location.pathname === '/' || location.pathname === '/buildings'
+              }
+              style={styles}
+            />
+
+            <NavLink
+              label="Reservations"
+              leftSection={<CalendarIcon size={20} />}
+              onClick={() => navigate('/reservations-management')}
+              description="Reservations management"
+              active={location.pathname === '/reservations-management'}
+              style={styles}
+            />
+          </>
         )}
 
         {isResident() && (

@@ -42,7 +42,16 @@ export class BuildingsService {
         deletedAt: null,
         managerId: role === UserRole.ADMIN ? undefined : userId,
       },
-      omit: this.removeDateFields(),
+      omit: {
+        ...this.removeDateFields(),
+        amenities: true,
+        description: true,
+        phoneNumber: true,
+        email: true,
+        postalCode: true,
+        yearBuilt: true,
+        province: true,
+      },
       include: this.setManager(),
       orderBy: {
         id: 'desc',

@@ -74,14 +74,21 @@ export const BuildingsListPage = () => {
           )}
         </Group>
 
-        <Paper shadow="sm" withBorder radius="md">
+        <Paper>
           {isEmptyBuildings ? (
             <BuildingsEmptyState onCreateBuilding={open} />
           ) : (
             <Table.ScrollContainer minWidth={800}>
-              <Table verticalSpacing="xs" highlightOnHover>
+              <Table
+                verticalSpacing="xs"
+                highlightOnHover
+                withTableBorder
+                striped
+                withColumnBorders
+              >
                 <Table.Thead>
                   <Table.Tr>
+                    <Table.Th>ID</Table.Th>
                     <Table.Th>Building</Table.Th>
                     <Table.Th>Address</Table.Th>
                     <Table.Th>Manager</Table.Th>
@@ -106,6 +113,10 @@ export const BuildingsListPage = () => {
                         district,
                       }) => (
                         <Table.Tr key={id}>
+                          <Table.Td>
+                            <Text size="sm">{id}</Text>
+                          </Table.Td>
+
                           <Table.Td>
                             <Group>
                               <Avatar radius="md" name={name} color="blue" />

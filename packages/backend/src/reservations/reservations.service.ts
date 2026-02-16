@@ -5,7 +5,8 @@ import {
 } from '@nestjs/common'
 import { CreateReservationDto } from './dto/create-reservation.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { ReservationStatus, User } from 'generated/prisma/client'
+import { ReservationStatus, User, UserRole } from 'generated/prisma/client'
+import { UpdateReservationDto } from 'src/reservations/dto/update-reservation.dto'
 
 @Injectable()
 export class ReservationsService {
@@ -122,11 +123,6 @@ export class ReservationsService {
     return building
   }
 
-  // TODO: Implement update reservation status
-  // update(id: number, updateReservationDto: UpdateReservationDto) {
-  //   return `This action updates a #${id} reservation`
-  // }
-
   async remove(reservationId: number) {
     const reservation = await this.prismaService.reservation.findUnique({
       where: { id: reservationId },
@@ -141,6 +137,82 @@ export class ReservationsService {
     return await this.prismaService.reservation.update({
       where: { id: reservationId },
       data: { deletedAt: new Date(), status: ReservationStatus.CANCELLED },
+    })
+  }
+
+  async findAllReservationsInBuildingsByManagerId(
+    userId: number,
+    role: UserRole
+  ) {
+    const buildings = await this.prismaService.building.findMany({
+      where: {
+        deletedAt: null,
+        managerId: role === UserRole.ADMIN ? undefined : userId,
+      },
+      include: {
+        commonAreas: {
+          where: { deletedAt: null, isActive: true },
+          select: {
+            id: true,
+            reservations: {
+              where: { deletedAt: null },
+              select: {
+                id: true,
+                title: true,
+                startTime: true,
+                endTime: true,
+                status: true,
+                userId: true,
+                attendees: true,
+                notes: true,
+                commonArea: {
+                  select: {
+                    id: true,
+                    type: true,
+                    building: {
+                      select: {
+                        id: true,
+                        name: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    })
+
+    const reservations = buildings.map(building => {
+      return building.commonAreas
+        .flatMap(commonArea => commonArea.reservations)
+        .map(reservation => {
+          return {
+            ...reservation,
+          }
+        })
+    })
+
+    const flatReservations = reservations.flat().sort((a, b) => b.id - a.id)
+    return flatReservations
+  }
+
+  async updateReservationStatus(
+    id: number,
+    updateReservationDto: UpdateReservationDto
+  ) {
+    const reservation = await this.prismaService.reservation.findUnique({
+      where: { id },
+    })
+
+    if (!reservation) {
+      throw new NotFoundException(`Reservation with id ${id} not found`)
+    }
+
+    return await this.prismaService.reservation.update({
+      where: { id },
+      data: updateReservationDto,
     })
   }
 
