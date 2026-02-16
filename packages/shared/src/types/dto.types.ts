@@ -243,13 +243,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["ReservationsController_findOne"];
+        get?: never;
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
-        patch?: never;
+        patch: operations["ReservationsController_updateReservationStatus"];
         trace?: never;
     };
     "/api/v1/reservations/{reservationId}": {
@@ -263,6 +263,22 @@ export interface paths {
         put?: never;
         post?: never;
         delete: operations["ReservationsController_remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reservations/manager": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ReservationsController_findAllReservationsInBuildingsByManagerId"];
+        put?: never;
+        post?: never;
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -609,6 +625,46 @@ export interface components {
              * @example 1
              */
             attendees: number;
+        };
+        UpdateReservationDto: {
+            /**
+             * @description Reservation title
+             * @example Reservation title
+             */
+            title?: string;
+            /**
+             * @description Common area ID
+             * @example 1
+             */
+            commonAreaId?: number;
+            /**
+             * Format: date-time
+             * @description Reservation start time (ISO 8601 format)
+             * @example 2026-01-20T14:00:00.000Z
+             */
+            startTime?: string;
+            /**
+             * Format: date-time
+             * @description Reservation end time (ISO 8601 format)
+             * @example 2026-01-20T15:00:00.000Z
+             */
+            endTime?: string;
+            /**
+             * @description Reservation notes
+             * @example Reservation notes
+             */
+            notes?: string;
+            /**
+             * @description Number of attendees
+             * @example 1
+             */
+            attendees?: number;
+            /**
+             * @description Reservation status
+             * @example CONFIRMED
+             * @enum {string}
+             */
+            status: "IN_REVIEW" | "CONFIRMED" | "CANCELLED" | "FINISHED";
         };
     };
     responses: never;
@@ -1131,18 +1187,23 @@ export interface operations {
             };
         };
     };
-    ReservationsController_findOne: {
+    ReservationsController_updateReservationStatus: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                id: number;
             };
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateReservationDto"];
+            };
+        };
         responses: {
-            200: {
+            /** @description Unauthorized */
+            401: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -1157,6 +1218,24 @@ export interface operations {
             path: {
                 reservationId: string;
             };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReservationsController_findAllReservationsInBuildingsByManagerId: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
             cookie?: never;
         };
         requestBody?: never;

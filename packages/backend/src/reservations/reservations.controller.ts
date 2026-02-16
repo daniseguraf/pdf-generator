@@ -1,10 +1,20 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Patch,
+  ParseIntPipe,
+} from '@nestjs/common'
 import { ReservationsService } from './reservations.service'
 import { CreateReservationDto } from './dto/create-reservation.dto'
 import { UserRole } from 'generated/prisma/enums'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { GetUser } from 'src/common/decorators/get-user.decorator'
 import { User } from 'generated/prisma/client'
+import { UpdateReservationDto } from 'src/reservations/dto/update-reservation.dto'
 
 @Controller('reservations')
 export class ReservationsController {
@@ -25,19 +35,33 @@ export class ReservationsController {
     return this.reservationsService.findBuildingByResidentId(user)
   }
 
-  // TODO: Implement update reservation status
-  // @Patch(':id')
-  // @Auth(UserRole.RESIDENT)
-  // update(
-  //   @Param('id') id: string,
-  //   @Body() updateReservationDto: UpdateReservationDto
-  // ) {
-  //   return this.reservationsService.update(+id, updateReservationDto)
-  // }
+  @Patch(':id')
+  @Auth(UserRole.MANAGER)
+  updateReservationStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateReservationDto: UpdateReservationDto
+  ) {
+    return this.reservationsService.updateReservationStatus(
+      id,
+      updateReservationDto
+    )
+  }
 
   @Delete(':reservationId')
   @Auth(UserRole.RESIDENT, UserRole.MANAGER)
   remove(@Param('reservationId') reservationId: string) {
     return this.reservationsService.remove(+reservationId)
+  }
+
+  @Get('manager')
+  @Auth(UserRole.MANAGER)
+  findAllReservationsInBuildingsByManagerId(
+    @GetUser('id') userId: number,
+    @GetUser('role') role: UserRole
+  ) {
+    return this.reservationsService.findAllReservationsInBuildingsByManagerId(
+      userId,
+      role
+    )
   }
 }
