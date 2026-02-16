@@ -34,6 +34,7 @@ export const BuildingsListPage = () => {
     null
   )
 
+  console.log('buildings', buildings)
   const { mutate: deleteBuilding, isPending: isDeletingBuilding } =
     useDeleteBuilding()
 
@@ -82,6 +83,7 @@ export const BuildingsListPage = () => {
               <Table verticalSpacing="xs" highlightOnHover>
                 <Table.Thead>
                   <Table.Tr>
+                    <Table.Th>ID</Table.Th>
                     <Table.Th>Building</Table.Th>
                     <Table.Th>Address</Table.Th>
                     <Table.Th>Manager</Table.Th>
@@ -106,6 +108,10 @@ export const BuildingsListPage = () => {
                         district,
                       }) => (
                         <Table.Tr key={id}>
+                          <Table.Td>
+                            <Text size="sm">{id}</Text>
+                          </Table.Td>
+
                           <Table.Td>
                             <Group>
                               <Avatar radius="md" name={name} color="blue" />

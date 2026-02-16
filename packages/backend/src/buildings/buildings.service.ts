@@ -42,7 +42,16 @@ export class BuildingsService {
         deletedAt: null,
         managerId: role === UserRole.ADMIN ? undefined : userId,
       },
-      omit: this.removeDateFields(),
+      omit: {
+        ...this.removeDateFields(),
+        amenities: true,
+        description: true,
+        phoneNumber: true,
+        email: true,
+        postalCode: true,
+        yearBuilt: true,
+        province: true,
+      },
       include: this.setManager(),
       orderBy: {
         id: 'desc',
@@ -141,6 +150,67 @@ export class BuildingsService {
     } catch (error) {
       throw new InternalServerErrorException('Error restoring building')
     }
+  }
+
+  async findAllReservationsInBuildingsByManagerId(
+    userId: number,
+    role: UserRole
+  ) {
+    const buildings = await this.prismaService.building.findMany({
+      where: {
+        deletedAt: null,
+        managerId: role === UserRole.ADMIN ? undefined : userId,
+      },
+      include: {
+        commonAreas: {
+          where: { deletedAt: null, isActive: true },
+          select: {
+            id: true,
+            reservations: {
+              where: { deletedAt: null },
+              select: {
+                id: true,
+                title: true,
+                startTime: true,
+                endTime: true,
+                status: true,
+                userId: true,
+                commonArea: {
+                  select: {
+                    id: true,
+                    type: true,
+                    building: {
+                      select: {
+                        id: true,
+                        name: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          orderBy: {
+            id: 'desc',
+          },
+        },
+      },
+      orderBy: {
+        id: 'desc',
+      },
+    })
+
+    const reservations = buildings.map(building => {
+      return building.commonAreas
+        .flatMap(commonArea => commonArea.reservations)
+        .map(reservation => {
+          return {
+            ...reservation,
+          }
+        })
+    })
+
+    return reservations.flat()
   }
 
   private setManager() {

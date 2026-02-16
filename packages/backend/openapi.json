@@ -75,6 +75,25 @@
         ]
       }
     },
+    "/api/v1/buildings/reservations": {
+      "get": {
+        "operationId": "BuildingsController_findAllReservationsInBuildingsByManagerId",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Buildings"
+        ]
+      }
+    },
     "/api/v1/buildings/{id}": {
       "get": {
         "operationId": "BuildingsController_findOne",

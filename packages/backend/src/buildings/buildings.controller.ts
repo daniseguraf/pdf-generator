@@ -47,6 +47,18 @@ export class BuildingsController {
     return this.buildingsService.findAll(userId, role)
   }
 
+  @Get('reservations')
+  @Auth(UserRole.MANAGER)
+  findAllReservationsInBuildingsByManagerId(
+    @GetUser('id') userId: number,
+    @GetUser('role') role: UserRole
+  ) {
+    return this.buildingsService.findAllReservationsInBuildingsByManagerId(
+      userId,
+      role
+    )
+  }
+
   @Get(':id')
   @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @ApiFindOneOperation('Get a building by id', 'building', Building)

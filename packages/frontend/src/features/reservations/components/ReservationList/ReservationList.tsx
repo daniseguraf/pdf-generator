@@ -30,6 +30,8 @@ export const ReservationList = ({
   const { mutate: deleteReservation, isPending: isDeletingReservation } =
     useDeleteReservation()
 
+  console.log('reservations', reservations)
+
   const [reservationIdToDelete, setReservationIdToDelete] = useState<
     number | undefined
   >(undefined)

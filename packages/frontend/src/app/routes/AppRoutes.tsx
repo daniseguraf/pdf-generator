@@ -4,6 +4,7 @@ import { useRole } from '@features/auth/hooks/useRole'
 import { LoginPage } from '@features/auth/pages/LoginPage/LoginPage'
 import { BuildingDetailPage } from '@features/buildings/pages/BuildingDetailPage'
 import { BuildingsListPage } from '@features/buildings/pages/BuildingsListPage'
+import { ReservationsManagementPage } from '@features/reservations/pages/ReservationsManagementPage'
 import { ReservationsPage } from '@features/reservations/pages/ReservationsPage/ReservationsPage'
 import { UserRoleValues } from '@my-buildings/shared/index'
 import { Navigate, Route, Routes } from 'react-router'
@@ -49,20 +50,29 @@ export const AppRoutes = () => {
           />
         )}
 
-        <Route
+        {/* <Route
           path="/buildings"
           element={
             <ProtectedRoute allowedRoles={[admin, manager]}>
               <BuildingsListPage />
             </ProtectedRoute>
           }
-        />
+        /> */}
 
         <Route
           path="/buildings/:id"
           element={
             <ProtectedRoute allowedRoles={[manager]}>
               <BuildingDetailPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/reservations-management"
+          element={
+            <ProtectedRoute allowedRoles={[manager]}>
+              <ReservationsManagementPage />
             </ProtectedRoute>
           }
         />
