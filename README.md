@@ -130,6 +130,10 @@ _Create reservation form_
 
 ![Reservations](docs/screenshots/create-reservation.png)
 
+_Manage Reservations_
+
+![Manage Reservations](docs/screenshots/manage-reservations.png)
+
 ### Dark Theme
 
 _Buildings page_
