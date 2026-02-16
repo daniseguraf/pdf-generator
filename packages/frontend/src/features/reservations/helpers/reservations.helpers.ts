@@ -5,10 +5,10 @@ import {
 
 export const getReservationStatusColor = (status: ReservationStatus) => {
   const color: Record<ReservationStatus, string> = {
-    [ReservationStatusValues.IN_REVIEW]: 'yellow',
-    [ReservationStatusValues.CONFIRMED]: 'green',
-    [ReservationStatusValues.CANCELLED]: 'red',
-    [ReservationStatusValues.FINISHED]: 'gray',
+    [ReservationStatusValues.IN_REVIEW]: '#f59f00',
+    [ReservationStatusValues.CONFIRMED]: '#2f9e44',
+    [ReservationStatusValues.CANCELLED]: '#f03e3e',
+    [ReservationStatusValues.FINISHED]: '#7d7d7d',
   }
 
   return color[status] ?? 'gray'

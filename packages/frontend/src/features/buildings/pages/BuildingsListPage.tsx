@@ -34,7 +34,6 @@ export const BuildingsListPage = () => {
     null
   )
 
-  console.log('buildings', buildings)
   const { mutate: deleteBuilding, isPending: isDeletingBuilding } =
     useDeleteBuilding()
 
@@ -75,12 +74,18 @@ export const BuildingsListPage = () => {
           )}
         </Group>
 
-        <Paper shadow="sm" withBorder radius="md">
+        <Paper>
           {isEmptyBuildings ? (
             <BuildingsEmptyState onCreateBuilding={open} />
           ) : (
             <Table.ScrollContainer minWidth={800}>
-              <Table verticalSpacing="xs" highlightOnHover>
+              <Table
+                verticalSpacing="xs"
+                highlightOnHover
+                withTableBorder
+                striped
+                withColumnBorders
+              >
                 <Table.Thead>
                   <Table.Tr>
                     <Table.Th>ID</Table.Th>

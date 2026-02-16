@@ -180,13 +180,7 @@ export class ReservationsService {
               },
             },
           },
-          orderBy: {
-            id: 'desc',
-          },
         },
-      },
-      orderBy: {
-        id: 'desc',
       },
     })
 
@@ -200,7 +194,8 @@ export class ReservationsService {
         })
     })
 
-    return reservations.flat()
+    const flatReservations = reservations.flat().sort((a, b) => b.id - a.id)
+    return flatReservations
   }
 
   async updateReservationStatus(
