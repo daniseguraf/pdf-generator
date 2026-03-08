@@ -504,7 +504,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 ### Frontend
 
-- [ ] Loading states
+- [x] Loading states
   - [x] Skeletons en todas las listas
   - [x] Loading en botones: `<Button loading={isLoading}>`
   - [x] Spinner global durante navegación (opcional)
