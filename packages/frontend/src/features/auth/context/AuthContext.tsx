@@ -5,6 +5,8 @@ import type {
   AuthProviderProps,
   LoginUserDto,
 } from '@features/auth/types/auth.types'
+import { notifications } from '@mantine/notifications'
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
@@ -18,8 +20,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       throw new Error('Failed to login')
     }
 
-    localStorage.setItem('accessToken', response.accessToken)
-
     setUser({
       id: response.id,
       firstName: response.firstName,
@@ -29,37 +29,42 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     })
   }
 
-  const logout = () => {
-    localStorage.removeItem('accessToken')
-    setUser(null)
-    window.location.href = '/login'
+  const logout = async () => {
+    try {
+      await authService.logout()
+    } catch (error) {
+      notifications.show({
+        title: 'Error logging out',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        color: 'red',
+      })
+    } finally {
+      setUser(null)
+      window.location.href = '/login'
+    }
   }
 
   const isAuthenticated = !!user
 
   useEffect(() => {
     const initAuth = async () => {
-      const token = localStorage.getItem('accessToken')
+      try {
+        const userData = await authService.me()
 
-      if (token) {
-        try {
-          const userData = await authService.me()
-
-          setUser({
-            id: userData.id,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            email: userData.email,
-            role: userData.role,
-          })
-        } catch (error) {
+        setUser({
+          id: userData.id,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+          role: userData.role,
+        })
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status !== 401) {
           console.error('Error fetching user', error)
-          localStorage.removeItem('accessToken')
-          setUser(null)
-        } finally {
-          setIsLoading(false)
         }
-      } else {
+
+        setUser(null)
+      } finally {
         setIsLoading(false)
       }
     }

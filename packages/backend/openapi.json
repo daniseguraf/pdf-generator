@@ -365,6 +365,26 @@
         ]
       }
     },
+    "/api/v1/auth/logout": {
+      "post": {
+        "operationId": "AuthController_logout",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Logout user",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
     "/api/v1/seed": {
       "get": {
         "operationId": "SeedController_seedDB",
@@ -950,11 +970,6 @@
               "MANAGER",
               "RESIDENT"
             ]
-          },
-          "accessToken": {
-            "type": "string",
-            "description": "JWT access token",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
           }
         },
         "required": [
@@ -962,8 +977,7 @@
           "firstName",
           "lastName",
           "email",
-          "role",
-          "accessToken"
+          "role"
         ]
       },
       "LoginUserDto": {

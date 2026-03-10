@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common'
+import { Controller, Post, Body, Get, Res } from '@nestjs/common'
 import { AuthService } from './auth.service'
 import { RegisterUserDto as RegisterUserDto } from 'src/auth/dto/register-user.dto'
 import { LoginUserDto } from 'src/auth/dto/login-user.dto'
@@ -7,6 +7,7 @@ import { User, UserRole } from 'generated/prisma/client'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { AuthResponse } from 'src/auth/entities/auth-response.entity'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { Response } from 'express'
 
 @Controller('auth')
 @ApiTags('auth')
@@ -32,8 +33,23 @@ export class AuthController {
     description: 'User successfully logged in',
     type: AuthResponse,
   })
-  login(@Body() loginUserDto: LoginUserDto): Promise<AuthResponse> {
-    return this.authService.login(loginUserDto)
+  async login(
+    @Body() loginUserDto: LoginUserDto,
+    @Res({ passthrough: true }) response: Response
+  ): Promise<AuthResponse> {
+    const { accessToken, ...user } = await this.authService.login(loginUserDto)
+
+    console.log('accessToken', accessToken)
+    response.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 60 * 60 * 1000,
+      path: '/',
+    })
+
+    console.log('response login', response)
+    return user
   }
 
   @Get('check-auth-status')
@@ -46,5 +62,21 @@ export class AuthController {
   @Auth()
   me(@GetUser() user: User) {
     return this.authService.me(user)
+  }
+
+  @Post('logout')
+  @Auth()
+  @ApiOperation({ summary: 'Logout user' })
+  logout(@Res({ passthrough: true }) response: Response) {
+    response.clearCookie('accessToken', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      path: '/',
+    })
+
+    console.log('response logout', response)
+
+    return { message: 'Session closed successfully' }
   }
 }

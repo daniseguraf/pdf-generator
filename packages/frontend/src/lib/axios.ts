@@ -15,17 +15,11 @@ export const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 })
 
-// Request Interceptor - Automatically add JWT token
 api.interceptors.request.use(
   config => {
-    const accessToken = localStorage.getItem('accessToken')
-
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`
-    }
-
     if (config.metadata?.operationName) {
       config.headers['X-Operation-Name'] = config.metadata.operationName
     }
@@ -36,14 +30,15 @@ api.interceptors.request.use(
   error => Promise.reject(error)
 )
 
-// Response Interceptor - Error handling and refresh token
 api.interceptors.response.use(
   response => response,
   error => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('accessToken')
+    const isAuthCheck = error.config?.url?.includes('/auth/me')
+
+    if (error.response?.status === 401 && !isAuthCheck) {
       window.location.href = '/login'
     }
+
     return Promise.reject(error)
   }
 )

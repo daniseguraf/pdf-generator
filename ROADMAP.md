@@ -533,7 +533,7 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 #### 1. Configurar CORS correctamente
 
-- [ ] Actualizar `main.ts` con CORS restrictivo
+- [x] Actualizar `main.ts` con CORS restrictivo
   ```typescript
   app.enableCors({
     origin: process.env.FRONTEND_URL || 'http://localhost:5173',
@@ -542,8 +542,8 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Operation-Name'],
   })
   ```
-- [ ] Agregar `FRONTEND_URL` a variables de entorno
-- [ ] Verificar que funciona en desarrollo y producción
+- [x] Agregar `FRONTEND_URL` a variables de entorno
+- [x] Verificar que funciona en desarrollo y producción
 
 #### 2. Implementar Rate Limiting
 
@@ -570,14 +570,14 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 **Backend:**
 
-- [ ] Instalar cookie-parser
+- [x] Instalar cookie-parser
   ```bash
   pnpm add cookie-parser
   pnpm add -D @types/cookie-parser
   ```
-- [ ] Configurar cookie-parser en `main.ts`
-- [ ] Modificar `auth.controller.ts`
-  - [ ] Login: establecer cookie HttpOnly en response
+- [x] Configurar cookie-parser en `main.ts`
+- [x] Modificar `auth.controller.ts`
+  - [x] Login: establecer cookie HttpOnly en response
     ```typescript
     response.cookie('accessToken', token, {
       httpOnly: true,
@@ -587,8 +587,8 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
       path: '/',
     })
     ```
-  - [ ] Agregar endpoint `POST /auth/logout` que limpia la cookie
-- [ ] Modificar `jwt.strategy.ts` para leer token de cookies
+  - [x] Agregar endpoint `POST /auth/logout` que limpia la cookie
+- [x] Modificar `jwt.strategy.ts` para leer token de cookies
   ```typescript
   jwtFromRequest: ExtractJwt.fromExtractors([
     (request: Request) => request?.cookies?.accessToken,
@@ -597,14 +597,14 @@ Crear un sistema funcional y desplegado que demuestre habilidades fullstack comp
 
 **Frontend:**
 
-- [ ] Actualizar `axios.ts`
-  - [ ] Agregar `withCredentials: true`
-  - [ ] Eliminar interceptor que agrega Authorization header
-  - [ ] Simplificar response interceptor (no limpiar localStorage)
-- [ ] Actualizar `AuthContext.tsx`
-  - [ ] Eliminar uso de localStorage para token
-  - [ ] Agregar llamada a logout endpoint
-- [ ] Agregar método `logout()` en `auth.service.ts`
+- [x] Actualizar `axios.ts`
+  - [x] Agregar `withCredentials: true`
+  - [x] Eliminar interceptor que agrega Authorization header
+  - [x] Simplificar response interceptor (no limpiar localStorage)
+- [x] Actualizar `AuthContext.tsx`
+  - [x] Eliminar uso de localStorage para token
+  - [x] Agregar llamada a logout endpoint
+- [x] Agregar método `logout()` en `auth.service.ts`
 
 #### 4. Implementar Refresh Token
 

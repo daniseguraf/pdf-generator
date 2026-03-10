@@ -40,11 +40,4 @@ export class AuthResponse {
   })
   @IsEnum(UserRole)
   role: UserRole
-
-  @ApiProperty({
-    description: 'JWT access token',
-    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
-  })
-  @IsString()
-  accessToken: string
 }
