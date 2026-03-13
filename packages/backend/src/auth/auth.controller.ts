@@ -39,16 +39,14 @@ export class AuthController {
   ): Promise<AuthResponse> {
     const { accessToken, ...user } = await this.authService.login(loginUserDto)
 
-    console.log('accessToken', accessToken)
     response.cookie('accessToken', accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'none',
       maxAge: 60 * 60 * 1000,
       path: '/',
     })
 
-    console.log('response login', response)
     return user
   }
 
@@ -70,12 +68,10 @@ export class AuthController {
   logout(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('accessToken', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'none',
       path: '/',
     })
-
-    console.log('response logout', response)
 
     return { message: 'Session closed successfully' }
   }
